@@ -12,7 +12,7 @@
   networking.nameservers = [ "1.1.1.1" "8.8.8.8" ];
   networking.networkmanager.enable = true; 
 
-  services.xserver.videoDriver = [ "nvidia" ];
+  services.xserver.videoDrivers = [ "nvidia" ];
 
   hardware = {
     opengl = {

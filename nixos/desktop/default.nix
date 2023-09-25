@@ -15,6 +15,10 @@
   # does this need to be here?
   programs.hyprland = {
     enable = true;
+    nvidiaPatches = true;
+  };
+  environment.sessionVariables = {
+    WLR_NO_HARDWARE_CURSORS = "1";
   };
 
   programs = {

@@ -24,6 +24,14 @@
     vim
   ];
 
+  nixpkgs = {
+    overlays = [];
+    config = {
+      allowUnfree = true;
+      allowUnfreePredicate = pkg: true;
+    };
+  };
+
   nix = {
     package = pkgs.nixFlakes;
 

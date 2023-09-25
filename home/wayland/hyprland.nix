@@ -10,10 +10,10 @@
     ];
     extraConfig = ''
       # See https://wiki.hyprland.org/Configuring/Variables/ for more
-      
+      #env = WLR_NO_HARDWARE_CURSORS,1
       # monitor = name, res@hz, pos, scale
-      monitor = DP-2, 2560x1440@75, 2560x0, 1, transform, 1
-      monitor = DP-1, 2560x1440@75, 0x300, 1
+      monitor = DP-1, 2560x1440@75, 2560x0, 1, transform, 1
+      monitor = DP-2, 2560x1440@75, 0x300, 1
       
       # bind workspaces to monitors
       # DP-1 (right) gets 11-19, DP-2 (left) 1-9
