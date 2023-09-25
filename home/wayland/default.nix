@@ -2,14 +2,15 @@
   imports = [
     ./hyprland.nix
     ./swayidle.nix
+    ./swww.nix
   ];
 
   home.packages = with pkgs; [
     grim
     slurp
-    swww
     wl-clipboard
     wlr-randr
+    wf-recorder
   ];
 
   home.sessionVariables = {

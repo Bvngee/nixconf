@@ -35,8 +35,8 @@
             ./hosts/pc
             ./hosts/shared
              
-            ./modules/desktop
-            ./modules/greetd.nix
+            ./nixos/desktop
+            ./nixos/greetd.nix
           ];
         };
       };
@@ -46,7 +46,7 @@
 
           extraSpecialArgs = { inherit inputs; };
           modules = [
-            ./home/shared.nix
+            ./home/home.nix
             ./home/kitty.nix
             ./home/kdeconnect.nix
             ./home/git.nix

@@ -12,23 +12,7 @@
   networking.nameservers = [ "1.1.1.1" "8.8.8.8" ];
   networking.networkmanager.enable = true; 
 
-  services.printing.enable = true;
-  services.pipewire = {
-    enable = true;
-    wireplumber.enable = true;
-    pulse.enable = true;
-    jack.enable = true;
-    alsa.enable = true;
-    alsa.support32Bit = true;
-  };
-
-  programs.hyprland = {
-    enable = true;
-  };
-
-  environment.systemPackages = with pkgs; [
-    home-manager
-  ];
+  services.xserver.videoDriver = [ "nvidia" ];
 
   hardware = {
     opengl = {
@@ -44,7 +28,9 @@
     };
   };
 
-  services.xserver.videoDriver = [ "nvidia" ];
+  environment.systemPackages = with pkgs; [
+    home-manager
+  ];
 
   services.openssh = {
     enable = true;

@@ -1,4 +1,4 @@
-{ inputs, config, pkgs, ... }:
+{ ... }:
 
 {
   nixpkgs = {
@@ -13,11 +13,6 @@
     username = "jack";  
     homeDirectory = "/home/jack";  
     stateVersion = "23.05"; # Please read the comments before changing this value.  
-    
-    packages = with pkgs; [  
-      wf-recorder
-      # (nerdfonts.override { fonts = [ "FantasqueSansMono" ]; })  
-    ];  
   };
 
   manual = {
