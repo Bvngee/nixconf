@@ -5,9 +5,11 @@
 
   i18n.defaultLocale = "en_US.UTF-8";
   console = {
-    font = "Lat2-Terminus16";
+    packages = with pkgs; [ terminus_font ];
+    earlySetup = true;
+    #font = "Lat2-Terminus16";
+    font = "${pkgs.terminus_font}/share/consolefonts/ter-v24n.psf.gz";
     keyMap = "us";
-    # useXkbConfig = true; # use xkbOptions in tty.
   };
 
   users.users.jack = {
@@ -15,8 +17,7 @@
     description = "Jack Nystrom";
     extraGroups = [ "wheel" "networkmanager" ];
     shell = pkgs.zsh;
-    packages = with pkgs; [
-    ];
+    packages = with pkgs; [];
   };
 
   environment.systemPackages = with pkgs; [
@@ -44,6 +45,9 @@
     settings = {
       experimental-features = "nix-command flakes";
       auto-optimise-store = true;
+
+      # stop warning me that the git tree is dirty, bruh.
+      warn-dirty = false;
     };
   };
 }

@@ -1,4 +1,4 @@
-{ inputs, pkgs, ... }:
+{ config, inputs, pkgs, ... }:
 
 {
   wayland.windowManager.hyprland = {
@@ -37,6 +37,7 @@
       workspace = 18, monitor:DP-2
       workspace = 19, monitor:DP-2
       
+      exec-once = hyprctl setcursor ${config.home.pointerCursor.name} ${toString config.home.pointerCursor.size}
       exec-once = swww init # wallpaper daemon
       #exec-once = wl-paste --watch cliphist store # add all CLIPBOARD copies in the cliphist store
       #exec-once = wl-paste -p --watch wl-copy -pc # keep PRIMARY buffer empty (functionally removes middle-click-paste)

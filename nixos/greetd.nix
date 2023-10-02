@@ -13,6 +13,7 @@ in {
           --sessions ${sessions} \
           --remember \
           --remember-user-session \
+          --asterisks \
           --time \
           --time-format "%H:%M, %m/%d/%Y" \
           --window-padding 2

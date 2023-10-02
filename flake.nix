@@ -35,8 +35,10 @@
             ./hosts/pc
             ./hosts/shared
              
-            ./nixos/desktop
+            ./nixos/desktop.nix
             ./nixos/greetd.nix
+            ./nixos/wayland.nix
+            ./nixos/kde.nix
           ];
         };
       };
@@ -48,9 +50,10 @@
           modules = [
             ./home/home.nix
             ./home/kitty.nix
-            ./home/kdeconnect.nix
+            #./home/kdeconnect.nix
             ./home/git.nix
             ./home/xdg.nix
+            ./home/theme.nix
             ./home/programs.nix
             ./home/wayland
             ./home/shell

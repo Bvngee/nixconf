@@ -6,5 +6,6 @@
     
     obs-studio
     
+    firefox
   ];
 }
