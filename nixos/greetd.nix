@@ -1,8 +1,8 @@
 { config, lib, pkgs, ... }: let
   sessionData = config.services.xserver.displayManager.sessionData.desktops;
   sessions = lib.concatStringsSep ":" [
-    "${sessionData}/share/xsessions"
     "${sessionData}/share/wayland-sessions"
+    "${sessionData}/share/xsessions"
   ];
 in {
   services.greetd = {

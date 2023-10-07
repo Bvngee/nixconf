@@ -57,6 +57,7 @@
             ./home/programs.nix
             ./home/wayland
             ./home/shell
+            ./home/nvim
             inputs.hyprland.homeManagerModules.default
           ];
         };

@@ -7,5 +7,10 @@
     obs-studio
     
     firefox
+
+    #cli - maybe move to home/shell later?
+    ripgrep
+    fd
+    
   ];
 }
