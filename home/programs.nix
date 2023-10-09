@@ -11,6 +11,7 @@
     #cli - maybe move to home/shell later?
     ripgrep
     fd
-    
+    nix-prefetch-scripts
+    file
   ];
 }
