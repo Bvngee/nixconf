@@ -49,7 +49,6 @@ in {
       # treesitter
       (nvim-treesitter.withPlugins (_: pkgs.tree-sitter.allGrammars))
       #nvim-treesitter-textobjects - mini.ai instead
-      #nvim-ts-rainbow2 - rainbow-delimiters instead
       rainbow-delimiters
 
       # util
@@ -63,14 +62,13 @@ in {
       nvim-autopairs
       telescope-nvim
       telescope-zf-native-nvim
-      #telescope-file-browser-nvim
       rust-tools-nvim
       lualine-nvim
       nvim-colorizer-lua
       tabout
       inputs.nixpkgs-unstable.legacyPackages.${pkgs.system}.vimPlugins.indent-blankline-nvim
       neoscroll-nvim
-      nvim-navic
+      nvim-navic #currently unused
 
       # mini.[ai|comment|cursorword|moves|surround|sessions]
       mini-nvim
@@ -82,10 +80,6 @@ in {
       ./config/options.lua
       ./config/keybindinds.lua
 
-      ./config/lsp/neodev.lua
-      ./config/lsp/lspconfig.lua
-      ./config/lsp/nvim-cmp.lua
-
       ./config/plugins/nvim-treesitter.lua
       ./config/plugins/telescope-nvim.lua
       ./config/plugins/nvim-colorizer.lua
@@ -95,11 +89,16 @@ in {
       ./config/plugins/indent-blankline-nvim.lua
       ./config/plugins/rainbow-delimiters.lua
       ./config/plugins/neoscroll.lua
+      ./config/plugins/nvim-navic.lua
 
       ./config/plugins/mini-ai.lua
       ./config/plugins/mini-comment.lua
       ./config/plugins/mini-move.lua
       ./config/plugins/mini-surround.lua
+
+      ./config/lsp/neodev.lua
+      ./config/lsp/lspconfig.lua
+      ./config/lsp/nvim-cmp.lua
     ]) ++ [
       ''require('mini.cursorword').setup {}''
       ''require('nvim-autopairs').setup {}''
@@ -108,3 +107,36 @@ in {
 
   };
 }
+
+# gruvbox-material colors derived from: DARK, MEDIUM (bg)
+# \ 'bg0':              ['#282828',   '235'],
+# \ 'bg1':              ['#32302f',   '236'],
+# \ 'bg2':              ['#32302f',   '236'],
+# \ 'bg3':              ['#45403d',   '237'],
+# \ 'bg4':              ['#45403d',   '237'],
+# \ 'bg5':              ['#5a524c',   '239'],
+# \ 'bg_statusline1':   ['#32302f',   '236'],
+# \ 'bg_statusline2':   ['#3a3735',   '236'],
+# \ 'bg_statusline3':   ['#504945',   '240'],
+# \ 'bg_diff_green':    ['#34381b',   '22'],
+# \ 'bg_visual_green':  ['#3b4439',   '22'],
+# \ 'bg_diff_red':      ['#402120',   '52'],
+# \ 'bg_visual_red':    ['#4c3432',   '52'],
+# \ 'bg_diff_blue':     ['#0e363e',   '17'],
+# \ 'bg_visual_blue':   ['#374141',   '17'],
+# \ 'bg_visual_yellow': ['#4f422e',   '94'],
+# \ 'bg_current_word':  ['#3c3836',   '237']
+#
+# +MATERIAL (fg) colors
+# \ 'fg0':              ['#d4be98',   '223'],
+# \ 'fg1':              ['#ddc7a1',   '223'],
+# \ 'red':              ['#ea6962',   '167'],
+# \ 'orange':           ['#e78a4e',   '208'],
+# \ 'yellow':           ['#d8a657',   '214'],
+# \ 'green':            ['#a9b665',   '142'],
+# \ 'aqua':             ['#89b482',   '108'],
+# \ 'blue':             ['#7daea3',   '109'],
+# \ 'purple':           ['#d3869b',   '175'],
+# \ 'bg_red':           ['#ea6962',   '167'],
+# \ 'bg_green':         ['#a9b665',   '142'],
+# \ 'bg_yellow':        ['#d8a657',   '214']

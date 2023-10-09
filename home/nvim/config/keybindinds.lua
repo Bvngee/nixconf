@@ -15,17 +15,12 @@ map('n', '<S-q>', ':xa<CR>')
 map('v', '<', '<gv')
 map('v', '>', '>gv')
 
--- moving text up and down
-map('v', '<A-j>', ':m .+1<CR>==')
-map('v', '<A-k>', ':m .-2<CR>==')
-map('n', '<A-j>', ':m .+1<CR>==')
-map('n', '<A-k>', ':m .-2<CR>==')
-
 -- maintain register contents after paste
 map('v', 'p', '"_dP')
 
 -- easier delete-without-yank keybind
 map('n', '_d', '"_d')
+map('v', '_d', '"_d')
 
 -- x key doesn't yank
 map('n', 'x', '"_x')

@@ -50,24 +50,24 @@ local servers = {
 }
 
 local on_attach = function(client, bufnr)
-  vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
 
-  -- breadcrumbs
+  -- attach nvim-navic
   if client.server_capabilities.documentSymbolProvider then
     require('nvim-navic').attach(client, bufnr)
   end
 
   -- lsp keybinds
-  local opts = { buffer = bufnr }
+  local opts = { buffer = bufnr, noremap = true, silent = true }
   vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, opts)
   vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)
   vim.keymap.set('n', 'K', vim.lsp.buf.hover, opts)
-  -- vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, opts) - conflicts with window movement
+  vim.keymap.set('n', 'gl', vim.diagnostic.open_float, opts)
   vim.keymap.set('n', 'gr', ':Telescope lsp_references<CR>', opts)
   vim.keymap.set('n', 'gi', ':Telescope lsp_implementations<CR>', opts)
-  vim.keymap.set('n', '<space>rn', vim.lsp.buf.rename, opts)
-  vim.keymap.set({ 'n', 'v' }, '<space>ca', vim.lsp.buf.code_action, opts)
-  vim.keymap.set('n', '<space>f', function()
+  vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename, opts)
+  vim.keymap.set({ 'n', 'v' }, '<leader>ca', vim.lsp.buf.code_action, opts)
+  vim.keymap.set({ 'n', 'v' }, 'qq', vim.lsp.buf.code_action, opts)
+  vim.keymap.set('n', '<leader>f', function()
     vim.lsp.buf.format { async = true }
   end, opts)
 end
@@ -81,3 +81,27 @@ for server, opts in pairs(servers) do
   lspconfig[server].setup(vim.tbl_deep_extend('force', common_opts, opts))
 end
 
+local signs = { Error = ' ', Warn = ' ', Info = ' ', Hint = ' ' }
+
+for type, icon in pairs(signs) do
+  local hl = 'DiagnosticSign' .. type
+  vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = '' })
+end
+
+vim.diagnostic.config {
+  virtual_text = true, -- disable virtual text
+  signs = {
+    active = signs, -- show signs
+  },
+  update_in_insert = true,
+  underline = true,
+  severity_sort = true,
+  float = {
+    focusable = true,
+    style = 'minimal',
+    border = 'none',
+    source = 'always',
+    header = '',
+    prefix = '',
+  },
+}

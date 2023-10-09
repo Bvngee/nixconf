@@ -1,4 +1,4 @@
-vim.g.mapleader = ','
+vim.g.mapleader = ' '
 vim.o.mouse = 'a'
 vim.o.termguicolors = true
 vim.o.fileencoding = 'utf-8'
@@ -22,7 +22,7 @@ vim.o.splitbelow = true
 vim.o.splitright = true
 vim.o.cmdheight = 0
 vim.o.laststatus = 3
-vim.o.updatetime = 50
+vim.o.updatetime = 100
 vim.o.hidden = true
 vim.o.scrolloff = 8
 vim.o.sidescrolloff = 8
@@ -48,37 +48,35 @@ for k, v in pairs(gruvbox_palette) do
 end
 
 -- setup nvim-navic
-vim.api.nvim_set_hl(0, 'NavicIconsFile', { fg = gruvbox_palette.fg0, bg = gruvbox_palette.none })
-vim.api.nvim_set_hl(0, 'NavicIconsModule', { fg = gruvbox_palette.yellow, bg = gruvbox_palette.none })
-vim.api.nvim_set_hl(0, 'NavicIconsNamespace', { fg = gruvbox_palette.fg0, bg = gruvbox_palette.none })
-vim.api.nvim_set_hl(0, 'NavicIconsPackage', { fg = gruvbox_palette.red, bg = gruvbox_palette.none })
-vim.api.nvim_set_hl(0, 'NavicIconsClass', { fg = gruvbox_palette.orange, bg = gruvbox_palette.none })
-vim.api.nvim_set_hl(0, 'NavicIconsMethod', { fg = gruvbox_palette.blue, bg = gruvbox_palette.none })
-vim.api.nvim_set_hl(0, 'NavicIconsProperty', { fg = gruvbox_palette.green, bg = gruvbox_palette.none })
-vim.api.nvim_set_hl(0, 'NavicIconsField', { fg = gruvbox_palette.green, bg = gruvbox_palette.none })
-vim.api.nvim_set_hl(0, 'NavicIconsConstructor', { fg = gruvbox_palette.orange, bg = gruvbox_palette.none })
-vim.api.nvim_set_hl(0, 'NavicIconsEnum', { fg = gruvbox_palette.orange, bg = gruvbox_palette.none })
-vim.api.nvim_set_hl(0, 'NavicIconsInterface', { fg = gruvbox_palette.orange, bg = gruvbox_palette.none })
-vim.api.nvim_set_hl(0, 'NavicIconsFunction', { fg = gruvbox_palette.blue, bg = gruvbox_palette.none })
-vim.api.nvim_set_hl(0, 'NavicIconsVariable', { fg = gruvbox_palette.purple, bg = gruvbox_palette.none })
-vim.api.nvim_set_hl(0, 'NavicIconsConstant', { fg = gruvbox_palette.purple, bg = gruvbox_palette.none })
-vim.api.nvim_set_hl(0, 'NavicIconsString', { fg = gruvbox_palette.green, bg = gruvbox_palette.none })
-vim.api.nvim_set_hl(0, 'NavicIconsNumber', { fg = gruvbox_palette.orange, bg = gruvbox_palette.none })
-vim.api.nvim_set_hl(0, 'NavicIconsBoolean', { fg = gruvbox_palette.orange, bg = gruvbox_palette.none })
-vim.api.nvim_set_hl(0, 'NavicIconsArray', { fg = gruvbox_palette.orange, bg = gruvbox_palette.none })
-vim.api.nvim_set_hl(0, 'NavicIconsObject', { fg = gruvbox_palette.orange, bg = gruvbox_palette.none })
-vim.api.nvim_set_hl(0, 'NavicIconsKey', { fg = gruvbox_palette.purple, bg = gruvbox_palette.none })
-vim.api.nvim_set_hl(0, 'NavicIconsKeyword', { fg = gruvbox_palette.purple, bg = gruvbox_palette.none })
-vim.api.nvim_set_hl(0, 'NavicIconsNull', { fg = gruvbox_palette.orange, bg = gruvbox_palette.none })
-vim.api.nvim_set_hl(0, 'NavicIconsEnumMember', { fg = gruvbox_palette.green, bg = gruvbox_palette.none })
-vim.api.nvim_set_hl(0, 'NavicIconsStruct', { fg = gruvbox_palette.orange, bg = gruvbox_palette.none })
-vim.api.nvim_set_hl(0, 'NavicIconsEvent', { fg = gruvbox_palette.orange, bg = gruvbox_palette.none })
-vim.api.nvim_set_hl(0, 'NavicIconsOperator', { fg = gruvbox_palette.fg0, bg = gruvbox_palette.none })
-vim.api.nvim_set_hl(0, 'NavicIconsTypeParameter', { fg = gruvbox_palette.green, bg = gruvbox_palette.none })
-vim.api.nvim_set_hl(0, 'NavicText', { fg = gruvbox_palette.fg0, bg = gruvbox_palette.none })
-vim.api.nvim_set_hl(0, 'NavicSeparator', { fg = gruvbox_palette.fg1, bg = gruvbox_palette.none })
-
-vim.o.winbar = "%{%v:lua.require'nvim-navic'.get_location()%}"
+vim.api.nvim_set_hl(0, 'NavicIconsFile', { default = true, fg = gruvbox_palette.fg0 })
+vim.api.nvim_set_hl(0, 'NavicIconsModule', { default = true, fg = gruvbox_palette.yellow })
+vim.api.nvim_set_hl(0, 'NavicIconsNamespace', { default = true, fg = gruvbox_palette.fg0 })
+vim.api.nvim_set_hl(0, 'NavicIconsPackage', { default = true, fg = gruvbox_palette.red })
+vim.api.nvim_set_hl(0, 'NavicIconsClass', { default = true, fg = gruvbox_palette.orange })
+vim.api.nvim_set_hl(0, 'NavicIconsMethod', { default = true, fg = gruvbox_palette.blue })
+vim.api.nvim_set_hl(0, 'NavicIconsProperty', { default = true, fg = gruvbox_palette.green })
+vim.api.nvim_set_hl(0, 'NavicIconsField', { default = true, fg = gruvbox_palette.green })
+vim.api.nvim_set_hl(0, 'NavicIconsConstructor', { default = true, fg = gruvbox_palette.orange })
+vim.api.nvim_set_hl(0, 'NavicIconsEnum', { default = true, fg = gruvbox_palette.orange })
+vim.api.nvim_set_hl(0, 'NavicIconsInterface', { default = true, fg = gruvbox_palette.orange })
+vim.api.nvim_set_hl(0, 'NavicIconsFunction', { default = true, fg = gruvbox_palette.blue })
+vim.api.nvim_set_hl(0, 'NavicIconsVariable', { default = true, fg = gruvbox_palette.purple })
+vim.api.nvim_set_hl(0, 'NavicIconsConstant', { default = true, fg = gruvbox_palette.purple })
+vim.api.nvim_set_hl(0, 'NavicIconsString', { default = true, fg = gruvbox_palette.green })
+vim.api.nvim_set_hl(0, 'NavicIconsNumber', { default = true, fg = gruvbox_palette.orange })
+vim.api.nvim_set_hl(0, 'NavicIconsBoolean', { default = true, fg = gruvbox_palette.orange })
+vim.api.nvim_set_hl(0, 'NavicIconsArray', { default = true, fg = gruvbox_palette.orange })
+vim.api.nvim_set_hl(0, 'NavicIconsObject', { default = true, fg = gruvbox_palette.orange })
+vim.api.nvim_set_hl(0, 'NavicIconsKey', { default = true, fg = gruvbox_palette.purple })
+vim.api.nvim_set_hl(0, 'NavicIconsKeyword', { default = true, fg = gruvbox_palette.purple })
+vim.api.nvim_set_hl(0, 'NavicIconsNull', { default = true, fg = gruvbox_palette.orange })
+vim.api.nvim_set_hl(0, 'NavicIconsEnumMember', { default = true, fg = gruvbox_palette.green })
+vim.api.nvim_set_hl(0, 'NavicIconsStruct', { default = true, fg = gruvbox_palette.orange })
+vim.api.nvim_set_hl(0, 'NavicIconsEvent', { default = true, fg = gruvbox_palette.orange })
+vim.api.nvim_set_hl(0, 'NavicIconsOperator', { default = true, fg = gruvbox_palette.fg0 })
+vim.api.nvim_set_hl(0, 'NavicIconsTypeParameter', { default = true, fg = gruvbox_palette.green })
+vim.api.nvim_set_hl(0, 'NavicText', { default = true, fg = gruvbox_palette.fg0 })
+vim.api.nvim_set_hl(0, 'NavicSeparator', { default = true, fg = gruvbox_palette.fg1 })
 
 vim.api.nvim_set_hl(0, 'RainbowDelimiterRed', { fg = gruvbox_palette.red, bg = gruvbox_palette.none })
 vim.api.nvim_set_hl(0, 'RainbowDelimiterYellow', { fg = gruvbox_palette.yellow, bg = gruvbox_palette.none })

@@ -1,6 +1,7 @@
 local cmp = require('cmp')
 local cmp_autopairs = require('nvim-autopairs.completion.cmp')
 local luasnip = require('luasnip')
+local lspkind = require('lspkind')
 
 cmp.setup({
   snippet = {
@@ -35,30 +36,39 @@ cmp.setup({
         fallback()
       end
     end, { "i", "s" }),
-    ["<CR>"] = cmp.mapping.confirm { select = true },
+    -- ["<CR>"] = cmp.mapping.confirm { select = true },
+    ["<CR>"] = cmp.mapping({
+      i = function(fallback)
+        if cmp.visible() and cmp.get_active_entry() then
+          cmp.confirm({ behavior = cmp.ConfirmBehavior.Replace, select = false })
+        else
+          fallback()
+        end
+      end,
+      c = function(fallback)
+        if cmp.visible() and cmp.get_active_entry() then
+          cmp.confirm({ behavior = cmp.ConfirmBehavior.Replace, select = true })
+        else
+          fallback()
+        end
+      end,
+      s = cmp.mapping.confirm({ select = true }),
+    }),
   }),
   formatting = {
-    format = require('lspkind').cmp_format({
+    format = lspkind.cmp_format({
       mode = 'symbol',
       maxwidth = 50,
       ellipsis_char = '...',
-      -- before = function(entry, vim_item)
-      --     local source_names = {
-      --         nvim_lsp = "[LSP]",
-      --         nvim_lua = "[Nvim]",
-      --         path = "[Path]",
-      --         luasnip = "[Snip]",
-      --         buffer = "[Buf]",
-      --     }
-      --     vim_item.menu = source_names[entry.source.name]
-      --     return vim_item
-      -- end
       menu = {
         nvim_lsp = "[LSP]",
+        nvim_lsp_signature_help = "",
         nvim_lua = "[Nvim]",
         path = "[Path]",
         luasnip = "[Snip]",
         buffer = "[Buf]",
+        -- treesitter = "[Treesitter]",
+        cmdline = "[Cmd]"
       }
     })
   },
@@ -68,7 +78,7 @@ cmp.setup({
     { name = 'nvim_lua' },
     { name = 'luasnip' },
     { name = 'path' },
-    { name = 'treesitter' },
+    -- { name = 'treesitter' },
   }, {
     { name = 'buffer', keyword_length = 3 },
   }),
