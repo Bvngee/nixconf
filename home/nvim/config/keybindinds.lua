@@ -43,6 +43,9 @@ map('n', ']d', vim.diagnostic.goto_next)
 
 -- telescope
 local builtin = require('telescope.builtin')
+local extensions = require('telescope').extensions
 map('n', '<leader>ff', builtin.find_files)
 map('n', '<leader>fg', builtin.git_files)
+map('n', '<leader>fb', builtin.buffers)
 map('n', '<leader>lg', builtin.live_grep)
+map('n', '<leader>ss', extensions.persisted.persisted)

@@ -1,4 +1,5 @@
 vim.g.mapleader = ' '
+vim.keymap.set("n", " ", "<Nop>", { silent = true, remap = false })
 vim.o.mouse = 'a'
 vim.o.termguicolors = true
 vim.o.fileencoding = 'utf-8'
@@ -9,6 +10,7 @@ vim.o.cursorline = true
 vim.o.cursorlineopt = 'number'
 vim.o.signcolumn = 'yes'
 vim.o.undofile = true
+vim.o.sessionoptions = "buffers,curdir,folds,globals,tabpages,winpos,winsize"
 
 vim.o.autoindent = true
 vim.o.smartindent = true

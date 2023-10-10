@@ -1,4 +1,5 @@
 { inputs, pkgs, ... }: let
+  unstableVimPlugins = inputs.nixpkgs-unstable.legacyPackages.${pkgs.system}.vimPlugins;
   tabout = pkgs.vimUtils.buildVimPlugin {
     name = "tabout";
     src = pkgs.fetchFromGitHub {
@@ -16,6 +17,16 @@
       rev = "652345bd1aa333f60c9cbb1259f77155786e5514";
       sha256 = "0zw1q7nj76dvvnrb539xc11pymhjbgdjd54m2z64qxbi4n5qwryr";
     };
+  };
+  persisted = pkgs.vimUtils.buildVimPlugin {
+    name = "persisted";
+    src = pkgs.fetchFromGitHub {
+      owner = "olimorris";
+      repo = "persisted.nvim";
+      rev = "315cd1a8a501ca8e0c1d55f0c245b9cc0e1ffa01";
+      sha256 = "1f1g5dnjv8w5yvvyd7gjp2nim77240jw07kd7af618g8ya7csqf6";
+    };
+    configurePhase = "rm ./Makefile";
   };
 in {
   programs.neovim = {
@@ -47,8 +58,7 @@ in {
       friendly-snippets
 
       # treesitter
-      (nvim-treesitter.withPlugins (_: pkgs.tree-sitter.allGrammars))
-      #nvim-treesitter-textobjects - mini.ai instead
+      nvim-treesitter.withAllGrammars
       rainbow-delimiters
 
       # util
@@ -66,15 +76,17 @@ in {
       lualine-nvim
       nvim-colorizer-lua
       tabout
-      inputs.nixpkgs-unstable.legacyPackages.${pkgs.system}.vimPlugins.indent-blankline-nvim
+      unstableVimPlugins.indent-blankline-nvim
       neoscroll-nvim
       nvim-navic #currently unused
+      persisted
+      guess-indent-nvim
 
-      # mini.[ai|comment|cursorword|moves|surround|sessions]
+      # mini.ai|comment|cursorword|moves|surround
       mini-nvim
     ];
 
-    extraPackages = with pkgs; [ ripgrep fd nil lua-language-server ];
+    extraPackages = with pkgs; [ gcc ripgrep fd nil lua-language-server stylua ];
 
     extraLuaConfig = builtins.concatStringsSep "\n" ((map builtins.readFile [
       ./config/options.lua
@@ -90,6 +102,7 @@ in {
       ./config/plugins/rainbow-delimiters.lua
       ./config/plugins/neoscroll.lua
       ./config/plugins/nvim-navic.lua
+      ./config/plugins/persisted.lua
 
       ./config/plugins/mini-ai.lua
       ./config/plugins/mini-comment.lua
@@ -102,7 +115,7 @@ in {
     ]) ++ [
       ''require('mini.cursorword').setup {}''
       ''require('nvim-autopairs').setup {}''
-      ''require('mini.sessions').setup { autoread = true }''
+      ''require('guess-indent').setup {}''
     ]);
 
   };

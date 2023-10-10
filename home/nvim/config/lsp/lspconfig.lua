@@ -41,12 +41,15 @@ local servers = {
             [vim.fn.stdpath "config" .. "/lua"] = true,
             -- [vim.fn.datapath "config" .. "/lua"] = true, --seems to cause problems? be careful
           },
+          checkThirdParty = false,
         },
         telemetry = { enable = false },
       }
     }
   },
-  bashls = {}
+  bashls = {},
+  rust_analyzer = {},
+  rust_tools = {},
 }
 
 local on_attach = function(client, bufnr)
