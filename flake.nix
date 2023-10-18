@@ -17,7 +17,6 @@
       inputs.hyprland.follows = "hyprland";
     };
   };
-
   outputs = { nixpkgs, home-manager, ... }@inputs:
     let
       system = "x86_64-linux";
@@ -45,7 +44,6 @@
       homeConfigurations = {
         "jack@pc" = home-manager.lib.homeManagerConfiguration {
           inherit pkgs;
-
           extraSpecialArgs = { inherit inputs; };
           modules = [
             ./home/home.nix
@@ -59,6 +57,19 @@
             ./home/shell
             ./home/nvim
             inputs.hyprland.homeManagerModules.default
+          ];
+        };
+        "jack@wsl" = home-manager.lib.homeManagerConfiguration {
+          inherit pkgs;
+          extraSpecialArgs = { inherit inputs; };
+          modules = [
+            ./home/home.nix
+            ./home/git.nix
+            ./home/xdg.nix
+            ./home/programs.nix
+            ./home/shell
+            ./home/nvim
+            {programs.home-manager.enable = nixpkgs.lib.mkForce true;}
           ];
         };
       };

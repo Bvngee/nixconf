@@ -78,6 +78,7 @@ cmp.setup({
     { name = 'nvim_lua' },
     { name = 'luasnip' },
     { name = 'path' },
+    { name = 'crates' },
     -- { name = 'treesitter' },
   }, {
     { name = 'buffer', keyword_length = 3 },

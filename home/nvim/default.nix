@@ -52,6 +52,7 @@ in {
       cmp-cmdline
       cmp_luasnip
       lspkind-nvim
+      crates-nvim
 
       # snippets
       luasnip
@@ -116,6 +117,7 @@ in {
       ''require('mini.cursorword').setup {}''
       ''require('nvim-autopairs').setup {}''
       ''require('guess-indent').setup {}''
+      ''require('crates').setup { src = { cmp = { enabled = true } } }''
     ]);
 
   };

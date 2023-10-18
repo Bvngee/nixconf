@@ -49,7 +49,6 @@ local servers = {
   },
   bashls = {},
   rust_analyzer = {},
-  rust_tools = {},
 }
 
 local on_attach = function(client, bufnr)
@@ -84,6 +83,7 @@ for server, opts in pairs(servers) do
   lspconfig[server].setup(vim.tbl_deep_extend('force', common_opts, opts))
 end
 
+
 local signs = { Error = ' ', Warn = ' ', Info = ' ', Hint = ' ' }
 
 for type, icon in pairs(signs) do
@@ -92,7 +92,7 @@ for type, icon in pairs(signs) do
 end
 
 vim.diagnostic.config {
-  virtual_text = true, -- disable virtual text
+  virtual_text = true,
   signs = {
     active = signs, -- show signs
   },
