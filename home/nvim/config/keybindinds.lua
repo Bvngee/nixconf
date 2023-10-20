@@ -39,6 +39,12 @@ map('n', '<C-l>', '<C-w>l')
 map('n', '[d', vim.diagnostic.goto_prev)
 map('n', ']d', vim.diagnostic.goto_next)
 
+-- better <C-u/d> and <C-f/b> -- not working?
+map('n', '<C-u>', '<C-u>zz')
+map('n', '<C-d>', '<C-d>zz')
+map('n', '<C-f>', '<C-f>zz')
+map('n', '<C-b>', '<C-b>zz')
+
 --- Plugin Keymaps ---
 
 -- telescope
