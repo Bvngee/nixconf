@@ -17,7 +17,10 @@
       inputs.hyprland.follows = "hyprland";
     };
 
-    xremap-flake.url = "github:xremap/nix-flake";
+    xremap-flake = {
+      url = "github:xremap/nix-flake";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
   outputs = { nixpkgs, home-manager, ... }@inputs:
     let
