@@ -13,5 +13,9 @@
     fd
     nix-prefetch-scripts
     file
+
+    #office-suite
+    onlyoffice-bin
+    libreoffice
   ];
 }

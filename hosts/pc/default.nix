@@ -32,6 +32,8 @@
 
   environment.systemPackages = with pkgs; [
     home-manager
+    
+    ntfs3g # move somewhere else?
   ];
 
   services.openssh = {
