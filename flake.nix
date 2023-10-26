@@ -16,6 +16,8 @@
       url = "github:Duckonaut/split-monitor-workspaces";
       inputs.hyprland.follows = "hyprland";
     };
+
+    xremap-flake.url = "github:xremap/nix-flake";
   };
   outputs = { nixpkgs, home-manager, ... }@inputs:
     let
@@ -38,6 +40,7 @@
             ./nixos/greetd.nix
             ./nixos/wayland.nix
             ./nixos/kde.nix
+            ./nixos/xremap.nix
           ];
         };
       };

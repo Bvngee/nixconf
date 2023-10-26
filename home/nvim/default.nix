@@ -78,7 +78,7 @@ in {
       nvim-colorizer-lua
       tabout
       unstableVimPlugins.indent-blankline-nvim
-      neoscroll-nvim
+      # neoscroll-nvim
       nvim-navic #currently unused
       persisted
       guess-indent-nvim
@@ -101,7 +101,7 @@ in {
       ./config/plugins/lualine.lua
       ./config/plugins/indent-blankline-nvim.lua
       ./config/plugins/rainbow-delimiters.lua
-      ./config/plugins/neoscroll.lua
+      # ./config/plugins/neoscroll.lua
       ./config/plugins/nvim-navic.lua
       ./config/plugins/persisted.lua
 
