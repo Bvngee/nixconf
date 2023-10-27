@@ -49,6 +49,7 @@ local servers = {
   },
   bashls = {},
   rust_analyzer = {},
+  clangd = {},
 }
 
 local on_attach = function(client, bufnr)
