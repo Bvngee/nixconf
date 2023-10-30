@@ -5,6 +5,10 @@
     ./starship.nix
   ];
 
+  home.sessionVariables = {
+    EDITOR = "nvim";
+  };
+
   programs = {
     exa = {
       enable = true;

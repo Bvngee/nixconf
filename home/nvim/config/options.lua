@@ -23,6 +23,7 @@ vim.o.mousemoveevent = true
 vim.o.splitbelow = true
 vim.o.splitright = true
 vim.o.cmdheight = 0
+vim.o.showcmdloc = "statusline"
 vim.o.laststatus = 3
 vim.o.updatetime = 100
 vim.o.hidden = true

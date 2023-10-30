@@ -16,7 +16,7 @@
                         "CapsLock" = {
                             held = "LeftCtrl";
                             alone = "Esc";
-                            alone_timout_millis = 500;
+                            alone_timout_millis = 100;
                         };
                     };
                 }

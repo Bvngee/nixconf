@@ -12,7 +12,7 @@ in {
         command = ''${pkgs.greetd.tuigreet}/bin/tuigreet \
           --sessions ${sessions} \
           --remember \
-          --remember-user-session \
+          --remember-session \
           --asterisks \
           --time \
           --time-format "%H:%M, %m/%d/%Y" \
