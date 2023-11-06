@@ -2,7 +2,7 @@ require('lualine').setup {
   options = {
     icons_enabled = true,
     theme = 'auto',
-    component_separators = { left = '', right = ''},
+    component_separators = { left = '|', right = '|'}, --  
     section_separators = { left = '', right = ''},
     disabled_filetypes = {
       statusline = {},
@@ -25,6 +25,13 @@ require('lualine').setup {
       -- { function() return vim.api.nvim_buf_get_name(0) .. ' ' .. require('nvim-navic').get_location() end },
     },
     lualine_x = {
+      { 
+        function() 
+          local reg = vim.fn.reg_recording() 
+          if reg ~= '' then reg = '@' .. reg end
+          return reg
+        end
+      },
       '%S',
       'diff',
       { 'diagnostics', symbols = { error = ' ', warn = ' ', info = ' ', hint = ' ' } },

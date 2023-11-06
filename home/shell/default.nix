@@ -1,4 +1,4 @@
-{ inputs, pkgs, ... }: {
+{ pkgsUnstable, ... }: {
 
   imports = [
     ./zsh.nix
@@ -15,7 +15,7 @@
       enableAliases = true;
       extraOptions = [ "--group-directories-first" ];
       icons = true;
-      package = inputs.nixpkgs-unstable.legacyPackages.${pkgs.system}.eza;
+      package = pkgsUnstable.eza;
     };
   };
 

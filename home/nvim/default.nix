@@ -1,23 +1,5 @@
-{ inputs, pkgs, ... }: let
-  unstableVimPlugins = inputs.nixpkgs-unstable.legacyPackages.${pkgs.system}.vimPlugins;
-  tabout = pkgs.vimUtils.buildVimPlugin {
-    name = "tabout";
-    src = pkgs.fetchFromGitHub {
-      owner = "abecodes";
-      repo = "tabout.nvim";
-      rev = "0d275c8d25f32457e67b5c66d6ae43f26a61bce5";
-      sha256 = "11zly7bfdz110a7ififylzgizin06ia0i3jipzp12n2n2paarp1f";
-    };
-  };
-  rainbow-delimiters = pkgs.vimUtils.buildVimPlugin {
-    name = "rainbow-delimiters";
-    src = pkgs.fetchFromGitHub {
-      owner = "HiPhish";
-      repo = "rainbow-delimiters.nvim";
-      rev = "652345bd1aa333f60c9cbb1259f77155786e5514";
-      sha256 = "0zw1q7nj76dvvnrb539xc11pymhjbgdjd54m2z64qxbi4n5qwryr";
-    };
-  };
+{ pkgs, pkgsUnstable, ... }: let
+  unstableVimPlugins = pkgsUnstable.vimPlugins;
   persisted = pkgs.vimUtils.buildVimPlugin {
     name = "persisted";
     src = pkgs.fetchFromGitHub {
@@ -60,7 +42,7 @@ in {
 
       # treesitter
       nvim-treesitter.withAllGrammars
-      rainbow-delimiters
+      unstableVimPlugins.rainbow-delimiters-nvim
 
       # util
       plenary-nvim
@@ -76,7 +58,7 @@ in {
       rust-tools-nvim
       lualine-nvim
       nvim-colorizer-lua
-      tabout
+      unstableVimPlugins.tabout-nvim
       unstableVimPlugins.indent-blankline-nvim
       # neoscroll-nvim
       nvim-navic #currently unused

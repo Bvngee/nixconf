@@ -21,20 +21,30 @@
       url = "github:xremap/nix-flake";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    spicetify-nix = {
+      url = "github:the-argus/spicetify-nix";
+    };
   };
   outputs = { nixpkgs, home-manager, ... }@inputs:
     let
       system = "x86_64-linux";
-      pkgs = import nixpkgs {
+
+      conf = {
         inherit system;
         config.allowUnfree = true;
+        config.allowUnfreePredicate = pkgs: true;
       };
+      pkgs = import nixpkgs conf;
+      pkgsUnstable = import inputs.nixpkgs-unstable conf;
     in {
       # todo: split into different hosts (pc, laptop, default?) and users (jack, default?)?
       nixosConfigurations = {
         "pc" = nixpkgs.lib.nixosSystem {
 
-          specialArgs = { inherit inputs; };
+          # these are exposed to all modules in the module system
+          # (alongside the defaults; config, lib, pkgs, etc.)
+          specialArgs = { inherit inputs pkgsUnstable; };
           modules = [
             ./hosts/pc
             ./hosts/shared
@@ -44,16 +54,20 @@
             ./nixos/wayland.nix
             ./nixos/kde.nix
             ./nixos/xremap.nix
+            ./nixos/thunar.nix
           ];
         };
       };
       homeConfigurations = {
         "jack@pc" = home-manager.lib.homeManagerConfiguration {
           inherit pkgs;
-          extraSpecialArgs = { inherit inputs; };
+
+          # same as nixosSystem's specialArgs
+          extraSpecialArgs = { inherit inputs pkgsUnstable; };
           modules = [
             ./home/home.nix
             ./home/kitty.nix
+            ./home/spicetify.nix
             #./home/kdeconnect.nix
             ./home/git.nix
             ./home/xdg.nix
@@ -67,7 +81,9 @@
         };
         "jack@wsl" = home-manager.lib.homeManagerConfiguration {
           inherit pkgs;
-          extraSpecialArgs = { inherit inputs; };
+
+          # same as nixosSystem's specialArgs
+          extraSpecialArgs = { inherit inputs pkgsUnstable; };
           modules = [
             ./home/home.nix
             ./home/git.nix

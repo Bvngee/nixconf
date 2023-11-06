@@ -17,12 +17,8 @@
     description = "Jack Nystrom";
     extraGroups = [ "wheel" "networkmanager" ]; # "input" "uinput"
     shell = pkgs.zsh;
-    packages = with pkgs; [];
+    # packages = with pkgs; [];
   };
-
-#  hardware.uinput.enable = true;
-#  users.groups.uinput.members = [ "jack" ];
-#  users.groups.input.members = [ "jack" ];
 
   environment.systemPackages = with pkgs; [
     tree
