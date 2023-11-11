@@ -17,6 +17,12 @@
       icons = true;
       package = pkgsUnstable.eza;
     };
+
+    direnv = {
+      enable = true;
+      nix-direnv.enable = true;
+      enableZshIntegration = true;
+    };
   };
 
 }

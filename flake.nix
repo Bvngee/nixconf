@@ -1,6 +1,6 @@
 {
   description = "BvngeeCord's NixOS system and home configurations";
-  
+
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-23.05";
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
@@ -26,6 +26,7 @@
       url = "github:the-argus/spicetify-nix";
     };
   };
+
   outputs = { nixpkgs, home-manager, ... }@inputs:
     let
       system = "x86_64-linux";
@@ -62,7 +63,6 @@
         "jack@pc" = home-manager.lib.homeManagerConfiguration {
           inherit pkgs;
 
-          # same as nixosSystem's specialArgs
           extraSpecialArgs = { inherit inputs pkgsUnstable; };
           modules = [
             ./home/home.nix
@@ -82,7 +82,6 @@
         "jack@wsl" = home-manager.lib.homeManagerConfiguration {
           inherit pkgs;
 
-          # same as nixosSystem's specialArgs
           extraSpecialArgs = { inherit inputs pkgsUnstable; };
           modules = [
             ./home/home.nix

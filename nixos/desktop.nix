@@ -17,4 +17,7 @@
 
     zsh.enable = true;
   };
+
+  # apparently necessary for completion of system packages?
+  environment.pathsToLink = [ "/share/zsh" ];
 }

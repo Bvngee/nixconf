@@ -34,7 +34,7 @@ in {
       cmp-cmdline
       cmp_luasnip
       lspkind-nvim
-      crates-nvim
+      unstableVimPlugins.crates-nvim
 
       # snippets
       luasnip
@@ -60,7 +60,6 @@ in {
       nvim-colorizer-lua
       unstableVimPlugins.tabout-nvim
       unstableVimPlugins.indent-blankline-nvim
-      # neoscroll-nvim
       nvim-navic #currently unused
       persisted
       guess-indent-nvim
@@ -71,37 +70,44 @@ in {
 
     extraPackages = with pkgs; [ gcc ripgrep fd nil lua-language-server stylua clang-tools ];
 
-    extraLuaConfig = builtins.concatStringsSep "\n" ((map builtins.readFile [
-      ./config/options.lua
-      ./config/keybindinds.lua
+    extraLuaConfig = let
+      addLuaFile = file: ''
+        -- ${toString file}
+        do
+          ${builtins.readFile file}
+        end
+      '';
+    in
+      builtins.concatStringsSep "\n" (map addLuaFile [
+        ./config/options.lua
+        ./config/keybindinds.lua
 
-      ./config/plugins/nvim-treesitter.lua
-      ./config/plugins/telescope-nvim.lua
-      ./config/plugins/nvim-colorizer.lua
-      ./config/plugins/tabout.lua
-      ./config/plugins/gitsigns.lua
-      ./config/plugins/lualine.lua
-      ./config/plugins/indent-blankline-nvim.lua
-      ./config/plugins/rainbow-delimiters.lua
-      # ./config/plugins/neoscroll.lua
-      ./config/plugins/nvim-navic.lua
-      ./config/plugins/persisted.lua
+        ./config/plugins/nvim-treesitter.lua
+        ./config/plugins/telescope-nvim.lua
+        ./config/plugins/nvim-colorizer.lua
+        ./config/plugins/tabout.lua
+        ./config/plugins/gitsigns.lua
+        ./config/plugins/lualine.lua
+        ./config/plugins/indent-blankline-nvim.lua
+        ./config/plugins/rainbow-delimiters.lua
+        ./config/plugins/nvim-navic.lua
+        ./config/plugins/persisted.lua
 
-      ./config/plugins/mini-ai.lua
-      ./config/plugins/mini-comment.lua
-      ./config/plugins/mini-move.lua
-      ./config/plugins/mini-surround.lua
+        ./config/plugins/mini-ai.lua
+        ./config/plugins/mini-comment.lua
+        ./config/plugins/mini-move.lua
+        ./config/plugins/mini-surround.lua
 
-      ./config/lsp/neodev.lua
-      ./config/lsp/lspconfig.lua
-      ./config/lsp/nvim-cmp.lua
-    ]) ++ [
-      ''require('mini.cursorword').setup {}''
-      ''require('nvim-autopairs').setup {}''
-      ''require('guess-indent').setup {}''
-      ''require('crates').setup { src = { cmp = { enabled = true } } }''
-    ]);
-
+        ./config/lsp/neodev.lua
+        ./config/lsp/lspconfig.lua
+        ./config/lsp/nvim-cmp.lua
+      ]) + ''
+        require('mini.cursorword').setup {}
+        require('nvim-autopairs').setup {}
+        require('guess-indent').setup {}
+        require('crates').setup { src = { cmp = { enabled = true } } }
+        require('luasnip.loaders.from_vscode').lazy_load()
+      '';
   };
 }
 
