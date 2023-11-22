@@ -22,9 +22,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    spicetify-nix = {
-      url = "github:the-argus/spicetify-nix";
-    };
+    spicetify-nix.url = "github:the-argus/spicetify-nix";
+
+    nix-gaming.url = "github:fufexan/nix-gaming";
+
+    base16.url = "github:SenchoPens/base16.nix";
   };
 
   outputs = { nixpkgs, home-manager, ... }@inputs:
@@ -56,6 +58,7 @@
             ./nixos/kde.nix
             ./nixos/xremap.nix
             ./nixos/thunar.nix
+            ./nixos/gaming.nix
           ];
         };
       };
@@ -63,6 +66,7 @@
         "jack@pc" = home-manager.lib.homeManagerConfiguration {
           inherit pkgs;
 
+          # same as nixosSystem's specialArgs
           extraSpecialArgs = { inherit inputs pkgsUnstable; };
           modules = [
             ./home/home.nix
@@ -82,6 +86,7 @@
         "jack@wsl" = home-manager.lib.homeManagerConfiguration {
           inherit pkgs;
 
+          # same as nixosSystem's specialArgs
           extraSpecialArgs = { inherit inputs pkgsUnstable; };
           modules = [
             ./home/home.nix

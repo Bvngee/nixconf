@@ -4,10 +4,6 @@
     libsForQt5.gwenview
     mpv
     
-    obs-studio
-    firefox
-
-
     #cli - maybe move to home/shell later?
     ripgrep
     fd
@@ -15,13 +11,14 @@
     file
     btop
     htop
+    neofetch
+
+    #programming language tooling
+    temurin-jre-bin-18
 
     #office-suite
     onlyoffice-bin
     libreoffice
-
-    #games
-    prismlauncher
 
     #Discord
     #(pkgsUnstable.discord.override {
@@ -29,5 +26,14 @@
       withOpenASAR = false;
       withVencord = false;
     })
+
+    #games
+    prismlauncher
+
+    #misc GUI
+    obs-studio
+    firefox
+    jetbrains.idea-community
+    vscodium-fhs
   ];
 }
