@@ -13,11 +13,12 @@
                 {
                     name = "CapsLock Remaps";
                     remap = {
-                        "CapsLock" = {
-                            held = "LeftCtrl";
-                            alone = "Esc";
-                            alone_timout_millis = 100;
-                        };
+                        "CapsLock" = "Esc";
+#                        "CapsLock" = {
+#                            held = "LeftCtrl";
+#                            alone = "Esc";
+#                            alone_timout_millis = 100;
+#                        };
                     };
                 }
             ];

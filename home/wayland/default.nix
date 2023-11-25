@@ -11,6 +11,7 @@
     wl-clipboard
     wlr-randr
     wf-recorder
+    wev
   ];
 
   #wlr_no_hardware_cursors did not work here - maybe these won't either?

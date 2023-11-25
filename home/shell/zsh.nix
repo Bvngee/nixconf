@@ -37,6 +37,7 @@ in {
 
       function zvm_after_init() {
         # needs to be here to work around zsh-vi-mode
+        bindkey '^ ' autosuggest-accept
         bindkey '^y' autosuggest-accept
       }
     '';

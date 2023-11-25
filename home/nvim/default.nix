@@ -1,4 +1,4 @@
-{ pkgs, pkgsUnstable, ... }: let
+{ pkgs, config, pkgsUnstable, ... }: let
   unstableVimPlugins = pkgsUnstable.vimPlugins;
   persisted = pkgs.vimUtils.buildVimPlugin {
     name = "persisted";
@@ -13,7 +13,6 @@
 in {
   programs.neovim = {
     enable = true;
-    #package = inputs.nixpkgs-unstable.legacyPackages.${pkgs.system}.neovim;
     
     vimAlias = true;
     viAlias = true;
@@ -51,6 +50,7 @@ in {
       
       # other
       gruvbox-material
+      nvim-base16 #alternatives: Iron-E/nvim-highlite, ThemerCorp/themer.lua
       gitsigns-nvim
       nvim-autopairs
       telescope-nvim
@@ -72,13 +72,17 @@ in {
 
     extraLuaConfig = let
       addLuaFile = file: ''
-        -- ${toString file}
-        do
-          ${builtins.readFile file}
+        do -- ${toString file}
+        ${builtins.readFile file}
         end
       '';
-    in
+    in 
+      ( # base16.nix nvim integration using nvim-base16 plugin
+        import ./config/plugins/nvim-base16.nix { inherit (config) scheme; }
+      ) +
       builtins.concatStringsSep "\n" (map addLuaFile [
+        ./config/plugins/nvim-base16.lua
+
         ./config/options.lua
         ./config/keybindinds.lua
 
@@ -102,11 +106,13 @@ in {
         ./config/lsp/lspconfig.lua
         ./config/lsp/nvim-cmp.lua
       ]) + ''
+
         require('mini.cursorword').setup {}
         require('nvim-autopairs').setup {}
         require('guess-indent').setup {}
         require('crates').setup { src = { cmp = { enabled = true } } }
         require('luasnip.loaders.from_vscode').lazy_load()
+
       '';
   };
 }

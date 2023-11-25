@@ -41,7 +41,6 @@
       pkgs = import nixpkgs conf;
       pkgsUnstable = import inputs.nixpkgs-unstable conf;
     in {
-      # todo: split into different hosts (pc, laptop, default?) and users (jack, default?)?
       nixosConfigurations = {
         "pc" = nixpkgs.lib.nixosSystem {
 

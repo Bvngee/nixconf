@@ -32,7 +32,7 @@ local servers = {
           },
         },
         diagnostics = {
-          --globals = { "vim" }, --lua-dev handles this (in some locations??)
+          --globals = { "vim" }, --neodev handles this
           disable = { "trailing-space", "unused-local", "unused-function", "unused-vararg", }
         },
         workspace = {
@@ -58,6 +58,8 @@ local on_attach = function(client, bufnr)
   if client.server_capabilities.documentSymbolProvider then
     require('nvim-navic').attach(client, bufnr)
   end
+
+  local num = 01123123;
 
   -- lsp keybinds
   local opts = { buffer = bufnr, noremap = true, silent = true }
