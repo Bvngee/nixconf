@@ -60,6 +60,23 @@
             ./nixos/kde.nix
           ];
         };
+        "latitude" = nixpkgs.lib.nixosSystem {
+          specialArgs = { inherit inputs pkgsUnstable; };
+          modules = [
+            ./hosts/latitude
+            ./hosts/shared
+             
+            ./nixos/hardware/audio.nix
+            ./nixos/hardware/printing.nix
+            ./nixos/programs/gaming.nix
+            ./nixos/programs/thunar.nix
+            ./nixos/programs/xremap.nix
+            ./nixos/programs/kdeconnect.nix
+            ./nixos/greetd.nix
+            ./nixos/wayland.nix #TODO: figure out where these three go
+            ./nixos/kde.nix
+          ];
+        };
       };
       homeConfigurations = {
         "jack@pc" = home-manager.lib.homeManagerConfiguration {
@@ -80,7 +97,26 @@
             ./home/wayland
             ./home/shell
             ./home/nvim
-            inputs.hyprland.homeManagerModules.default
+          ];
+        };
+        "jack@latitude" = home-manager.lib.homeManagerConfiguration {
+          inherit pkgs;
+          extraSpecialArgs = { inherit inputs pkgsUnstable; };
+          modules = [
+            ./home/home.nix
+            ./home/kitty.nix
+            ./home/spicetify.nix
+            #./home/kdeconnect.nix
+            ./home/git.nix
+            ./home/xdg.nix
+            ./home/theme.nix
+            ./home/base16.nix
+            ./home/programs/coding.nix
+            ./home/programs/cli.nix
+            ./home/programs/gui.nix
+            ./home/wayland
+            ./home/shell
+            ./home/nvim
           ];
         };
         "jack@wsl" = home-manager.lib.homeManagerConfiguration {

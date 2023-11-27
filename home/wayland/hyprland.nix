@@ -7,6 +7,8 @@
     env = WLR_NO_HARDWARE_CURSORS,1
   '';
 in {
+  imports = [ inputs.hyprland.homeManagerModules.default ];
+
   wayland.windowManager.hyprland = {
     enable = true;
     xwayland.enable = true;
