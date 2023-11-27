@@ -13,6 +13,24 @@
     # nix-gaming specific module
     services.pipewire.lowLatency.enable = true;
 
+    # steam override that allows to work with gamescope
+    nixpkgs.config.packageOverrides = pkgs: {
+      steam = pkgs.steam.override {
+        extraPkgs = pkgs: with pkgs; [
+          xorg.libXcursor
+          xorg.libXi
+          xorg.libXinerama
+          xorg.libXScrnSaver
+          libpng
+          libpulseaudio
+          libvorbis
+          stdenv.cc.cc.lib
+          libkrb5
+          keyutils
+        ];
+      };
+    };
+
     programs.steam = {
         enable = true;
 
@@ -22,9 +40,15 @@
         ];
     };
 
-    environment.systemPackages = [
-        pkgs.gamemode
-        # \/ uses legendary-gl, but I think I'd rather just use steam
-        # inputs.nix-gaming.packages.${pkgs.system}.rocket-league
+    environment.systemPackages = with pkgs; [
+        gamemode
+        gamescope # in a Steam game's launch options: `gamescope -W 2560 -H 1440 -- %command%`
+
+        bottles
+
+        mangohud
+
+        protontricks
+        winetricks
     ];
 }

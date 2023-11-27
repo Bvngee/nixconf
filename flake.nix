@@ -43,29 +43,27 @@
     in {
       nixosConfigurations = {
         "pc" = nixpkgs.lib.nixosSystem {
-
-          # these are exposed to all modules in the module system
-          # (alongside the defaults; config, lib, pkgs, etc.)
           specialArgs = { inherit inputs pkgsUnstable; };
           modules = [
             ./hosts/pc
             ./hosts/shared
              
-            ./nixos/desktop.nix
+            ./nixos/hardware/audio.nix
+            ./nixos/hardware/openrgb.nix
+            ./nixos/hardware/printing.nix
+            ./nixos/programs/gaming.nix
+            ./nixos/programs/thunar.nix
+            ./nixos/programs/xremap.nix
+            ./nixos/programs/kdeconnect.nix
             ./nixos/greetd.nix
-            ./nixos/wayland.nix
+            ./nixos/wayland.nix #TODO: figure out where these three go
             ./nixos/kde.nix
-            ./nixos/xremap.nix
-            ./nixos/thunar.nix
-            ./nixos/gaming.nix
           ];
         };
       };
       homeConfigurations = {
         "jack@pc" = home-manager.lib.homeManagerConfiguration {
           inherit pkgs;
-
-          # same as nixosSystem's specialArgs
           extraSpecialArgs = { inherit inputs pkgsUnstable; };
           modules = [
             ./home/home.nix
@@ -75,7 +73,10 @@
             ./home/git.nix
             ./home/xdg.nix
             ./home/theme.nix
-            ./home/programs.nix
+            ./home/base16.nix
+            ./home/programs/coding.nix
+            ./home/programs/cli.nix
+            ./home/programs/gui.nix
             ./home/wayland
             ./home/shell
             ./home/nvim
@@ -84,14 +85,13 @@
         };
         "jack@wsl" = home-manager.lib.homeManagerConfiguration {
           inherit pkgs;
-
-          # same as nixosSystem's specialArgs
           extraSpecialArgs = { inherit inputs pkgsUnstable; };
           modules = [
             ./home/home.nix
             ./home/git.nix
             ./home/xdg.nix
-            ./home/programs.nix
+            ./home/programs/coding.nix
+            ./home/programs/cli.nix
             ./home/shell
             ./home/nvim
             {programs.home-manager.enable = nixpkgs.lib.mkForce true;}

@@ -64,11 +64,11 @@ in {
       persisted
       guess-indent-nvim
 
-      # mini.ai|comment|cursorword|moves|surround
+      # mini.[ai|comment|cursorword|moves|surround]
       mini-nvim
     ];
 
-    extraPackages = with pkgs; [ gcc ripgrep fd nil lua-language-server stylua clang-tools ];
+    extraPackages = with pkgs; [ gcc ripgrep fd nil lua-language-server stylua ];
 
     extraLuaConfig = let
       addLuaFile = file: ''

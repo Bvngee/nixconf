@@ -11,11 +11,11 @@
       in lib.concatStrings [ 
         (color " " "0" "4") #  
         ''$directory''
-        (color " " "2" "4")
+        (color " " "6" "4")
         ''$git_branch$git_status''
-        (color "" "2" "3")
+        (color "" "6" "2")
         ''$nix_shell''
-        (color "" "0" "3")
+        (color "" "0" "2")
         " "
       ]; directory = {
         format = ''[$path](bg:4 fg:0)'';

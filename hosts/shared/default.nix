@@ -17,13 +17,10 @@
     description = "Jack Nystrom";
     extraGroups = [ "wheel" "networkmanager" ]; # "input" "uinput"
     shell = pkgs.zsh;
-    # packages = with pkgs; [];
   };
 
-  environment.systemPackages = with pkgs; [
-    tree
-    vim
-  ];
+  programs.zsh.enable = true; # needs to be in system config
+  environment.pathsToLink = [ "/share/zsh" ]; # apparently needed for completion of system packages?
 
   nixpkgs = {
     overlays = [];

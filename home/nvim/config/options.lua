@@ -3,7 +3,7 @@ vim.keymap.set("n", " ", "<Nop>", { silent = true, remap = false })
 vim.o.mouse = 'a'
 vim.o.termguicolors = true
 vim.o.fileencoding = 'utf-8'
-vim.o.wrap = true
+vim.o.wrap = false
 vim.o.number = true
 vim.o.relativenumber = true
 vim.o.cursorline = true

@@ -1,7 +1,4 @@
 { ... }: {
-
-  services.printing.enable = true;
-
   hardware.pulseaudio.enable = false;
   services.pipewire = {
     enable = true;
@@ -12,12 +9,5 @@
     wireplumber.enable = true;
   };
 
-  programs = {
-    kdeconnect.enable = true;
-
-    zsh.enable = true;
-  };
-
-  # apparently necessary for completion of system packages?
-  environment.pathsToLink = [ "/share/zsh" ];
+  # is there something I should add here? Is it "rtkit" or "dconf" or something? Cant remember
 }
