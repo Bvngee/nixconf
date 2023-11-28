@@ -22,6 +22,10 @@
   programs.zsh.enable = true; # needs to be in system config
   environment.pathsToLink = [ "/share/zsh" ]; # apparently needed for completion of system packages?
 
+  environment.systemPackages = with pkgs; [
+    git
+  ];
+
   nixpkgs = {
     overlays = [];
     config = {

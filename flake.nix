@@ -58,6 +58,7 @@
             ./nixos/greetd.nix
             ./nixos/wayland.nix #TODO: figure out where these three go
             ./nixos/kde.nix
+            { services.xremap.deviceName = "GMMK"; }
           ];
         };
         "latitude" = nixpkgs.lib.nixosSystem {
@@ -97,6 +98,7 @@
             ./home/wayland
             ./home/shell
             ./home/nvim
+            {wayland.windowManager.hyprland.enableNvidiaPatches = true;}
           ];
         };
         "jack@latitude" = home-manager.lib.homeManagerConfiguration {

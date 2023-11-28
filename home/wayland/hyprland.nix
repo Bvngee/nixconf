@@ -12,7 +12,7 @@ in {
   wayland.windowManager.hyprland = {
     enable = true;
     xwayland.enable = true;
-    enableNvidiaPatches = true; # necessary?? is this doing anything?
+    enableNvidiaPatches = false; # necessary?? is this doing anything? # false by default?
     plugins = [
       inputs.split-monitor-workspaces.packages.${pkgs.system}.split-monitor-workspaces
     ];

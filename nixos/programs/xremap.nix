@@ -5,7 +5,7 @@
     services.xremap = {
         withWlroots = true; # future- make depend on variables?
         watch = true;
-        deviceName = "GMMK";
+        #deviceName = "GMMK";
         userName = "jack";
         serviceMode = "system";
         config = {

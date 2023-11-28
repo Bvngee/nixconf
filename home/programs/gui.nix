@@ -10,10 +10,10 @@
 
     # Discord
     #(pkgsUnstable.discord.override {
-    (pkgs.discord.override {
-      withOpenASAR = false;
-      withVencord = false;
-    })
+    #(pkgs.discord.override {
+    #  withOpenASAR = false;
+    #  withVencord = false;
+    #})
 
     # Games
     prismlauncher
