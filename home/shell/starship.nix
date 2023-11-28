@@ -6,32 +6,30 @@
     enableZshIntegration = true;
     settings = {
       add_newline = false;
-      format = let 
-        color = str: fg: bg: ''[${str}](fg:${fg} bg:${bg})'';
-      in lib.concatStrings [ 
-        (color " " "0" "4") #  
+      format = lib.concatStrings [ 
+        "[](fg:4 bg:0)" #  
         ''$directory''
-        (color " " "6" "4")
+        "[](fg:6 bg:4)"
         ''$git_branch$git_status''
-        (color "" "6" "2")
+        "[](fg:2 bg:6)"
         ''$nix_shell''
-        (color "" "0" "2")
+        "[](fg:0 bg:2)"
         " "
       ]; directory = {
-        format = ''[$path](bg:4 fg:0)'';
+        format = ''[ $path ](bg:4 fg:0)'';
         fish_style_pwd_dir_length = 1;
         truncation_length = 5;
         truncate_to_repo = false;
         truncation_symbol = "…/";
       };
       git_branch = {
-        format = "[( $branch )](bg:2 fg:0)"; #   
+        format = "[( $branch )](bg:6 fg:0)"; #   
       };
       git_status = {
-        format = "[($all_status$ahead_behind )](bg:2 fg:0)";
+        format = "[($all_status$ahead_behind )](bg:6 fg:0)";
       };
       nix_shell = {
-        format = "[( $name )](bg:3 fg:0)";
+        format = "[( $name )](bg:2 fg:0)";
       };
     };
   };
