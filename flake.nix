@@ -32,7 +32,6 @@
   outputs = { nixpkgs, home-manager, ... }@inputs:
     let
       system = "x86_64-linux";
-
       conf = {
         inherit system;
         config.allowUnfree = true;
@@ -47,7 +46,7 @@
           modules = [
             ./hosts/pc
             ./hosts/shared
-             
+
             ./nixos/hardware/audio.nix
             ./nixos/hardware/openrgb.nix
             ./nixos/hardware/printing.nix
@@ -66,7 +65,7 @@
           modules = [
             ./hosts/latitude
             ./hosts/shared
-             
+
             ./nixos/hardware/audio.nix
             ./nixos/hardware/printing.nix
             ./nixos/programs/gaming.nix
@@ -132,7 +131,7 @@
             ./home/programs/cli.nix
             ./home/shell
             ./home/nvim
-            {programs.home-manager.enable = nixpkgs.lib.mkForce true;}
+            { programs.home-manager.enable = nixpkgs.lib.mkForce true; }
           ];
         };
       };

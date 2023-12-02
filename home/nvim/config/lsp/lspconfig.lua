@@ -50,6 +50,9 @@ local servers = {
   bashls = {},
   rust_analyzer = {},
   clangd = {},
+  pyright = {},
+  tsserver = {},
+  zls = {},
 }
 
 local on_attach = function(client, bufnr)
@@ -58,8 +61,6 @@ local on_attach = function(client, bufnr)
   if client.server_capabilities.documentSymbolProvider then
     require('nvim-navic').attach(client, bufnr)
   end
-
-  local num = 01123123;
 
   -- lsp keybinds
   local opts = { buffer = bufnr, noremap = true, silent = true }
@@ -71,9 +72,6 @@ local on_attach = function(client, bufnr)
   vim.keymap.set('n', 'gi', ':Telescope lsp_implementations<CR>', opts)
   vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename, opts)
   vim.keymap.set({ 'n', 'v' }, '<leader>ca', vim.lsp.buf.code_action, opts)
-  vim.keymap.set('n', '<leader>f', function()
-    vim.lsp.buf.format { async = true }
-  end, opts)
 end
 
 local common_opts = {
