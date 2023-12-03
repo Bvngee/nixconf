@@ -23,6 +23,13 @@ in {
       neodev-nvim
       nvim-lspconfig
 
+      # formatting
+      unstableVimPlugins.conform-nvim
+
+      # linting
+      #nvim-lint - setup later?
+      #eg. use for eslint, clang-tidy, and more?
+
       # cmp
       nvim-cmp
       cmp-nvim-lsp
@@ -96,6 +103,7 @@ in {
         ./config/plugins/rainbow-delimiters.lua
         ./config/plugins/nvim-navic.lua
         ./config/plugins/persisted.lua
+        ./config/plugins/conform-nvim.lua
 
         ./config/plugins/mini-ai.lua
         ./config/plugins/mini-comment.lua

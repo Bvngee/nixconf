@@ -1,4 +1,4 @@
-{ pkgs, ... }: {
+{ pkgs, pkgsUnstable, ... }: {
     home.packages = with pkgs; [
         # Misc/Related
         jetbrains.idea-community
@@ -13,13 +13,32 @@
 
         # Python
         python3 # doesn't handle packages
+        nodePackages.pyright
+        pkgsUnstable.ruff
 
         # Java
         temurin-jre-bin-18
 
         # Lua
-        nil
         lua-language-server
         stylua
+
+        # Shell
+        nodePackages.bash-language-server
+        shellcheck
+
+        # Nix
+        nixpkgs-fmt
+        nil
+
+        # JS/TS
+        nodejs
+        nodePackages.typescript-language-server
+        nodePackages.typescript
+        nodePackages.eslint
+        pkgsUnstable.prettierd
+
+        # Zig
+        zig
     ];
 }
