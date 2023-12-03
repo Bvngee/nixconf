@@ -29,17 +29,17 @@
     base16.url = "github:SenchoPens/base16.nix";
   };
 
-  outputs = { nixpkgs, home-manager, ... }@inputs:
+  outputs = { nixpkgs, nixpkgs-unstable, home-manager, ... }@inputs:
     let
       system = "x86_64-linux";
 
-      conf = {
+      nixpkgsConf = {
         inherit system;
         config.allowUnfree = true;
-        config.allowUnfreePredicate = pkgs: true;
+        config.allowUnfreePredicate = _: true;
       };
-      pkgs = import nixpkgs conf;
-      pkgsUnstable = import inputs.nixpkgs-unstable conf;
+      pkgs = import nixpkgs nixpkgsConf;
+      pkgsUnstable = import nixpkgs-unstable nixpkgsConf;
     in {
       nixosConfigurations = {
         "pc" = nixpkgs.lib.nixosSystem {
@@ -51,6 +51,7 @@
             ./nixos/hardware/audio.nix
             ./nixos/hardware/openrgb.nix
             ./nixos/hardware/printing.nix
+            ./nixos/hardware/usb.nix
             ./nixos/programs/gaming.nix
             ./nixos/programs/thunar.nix
             ./nixos/programs/xremap.nix
@@ -69,6 +70,7 @@
              
             ./nixos/hardware/audio.nix
             ./nixos/hardware/printing.nix
+            ./nixos/hardware/usb.nix
             ./nixos/programs/gaming.nix
             ./nixos/programs/thunar.nix
             ./nixos/programs/xremap.nix

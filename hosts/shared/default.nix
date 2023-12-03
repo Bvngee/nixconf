@@ -15,7 +15,7 @@
   users.users.jack = {
     isNormalUser = true;
     description = "Jack Nystrom";
-    extraGroups = [ "wheel" "networkmanager" ]; # "input" "uinput"
+    extraGroups = [ "wheel" "networkmanager" "plugdev" ]; # "input" "uinput"
     shell = pkgs.zsh;
   };
 
