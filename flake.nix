@@ -50,6 +50,7 @@
             ./nixos/hardware/audio.nix
             ./nixos/hardware/openrgb.nix
             ./nixos/hardware/printing.nix
+            ./nixos/hardware/backlight.nix
             ./nixos/hardware/usb.nix
             ./nixos/programs/gaming.nix
             ./nixos/programs/thunar.nix
@@ -69,6 +70,7 @@
 
             ./nixos/hardware/audio.nix
             ./nixos/hardware/printing.nix
+            ./nixos/hardware/backlight.nix
             ./nixos/hardware/usb.nix
             ./nixos/programs/gaming.nix
             ./nixos/programs/thunar.nix
