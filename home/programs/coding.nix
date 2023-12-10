@@ -17,7 +17,7 @@
         pkgsUnstable.ruff
 
         # Java
-        temurin-jre-bin-18
+        temurin-bin-18
 
         # Lua
         lua-language-server

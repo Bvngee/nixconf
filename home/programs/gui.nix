@@ -3,6 +3,7 @@
     # Image, video
     libsForQt5.gwenview
     mpv
+    imv
 
     # Office Suite
     onlyoffice-bin
@@ -21,5 +22,6 @@
     # Misc/Other
     obs-studio
     firefox
+    zoom-us
   ];
 }

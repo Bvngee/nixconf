@@ -12,7 +12,7 @@ in {
   wayland.windowManager.hyprland = {
     enable = true;
     xwayland.enable = true;
-    enableNvidiaPatches = false; # necessary?? is this doing anything? # false by default?
+    enableNvidiaPatches = lib.mkDefault false; # necessary?? is this doing anything? # false by default?
     plugins = [
       inputs.split-monitor-workspaces.packages.${pkgs.system}.split-monitor-workspaces
     ];
@@ -69,7 +69,7 @@ in {
               natural_scroll = false
           }
       
-          sensitivity = -0.7 # -1.0 - 1.0, 0 means no modification.
+          sensitivity = -0.9 # -1.0 - 1.0, 0 means no modification.
       
           numlock_by_default = true
       }

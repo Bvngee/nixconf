@@ -1,17 +1,8 @@
-{ ... }:
-
-{
-  nixpkgs = {
-    overlays = [];
-    config = {
-      allowUnfree = true;
-      allowUnfreePredicate = pkg: true;
-    };
-  };
-
+{ ... }: {
   home = {
-    username = "jack";  
-    homeDirectory = "/home/jack";  
+    # TODO: set these depending on user variable?
+    username = "jack";
+    homeDirectory = "/home/jack";
     stateVersion = "23.05"; # Please read the comments before changing this value.  
   };
 

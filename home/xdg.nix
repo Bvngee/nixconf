@@ -10,6 +10,9 @@
       };
     };
 
+    # Hopefully this fixes the constant override warnings?
+    configFile."mimeapps.list".force = true;
+
     userDirs = {
       enable = true;
       createDirectories = true;
