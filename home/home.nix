@@ -1,8 +1,7 @@
-{ ... }: {
+{ user, ... }: {
   home = {
-    # TODO: set these depending on user variable?
-    username = "jack";
-    homeDirectory = "/home/jack";
+    username = user;
+    homeDirectory = "/home/${user}";
   };
 
   manual = {

@@ -1,8 +1,9 @@
-{ ... }: {
+{ hostname, isMobile, ... }: {
 
-  # TODO: modularize
-  networking.hostName = "pc";
+  networking.hostName = hostname;
   networking.nameservers = [ "1.1.1.1" "8.8.8.8" ];
-  networking.networkmanager.enable = false;
+
+  # If I ever have a desktop without ethernet, change this
+  networking.networkmanager.enable = isMobile;
 
 }
