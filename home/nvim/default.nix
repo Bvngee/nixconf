@@ -1,4 +1,4 @@
-{ pkgs, config, pkgsUnstable, ... }: let
+{ pkgs, lib, config, pkgsUnstable, ... }: let
   unstableVimPlugins = pkgsUnstable.vimPlugins;
   persisted = pkgs.vimUtils.buildVimPlugin {
     name = "persisted";
@@ -11,6 +11,8 @@
     configurePhase = "rm ./Makefile";
   };
 in {
+  home.file.".config/testFile".source = config.lib.file.mkOutOfStoreSymlink ../../testFile;
+  
   programs.neovim = {
     enable = true;
     
@@ -87,7 +89,7 @@ in {
     in 
       ( # base16.nix nvim integration using nvim-base16 plugin
         import ./config/plugins/nvim-base16.nix { inherit (config) scheme; }
-      ) +
+      ) + "\n" +
       builtins.concatStringsSep "\n" (map addLuaFile [
         ./config/plugins/nvim-base16.lua
 
@@ -115,14 +117,12 @@ in {
         ./config/lsp/lspconfig.lua
         ./config/lsp/nvim-jdtls.lua
         ./config/lsp/nvim-cmp.lua
-      ]) + ''
-
+      ]) + "\n" + ''
         require('mini.cursorword').setup {}
         require('nvim-autopairs').setup {}
         require('guess-indent').setup {}
         require('crates').setup { src = { cmp = { enabled = true } } }
         require('luasnip.loaders.from_vscode').lazy_load()
-
       '';
   };
 }

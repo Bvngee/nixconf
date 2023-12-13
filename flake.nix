@@ -1,6 +1,14 @@
 {
   description = "BvngeeCord's NixOS system and home configurations";
 
+  outputs = { nixpkgs, ... }@inputs: {
+
+    nixosConfigurations = import ./profiles/nixos { inherit nixpkgs inputs; };
+
+    homeConfigurations = import ./profiles/home { inherit nixpkgs inputs; };
+
+  };
+
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-23.05";
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
@@ -29,115 +37,4 @@
     base16.url = "github:SenchoPens/base16.nix";
   };
 
-  outputs = { nixpkgs, nixpkgs-unstable, home-manager, ... }@inputs:
-    let
-      system = "x86_64-linux";
-      nixpkgsConf = {
-        inherit system;
-        config.allowUnfree = true;
-        config.allowUnfreePredicate = _: true;
-      };
-      pkgs = import nixpkgs nixpkgsConf;
-      pkgsUnstable = import nixpkgs-unstable nixpkgsConf;
-    in {
-      nixosConfigurations = {
-        "pc" = nixpkgs.lib.nixosSystem {
-          specialArgs = { inherit inputs pkgsUnstable; };
-          modules = [
-            ./hosts/pc
-            ./hosts/shared
-
-            ./nixos/hardware/audio.nix
-            ./nixos/hardware/openrgb.nix
-            ./nixos/hardware/printing.nix
-            ./nixos/hardware/backlight.nix
-            ./nixos/hardware/usb.nix
-            ./nixos/programs/gaming.nix
-            ./nixos/programs/thunar.nix
-            ./nixos/programs/xremap.nix
-            ./nixos/programs/kdeconnect.nix
-            ./nixos/greetd.nix
-            ./nixos/wayland.nix #TODO: figure out where these three go
-            ./nixos/kde.nix
-            { services.xremap.deviceName = "GMMK"; }
-          ];
-        };
-        "latitude" = nixpkgs.lib.nixosSystem {
-          specialArgs = { inherit inputs pkgsUnstable; };
-          modules = [
-            ./hosts/latitude
-            ./hosts/shared
-
-            ./nixos/hardware/audio.nix
-            ./nixos/hardware/printing.nix
-            ./nixos/hardware/backlight.nix
-            ./nixos/hardware/usb.nix
-            ./nixos/programs/gaming.nix
-            ./nixos/programs/thunar.nix
-            ./nixos/programs/xremap.nix
-            ./nixos/programs/kdeconnect.nix
-            ./nixos/greetd.nix
-            ./nixos/wayland.nix #TODO: figure out where these three go
-            ./nixos/kde.nix
-          ];
-        };
-      };
-      homeConfigurations = {
-        "jack@pc" = home-manager.lib.homeManagerConfiguration {
-          inherit pkgs;
-          extraSpecialArgs = { inherit inputs pkgsUnstable; };
-          modules = [
-            ./home/home.nix
-            ./home/kitty.nix
-            ./home/spicetify.nix
-            #./home/kdeconnect.nix
-            ./home/git.nix
-            ./home/xdg.nix
-            ./home/theme.nix
-            ./home/base16.nix
-            ./home/programs/coding.nix
-            ./home/programs/cli.nix
-            ./home/programs/gui.nix
-            ./home/wayland
-            ./home/shell
-            ./home/nvim
-            {wayland.windowManager.hyprland.enableNvidiaPatches = true;}
-          ];
-        };
-        "jack@latitude" = home-manager.lib.homeManagerConfiguration {
-          inherit pkgs;
-          extraSpecialArgs = { inherit inputs pkgsUnstable; };
-          modules = [
-            ./home/home.nix
-            ./home/kitty.nix
-            ./home/spicetify.nix
-            #./home/kdeconnect.nix
-            ./home/git.nix
-            ./home/xdg.nix
-            ./home/theme.nix
-            ./home/base16.nix
-            ./home/programs/coding.nix
-            ./home/programs/cli.nix
-            ./home/programs/gui.nix
-            ./home/wayland
-            ./home/shell
-            ./home/nvim
-          ];
-        };
-        "jack@wsl" = home-manager.lib.homeManagerConfiguration {
-          inherit pkgs;
-          extraSpecialArgs = { inherit inputs pkgsUnstable; };
-          modules = [
-            ./home/home.nix
-            ./home/git.nix
-            ./home/xdg.nix
-            ./home/programs/coding.nix
-            ./home/programs/cli.nix
-            ./home/shell
-            ./home/nvim
-            { programs.home-manager.enable = nixpkgs.lib.mkForce true; }
-          ];
-        };
-      };
-    };
 }

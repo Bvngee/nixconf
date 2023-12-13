@@ -3,7 +3,6 @@
     # TODO: set these depending on user variable?
     username = "jack";
     homeDirectory = "/home/jack";
-    stateVersion = "23.05"; # Please read the comments before changing this value.  
   };
 
   manual = {
