@@ -28,6 +28,8 @@ let
     ../../nixos/nixpkgs.nix
     ../../nixos/users.nix
     ../../nixos/greetd.nix
+    ../../nixos/shared.nix
+    ../../nixos/wayland.nix # TODO: why is this a module lmao
 
     ../../nixos/hardware/printing.nix
     ../../nixos/hardware/backlight.nix
@@ -35,6 +37,9 @@ let
     ../../nixos/hardware/usb.nix
     ../../nixos/hardware/audio.nix
     ../../nixos/hardware/network.nix
+
+    ../../nixos/boot/systemd-boot.nix
+    ../../nixos/boot/kernel.nix
 
     ../../nixos/programs/thunar.nix
     ../../nixos/programs/xremap.nix
@@ -56,8 +61,6 @@ in
       ./pc/hardware-configuration.nix
       { system.stateVersion = "23.05"; }
 
-      ../../nixos/shared.nix
-      ../../nixos/boot/systemd-boot.nix
       ../../nixos/hardware/openrgb.nix
       ../../nixos/hardware/nvidia.nix
     ] ++ commonGraphicalModules;
@@ -76,8 +79,6 @@ in
       ./latitude/hardware-configuration.nix
       { system.stateVersion = "23.05"; }
 
-      ../../nixos/shared.nix
-      ../../nixos/boot/systemd-boot.nix
       ../../nixos/hardware/nvidia.nix
     ] ++ commonGraphicalModules;
   };
