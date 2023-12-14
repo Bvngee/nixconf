@@ -1,4 +1,4 @@
-{ inputs, ... }: {
+{ inputs, pkgs, ... }: {
 
   imports = [ inputs.hyprland.nixosModules.default ];
 
@@ -16,9 +16,12 @@
   };
 
   # does this need to be here?
+  # TODO: remove, and refactor to /wayland/vars.nix + /wayland/hyprland.nix
   programs.hyprland = {
     enable = true;
-    enableNvidiaPatches = true;
   };
 
+  xdg.portal.xdgOpenUsePortal = true; # TODO: improve this section
+  xdg.portal.extraPortals = with pkgs; [ xdg-desktop-portal-gtk ];
+  xdg.portal.config.common.default = [ "gtk" ];
 }

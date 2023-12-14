@@ -1,4 +1,5 @@
-{ lib, config, inputs, pkgs, ... }: let
+{ lib, config, inputs, pkgs, hostname, ... }:
+let
   nvidiaEnvVars = ''
     # NVIDIA env vars (added automatically)
     env = LIBVA_DRIVER_NAME,nvidia
@@ -6,19 +7,19 @@
     env = __GLX_VENDOR_LIBRARY_NAME,nvidia # remove if problems w/ zoom or discord
     env = WLR_NO_HARDWARE_CURSORS,1
   '';
-in {
+  isNvidia = builtins.elem hostname [ "pc" "latitude" ];
+in
+{
   imports = [ inputs.hyprland.homeManagerModules.default ];
 
   wayland.windowManager.hyprland = {
     enable = true;
     xwayland.enable = true;
-    enableNvidiaPatches = lib.mkDefault false; # necessary?? is this doing anything? # false by default?
     plugins = [
       inputs.split-monitor-workspaces.packages.${pkgs.system}.split-monitor-workspaces
     ];
     extraConfig = ''
-
-      ${lib.optionalString config.wayland.windowManager.hyprland.enableNvidiaPatches nvidiaEnvVars}
+      ${lib.optionalString (isNvidia) nvidiaEnvVars}
 
       # monitor = name, res@hz, pos, scale
       monitor = DP-1, 2560x1440@75, 2560x0, 1, transform, 1
@@ -106,7 +107,6 @@ in {
               new_optimizations = true
           }
           rounding = 7
-          multisample_edges = true
       
           # dim_inactive = true
           # dim_strength = 0.1

@@ -1,4 +1,4 @@
-{ pkgsUnstable, ... }: {
+{ ... }: {
 
   imports = [
     ./zsh.nix
@@ -10,12 +10,11 @@
   };
 
   programs = {
-    exa = {
+    eza = {
       enable = true;
       enableAliases = true;
       extraOptions = [ "--group-directories-first" ];
       icons = true;
-      package = pkgsUnstable.eza;
     };
 
     direnv = {
