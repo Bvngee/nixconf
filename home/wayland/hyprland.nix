@@ -1,13 +1,19 @@
 { lib, config, inputs, pkgs, hostname, ... }:
 let
+  isNvidia = builtins.elem hostname [ "pc" "latitude" ];
   nvidiaEnvVars = ''
-    # NVIDIA env vars (added automatically)
     env = LIBVA_DRIVER_NAME,nvidia
     env = GBM_BACKEND,nvidia-drm # remove if problems w/ firefox
     env = __GLX_VENDOR_LIBRARY_NAME,nvidia # remove if problems w/ zoom or discord
     env = WLR_NO_HARDWARE_CURSORS,1
   '';
-  isNvidia = builtins.elem hostname [ "pc" "latitude" ];
+  monitorConfig =
+    if (hostname == "pc") then ''
+      monitor = DP-1, 2560x1440@75, 2560x0, 1, transform, 1
+      monitor = DP-2, 2560x1440@75, 0x300, 1
+    '' else ''
+      monitor = , preferred, auto, 1 # TODO: do I want scaling?
+    '';
 in
 {
   imports = [ inputs.hyprland.homeManagerModules.default ];
@@ -19,11 +25,11 @@ in
       inputs.split-monitor-workspaces.packages.${pkgs.system}.split-monitor-workspaces
     ];
     extraConfig = ''
+      # NVIDIA env vars (added automatically)
       ${lib.optionalString (isNvidia) nvidiaEnvVars}
 
       # monitor = name, res@hz, pos, scale
-      monitor = DP-1, 2560x1440@75, 2560x0, 1, transform, 1
-      monitor = DP-2, 2560x1440@75, 0x300, 1
+      ${monitorConfig}
       
       # bind workspaces to monitors
       # DP-1 (right) gets 11-19, DP-2 (left) 1-9
@@ -148,6 +154,11 @@ in
       
       gestures {
           workspace_swipe = false
+      }
+
+      xwayland {
+        force_zero_scaling = true
+        use_nearest_neighbor = true
       }
       
       plugin {
