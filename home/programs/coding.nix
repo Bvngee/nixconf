@@ -7,12 +7,15 @@
     # C/C++
     clang-tools
     gcc
+    gdb
+    meson
+    ninja
 
     # Rust
     rustup
 
     # Python
-    python3 # doesn't handle packages
+    python3 # doesn't handle python packages
     nodePackages.pyright
     pkgsUnstable.ruff
 

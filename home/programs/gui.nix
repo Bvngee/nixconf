@@ -4,6 +4,7 @@
     libsForQt5.gwenview
     mpv
     imv
+    gimp
 
     # Office Suite
     onlyoffice-bin

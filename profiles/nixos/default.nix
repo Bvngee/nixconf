@@ -61,6 +61,8 @@ in
       ./pc/hardware-configuration.nix
       { system.stateVersion = "23.05"; }
 
+      ../../nixos/programs/gaming.nix
+
       ../../nixos/hardware/openrgb.nix
       ../../nixos/hardware/nvidia.nix
     ] ++ commonGraphicalModules;

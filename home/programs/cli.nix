@@ -8,5 +8,7 @@
         btop
         htop
         neofetch
+        unzip
+        zip
     ];
 }

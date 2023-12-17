@@ -12,6 +12,7 @@
     wlr-randr
     wf-recorder
     wev
+    hyprpicker
   ];
 
   #wlr_no_hardware_cursors did not work here - maybe these won't either?

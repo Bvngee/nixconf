@@ -3,7 +3,9 @@ local jdtls = require('jdtls')
 local home = os.getenv('HOME')
 local root_markers = {'gradlew', 'mvnw', '.git'}
 local root_dir = require('jdtls.setup').find_root(root_markers)
-local workspace_folder = home .. "/.local/share/eclipse/" .. root_dir
+if root_dir ~= nil then -- bruh again
+    local workspace_folder = home .. "/.local/share/eclipse/" .. root_dir
+end
 
 local config = {
     cmd = { 
@@ -23,4 +25,4 @@ local config = {
     root_dir = root_dir,
 }
 
-jdtls.start_or_attach(config)
+-- jdtls.start_or_attach(config) -- this shit keeps running and failing every single time I open a file. Bruh.
