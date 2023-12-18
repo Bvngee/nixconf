@@ -1,4 +1,4 @@
-{ pkgs, ... }: {
+{ pkgs, pkgsUnstable, ... }: {
   imports = [
     ./hyprland.nix
     ./swayidle.nix
@@ -13,6 +13,7 @@
     wf-recorder
     wev
     hyprpicker
+    pkgsUnstable.satty
   ];
 
   #wlr_no_hardware_cursors did not work here - maybe these won't either?

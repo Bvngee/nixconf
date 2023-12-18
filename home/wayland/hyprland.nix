@@ -1,7 +1,8 @@
-{ lib, config, inputs, pkgs, hostname, ... }:
+{ lib, config, inputs, pkgs, hostname, isMobile, ... }:
 let
-  isNvidia = builtins.elem hostname [ "pc" "latitude" ];
+  isNvidia = builtins.elem hostname [ "pc" ];
   nvidiaEnvVars = ''
+    # NVIDIA env vars (added automatically)
     env = LIBVA_DRIVER_NAME,nvidia
     env = GBM_BACKEND,nvidia-drm # remove if problems w/ firefox
     env = __GLX_VENDOR_LIBRARY_NAME,nvidia # remove if problems w/ zoom or discord
@@ -9,11 +10,24 @@ let
   '';
   monitorConfig =
     if (hostname == "pc") then ''
-      monitor = DP-1, 2560x1440@75, 2560x0, 1, transform, 1
       monitor = DP-2, 2560x1440@75, 0x300, 1
+      monitor = DP-1, 2560x1440@75, 2560x0, 1, transform, 1
     '' else ''
       monitor = , preferred, auto, 1 # TODO: do I want scaling?
     '';
+  screenshot = pkgs.writeShellScriptBin "screenshot" ''
+    grim -g "$(slurp -c '#ff0000ff')" - | satty \
+      --filename - \
+      --output-filename \
+      ~/Pictures/Screenshots/$(date '+%m%d%Y-%H:%M:%S').png
+  '';
+  screenshotFull = pkgs.writeShellScriptBin "screenshotFull" ''
+    grim -o - | satty \
+      --filename - \
+      --fullscreen \
+      --output-filename \
+      ~/Pictures/Screenshots/$(date '+%m%d%Y-%H:%M:%S').png
+  '';
 in
 {
   imports = [ inputs.hyprland.homeManagerModules.default ];
@@ -25,33 +39,10 @@ in
       inputs.split-monitor-workspaces.packages.${pkgs.system}.split-monitor-workspaces
     ];
     extraConfig = ''
-      # NVIDIA env vars (added automatically)
       ${lib.optionalString (isNvidia) nvidiaEnvVars}
 
       # monitor = name, res@hz, pos, scale
       ${monitorConfig}
-      
-      # bind workspaces to monitors
-      # DP-1 (right) gets 11-19, DP-2 (left) 1-9
-      workspace = 1, monitor:DP-1, default:true
-      workspace = 2, monitor:DP-1
-      workspace = 3, monitor:DP-1
-      workspace = 4, monitor:DP-1
-      workspace = 5, monitor:DP-1
-      workspace = 6, monitor:DP-1
-      workspace = 7, monitor:DP-1
-      workspace = 8, monitor:DP-1
-      workspace = 9, monitor:DP-1
-      
-      workspace = 11, monitor:DP-2, default:true
-      workspace = 12, monitor:DP-2
-      workspace = 13, monitor:DP-2
-      workspace = 14, monitor:DP-2
-      workspace = 15, monitor:DP-2
-      workspace = 16, monitor:DP-2
-      workspace = 17, monitor:DP-2
-      workspace = 18, monitor:DP-2
-      workspace = 19, monitor:DP-2
       
       exec-once = hyprctl setcursor ${config.home.pointerCursor.name} ${toString config.home.pointerCursor.size}
       exec-once = swww init # wallpaper daemon
@@ -73,12 +64,20 @@ in
           mouse_refocus = false
       
           touchpad {
-              natural_scroll = false
+              disable_while_typing = false
+              #scroll_factor = 0.5
           }
       
-          sensitivity = -0.9 # -1.0 - 1.0, 0 means no modification.
+          # -1.0 - 1.0, 0 means no modification.
+          ${if isMobile then "sensitivity = -0.2" else "sensitivity = -0.9"}
       
           numlock_by_default = true
+      }
+
+      gestures {
+          # cant get this to work at all on my latitude?
+          workspace_swipe = true
+          workspace_swipe_forever = true
       }
       
       general {
@@ -215,8 +214,18 @@ in
       bind = SUPER SHIFT, Q, exec, [float; size 1000 600; move cursor -50% -50%] kitty
       bind = SUPER, E, exec, thunar
       bind = SUPER, W, exec, firefox
+  
+      # Media keys
+      bind = , XF86AudioRaiseVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.05+ -l 1.0
+      bind = , XF86AudioLowerVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.05-
+      bind = , XF86AudioMute, exec, wpctl set-mute @DEFAULT_SINK@ toggle
+      bind = , XF86AudioMicMute, exec, wpctl set-mute @DEFAULT_SOURCE@ toggle
+      bind = , XF86MonBrightnessUp, exec, brightnessctl s 10%+
+      bind = , XF86MonBrightnessDown, exec, brightnessctl s 10%-
+      bind = , Print, exec, ${screenshot}/bin/screenshot
+      bind = CONTROL, Print, exec, ${screenshotFull}/bin/screenshotFull
       
-      # Misc hyprland functions
+      # Hyprland functions
       bind = SUPER, D, killactive
       bind = SUPER, V, togglefloating,
       bind = SUPER SHIFT, P, pin,
@@ -259,8 +268,6 @@ in
       bind = SUPER CONTROL, J, movewindow, d
       bind = SUPER CONTROL, K, movewindow, u
       bind = SUPER CONTROL, L, movewindow, r
-      
-      # bind = SUPER CONTROL, B, swapwindow, r
       
       # Move window focus 
       # SUPER + [ arrow keys / vim keys ]
