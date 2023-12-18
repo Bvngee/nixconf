@@ -81,7 +81,6 @@ in
       ./latitude/hardware-configuration.nix
       { system.stateVersion = "23.05"; }
 
-      ../../nixos/hardware/nvidia.nix
     ] ++ commonGraphicalModules;
   };
 }
