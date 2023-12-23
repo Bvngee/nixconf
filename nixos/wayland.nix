@@ -3,14 +3,13 @@
   imports = [ inputs.hyprland.nixosModules.default ];
 
   environment.sessionVariables = {
-    _JAVA_AWT_WM_NONPARENTING = "1";
-
-    QT_QPA_PLATFORM = "wayland";
+    _JAVA_AWT_WM_NONEREPARENTING = "1";
+    GDK_BACKEND = "wayland,x11";
     SLD_VIDEODRIVER = "wayland";
+    QT_QPA_PLATFORM = "wayland;xcb";
     XDG_SESSION_TYPE = "wayland";
 
     NIXOS_OZONE_WL = "1";
-    WLR_NO_HARDWARE_CURSORS = "1";
 
     LIBSEAT_BACKEND = "logind";
   };
@@ -21,7 +20,10 @@
     enable = true;
   };
 
-  xdg.portal.xdgOpenUsePortal = true; # TODO: improve this section
-  xdg.portal.extraPortals = with pkgs; [ xdg-desktop-portal-gtk ];
-  xdg.portal.config.common.default = [ "gtk" ];
+  xdg = {
+    portal.xdgOpenUsePortal = true; # TODO: improve this section
+    portal.extraPortals = with pkgs; [ xdg-desktop-portal-gtk ];
+    portal.config.common.default = [ "gtk" ];
+    portal.config.hyprland.default = [ "hyprland" "gtk" ];
+  };
 }

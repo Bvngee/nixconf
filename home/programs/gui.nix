@@ -24,5 +24,7 @@
     obs-studio
     firefox
     zoom-us
+    gnome.gnome-calculator
+    libsForQt5.kcalc
   ];
 }

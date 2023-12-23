@@ -1,16 +1,19 @@
-{ inputs, pkgs, config, ... }: let
+{ inputs, pkgs, config, ... }:
+let
   base16-schemes = pkgs.fetchFromGitHub {
     owner = "tinted-theming";
     repo = "base16-schemes";
     rev = "a9112eaae86d9dd8ee6bb9445b664fba2f94037a";
     hash = "sha256-5yIHgDTPjoX/3oDEfLSQ0eJZdFL1SaCfb9d6M0RmOTM=";
   };
-in {
-  imports = [ 
+in
+{
+  imports = [
     inputs.base16.homeManagerModule
   ];
 
   # base16.nix scheme
+  # TODO: Modularize with profiles' variables
   scheme = "${base16-schemes}/gruvbox-material-dark-medium.yaml"; #nord
 
   home.packages = with config.scheme.withHashtag; let
@@ -34,5 +37,6 @@ in {
         base0F = "${base0F}",
       " | nvim
     '';
-  in [ printScheme ];
+  in
+  [ printScheme ];
 }

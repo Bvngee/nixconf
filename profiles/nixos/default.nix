@@ -41,6 +41,7 @@ let
     ../../nixos/boot/systemd-boot.nix
     ../../nixos/boot/kernel.nix
 
+    ../../nixos/programs/gui # TODO: refactor into nixos/[gui|cli|?]
     ../../nixos/programs/thunar.nix
     ../../nixos/programs/xremap.nix
     ../../nixos/programs/zsh.nix

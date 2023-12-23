@@ -3,10 +3,30 @@
     enable = true;
     mimeApps = {
       enable = true;
-      defaultApplications = {
+      defaultApplications = let
+        browser = ["firefox.desktop"];
+      in {
+        "text/html" = browser;
+        "x-scheme-handler/http" = browser;
+        "x-scheme-handler/https" = browser;
+        "x-scheme-handler/ftp" = browser;
+        "x-scheme-handler/about" = browser;
+        "x-scheme-handler/unknown" = browser;
+        "application/x-extension-htm" = browser;
+        "application/x-extension-html" = browser;
+        "application/x-extension-shtml" = browser;
+        "application/xhtml+xml" = browser;
+        "application/x-extension-xhtml" = browser;
+        "application/x-extension-xht" = browser;
+        "application/json" = browser;
+
+        "application/x-xz-compressed-tar" = ["org.kde.ark.desktop"];
+
         "audio/*" = ["mpv.desktop"];
         "video/*" = ["mpv.desktop"];
-        "image/*" = ["gwenview.desktop"];
+        "image/*" = ["gwenview.desktop"]; # imv.desktop?
+
+        "inode/directory" = ["thunar.desktop"];
       };
     };
 

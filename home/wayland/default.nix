@@ -13,6 +13,7 @@
     wf-recorder
     wev
     hyprpicker
+    libnotify
     pkgsUnstable.satty
   ];
 

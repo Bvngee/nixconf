@@ -35,6 +35,11 @@
     nix-gaming.url = "github:fufexan/nix-gaming";
 
     base16.url = "github:SenchoPens/base16.nix";
+
+    matugen = {
+      url = "github:InioX/matugen";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
 }

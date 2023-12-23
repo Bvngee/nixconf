@@ -263,6 +263,26 @@
         "type": "github"
       }
     },
+    "matugen": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1703102730,
+        "narHash": "sha256-CCe9GxuhQrL1VFUiFxXwavZTW+fv1xh8333RSWf7Yhk=",
+        "owner": "InioX",
+        "repo": "matugen",
+        "rev": "fd262c1f8d328fab7db833040397b30c23a37100",
+        "type": "github"
+      },
+      "original": {
+        "owner": "InioX",
+        "repo": "matugen",
+        "type": "github"
+      }
+    },
     "nix-filter": {
       "locked": {
         "lastModified": 1693833173,
@@ -466,6 +486,7 @@
         "base16": "base16",
         "home-manager": "home-manager",
         "hyprland": "hyprland",
+        "matugen": "matugen",
         "nix-gaming": "nix-gaming",
         "nixpkgs": "nixpkgs_3",
         "nixpkgs-unstable": "nixpkgs-unstable",

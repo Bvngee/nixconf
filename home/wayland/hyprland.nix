@@ -203,11 +203,8 @@ in
       
       # Blur waybar and dunst notifications
       layerrule = blur, waybar
-      layerrule = blur, notifications
-      layerrule = ignorezero, notifications
-      
-      # no fade-in for Rofi
-      layerrule = noanim, rofi
+      #layerrule = blur, notifications
+      #layerrule = ignorezero, notifications
       
       # Application keybinds
       bind = SUPER, Q, exec, kitty

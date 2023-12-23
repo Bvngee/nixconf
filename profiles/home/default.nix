@@ -28,11 +28,17 @@ let
     ../../home/home.nix
     ../../home/nixpkgs.nix
     ../../home/xdg.nix
-    ../../home/theme.nix
+    ../../home/theme/fonts.nix
+    ../../home/theme/cursor.nix
+    ../../home/theme/gtk.nix
+    ../../home/theme/qt.nix
+    ../../home/theme/base16.nix
+    ../../home/theme/matugen.nix
     ../../home/git.nix
-    ../../home/base16.nix
     ../../home/kdeconnect.nix
     ../../home/kitty.nix
+    ../../home/dunst.nix
+    ../../home/ironbar.nix
     ../../home/spicetify.nix
 
     ../../home/programs/cli.nix

@@ -17,4 +17,7 @@
 
   # necessary for both X and Wayland based apps
   services.xserver.videoDrivers = [ "nvidia" ];
+
+  # only necessary on SOME nvidia systems
+  environment.sessionVariables.WLR_NO_HARDWARE_CURSORS = "1";
 }

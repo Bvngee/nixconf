@@ -1,6 +1,6 @@
-{ pkgs, ... }: {
-  time.timeZone = "America/Los_Angeles";
-  i18n.defaultLocale = "en_US.UTF-8";
+{ pkgs, timezone, locale, ... }: {
+  time.timeZone = timezone;
+  i18n.defaultLocale = locale;
 
   console = {
     packages = with pkgs; [ terminus_font ];

@@ -10,5 +10,6 @@
         neofetch
         unzip
         zip
+        jq
     ];
 }
