@@ -82,6 +82,7 @@ in
       ./latitude/hardware-configuration.nix
       { system.stateVersion = "23.05"; }
 
+      ../../nixos/kde.nix
     ] ++ commonGraphicalModules;
   };
 }
