@@ -13,7 +13,7 @@ let
       monitor = DP-2, 2560x1440@75, 0x300, 1
       monitor = DP-1, 2560x1440@75, 2560x0, 1, transform, 1
     '' else ''
-      monitor = , preferred, auto, auto
+      monitor = , preferred, auto, 1
     '';
   screenshot = pkgs.writeShellScriptBin "screenshot" ''
     grim -g "$(slurp -c '#ff0000ff')" - | satty \
