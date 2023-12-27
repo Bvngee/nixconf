@@ -1,9 +1,16 @@
-{ config, pkgs, user, ... }: 
-{
+{ config, pkgs, user, theme, ... }: {
 
-  # Install GTK theme here to avoid it being set in gtk-x.0/settings.ini
+  # Notes regarding live-switching between dark and light mode at runtime (which I currently do not do):
+  # 1) config.gtk.theme.* must not be set, to avoid theme name being set in gtk-x.0/settings.ini.
+  # 2) `dconf write /org/gnome/desktop/interface/gtk-theme "'adw-gtk3-dark'"`,
+  #    `dconf write /org/gnome/desktop/interface/color-scheme "'prefer-dark'"`, and
+  #    `dconf write /org/gnome/desktop/interface/icon-theme "'Colloid-dark'"` can be used to perform the reload.
+  # 3) It is currently NOT possible to theme dark and light mode with named variables AND live-switch between them.
+  # 
+
   home.packages = with pkgs; [
-    adw-gtk3
+    adw-gtk3                 # GTK3/4
+    gnome.gnome-themes-extra # GTK2 only
 
     gradience
   ];
@@ -20,20 +27,24 @@
       package = pkgs.inter;
       # Should I provide a default size?
     };
-    # Don't set theme here, otherwise it will get added to gtk-x.0/settings.ini, breaking
-    # automatic reloading (dark <-> light mode). dconf will be used to set the theme.
+    # Setting theme here adds it to gtk-2.0/gtkrc and gtk-[3|4].0/settings.ini, though I use different for both.
     #theme = {
     #  name = "adw-gtk3-dark";
     #  package = pkgs.adw-gtk3;
     #};
     iconTheme = {
-      name = "Adwaita";
-      package = pkgs.gnome.adwaita-icon-theme;
+      #Colloid-grey-dark and Colloid-grey-light for grey folder icons
+      name = if (theme.variant == "dark") then "Colloid-dark" else "Colloid";
+      package = pkgs.colloid-icon-theme.override { # possibly rm -rf /apps folder later?
+        schemeVariants = [ "default" ];
+        colorVariants = [ "default" "grey" ];
+      };
     };
 
     gtk2.configLocation = "${config.xdg.configHome}/gtk-2.0/gtkrc";
     # Not sure if all this antialising and hinting stuff is necessary. Taken from NotAShelf
     gtk2.extraConfig = ''
+      gtk-theme-name="${if (theme.variant == "dark") then "Adwaita-dark" else "Adwaita"}"
       gtk-xft-antialias=1
       gtk-xft-hinting=1
       gtk-xft-hintstyle="hintslight"
@@ -67,65 +78,61 @@
   home.sessionVariables = {
     GTK_USE_PORTAL = 1;
   };
-  # Set default dconf database values to prefer dark mode. Both values will be controlled at runtime.
-  dconf.settings."org/gnome/desktop/interface" = {
+  # Set default dconf database values to prefer dark mode.
+  # dconf settings for cursor theme, font, and icon theme, are all set by the gtk module.
+  dconf.settings."org/gnome/desktop/interface" = if (theme.variant == "dark") then {
     gtk-theme = "adw-gtk3-dark";
     color-scheme = "prefer-dark";
-    # dconf settings for cursor theme, font, and icon theme, are all set by the gtk module.
+    icon-theme = "Colloid-dark";
+  } else {
+    gtk-theme = "adw-gtk3";
+    color-scheme = "prefer-light";
+    icon-theme = "Colloid";
   };
 
 
 
-  # GTK3/4 `gtk.css` template using Matugen
-  # Not currently using this, as:
-  # 1) I'm not happy with the Matugen's output; it varies way too much
-  #    from what Gradience or material_color_utilities_python produces
-  # 2) Material color palettes clash harshly with all base16 schemes
-  # 3) Custom GTK themes disallow live-switching from dark <-> light
-  #    modes (why? ISTG this should be possible. Maybe it's just not.)
+  gtk.gtk4.extraCss = config.gtk.gtk3.extraCss;
+  gtk.gtk3.extraCss = let
+    c = config.programs.matugen.theme.colors.colors.${theme.variant};
+  in ''
+    @define-color accent_color ${c.primary};
+    @define-color accent_bg_color ${c.primary};
+    @define-color accent_fg_color ${c.on_primary};
+    @define-color destructive_color ${c.error};
+    @define-color destructive_bg_color ${c.error_container};
+    @define-color destructive_fg_color ${c.on_error_container};
+    @define-color success_color ${c.tertiary};
+    @define-color success_bg_color ${c.tertiary_container};
+    @define-color success_fg_color ${c.on_tertiary_container};
+    @define-color warning_color ${c.secondary};
+    @define-color warning_bg_color ${c.secondary_container};
+    @define-color warning_fg_color ${c.on_secondary_container};
+    @define-color error_color ${c.error};
+    @define-color error_bg_color ${c.error_container};
+    @define-color error_fg_color ${c.on_error_container};
+    @define-color window_bg_color ${c.surface};
+    @define-color window_fg_color ${c.on_surface};
+    @define-color view_bg_color ${c.secondary_container};
+    @define-color view_fg_color ${c.on_surface};
+    @define-color headerbar_bg_color ${c.secondary_container};
+    @define-color headerbar_fg_color ${c.on_secondary_container};
+    @define-color headerbar_border_color ${c.on_surface}50;
+    @define-color headerbar_backdrop_color @window_bg_color;
+    @define-color headerbar_shade_color ${c.on_surface}07;
+    @define-color card_bg_color ${c.primary}05;
+    @define-color card_fg_color ${c.on_secondary_container};
+    @define-color card_shade_color ${c.shadow}07;
+    @define-color dialog_bg_color ${c.secondary_container};
+    @define-color dialog_fg_color ${c.on_secondary_container};
+    @define-color popover_bg_color ${c.secondary_container};
+    @define-color popover_fg_color ${c.on_secondary_container};
+    @define-color shade_color ${c.shadow}24;
+    @define-color scrollbar_outline_color ${c.outline}32;
 
-  #gtk.gtk4.extraCss = config.gtk.gtk3.extraCss;
-  #gtk.gtk3.extraCss = let
-  #  inherit (config.programs.matugen) variant;
-  #  c = config.programs.matugen.theme.colors.colors.${variant};
-  #in ''
-  #  @define-color accent_color ${c.primary};
-  #  @define-color accent_bg_color ${c.primary};
-  #  @define-color accent_fg_color ${c.on_primary};
-  #  @define-color destructive_color ${c.error};
-  #  @define-color destructive_bg_color ${c.error_container};
-  #  @define-color destructive_fg_color ${c.on_error_container};
-  #  @define-color success_color ${c.tertiary};
-  #  @define-color success_bg_color ${c.tertiary_container};
-  #  @define-color success_fg_color ${c.on_tertiary_container};
-  #  @define-color warning_color ${c.secondary};
-  #  @define-color warning_bg_color ${c.secondary_container};
-  #  @define-color warning_fg_color ${c.on_secondary_container};
-  #  @define-color error_color ${c.error};
-  #  @define-color error_bg_color ${c.error_container};
-  #  @define-color error_fg_color ${c.on_error_container};
-  #  @define-color window_bg_color ${c.surface};
-  #  @define-color window_fg_color ${c.on_surface};
-  #  @define-color view_bg_color ${c.secondary_container};
-  #  @define-color view_fg_color ${c.on_surface};
-  #  @define-color headerbar_bg_color ${c.secondary_container};
-  #  @define-color headerbar_fg_color ${c.on_secondary_container};
-  #  @define-color headerbar_border_color ${c.on_surface}50;
-  #  @define-color headerbar_backdrop_color @window_bg_color;
-  #  @define-color headerbar_shade_color ${c.on_surface}07;
-  #  @define-color card_bg_color ${c.primary}05;
-  #  @define-color card_fg_color ${c.on_secondary_container};
-  #  @define-color card_shade_color ${c.shadow}07;
-  #  @define-color dialog_bg_color ${c.secondary_container};
-  #  @define-color dialog_fg_color ${c.on_secondary_container};
-  #  @define-color popover_bg_color ${c.secondary_container};
-  #  @define-color popover_fg_color ${c.on_secondary_container};
-  #  @define-color shade_color ${c.shadow}24;
-  #  @define-color scrollbar_outline_color ${c.outline}32;
-
-  #  @define-color sidebar_bg_color @window_bg_color;
-  #  @define-color sidebar_fg_color @window_fg_color;
-  #  @define-color sidebar_border_color @window_bg_color;
-  #  @define-color sidebar_backdrop_color @window_bg_color;
-  #'';
+    @define-color sidebar_bg_color @window_bg_color;
+    @define-color sidebar_fg_color @window_fg_color;
+    @define-color sidebar_border_color @window_bg_color;
+    @define-color sidebar_backdrop_color @window_bg_color;
+  '';
 }

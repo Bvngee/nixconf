@@ -1,30 +1,27 @@
-{ inputs, pkgs, ... }: {
+{ inputs, lib, pkgs, theme, ... }: {
   home.packages = [
+    # temporary
     inputs.matugen.packages.${pkgs.system}.default
   ];
 
   # Matugen's module works as a NixOS module and a HM module.
   imports = [ inputs.matugen.nixosModules.default ];
 
-#  programs.matugen = {
-#    enable = true;
-#    wallpaper = builtins.fetchurl {
-#      #url = "https://cdna.artstation.com/p/assets/images/images/031/514/156/medium/alena-aenami-budapest.jpg";
-#      #sha256 = "17phdpn0jqv6wk4fcww40s3hlf285yyll2ja31vsic4drbs2nppk";
-#      url = "https://cdna.artstation.com/p/assets/images/images/026/481/586/large/alena-aenami-wait.jpg";
-#      sha256 = "1cjpvi560zxqkiymwd17kjv14z1mhiwbjzlly1bbws0gz2zad8q7";
-#    };
-#    templates = { }; # None so far - I'd rather configure using Nix
-#    palette = "default"; # triadic, adjacent
-#    jsonFormat = "hex"; #RRGGBB
-#    variant = "light";
-#  };
+  programs.matugen = lib.mkIf (theme.wallpaper != null) {
+    enable = true;
+    wallpaper = theme.wallpaper;
+    templates = { }; # None so far - I'd rather configure using Nix
+    palette = "default"; # triadic, adjacent
+    jsonFormat = "hex"; #RRGGBB
+    variant = "light";
+  };
 
 }
 
 
 
 
+# (OLD)
 # An experiment comparing Matugen to material_color_utilities_python:
 
 # # BUDAPEST

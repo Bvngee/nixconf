@@ -4,5 +4,8 @@
   services.avahi.nssmdns = true;
   services.avahi.openFirewall = true;
 
-  environment.systemPackages = [ pkgs.cups-filters ];
+  environment.systemPackages = with pkgs; [
+    cups-filters 
+    system-config-printer
+  ];
 }

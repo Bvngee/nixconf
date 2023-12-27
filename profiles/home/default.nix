@@ -19,7 +19,7 @@ let
           locale
           timezone
           flakeRoot
-          base16-theme;
+          theme;
         inherit inputs pkgs pkgsUnstable;
       };
       modules = config.modules;
@@ -58,7 +58,16 @@ in
     locale = "en_US.UTF-8";
     timezone = "America/Los_Angeles";
     flakeRoot = "/home/jack/dev/nixconf/";
-    base16-theme = "gruvbox-material-dark-medium.yaml";
+    theme = {
+      variant = "dark";
+      base16-scheme = "gruvbox-material-dark-medium";
+      wallpaper = builtins.fetchurl {
+        url = "https://cdna.artstation.com/p/assets/images/images/031/514/156/medium/alena-aenami-budapest.jpg";
+        sha256 = "17phdpn0jqv6wk4fcww40s3hlf285yyll2ja31vsic4drbs2nppk";
+        #url = "https://cdna.artstation.com/p/assets/images/images/026/481/586/large/alena-aenami-wait.jpg";
+        #sha256 = "1cjpvi560zxqkiymwd17kjv14z1mhiwbjzlly1bbws0gz2zad8q7";
+      };
+    };
     modules = [
       { home.stateVersion = "23.05"; }
     ] ++ commonGraphicalModules;
@@ -72,7 +81,14 @@ in
     locale = "en_US.UTF-8";
     timezone = "America/Los_Angeles";
     flakeRoot = "/home/jack/dev/nixconf/";
-    base16-theme = "gruvbox-material-dark-medium.yaml";
+    theme = {
+      variant = "dark";
+      base16-scheme = "gruvbox-material-dark-medium";
+      wallpaper = builtins.fetchurl {
+        url = "https://cdna.artstation.com/p/assets/images/images/031/514/156/medium/alena-aenami-budapest.jpg";
+        sha256 = "17phdpn0jqv6wk4fcww40s3hlf285yyll2ja31vsic4drbs2nppk";
+      };
+    };
     modules = [
       { home.stateVersion = "23.05"; }
     ] ++ commonGraphicalModules;
@@ -86,7 +102,10 @@ in
     locale = "en_US.UTF-8";
     timezone = "America/Los_Angeles";
     flakeRoot = "/home/jack/dev/nixconf/";
-    base16-theme = "gruvbox-material-dark-medium.yaml";
+    theme = {
+      variant = "dark";
+      base16-scheme = "gruvbox-material-dark-medium";
+    };
     modules = [
       { home.stateVersion = "23.05"; }
 
