@@ -45,7 +45,7 @@ in
       ${monitorConfig}
       
       exec-once = hyprctl setcursor ${config.home.pointerCursor.name} ${toString config.home.pointerCursor.size}
-      exec-once = www init # wallpaper daemon
+      exec-once = swww init # wallpaper daemon
       exec-once = thunar --daemon # faster opening
       #exec-once = wl-paste --watch cliphist store # add all CLIPBOARD copies in the cliphist store
       exec-once = wl-paste -p --watch wl-copy -pc # keep PRIMARY buffer empty (functionally removes middle-click-paste)

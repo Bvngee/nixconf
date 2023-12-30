@@ -1,4 +1,8 @@
-{ config, pkgs, user, theme, ... }: {
+{ config, lib, pkgs, user, theme, ... }: let
+    c = config.programs.matugen.theme.colors.colors.${theme.variant};
+    cu = import ./color-utils.nix { inherit lib; };
+    inherit (cu) hexToRgba;
+in {
 
   # Notes regarding live-switching between dark and light mode at runtime (which I currently do not do):
   # 1) config.gtk.theme.* must not be set, to avoid theme name being set in gtk-x.0/settings.ini.
@@ -35,9 +39,14 @@
     iconTheme = {
       #Colloid-grey-dark and Colloid-grey-light for grey folder icons
       name = if (theme.variant == "dark") then "Colloid-dark" else "Colloid";
-      package = pkgs.colloid-icon-theme.override { # possibly rm -rf /apps folder later?
-        schemeVariants = [ "default" ];
-        colorVariants = [ "default" "grey" ];
+      package = pkgs.colloid-icon-theme.overrideAttrs { # possibly rm -rf /apps folder later?
+        # In theory, this should make the color of the folder icons follow the matugen theme
+        # hopefully it doesn't slow things down too much? Reference:
+        # TODO: add reference script
+        # FIXME: NOT CURRENTLY WORKING
+        configurePhase = ''
+          sed -i "s/#5b9bf8/${c.inverse_primary}/g" "./src/places/scalable/"*".svg"
+        '';
       };
     };
 
@@ -90,12 +99,14 @@
     icon-theme = "Colloid";
   };
 
-
-
+  # Theming GTK's LibAdwaita via Matugen and named variables.
   gtk.gtk4.extraCss = config.gtk.gtk3.extraCss;
-  gtk.gtk3.extraCss = let
-    c = config.programs.matugen.theme.colors.colors.${theme.variant};
-  in ''
+  gtk.gtk3.extraCss = ''
+    /* NOTES:
+    ** view_bg_color is for main/central windows, which is set to be the darkest color (c.surface).
+    ** window_bg_color is mainly side/secondary panels, so it set to be slightly brighter (a mix
+    ** between c.surface and c.secondary_container). headerbar_bg_color matches window_bg_color.
+    */
     @define-color accent_color ${c.primary};
     @define-color accent_bg_color ${c.primary};
     @define-color accent_fg_color ${c.on_primary};
@@ -111,24 +122,27 @@
     @define-color error_color ${c.error};
     @define-color error_bg_color ${c.error_container};
     @define-color error_fg_color ${c.on_error_container};
-    @define-color window_bg_color ${c.surface};
+    @define-color window_bg_color mix(${c.secondary_container}, ${c.surface}, 0.7); /* should be slightly brighter than surface */
     @define-color window_fg_color ${c.on_surface};
-    @define-color view_bg_color ${c.secondary_container};
+    @define-color view_bg_color ${c.surface}; /* {c.secondary_container} is too bright for this */
     @define-color view_fg_color ${c.on_surface};
-    @define-color headerbar_bg_color ${c.secondary_container};
+    /* OLD: {hexToRgba c.primary "0.05"} NEW: {c.secondary_container} */
+    @define-color headerbar_bg_color @window_bg_color;
     @define-color headerbar_fg_color ${c.on_secondary_container};
-    @define-color headerbar_border_color ${c.on_surface}50;
-    @define-color headerbar_backdrop_color @window_bg_color;
-    @define-color headerbar_shade_color ${c.on_surface}07;
-    @define-color card_bg_color ${c.primary}05;
+    @define-color headerbar_border_color ${hexToRgba c.on_surface "0.8"};
+    @define-color headerbar_backdrop_color @headerbar_bg_color; /* This should disable fade on lost focus */
+    @define-color headerbar_shade_color ${hexToRgba c.on_surface "0.07"};
+    @define-color card_bg_color ${hexToRgba c.primary "0.05"};
     @define-color card_fg_color ${c.on_secondary_container};
-    @define-color card_shade_color ${c.shadow}07;
+    @define-color card_shade_color ${hexToRgba c.shadow "0.07"};
+    @define-color thumbnail_bg_color ${c.secondary_container};
+    @define-color thumbnail_fg_color ${c.on_secondary_container};
     @define-color dialog_bg_color ${c.secondary_container};
     @define-color dialog_fg_color ${c.on_secondary_container};
     @define-color popover_bg_color ${c.secondary_container};
     @define-color popover_fg_color ${c.on_secondary_container};
-    @define-color shade_color ${c.shadow}24;
-    @define-color scrollbar_outline_color ${c.outline}32;
+    @define-color shade_color ${hexToRgba c.shadow (if theme.variant == "light" then "0.07" else "0.36")};
+    @define-color scrollbar_outline_color ${hexToRgba c.outline (if theme.variant == "light" then "1.0" else "0.5")};
 
     @define-color sidebar_bg_color @window_bg_color;
     @define-color sidebar_fg_color @window_fg_color;
