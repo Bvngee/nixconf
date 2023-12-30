@@ -122,7 +122,7 @@ in {
     @define-color error_color ${c.error};
     @define-color error_bg_color ${c.error_container};
     @define-color error_fg_color ${c.on_error_container};
-    @define-color window_bg_color mix(${c.secondary_container}, ${c.surface}, 0.7); /* should be slightly brighter than surface */
+    @define-color window_bg_color mix(${c.secondary_container}, ${c.surface}, 0.6); /* should be slightly brighter than surface */
     @define-color window_fg_color ${c.on_surface};
     @define-color view_bg_color ${c.surface}; /* {c.secondary_container} is too bright for this */
     @define-color view_fg_color ${c.on_surface};
