@@ -17,9 +17,6 @@
     #  withVencord = false;
     #})
 
-    # Games
-    prismlauncher
-
     # Misc/Other
     obs-studio
     firefox

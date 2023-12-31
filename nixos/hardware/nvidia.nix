@@ -1,14 +1,17 @@
-{ pkgs, ... }: {
+{ config, pkgs, ... }: {
   # Change depending on hostname later if necessary
 
   hardware.nvidia = {
     # until https://github.com/NVIDIA/open-gpu-kernel-modules/issues/472 is resolved?
-    open = false;
+    open = true; #true anyways, fuck it. Lets try
+
     # suspend/resume; also adds NVreg_PreserveVideoMemoryAllocations=1 kernel param
     powerManagement.enable = true;
 
     modesetting.enable = true;
     nvidiaSettings = true;
+
+    package = config.boot.kernelPackages.nvidiaPackages.production;
   };
 
   # no idea if these are necessary. note: nvidia-vaapi-driver is added automatically
