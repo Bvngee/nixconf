@@ -148,5 +148,8 @@ in {
     @define-color sidebar_fg_color @window_fg_color;
     @define-color sidebar_border_color @window_bg_color;
     @define-color sidebar_backdrop_color @window_bg_color;
+
+    /* Make thunar side panel different than the main panel */
+    .thunar .sidebar .view { background-color: @window_bg_color; }
   '';
 }

@@ -23,5 +23,6 @@
     zoom-us
     gnome.gnome-calculator
     libsForQt5.kcalc
+    mission-center
   ];
 }

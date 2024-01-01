@@ -3,15 +3,17 @@
 
   hardware.nvidia = {
     # until https://github.com/NVIDIA/open-gpu-kernel-modules/issues/472 is resolved?
-    open = true; #true anyways, fuck it. Lets try
+    open = false;
 
     # suspend/resume; also adds NVreg_PreserveVideoMemoryAllocations=1 kernel param
     powerManagement.enable = true;
 
     modesetting.enable = true;
-    nvidiaSettings = true;
+    nvidiaSettings = false; # basically useless software
 
-    package = config.boot.kernelPackages.nvidiaPackages.production;
+    # unbearable XWayland flickering on stable/latest due to no explicit sync support
+    # https://gitlab.freedesktop.org/xorg/xserver/-/merge_requests/967
+    package = config.boot.kernelPackages.nvidiaPackages.production; # production => 535
   };
 
   # no idea if these are necessary. note: nvidia-vaapi-driver is added automatically

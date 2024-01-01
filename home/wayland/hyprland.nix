@@ -45,10 +45,10 @@ in
       ${monitorConfig}
       
       exec-once = hyprctl setcursor ${config.home.pointerCursor.name} ${toString config.home.pointerCursor.size}
-      exec-once = swww init # wallpaper daemon
       exec-once = thunar --daemon # faster opening
       #exec-once = wl-paste --watch cliphist store # add all CLIPBOARD copies in the cliphist store
       exec-once = wl-paste -p --watch wl-copy -pc # keep PRIMARY buffer empty (functionally removes middle-click-paste)
+      exec-once = sleep 1 && swww init # wallpaper daemon (sleep to fix supposed race condition)
       
       input {
           kb_layout = us,us
@@ -99,7 +99,7 @@ in
           enable_swallow = true
           swallow_regex = ^(kitty)$ #not working?
           swallow_regex = ^(wezterm)$ #not working?
-          vrr = 1
+          vrr = 0
           focus_on_activate = true
           mouse_move_focuses_monitor = true
       }
