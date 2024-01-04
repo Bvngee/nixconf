@@ -1,0 +1,157 @@
+* {
+    font-family: "FontAwesome, JetBrains Mono Nerd Font, monospace";
+    font-size: 15px;
+}
+
+
+window#waybar {
+    background: transparent;
+}
+
+window > box {
+    padding: 2px;
+    background: rgba(40, 40, 40, 0.8);
+    /* background: rgba(50, 48, 47, 0.7); */
+    /* background: transparent; */
+
+    /* margin: 5px 5px 5px 5px; */
+    /* border-radius: 7px; */
+
+    /* margin-bottom: 7px; */
+    /* box-shadow: 0px 2px 3px 1px rgba(26, 26, 26, 0.6); */
+
+    /* border-bottom: 2px solid rgba(40, 40, 40, 0.8); */
+    border-image: linear-gradient(90deg, #7daea3, #d3869b) 30; /* what does the 30 do???? */
+    border-width: 0px 0px 2px 0px;
+    border-style: solid;
+}
+
+#window {
+}
+
+tooltip {
+    background: #282828;
+    color: #ddc7a1;
+    border-radius: 7px;
+}
+
+#workspaces {
+    padding: 0px 10px 0px 10px;
+    margin: 0px 0px 0px 0px;
+}
+
+#workspaces button {
+    padding: 0px 6px 0px 6px;
+    color: #ddc7a1;
+}
+
+#workspaces button.active,
+#workspaces button.focused {
+
+}
+
+#workspaces button.urgent {
+}
+
+#workspaces button:hover {
+}
+
+#clock,
+#cpu,
+#memory,
+#window,
+#tray,
+#custom-media.play-pause,
+#custom-media,
+#network,
+#custom-nightlight,
+#custom-backlight,
+#pulseaudio,
+#pulseaudio.microphone,
+#custom-wallpaper,
+#custom-powermenu,
+#custom-spacer {
+    /* background: rgba(30, 30, 46, 0.8); */
+    padding: 0px 10px 0px 10px;
+    margin: 0px 5px 0px 5px;
+    /*border: 1px solid #181825;*/
+    color: #ddc7a1;
+}
+
+
+#clock {
+    margin-left: 10px;
+    padding-left: 0px;
+    padding-right: 10px;
+}
+
+#cpu {
+    padding-right: 0px;
+    margin-right: 0px;
+}
+
+#memory {
+    padding-right: 5px;
+    padding-left: 5px;
+    margin-left: 0px;
+    margin-right: 5px;
+}
+
+
+#custom-media.play-pause {
+    padding-right: 0px;
+    margin-right: 0px;
+}
+
+#custom-media {
+    padding-left: 5px;
+    margin-left: 0px;
+    margin-right: 5px;
+}
+
+#custom-backlight {
+    padding-right: 0px;
+    margin-right: 0px;
+}
+
+#custom-nightlight {
+    padding-left: 5px;
+    margin-left: 0px;
+    margin-right: 5px;
+}
+
+#pulseaudio.microphone {
+    padding-right: 0px;
+    margin-right: 0px;
+}
+
+#pulseaudio {
+    padding-right: 5px;
+    padding-left: 5px;
+    margin-left: 0px;
+    margin-right: 5px;
+}
+
+#custom-wallpaper {
+    padding-left: 10px;
+    padding-right: 5px;
+    padding-bottom: 1px;
+    margin-right: 0px;
+
+    /* color: #d3869b */
+}
+
+#custom-powermenu {
+    padding-right: 5px;
+    padding-left: 5px;
+    margin-left: 0px;
+    margin-right: 10px;
+    padding-bottom: 1px;
+
+    /* color: #ea6962; */
+}
+
+#custom-spacer {
+    padding: 0px 0px 0px 0px;
+    margin: 0px 0px 0px 0px;
+}

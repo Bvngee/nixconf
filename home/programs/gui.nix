@@ -24,5 +24,6 @@
     gnome.gnome-calculator
     libsForQt5.kcalc
     mission-center
+    snapshot
   ];
 }

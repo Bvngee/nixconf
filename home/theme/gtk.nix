@@ -101,6 +101,59 @@ in {
 
   # Theming GTK's LibAdwaita via Matugen and named variables.
   gtk.gtk4.extraCss = config.gtk.gtk3.extraCss;
+#  gtk.gtk3.extraCss = ''
+#    /* NOTES:
+#    ** view_bg_color is for main/central windows, which is set to be the darkest color (c.surface).
+#    ** window_bg_color is mainly side/secondary panels, so it set to be slightly brighter (a mix
+#    ** between c.surface and c.secondary_container). headerbar_bg_color matches window_bg_color.
+#    */
+#    @define-color accent_color ${c.primary};
+#    @define-color accent_bg_color ${c.primary};
+#    @define-color accent_fg_color ${c.on_primary};
+#    @define-color destructive_color ${c.error};
+#    @define-color destructive_bg_color ${c.error_container};
+#    @define-color destructive_fg_color ${c.on_error_container};
+#    @define-color success_color ${c.tertiary};
+#    @define-color success_bg_color ${c.tertiary_container};
+#    @define-color success_fg_color ${c.on_tertiary_container};
+#    @define-color warning_color ${c.secondary};
+#    @define-color warning_bg_color ${c.secondary_container};
+#    @define-color warning_fg_color ${c.on_secondary_container};
+#    @define-color error_color ${c.error};
+#    @define-color error_bg_color ${c.error_container};
+#    @define-color error_fg_color ${c.on_error_container};
+#    @define-color window_bg_color mix(${c.secondary_container}, ${c.surface}, 0.6); /* should be slightly brighter than surface */
+#    @define-color window_fg_color ${c.on_surface};
+#    @define-color view_bg_color ${c.surface}; /* {c.secondary_container} is too bright for this */
+#    @define-color view_fg_color ${c.on_surface};
+#    /* OLD: {hexToRgba c.primary "0.05"} NEW: {c.secondary_container} */
+#    @define-color headerbar_bg_color @window_bg_color;
+#    @define-color headerbar_fg_color ${c.on_secondary_container};
+#    @define-color headerbar_border_color ${hexToRgba c.on_surface "0.8"};
+#    @define-color headerbar_backdrop_color @headerbar_bg_color; /* This should disable fade on lost focus */
+#    @define-color headerbar_shade_color ${hexToRgba c.on_surface "0.07"};
+#    @define-color card_bg_color ${hexToRgba c.primary "0.05"};
+#    @define-color card_fg_color ${c.on_secondary_container};
+#    @define-color card_shade_color ${hexToRgba c.shadow "0.07"};
+#    @define-color thumbnail_bg_color ${c.secondary_container};
+#    @define-color thumbnail_fg_color ${c.on_secondary_container};
+#    @define-color dialog_bg_color ${c.secondary_container};
+#    @define-color dialog_fg_color ${c.on_secondary_container};
+#    @define-color popover_bg_color ${c.secondary_container};
+#    @define-color popover_fg_color ${c.on_secondary_container};
+#    @define-color shade_color ${hexToRgba c.shadow (if theme.variant == "light" then "0.07" else "0.36")};
+#    @define-color scrollbar_outline_color ${hexToRgba c.outline (if theme.variant == "light" then "1.0" else "0.5")};
+#
+#    @define-color sidebar_bg_color @window_bg_color;
+#    @define-color sidebar_fg_color @window_fg_color;
+#    @define-color sidebar_border_color @window_bg_color;
+#    @define-color sidebar_backdrop_color @window_bg_color;
+#
+#    /* Make thunar side panel different than the main panel */
+#    .thunar .sidebar .view { background-color: @window_bg_color; }
+#  '';
+
+  # NEW ATTEMPT
   gtk.gtk3.extraCss = ''
     /* NOTES:
     ** view_bg_color is for main/central windows, which is set to be the darkest color (c.surface).

@@ -1,0 +1,3 @@
+{ ... }: {
+  programs.tailscale.enable = true;
+}

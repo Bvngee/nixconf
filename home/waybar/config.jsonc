@@ -1,0 +1,192 @@
+{
+    "layer": "top", // Waybar at top layer
+    // "output": "DP-2",
+    "position": "top", // Waybar position (top|bottom|left|right)
+    //"mode": "dock",
+    // "height": 30, // Waybar height (to be removed for auto height)
+    // "width": 1280, // Waybar width
+    "spacing": 0, // Gaps between modules (default 4pc), 0 necessary for merging modules
+
+    // Choose the order of the modules
+    "modules-left": [
+        "clock", "custom/spacer",
+        "network", "custom/spacer",
+        "cpu",
+        "memory", "custom/spacer",
+        "tray"
+    ],
+    "modules-center": [
+        "wlr/workspaces"
+    ],
+    "modules-right": [
+        "custom/media#play-pause",
+        "custom/media", "custom/spacer",
+        "custom/backlight",
+        "custom/nightlight", "custom/spacer",
+        "pulseaudio#microphone",
+        "pulseaudio", "custom/spacer",
+        "custom/wallpaper",
+        "custom/powermenu"
+    ],
+
+    // Modules configuration
+    "tray": {
+        // "icon-size": 21,
+        "spacing": 10
+    },
+    "wlr/workspaces": {
+        "on-scroll-up": "hyprctl dispatch workspace +1",
+        "on-scroll-down": "hyprctl dispatch workspace m-1",
+        "all-outputs": false, //must be false for hyprsome to display monitor-exclusive
+        "on-click": "activate",
+            "format": "{icon}",
+            "format-icons": {
+            "1": "1",
+            "2": "2",
+            "3": "3",
+            "4": "4",
+            "5": "5",
+            "6": "6",
+            "7": "7",
+            "8": "8",
+            "9": "9",
+            "11": "1",
+            "12": "2",
+            "13": "3",
+            "14": "4",
+            "15": "5",
+            "16": "6",
+            "17": "7",
+            "18": "8",
+            "19": "9"
+            //"urgent": "",
+            //"active": "",
+            //"default": ""
+        }
+    },
+    "clock": {
+        "format": "{: %I:%M<small> %p</small>   %m/%d/%Y}", //<span color='#ea6962'>
+        "format-alt": "{:%A, %B %d, %Y (%R)}  ",
+        "tooltip-format": "{calendar}",
+        "interval": 60,
+        "calendar": {
+            "mode"          : "month",
+            "mode-mon-col"  : 3,
+            "weeks-pos"     : "",
+            "on-scroll"     : 1,
+            "format": {
+                "months":     "<span color='#ffead3'><b>{}</b></span>",
+                "days":       "<span color='#ecc6d9'><b>{}</b></span>",
+                //"weeks":      "<span color='#99ffdd'><b>W{}</b></span>",
+                "weekdays":   "<span color='#ffcc66'><b>{}</b></span>",
+                "today":      "<span color='#ff6699'><b><u>{}</u></b></span>"
+            }
+        },
+        "actions": {
+            "on-click-right": "mode"
+        }
+    },
+    "cpu": {
+        "format": "<big></big> {usage}% ",
+        "interval": 10
+    },
+    "memory": {
+        "format": " {percentage}% ",
+        "interval": 10
+    },
+    "network": {
+        "format": " {bandwidthUpBytes}  {bandwidthDownBytes}", //󰜷 李 
+        "interval": 10,
+        "tooltip-format": "{ifname} - {ipaddr}"
+    },
+    "custom/media#play-pause" : {
+        "format": "{icon} ",
+        "return-type": "json",
+        "format-icons": {
+            "Paused": "", //<span color='#d3869b'></span>
+            "Playing": "<big></big>", //<span color='#89b482'></span>
+            "Stopped": "<big>栗</big>" //<span color='#ea6962'></span>
+        },
+        "exec": "playerctl -a metadata --format '{\"alt\": \"{{status}}\", \"tooltip\": \"{{status}}\"}' -F",
+        "on-click": "playerctl play-pause"
+    },
+    "custom/media": {
+        "format": "<i>{}</i>"/*{icon}*/,
+        "return-type": "json",
+        "format-icons": {
+            "chromium": "爵",
+            "default": "",
+            "firefox": "󰈹",
+            "kdeconnect": "",
+            //"mopidy": "",
+            "mpv": "",
+            "spotify": "阮"
+        },
+        "max-length":70,
+        "exec": "playerctl -i chromium -a metadata -f '{\"text\": \"{{markup_escape(title)}}\", \"tooltip\": \"{{playerName}}: <i>{{markup_escape(artist)}}</i>\", \"alt\": \"{{playerName}}\"}' -F",
+        "on-click": "playerctl next",
+        "on-click-right": "playerctl previous"
+    },
+    "pulseaudio": {
+        "format": "{volume}% {icon} ",
+        "tooltip": false,
+        "format-muted": "Muted  ",
+        "on-click": "pavucontrol",
+        "on-scroll-up": "wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+",
+        "on-scroll-down": "wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-",
+        "scroll-step": 5,
+        "format-icons": {
+            "headphone": "",
+            "hands-free": "",
+            "headset": "",
+            "phone": "",
+            "portable": "",
+            "car": "",
+            "default": ["", "", ""]
+        }
+    },
+    "pulseaudio#microphone": {
+        "format": "{format_source}",
+        "tooltip": false,
+        "format-source": "{volume}%  ",
+        "format-source-muted": "Muted  ",
+        "on-click": "~/bin/volume_float.sh 0.05",
+        "on-scroll-up": "wpctl set-volume @DEFAULT_AUDIO_SOURCE@ 5%+",
+        "on-scroll-down": "wpctl set-volume @DEFAULT_AUDIO_SOURCE@ 5%-",
+        "scroll-step": 5
+    },
+    "custom/backlight": {
+        "format": "{}  ", //󱄄 
+        "return-type": "json",
+        // "interval": "once", //no interval specified as script loops
+        "exec": "~/.config/waybar/scripts/ddc_backlight/monitor_cache.sh",
+        "on-scroll-up": "~/bin/ddc_backlight/bump_cache.sh 1",
+        "on-scroll-down": "~/bin/ddc_backlight/bump_cache.sh -1",
+        "on-click": "~/bin/ddc_backlight/backlight_setter.sh"
+    },
+    "custom/nightlight": {
+        "format": "{} {icon}", // 
+        "return-type": "json",
+        "format-icons": {
+            "day": " ",
+            "night": "",
+            "changing": "", //…
+        },
+        // "interval": "once", //no interval specified as script loops
+        "exec": "~/.config/waybar/scripts/nightlight/monitor_shaderfile.sh",
+        "on-click": "~/bin/nightlight/toggle_bluelight_filter.sh",
+    },
+    "custom/wallpaper": {
+	    "format": " ", //󰉼  󱦌  
+        "on-click": "~/.config/rofi/scripts/wallpaper_select.sh",
+        "tooltip": false
+    },
+    "custom/powermenu": {
+        "format": "⏻",
+        "on-click": "~/.config/rofi/scripts/powermenu.sh",
+        "tooltip": false
+    },
+    "custom/spacer": {
+        "format": "|"
+    }
+}

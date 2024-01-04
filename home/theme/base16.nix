@@ -13,8 +13,6 @@ in
   ];
 
   # base16.nix scheme
-  # TODO: Modularize with profiles' variables
-  #scheme = "${base16-schemes}/gruvbox-material-dark-medium.yaml"; #nord
   scheme = "${base16-schemes}/${theme.base16-scheme}.yaml"; #nord
 
   home.packages = with config.scheme.withHashtag; let
