@@ -67,6 +67,7 @@ in
 
       ../../nixos/hardware/openrgb.nix
       ../../nixos/hardware/nvidia.nix
+      ../../nixos/hardware/virtualization.nix
     ] ++ commonGraphicalModules;
   };
 

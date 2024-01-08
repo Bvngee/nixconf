@@ -37,15 +37,15 @@ in {
     #  package = pkgs.adw-gtk3;
     #};
     iconTheme = {
-      #Colloid-grey-dark and Colloid-grey-light for grey folder icons
       name = if (theme.variant == "dark") then "Colloid-dark" else "Colloid";
       package = pkgs.colloid-icon-theme.overrideAttrs { # possibly rm -rf /apps folder later?
         # In theory, this should make the color of the folder icons follow the matugen theme
         # hopefully it doesn't slow things down too much? Reference:
-        # TODO: add reference script
+        # https://github.com/vinceliuice/Colloid-icon-theme/tree/main/src/places/scalable
         # FIXME: NOT CURRENTLY WORKING
         configurePhase = ''
-          sed -i "s/#5b9bf8/${c.inverse_primary}/g" "./src/places/scalable/"*".svg"
+          sed -i "s/#60c0f0/${c.inverse_primary}/g" "./src/places/scalable/folder-"*".svg"
+          sed -i "s/#60c0f0/${c.inverse_primary}/g" "./src/places/scalable/user-"*".svg"
         '';
       };
     };

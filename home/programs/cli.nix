@@ -4,6 +4,7 @@
         ripgrep
         fd
         nix-prefetch-scripts
+        appimage-run #nixos workaround
         file
         btop
         htop
