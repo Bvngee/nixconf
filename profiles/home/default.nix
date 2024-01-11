@@ -44,6 +44,7 @@ let
     ../../home/programs/cli.nix
     ../../home/programs/coding.nix
     ../../home/programs/gui.nix
+    ../../home/programs/graphical/thunar.nix
     ../../home/wayland
     ../../home/shell
     ../../home/nvim

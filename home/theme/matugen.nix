@@ -1,6 +1,6 @@
 { inputs, lib, pkgs, theme, ... }: {
   home.packages = [
-    # temporary
+    # added for debugging purposes
     inputs.matugen.packages.${pkgs.system}.default
   ];
 

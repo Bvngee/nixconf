@@ -48,8 +48,8 @@ in
       exec-once = thunar --daemon # faster opening
       exec-once = waybar
       #exec-once = wl-paste --watch cliphist store # add all CLIPBOARD copies in the cliphist store
-      exec-once = wl-paste -p --watch wl-copy -pc # keep PRIMARY buffer empty (functionally removes middle-click-paste)
-      exec-once = sleep 1 && swww init # wallpaper daemon (sleep to fix supposed race condition)
+      exec-once = wl-paste -p --watch wl-copy -p "" # keep PRIMARY buffer empty (functionally removes middle-click-paste)
+      exec-once = swww init # wallpaper daemon (add sleep to fix supposed race condition)
       
       input {
           kb_layout = us,us

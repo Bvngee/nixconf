@@ -1,15 +1,17 @@
 { pkgs, ... }: {
-    programs.thunar = {
-        enable = true;
-        plugins = with pkgs.xfce; [
-            thunar-archive-plugin
-            thunar-volman
-        ];
-    };
+  # System-level settings for Thunar. Further configuration is done via Home Manager
 
-    # GUI archiver for thunar-archive-plugin
-    environment.systemPackages = with pkgs; [ libsForQt5.ark ];
+  programs.thunar = {
+    enable = true;
+    plugins = with pkgs.xfce; [
+      thunar-archive-plugin
+      thunar-volman
+    ];
+  };
 
-    services.gvfs.enable = true; # Mount, trash, and other functionalities
-    services.tumbler.enable = true; # Thumbnail support for images
+  # GUI archiver for thunar-archive-plugin. Alternative is "file-roller"
+  environment.systemPackages = with pkgs; [ libsForQt5.ark ];
+
+  services.gvfs.enable = true; # Mount, trash, and other functionalities
+  services.tumbler.enable = true; # Thumbnail support for images
 }
