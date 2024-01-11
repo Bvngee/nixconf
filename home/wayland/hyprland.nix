@@ -79,6 +79,8 @@ in
           # cant get this to work at all on my latitude?
           workspace_swipe = true
           workspace_swipe_forever = true
+          workspace_swipe_min_speed_to_force = 0
+          workspace_swipe_use_r = true
       }
       
       general {
