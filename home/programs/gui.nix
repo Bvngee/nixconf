@@ -16,6 +16,7 @@
     #  withOpenASAR = false;
     #  withVencord = false;
     #})
+    vesktop
 
     # Misc/Other
     obs-studio
