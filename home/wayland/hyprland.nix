@@ -70,7 +70,7 @@ in
           }
       
           # -1.0 - 1.0, 0 means no modification.
-          ${if isMobile then "sensitivity = -0.2" else "sensitivity = -0.75"}
+          ${if isMobile then "sensitivity = -0.15" else "sensitivity = -0.75"}
       
           numlock_by_default = true
       }
