@@ -76,11 +76,10 @@ in
       }
 
       gestures {
-          # cant get this to work at all on my latitude?
           workspace_swipe = true
-          workspace_swipe_forever = true
-          workspace_swipe_min_speed_to_force = 0
-          workspace_swipe_use_r = true
+          #workspace_swipe_forever = true
+          #workspace_swipe_min_speed_to_force = 0
+          #workspace_swipe_use_r = true
       }
       
       general {
@@ -154,10 +153,6 @@ in
       master {
           new_is_master = true
       }
-      
-      gestures {
-          workspace_swipe = false
-      }
 
       xwayland {
         force_zero_scaling = true
@@ -185,7 +180,7 @@ in
       
       # Floating and centered dialogs
       windowrulev2 = float, class:^(thunar)$
-      windowrulev2 = move cursor -85% -72%, class:^(thunar)$ # not sure why it spawns weirdly??
+      windowrulev2 = move cursor -50% -50%, class:^(thunar)$ # does it still spawn weirdly?
       windowrulev2 = size 1100 700, class:^(thunar)$
       windowrulev2 = float, class:^(python3)$
       windowrulev2 = center, class:^(python3)$
