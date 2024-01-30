@@ -1,7 +1,4 @@
-{ inputs, pkgs, ... }: {
-
-  imports = [ inputs.hyprland.nixosModules.default ];
-
+{ pkgs, ... }: {
   environment.sessionVariables = {
     _JAVA_AWT_WM_NONEREPARENTING = "1";
     GDK_BACKEND = "wayland,x11";
@@ -14,16 +11,17 @@
     LIBSEAT_BACKEND = "logind";
   };
 
-  # does this need to be here?
-  # TODO: remove, and refactor to /wayland/vars.nix + /wayland/hyprland.nix
-  programs.hyprland = {
-    enable = true;
-  };
+  programs.xwayland.enable = true;
 
-  xdg = {
-    portal.xdgOpenUsePortal = true; # TODO: improve this section
-    portal.extraPortals = with pkgs; [ xdg-desktop-portal-gtk ];
-    portal.config.common.default = [ "gtk" ];
-    portal.config.hyprland.default = [ "hyprland" "gtk" ];
+  xdg.portal = {
+    enable = true;
+    xdgOpenUsePortal = true; # TODO: improve this section
+    extraPortals = with pkgs; [ xdg-desktop-portal-gtk ];
+    config.common = {
+      default = [ "gtk" ];
+      "org.freedesktop.impl.portal.Secret" = [
+        "gnome-keyring"
+      ]; #not sure this is necessary
+    };
   };
 }

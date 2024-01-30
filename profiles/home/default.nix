@@ -28,23 +28,23 @@ let
     ../../home/home.nix
     ../../home/nixpkgs.nix
     ../../home/xdg.nix
-    ../../home/theme/fonts.nix
-    ../../home/theme/cursor.nix
-    ../../home/theme/gtk.nix
-    ../../home/theme/qt.nix
-    ../../home/theme/base16.nix
-    ../../home/theme/matugen.nix
     ../../home/git.nix
     ../../home/kdeconnect.nix
     ../../home/kitty.nix
     ../../home/dunst.nix
     ../../home/ironbar.nix
     ../../home/spicetify.nix
+    ../../home/thunar.nix
+    ../../home/theme/fonts.nix
+    ../../home/theme/cursor.nix
+    ../../home/theme/gtk.nix
+    ../../home/theme/qt.nix
+    ../../home/theme/base16.nix
+    ../../home/theme/matugen.nix
 
     ../../home/programs/cli.nix
     ../../home/programs/coding.nix
     ../../home/programs/gui.nix
-    ../../home/programs/graphical/thunar.nix
     ../../home/wayland
     ../../home/shell
     ../../home/nvim

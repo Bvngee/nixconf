@@ -1,8 +1,9 @@
 { config, ... }: {
   xdg = {
     enable = true;
-    mimeApps = {
+    mimeApps = rec {
       enable = true;
+      associations.added = defaultApplications;
       defaultApplications = let
         browser = ["firefox.desktop"];
       in {
@@ -12,6 +13,7 @@
         "x-scheme-handler/ftp" = browser;
         "x-scheme-handler/about" = browser;
         "x-scheme-handler/unknown" = browser;
+        "x-scheme-handler/element" = [ "element-desktop.desktop" ];
         "application/x-extension-htm" = browser;
         "application/x-extension-html" = browser;
         "application/x-extension-shtml" = browser;

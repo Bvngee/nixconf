@@ -46,10 +46,11 @@ in
       
       exec-once = hyprctl setcursor ${config.home.pointerCursor.name} ${toString config.home.pointerCursor.size}
       exec-once = thunar --daemon # faster opening
-      exec-once = waybar
+      exec-once = ${pkgs.libsForQt5.polkit-kde-agent}/libexec/polkit-kde-authentication-agent-1
+      #exec-once = waybar
       #exec-once = wl-paste --watch cliphist store # add all CLIPBOARD copies in the cliphist store
       exec-once = wl-paste -p --watch wl-copy -p "" # keep PRIMARY buffer empty (functionally removes middle-click-paste)
-      exec-once = sleep 0.5 && swww init # wallpaper daemon (add sleep to fix supposed race condition with Hyprland)
+      exec-once = sleep 0.3 && swww init # wallpaper daemon (add sleep to fix supposed race condition with Hyprland - TODO: improve?)
       
       input {
           kb_layout = us,us

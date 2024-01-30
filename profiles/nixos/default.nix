@@ -28,8 +28,9 @@ let
     ../../nixos/nixpkgs.nix
     ../../nixos/users.nix
     ../../nixos/greetd.nix
-    ../../nixos/shared.nix
-    ../../nixos/wayland.nix # TODO: why is this a module lmao
+    ../../nixos/desktop.nix
+    ../../nixos/wayland.nix
+    ../../nixos/hyprland.nix
 
     ../../nixos/hardware/printing.nix
     ../../nixos/hardware/backlight.nix
@@ -37,15 +38,16 @@ let
     ../../nixos/hardware/usb.nix
     ../../nixos/hardware/audio.nix
     ../../nixos/hardware/network.nix
+    ../../nixos/hardware/bluetooth.nix
 
     ../../nixos/boot/systemd-boot.nix
     ../../nixos/boot/kernel.nix
 
-    ../../nixos/programs/gui # TODO: refactor into nixos/[gui|cli|?]
     ../../nixos/programs/thunar.nix
     ../../nixos/programs/xremap.nix
     ../../nixos/programs/zsh.nix
     ../../nixos/programs/kdeconnect.nix
+    ../../nixos/programs/tailscale.nix
   ];
 in
 {

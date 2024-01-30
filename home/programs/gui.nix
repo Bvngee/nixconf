@@ -11,6 +11,7 @@
     libreoffice
 
     # Discord
+    vesktop
     #(pkgsUnstable.discord.override {
     #(pkgs.discord.override {
     #  withOpenASAR = false;

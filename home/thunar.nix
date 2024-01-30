@@ -9,6 +9,7 @@
     "file:///home/${user}/Videos"
     "file:///home/${user}/Pictures"
     "file:///home/${user}/dev"
+    "file:///home/${user}/.config"
   ] ++ lib.optionals (hostname == "pc") [
     "file:///mnt/windows"
     "file:///mnt/SecondaryDrive"
