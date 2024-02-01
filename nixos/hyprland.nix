@@ -1,10 +1,10 @@
-{ config, inputs, ... }: {
+{ config, inputs, pkgs, ... }: {
   # Overrides Hyprland packages with versions from the hyprland flake.
   imports = [ inputs.hyprland.nixosModules.default ];
 
   # Add Hyprland to display manager session list
   services.xserver.displayManager.sessionPackages = [
-    config.programs.hyprland.finalPackage
+    inputs.hyprland.packages.${pkgs.system}.hyprland
   ];
 
   # Install Hyprland's xdg-desktop-portal
@@ -14,6 +14,8 @@
     ];
     config.hyprland = {
       default = [ "hyprland" "gtk" ];
+      #"org.freedesktop.impl.portal.Screencast" = "hyprland"; # we shouldn't need to be this specific
+      #"org.freedesktop.impl.portal.Screenshot" = "hyprland";
     };
   };
 

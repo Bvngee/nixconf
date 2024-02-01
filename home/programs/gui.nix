@@ -26,5 +26,6 @@
     libsForQt5.kcalc
     mission-center
     snapshot
+    element-desktop
   ];
 }

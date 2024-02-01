@@ -26,10 +26,13 @@
   # Used for apps that depend on a dbus secret-service provider
   services.gnome.gnome-keyring.enable = true;
 
-  # (there's already a polkitd service from somewhere, but I'll keep this regardless)
+  # (there's already a polkitd service from somewhere, but I'll keep this anyways)
   # Manage unpriviledged processes' access to priviledged processes
   security.polkit.enable = true;
 
   # Necessary to set GTK related settings (eg. to set themes)
   programs.dconf.enable = true;
+
+  # Hands out realtime scheduling priority to user processes on demand
+  security.rtkit.enable = true;
 }
