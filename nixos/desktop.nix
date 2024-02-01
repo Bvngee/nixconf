@@ -1,4 +1,4 @@
-{ pkgs, timezone, locale, ... }: {
+{ lib, pkgs, timezone, locale, isMobile, ... }: {
   # Common configurations shared between all desktop-nixos variations.
 
   time.timeZone = timezone;
@@ -35,4 +35,12 @@
 
   # Hands out realtime scheduling priority to user processes on demand
   security.rtkit.enable = true;
+
+  # Modify how laptop lidSwitch/powerKey is handled
+  services.logind = lib.mkIf (isMobile) {
+    lidSwitch = "suspend";
+    lidSwitchDocked = "ignore";
+    lidSwitchExternalPower = "ignore";
+    powerKey = "ignore";
+  };
 }
