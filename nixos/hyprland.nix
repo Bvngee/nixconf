@@ -1,4 +1,4 @@
-{ config, inputs, pkgs, ... }: {
+{ inputs, pkgs, ... }: {
   # Overrides Hyprland packages with versions from the hyprland flake.
   imports = [ inputs.hyprland.nixosModules.default ];
 
@@ -10,7 +10,7 @@
   # Install Hyprland's xdg-desktop-portal
   xdg.portal = {
     extraPortals = [
-      config.programs.hyprland.portalPackage
+      inputs.hyprland.packages.${pkgs.system}.xdg-desktop-portal-hyprland
     ];
     config.hyprland = {
       default = [ "hyprland" "gtk" ];
