@@ -5,8 +5,8 @@
     vscodium-fhs
 
     # C/C++
-    clang-tools
-    gcc
+    gcc13
+    pkgsUnstable.clang-tools_17
     gdb
     meson
     ninja
