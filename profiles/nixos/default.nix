@@ -39,7 +39,6 @@ let
     ../../nixos/hardware/audio.nix
     ../../nixos/hardware/network.nix
     ../../nixos/hardware/bluetooth.nix
-    ../../nixos/hardware/mice.nix
 
     ../../nixos/boot/systemd-boot.nix
     ../../nixos/boot/kernel.nix
