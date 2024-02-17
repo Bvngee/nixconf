@@ -30,12 +30,11 @@ let
   '';
 in
 {
+  # Overrides package with hyprland flake package
   imports = [ inputs.hyprland.homeManagerModules.default ];
 
   wayland.windowManager.hyprland = {
     enable = true;
-    package = inputs.hyprland.packages.${pkgs.system}.hyprland;
-    finalPackage = inputs.hyprland.packages.${pkgs.system}.hyprland;
     xwayland.enable = true;
     plugins = [
       inputs.split-monitor-workspaces.packages.${pkgs.system}.split-monitor-workspaces
