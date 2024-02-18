@@ -27,5 +27,6 @@
     mission-center
     snapshot
     element-desktop
+    cinny-desktop
   ];
 }

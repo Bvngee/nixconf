@@ -1,7 +1,9 @@
-{ config, lib, pkgs, ... }: let
+{ config, lib, pkgs, ... }:
+let
   cfg = config.programs.zsh;
   relToDotDir = file: (lib.optionalString (cfg.dotDir != null) (cfg.dotDir + "/")) + file;
-in {
+in
+{
   programs.zsh = {
     enable = true;
     autocd = true;
@@ -17,40 +19,42 @@ in {
       tree = "eza --icons --group-directories-first --tree";
     };
     initExtraFirst = ''
-      # automatically called by zsh-vi-mode plugin
-      function zvm_config() {
-        ZVM_READKEY_ENGINE=$ZVM_READKEY_ENGINE_NEX # required for below
-        ZVM_ESCAPE_KEYTIMEOUT=0.001
-        ZVM_VI_SURROUND_BINDKEY=s-prefix
-	      ZVM_LINE_INIT_MODE=$ZVM_MODE_INSERT
+            # automatically called by zsh-vi-mode plugin
+            function zvm_config() {
+              ZVM_READKEY_ENGINE=$ZVM_READKEY_ENGINE_NEX # required for below
+              ZVM_ESCAPE_KEYTIMEOUT=0.001
+              ZVM_VI_SURROUND_BINDKEY=s-prefix
+      	      ZVM_LINE_INIT_MODE=$ZVM_MODE_INSERT
 
-        # no clue whatsoever how this works, but it makes visual mode look ok
-        ZVM_VI_HIGHLIGHT_BACKGROUND="white" #\033[
-        ZVM_VI_HIGHLIGHT_FOREGROUND="\033["
-      }
+              # no clue whatsoever how this works, but it makes visual mode look ok
+              ZVM_VI_HIGHLIGHT_BACKGROUND="white" #\033[
+              ZVM_VI_HIGHLIGHT_FOREGROUND="\033["
+            }
 
-      # set normal/visual mode keybindings here, as they might conflict with zsh-vi-mode
-      function zvm_after_lazy_keybindings() {
-        bindkey -M vicmd 'k' history-substring-search-up
-        bindkey -M vicmd 'j' history-substring-search-down
-      }
+            # set normal/visual mode keybindings here, as they might conflict with zsh-vi-mode
+            function zvm_after_lazy_keybindings() {
+              bindkey -M vicmd 'k' history-substring-search-up
+              bindkey -M vicmd 'j' history-substring-search-down
+            }
 
-      function zvm_after_init() {
-        # needs to be here to work around zsh-vi-mode
-        bindkey '^ ' autosuggest-accept
-        bindkey '^y' autosuggest-accept
-      }
+            function zvm_after_init() {
+              # needs to be here to work around zsh-vi-mode
+              bindkey '^ ' autosuggest-accept
+              bindkey '^y' autosuggest-accept
+            }
     '';
     initExtra = ''
       function flakify() {
         if [ ! -e flake.nix ]; then
-          # TODO
+          git clone https://raw.githubusercontent.com/BvngeeCord/nix-flake-template/main/flake.nix
+          echo "Copied flake.nix template!"
         fi
         if [ ! -e .envrc ]; then
           echo "use flake" > .envrc
           direnv allow
+          echo "Create and enabled .envrc!"
         fi
-        $${EDITOR:-vim} flake.nix
+        # $${EDITOR:-vim} flake.nix
       }
     '';
 
@@ -73,6 +77,12 @@ in {
         src = pkgs.zsh-autopair;
       }
     ];
+  };
+
+  programs.zoxide = {
+    enable = true;
+    enableZshIntegration = true;
+    options = [ ];
   };
 
   # Unfortunately, there is currently no way to add anything to .zshrc after the lines

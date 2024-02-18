@@ -16,9 +16,16 @@
     package = config.boot.kernelPackages.nvidiaPackages.production; # production => 535
   };
 
-  # no idea if these are necessary. note: nvidia-vaapi-driver is added automatically
-  hardware.opengl.extraPackages = [ pkgs.libva ];
-  hardware.opengl.extraPackages32 = [ pkgs.pkgsi686Linux.libva ];
+  # not sure if this is necessary, stolen from sioodmy's dotfiles
+  environment.systemPackages = with pkgs; [
+    vulkan-loader
+    vulkan-validation-layers
+    vulkan-tools
+  ];
+
+  # no idea if these are necessary. note: nvidia-vaapi-driver is added automatically but kept here for explicitness sake
+  hardware.opengl.extraPackages = with pkgs; [ libva nvidia-vaapi-driver ];
+  hardware.opengl.extraPackages32 = with pkgs.pkgsi686Linux; [ libva nvidia-vaapi-driver ];
 
   # necessary for both X and Wayland based apps
   services.xserver.videoDrivers = [ "nvidia" ];
