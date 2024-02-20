@@ -58,7 +58,7 @@ in
     isMobile = false;
     locale = "en_US.UTF-8";
     timezone = "America/Los_Angeles";
-    flakeRoot = "/home/jack/dev/nixconf/";
+    flakeRoot = "/home/jack/dev/nixconf";
     base16-theme = "gruvbox-material-dark-medium.yaml";
     modules = [
       ./pc/hardware-configuration.nix
@@ -80,7 +80,7 @@ in
     isMobile = true;
     locale = "en_US.UTF-8";
     timezone = "America/Los_Angeles";
-    flakeRoot = "/home/jack/dev/nixconf/";
+    flakeRoot = "/home/jack/dev/nixconf";
     base16-theme = "gruvbox-material-dark-medium.yaml";
     modules = [
       ./latitude/hardware-configuration.nix

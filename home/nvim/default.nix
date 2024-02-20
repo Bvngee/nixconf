@@ -11,7 +11,7 @@
     configurePhase = "rm ./Makefile";
   };
 in {
-  home.file.".config/testFile".source = config.lib.file.mkOutOfStoreSymlink ../../testFile;
+  #home.file.".config/testFile".source = config.lib.file.mkOutOfStoreSymlink ../../testFile;
   
   programs.neovim = {
     enable = true;

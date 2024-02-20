@@ -48,6 +48,7 @@ let
     ../../home/wayland
     ../../home/shell
     ../../home/nvim
+    ../../home/ags
   ];
 in
 {
@@ -58,7 +59,7 @@ in
     isMobile = false;
     locale = "en_US.UTF-8";
     timezone = "America/Los_Angeles";
-    flakeRoot = "/home/jack/dev/nixconf/";
+    flakeRoot = "/home/jack/dev/nixconf";
     theme = {
       variant = "dark";
       base16-scheme = "gruvbox-material-dark-medium";
@@ -79,7 +80,7 @@ in
     isMobile = true;
     locale = "en_US.UTF-8";
     timezone = "America/Los_Angeles";
-    flakeRoot = "/home/jack/dev/nixconf/";
+    flakeRoot = "/home/jack/dev/nixconf";
     theme = {
       variant = "dark";
       base16-scheme = "nord";
@@ -100,7 +101,7 @@ in
     isMobile = true;
     locale = "en_US.UTF-8";
     timezone = "America/Los_Angeles";
-    flakeRoot = "/home/jack/dev/nixconf/";
+    flakeRoot = "/home/jack/dev/nixconf";
     theme = {
       variant = "dark";
       base16-scheme = "gruvbox-material-dark-medium";
