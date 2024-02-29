@@ -41,6 +41,7 @@
     nodePackages.typescript
     nodePackages.eslint
     pkgsUnstable.prettierd
+    sassc
 
     # Zig
     zig

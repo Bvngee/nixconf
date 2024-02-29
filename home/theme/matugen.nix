@@ -13,7 +13,7 @@
     templates = { }; # None so far - I'd rather configure using Nix
     palette = "default"; # triadic, adjacent
     jsonFormat = "hex"; # `#RRGGBB`
-    variant = "light";
+    variant = theme.variant;
   };
 
 }

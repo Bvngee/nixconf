@@ -15,5 +15,6 @@
     hyprpicker
     libnotify
     pkgsUnstable.satty
+    playerctl
   ];
 }

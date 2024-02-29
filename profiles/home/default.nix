@@ -31,6 +31,7 @@ let
     ../../home/git.nix
     ../../home/kdeconnect.nix
     ../../home/kitty.nix
+    ../../home/ghostty.nix
     ../../home/dunst.nix
     ../../home/ironbar.nix
     ../../home/spicetify.nix

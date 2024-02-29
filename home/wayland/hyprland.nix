@@ -16,7 +16,7 @@ let
       monitor = , preferred, auto, 1
     '';
   screenshot = pkgs.writeShellScriptBin "screenshot" ''
-    grim -g "$(slurp -c '#ff0000ff')" - | satty \
+    grim -g "$(slurp)" - | satty \
       --filename - \
       --output-filename \
       ~/Pictures/Screenshots/$(date '+%m%d%Y-%H:%M:%S').png
@@ -48,7 +48,6 @@ in
       exec-once = hyprctl setcursor ${config.home.pointerCursor.name} ${toString config.home.pointerCursor.size}
       exec-once = thunar --daemon # faster opening
       exec-once = ${pkgs.libsForQt5.polkit-kde-agent}/libexec/polkit-kde-authentication-agent-1
-      #exec-once = waybar
       #exec-once = wl-paste --watch cliphist store # add all CLIPBOARD copies in the cliphist store
       exec-once = wl-paste -p --watch wl-copy -p "" # keep PRIMARY buffer empty (functionally removes middle-click-paste)
       exec-once = sleep 0.3 && swww init # wallpaper daemon (add sleep to fix supposed race condition with Hyprland - TODO: improve?)
@@ -112,7 +111,7 @@ in
       decoration {
           blur {
               enabled = true
-              size = 6
+              size = 5
               passes = 2
               new_optimizations = true
           }
@@ -122,13 +121,9 @@ in
           # dim_strength = 0.1
       
           drop_shadow = true
-          shadow_range = 13
+          shadow_range = 9
           shadow_render_power = 4
-          # col.shadow = rgba(7daea35e)
-          col.shadow = rgba(1a1a1aa0)
-      
-          # blue light filter, enabled/disabled by modifying the shader file directly
-          #screen_shader = /home/jack/.config/hypr/shader/blue_light_filter.frag
+          col.shadow = rgba(00000077)
       }
       
       animations {
@@ -172,56 +167,49 @@ in
       windowrulev2 = bordercolor rgba(ea6962ff), fullscreen:1
       windowrulev2 = bordercolor rgba(ea6962ff), pinned:1
       
-      # Make WebCord window floating and smaller (for video call window)
-      windowrulev2 = float, title:^(WebCord)$
-      windowrulev2 = size 1000 600, title:^(WebCord)$
-      windowrulev2 = center, title:^(WebCord)$
-      
-      # Float dolphin
-      windowrulev2 = float, class:^(org.kde.dolphin)$
-      
       # Floating and centered dialogs
-      windowrulev2 = float, class:^(thunar)$
-      windowrulev2 = move cursor -50% -50%, class:^(thunar)$ # does it still spawn weirdly?
-      windowrulev2 = size 1100 700, class:^(thunar)$
-      windowrulev2 = float, class:^(python3)$
-      windowrulev2 = center, class:^(python3)$
-      windowrulev2 = float, class:^(xdg-desktop-portal-gtk)$
-      windowrulev2 = center, class:^(xdg-desktop-portal-gtk)$
-      windowrulev2 = float, title:^(Open Folder)$ # not working?
-      windowrulev2 = center, title:^(Open Folder)$
+      windowrulev2 = float, class:^(xdg-desktop-portal)(.*)$
+      windowrulev2 = float, title:^(Open Folder)$
       windowrulev2 = float, class:^(org.kde.polkit-kde-authentication-agent-1)$
-      windowrulev2 = center, class:^(org.kde.polkit-kde-authentication-agent-1)$
       windowrulev2 = float, title:^(Firefox — Sharing Indicator)$
-      windowrulev2 = center, title:^(Firefox — Sharing Indicator)$
       windowrulev2 = nofullscreenrequest, title:^(Firefox — Sharing Indicator)$
       windowrulev2 = float, title:^(Picture-in-Picture)$
-      windowrulev2 = size 500 300, title:^(Picture-in-Picture)$ # firefox picture in picture window
+      windowrulev2 = size 500 300, title:^(Picture-in-Picture)$ # firefox PiP window
+      windowrulev2 = float, title:^(Open File)(.*)$
+      windowrulev2 = float, title:^(Open Folder)(.*)$
+      windowrulev2 = float, title:^(Select a File)(.*)$
+      windowrulev2 = float, title:^(Save As)(.*)$
+      windowrulev2 = float, title:^(Library)(.*)$
+      windowrulev2 = float, title:^(.*)(Bitwarden)(.*)$
+      windowrulev2 = float, class:^(com.gabm.satty)$
+      windowrulev2 = float, class:^(org.kde.dolphin)$
       
       # idle inhibit while watching videos
       windowrulev2 = idleinhibit focus, class:^(mpv|.+exe)$
       windowrulev2 = idleinhibit focus, class:^(firefox)$, title:^(.*YouTube.*)$ # not sure this works?
       
-      # Blur waybar and dunst notifications
-      layerrule = blur, waybar
-      #layerrule = blur, notifications
-      #layerrule = ignorezero, notifications
+      # Blur notification popups
+      layerrule = blur, notifications
+      layerrule = ignorealpha 0.6, notifications
       
       # Application keybinds
-      bind = SUPER, Q, exec, kitty
-      bind = SUPER SHIFT, Q, exec, [float; size 1000 600; move cursor -50% -50%] kitty
-      bind = SUPER, E, exec, thunar
-      bind = SUPER, W, exec, firefox
+      bind = SUPER, Q, exec, $TERMINAl || kitty
+      bind = SUPER SHIFT, Q, exec, [float; size 1000 600; move cursor -50% -50%] $TERMINAL || kitty
+      bind = SUPER, E, exec, [float; size 1100 700; move cursor -50% -50%] thunar
+      bind = SUPER, W, exec, $BROWSER
   
       # Media keys
-      bind = , XF86AudioRaiseVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.05+ -l 1.0
-      bind = , XF86AudioLowerVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.05-
+      bindle = , XF86AudioRaiseVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.05+ -l 1.0
+      bindle = , XF86AudioLowerVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.05-
       bind = , XF86AudioMute, exec, wpctl set-mute @DEFAULT_SINK@ toggle
       bind = , XF86AudioMicMute, exec, wpctl set-mute @DEFAULT_SOURCE@ toggle
-      bind = , XF86MonBrightnessUp, exec, brightnessctl s 10%+
-      bind = , XF86MonBrightnessDown, exec, brightnessctl s 10%-
+      binde = , XF86MonBrightnessUp, exec, brightnessctl s 5%+
+      binde = , XF86MonBrightnessDown, exec, brightnessctl s 5%-
       bind = , Print, exec, ${screenshot}/bin/screenshot
       bind = CONTROL, Print, exec, ${screenshotFull}/bin/screenshotFull
+      bind = ALT, F5, exec, playerctl previous
+      bind = ALT, F6, exec, playerctl next
+      bind = ALT, F7, exec, playerctl play-pause
       
       # Hyprland functions
       bind = SUPER, D, killactive
@@ -234,7 +222,7 @@ in
       bind = SUPER CONTROL ALT, Backspace, exit # dangerous
       bind = SUPER, T, workspace, empty # alternate keybind to SUPER SHIFT K
       
-      # Switch to workspace (using hyprsome)
+      # Switch to workspace (using split-monitor-workspaces)
       # SUPER + [ 0-9 ]
       bind = SUPER, 1, split-workspace, 1
       bind = SUPER, 2, split-workspace, 2
@@ -247,7 +235,7 @@ in
       bind = SUPER, 9, split-workspace, 9
       bind = SUPER, 0, split-workspace, 10
       
-      # Move active window to workspace (using hyprsome)
+      # Move active window to workspace (using split-monitor-workspaces) 
       # SUPER + SHIFT + [ 0-9 ]
       bind = SUPER SHIFT, 1, split-movetoworkspacesilent, 1
       bind = SUPER SHIFT, 2, split-movetoworkspacesilent, 2
@@ -261,14 +249,14 @@ in
       bind = SUPER SHIFT, 0, split-movetoworkspacesilent, 10
       
       # Move window in direction
-      # SUPER + CONTROL + [ arrow keys / vim keys ]
+      # SUPER + CONTROL + [ vim keys ]
       bind = SUPER CONTROL, H, movewindow, l
       bind = SUPER CONTROL, J, movewindow, d
       bind = SUPER CONTROL, K, movewindow, u
       bind = SUPER CONTROL, L, movewindow, r
       
       # Move window focus 
-      # SUPER + [ arrow keys / vim keys ]
+      # SUPER + [ vim keys ]
       bind = SUPER, H, movefocus, l
       bind = SUPER, L, movefocus, r
       bind = SUPER, K, movefocus, u
@@ -279,28 +267,22 @@ in
       bind = SUPER, down, movefocus, d
       
       # Scroll through existing workspaces (includes first empty and previous workspace)
-      # SUPER + SHIFT + [ scroll wheel / mouse buttons / arrow keys / vim keys ]
+      # SUPER + SHIFT + [ scroll wheel / mouse buttons / vim keys ]
       bind = SUPER SHIFT, mouse_down, workspace, r+1
       bind = SUPER SHIFT, mouse_up, workspace, r-1
       bind = SUPER SHIFT, mouse:273, workspace, r+1
       bind = SUPER SHIFT, mouse:272, workspace, r-1
-      bind = SUPER SHIFT, right, workspace, r+1
-      bind = SUPER SHIFT, left, workspace, r-1
-      bind = SUPER SHIFT, up, workspace, empty
-      bind = SUPER SHIFT, down, workspace, previous
       bind = SUPER SHIFT, L, workspace, r+1
       bind = SUPER SHIFT, H, workspace, r-1
       bind = SUPER SHIFT, K, workspace, empty
       bind = SUPER SHIFT, J, workspace, previous
       
       # Focus monitor 
-      # SUPER + CONTROL + [ scroll wheel / mouse buttons / arrow keys / vim keys ] 
+      # SUPER + CONTROL + [ scroll wheel / mouse buttons / vim keys ] 
       bind = SUPER SHIFT CONTROL, mouse_up, focusmonitor, r
       bind = SUPER SHIFT CONTROL, mouse_down, focusmonitor, l
       bind = SUPER SHIFT CONTROL, mouse:273, focusmonitor, r
       bind = SUPER SHIFT CONTROL, mouse:272, focusmonitor, l
-      bind = SUPER SHIFT CONTROL, right, focusmonitor, r
-      bind = SUPER SHIFT CONTROL, left, focusmonitor, l
       bind = SUPER SHIFT CONTROL, L, focusmonitor, r
       bind = SUPER SHIFT CONTROL, H, focusmonitor, l
       

@@ -4,6 +4,7 @@
     virt-manager
     virt-viewer
     libguestfs-with-appliance
+    bottles
   ];
 
   virtualisation.libvirtd = {

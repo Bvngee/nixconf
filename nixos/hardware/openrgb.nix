@@ -23,6 +23,7 @@ in {
       serviceConfig = {
         ExecStart = "${no-rgb}/bin/no-rgb";
         Type = "oneshot";
+        Restart = "no";
       };
       wantedBy = [ "multi-user.target" ];
     };

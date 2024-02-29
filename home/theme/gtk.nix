@@ -40,15 +40,19 @@ in
     #};
     iconTheme =
       let
-        # Changes the color of folder icons to match the matugen theme. Unfortunately
-        # requires rebuilding the package every time themes are switched. ¯\_(ツ)_/¯
+        # Changes the color of folder icons to match the matugen theme, as well as removing
+        # all custom App icons (personal pref). Unfortunately requires rebuilding the package
+        # every time themes are switched. ¯\_(ツ)_/¯
         # https://github.com/vinceliuice/Colloid-icon-theme/tree/main/src/places/scalable
         themedColloid = (pkgs.colloid-icon-theme.override {
           colorVariants = [ "grey" ];
         }).overrideAttrs {
-          # possibly rm -rf /apps folder later?
           configurePhase = ''
             sed -i "s/#888888/${c.inverse_primary}/g" "./colors/color-grey/"*".svg"
+          '';
+          # TODO: this part is not working
+          fixupPhase = ''
+            rm -rf apps
           '';
         };
       in

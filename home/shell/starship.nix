@@ -7,13 +7,13 @@
     settings = {
       add_newline = false;
       format = lib.concatStrings [ 
-        "[](fg:4 bg:0)" #  
+        "[](fg:4)" #  
         ''$directory''
         "[](fg:6 bg:4)"
         ''$git_branch$git_status''
         "[](fg:2 bg:6)"
         ''$nix_shell''
-        "[](fg:0 bg:2)"
+        "[](fg:2)"
         " "
       ]; directory = {
         format = ''[ $path ](bg:4 fg:0)'';

@@ -5,10 +5,6 @@
     ./starship.nix
   ];
 
-  home.sessionVariables = {
-    EDITOR = "nvim";
-  };
-
   programs = {
     eza = {
       enable = true;
