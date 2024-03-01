@@ -44,8 +44,6 @@
     gamemode
     gamescope # in a Steam game's launch options: `gamescope -W 2560 -H 1440 -- %command%`
 
-    bottles
-
     mangohud
 
     protontricks
