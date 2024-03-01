@@ -1,26 +1,23 @@
-{ ... }: let
+{ pkgs, ... }:
+let
   shellAliases = {
     ga = "git add";
     gaa = "git add --all";
-    gc = "git commit";
-    gca = "git commit --amend";
+    gs = "git status";
+    gl = "git log";
     gr = "git rebase";
     grc = "git rebase --continue";
     gm = "git merge";
+    gc = "git commit";
     gp = "git pull";
-    gs = "git status";
-    gl = "git log";
-    gd = "git diff";
   };
-in {
+in
+{
+  home.packages = [ pkgs.gh ];
+
   programs = {
-    gh = {
-      enable = true;
-      gitCredentialHelper.enable = true;
-      gitCredentialHelper.hosts = [
-        "https://github.com"
-      ];
-    };
+    # Annoying, as it semi-breaks `gh auth *` commands
+    #gh.enable = true;
 
     git = {
       enable = true;
