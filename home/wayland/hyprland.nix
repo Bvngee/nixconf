@@ -193,10 +193,10 @@ in
       layerrule = ignorealpha 0.6, notifications
       
       # Application keybinds
-      bind = SUPER, Q, exec, $TERMINAl || kitty
-      bind = SUPER SHIFT, Q, exec, [float; size 1000 600; move cursor -50% -50%] $TERMINAL || kitty
+      bind = SUPER, Q, exec, kitty
+      bind = SUPER SHIFT, Q, exec, [float; size 1000 600; move cursor -50% -50%] kitty
       bind = SUPER, E, exec, [float; size 1100 700; move cursor -50% -50%] thunar
-      bind = SUPER, W, exec, $BROWSER
+      bind = SUPER, W, exec, firefox
   
       # Media keys
       bindle = , XF86AudioRaiseVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.05+ -l 1.0

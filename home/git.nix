@@ -3,13 +3,15 @@ let
   shellAliases = {
     ga = "git add";
     gaa = "git add --all";
+    gc = "git commit";
+    gca = "git commit -m";
     gs = "git status";
+    gd = "git diff";
     gl = "git log";
+    gp = "git pull";
     gr = "git rebase";
     grc = "git rebase --continue";
     gm = "git merge";
-    gc = "git commit";
-    gp = "git pull";
   };
 in
 {
