@@ -1,5 +1,5 @@
 { lib, pkgs, config, isMobile, ... }: let
-  isNvidia = config.hardware.nvidia != null;
+  isNvidia = builtins.elem "nvidia" config.services.xserver.videoDrivers;
 in {
 
   # TODO: script this somehow, in a bar or something

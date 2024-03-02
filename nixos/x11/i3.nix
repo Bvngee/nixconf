@@ -17,8 +17,7 @@ in
 
   environment.systemPackages = [
     cfg.package
-    cfg.extraPackages
-  ];
+  ] ++ cfg.extraPackages;
 
   # Add i3 startup command manually to display manager session list
   # (ass opposed to window manager list)
