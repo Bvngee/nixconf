@@ -68,6 +68,7 @@ in
 
       ../../nixos/programs/gaming.nix
 
+      ../../nixos/kde.nix
       ../../nixos/hardware/openrgb.nix
       ../../nixos/hardware/nvidia.nix
       ../../nixos/hardware/virtualization.nix
@@ -87,6 +88,8 @@ in
       ./latitude/hardware-configuration.nix
       { system.stateVersion = "23.05"; }
 
+      ../../nixos/kde.nix
+      ../../nixos/hardware/virtualization.nix
     ] ++ commonGraphicalModules;
   };
 }
