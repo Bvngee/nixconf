@@ -26,6 +26,10 @@
   # Used for apps that depend on a dbus secret-service provider
   services.gnome.gnome-keyring.enable = true;
 
+  # Kwallet get's annoying when switching between eg. KDE and Hyprland
+  security.pam.services.login.enableKwallet = false;
+  security.pam.services.login.enableGnomeKeyring = true;
+
   # (there's already a polkitd service from somewhere, but I'll keep this anyways)
   # Manage unpriviledged processes' access to priviledged processes
   security.polkit.enable = true;
