@@ -29,8 +29,9 @@ let
     ../../nixos/users.nix
     ../../nixos/greetd.nix
     ../../nixos/desktop.nix
-    ../../nixos/wayland.nix
-    ../../nixos/hyprland.nix
+
+    ../../nixos/wayland
+    ../../nixos/x11
 
     ../../nixos/hardware/printing.nix
     ../../nixos/hardware/backlight.nix
@@ -66,7 +67,6 @@ in
       { system.stateVersion = "23.05"; }
 
       ../../nixos/programs/gaming.nix
-      ../../nixos/kde.nix
 
       ../../nixos/hardware/openrgb.nix
       ../../nixos/hardware/nvidia.nix
@@ -87,7 +87,6 @@ in
       ./latitude/hardware-configuration.nix
       { system.stateVersion = "23.05"; }
 
-      ../../nixos/kde.nix
     ] ++ commonGraphicalModules;
   };
 }

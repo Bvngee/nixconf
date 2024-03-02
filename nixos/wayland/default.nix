@@ -1,4 +1,9 @@
 { pkgs, ... }: {
+  imports = [
+    ./hyprland.nix
+    ./sway.nix
+  ];
+
   environment.sessionVariables = {
     _JAVA_AWT_WM_NONEREPARENTING = "1";
     GDK_BACKEND = "wayland,x11";
