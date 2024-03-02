@@ -1,6 +1,6 @@
 { lib, config, inputs, pkgs, hostname, isMobile, ... }:
 let
-  isNvidia = builtins.elem "nvidia" config.services.xserver.videoDrivers;
+  isNvidia = builtins.elem hostname [ "pc" ];
   nvidiaEnvVars = ''
     # NVIDIA env vars (added automatically)
     env = LIBVA_DRIVER_NAME,nvidia
