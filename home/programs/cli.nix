@@ -12,5 +12,6 @@
         unzip
         zip
         jq
+        killall
     ];
 }
