@@ -33,7 +33,7 @@ in
           dbus-update-activation-environment --systemd --all || true
         ''}
 
-        startx ${cfg.package}/bin/i3 &
+        startx ${cfg.package}/bin/i3 -- vt1 &
         waitPID=$!
       '';
     }
