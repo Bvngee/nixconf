@@ -172,7 +172,7 @@ in
       windowrulev2 = float, title:^(Open Folder)$
       windowrulev2 = float, class:^(org.kde.polkit-kde-authentication-agent-1)$
       windowrulev2 = float, title:^(Firefox — Sharing Indicator)$
-      windowrulev2 = nofullscreenrequest, title:^(Firefox — Sharing Indicator)$
+      windowrulev2 = suppressevent fullscreen, title:^(Firefox — Sharing Indicator)$
       windowrulev2 = float, title:^(Picture-in-Picture)$
       windowrulev2 = size 500 300, title:^(Picture-in-Picture)$ # firefox PiP window
       windowrulev2 = float, title:^(Open File)(.*)$

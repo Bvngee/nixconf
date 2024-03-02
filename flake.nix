@@ -18,7 +18,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    hyprland.url = "github:hyprwm/Hyprland";
+    hyprland.url = "github:hyprwm/Hyprland/v0.36.0";
 
     split-monitor-workspaces = {
       url = "github:Duckonaut/split-monitor-workspaces";
