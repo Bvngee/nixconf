@@ -49,6 +49,7 @@ let
     ../../nixos/programs/xremap.nix
     ../../nixos/programs/zsh.nix
     ../../nixos/programs/kdeconnect.nix
+    ../../nixos/programs/ssh.nix
     ../../nixos/programs/tailscale.nix
   ];
 in
