@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ ... }:
 let
   shellAliases = {
     ga = "git add";
@@ -15,11 +15,8 @@ let
   };
 in
 {
-  home.packages = [ pkgs.gh ];
-
   programs = {
-    # Annoying, as it semi-breaks `gh auth *` commands
-    #gh.enable = true;
+    gh.enable = true;
 
     git = {
       enable = true;
