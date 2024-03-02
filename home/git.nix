@@ -4,7 +4,7 @@ let
     ga = "git add";
     gaa = "git add --all";
     gc = "git commit";
-    gca = "git commit -m";
+    gcm = "git commit -m";
     gs = "git status";
     gd = "git diff";
     gl = "git log";
