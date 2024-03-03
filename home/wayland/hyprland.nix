@@ -121,9 +121,10 @@ in
           # dim_strength = 0.1
       
           drop_shadow = true
-          shadow_range = 9
-          shadow_render_power = 4
-          col.shadow = rgba(00000077)
+          shadow_range = 8
+          shadow_render_power = 2
+          shadow_offset = 0 0
+          col.shadow = rgba(0000004a)
       }
       
       animations {
