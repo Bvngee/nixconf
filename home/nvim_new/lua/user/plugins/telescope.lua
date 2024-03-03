@@ -1,26 +1,25 @@
-local telescope = require('telescope')
-local actions = require('telescope.actions')
+return {
+	"nvim-telescope/telescope.nvim",
+	config = function()
+		local telescope = require("telescope")
+		local actions = require("telescope.actions")
+		local action_layout = require("telescope.actions.layout")
 
-telescope.load_extension('zf-native')
-telescope.load_extension('persisted')
+		telescope.load_extension("zf-native")
 
-telescope.setup {
-  defaults = {
-    mappings = {
-      i = {
-        ["<Esc>"] = actions.close,
-        ["<Tab>"] = actions.move_selection_next,
-        ["<S-Tab>"] = actions.move_selection_previous,
-      },
-      n = {
-        ["<Tab>"] = actions.move_selection_next,
-        ["<S-Tab>"] = actions.move_selection_previous,
-      }
-    },
-  },
-  extensions = {
-    persisted = {
-      layout_config = { width = 0.55, height = 0.55 }
-    }
-  }
+		telescope.setup({
+			defaults = {
+				mappings = {
+					i = {
+						["<Esc>"] = actions.close,
+            ["<A-p>"] = action_layout.toggle_preview,
+					},
+					n = {
+
+          },
+				},
+			},
+			extensions = {},
+		})
+	end,
 }
