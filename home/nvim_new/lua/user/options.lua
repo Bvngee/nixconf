@@ -11,11 +11,11 @@ vim.o.number = true
 vim.o.relativenumber = true
 vim.o.cursorline = true
 vim.o.cursorlineopt = 'number'
-vim.o.signcolumn = 'yes'
+vim.o.signcolumn = 'auto:1'
 vim.o.undofile = true
-vim.o.sessionoptions = 'buffers,curdir,folds,globals,tabpages,winpos,winsize'
+-- vim.o.sessionoptions = 'buffers,curdir,folds,globals,tabpages,winpos,winsize'
 
--- (lua and vimscript plugins only )
+-- (lua and vimscript plugins only)
 vim.g.loaded_perl_provider = 0
 vim.g.loaded_ruby_provider = 0
 vim.g.loaded_node_provider = 0
@@ -33,10 +33,12 @@ vim.o.mousemoveevent = true
 vim.o.splitbelow = true
 vim.o.splitright = true
 vim.o.cmdheight = 0
+vim.o.cedit = '<C-f>'
+vim.o.cmdwinheight = 3
+vim.opt_local.formatoptions:remove('o')
 vim.o.showcmdloc = 'statusline'
 vim.o.laststatus = 3
-vim.o.updatetime = 200
-vim.o.hidden = true
+vim.o.updatetime = 200 vim.o.hidden = true
 vim.o.scrolloff = 8
 vim.o.sidescrolloff = 8
 vim.o.inccommand = 'split'

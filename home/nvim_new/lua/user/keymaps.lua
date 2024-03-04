@@ -1,60 +1,79 @@
-local function tmap(mode, shortcut, command)
-    vim.keymap.set(mode, shortcut, command, { silent = true })
+local opts = { noremap = true, silent = true }
+local function map(mode, shortcut, command, options)
+  vim.keymap.set(mode, shortcut, command, options)
 end
-
-local function map(mode, shortcut, command)
-    vim.keymap.set(mode, shortcut, command, { noremap = true, silent = true })
-end
-
---- General Keymaps ---
 
 -- save all and close all keybinds
-map('n', 'S', ':wa<CR>')
-map('n', 'Q', ':wqa<CR>')
+map('n', '<C-s>', ':wa<CR>', opts)
+map('n', '<C-q>', ':wqa<CR>', opts)
 
 -- stay in visual mode when indenting
-map('v', '<', '<gv')
-map('v', '>', '>gv')
+map('v', '<', '<gv', opts)
+map('v', '>', '>gv', opts)
+
+-- make buffers take relatively equal space (useful after resizes)
+map('n', '<leader>=', '<C-w>=', opts)
+
+-- remove default Cmdwin hotkeys (doesn't work perfectly but eh)
+map('n', 'q:', '<nop>', { remap = true, silent = true })
+map('n', 'q/', '<nop>', { remap = true, silent = true })
+map('n', 'q?', '<nop>', { remap = true, silent = true })
 
 -- maintain register contents after paste
-map('v', 'p', '"_dP')
+map('v', 'p', '"_dP', opts)
 
--- easier delete-without-yank keybind
-map('n', '<leader>d', '"_d')
-map('v', '<leader>d', '"_d')
-map('n', '<leader>D', '"_D')
+-- easier [delete/change]-without-yank keybind
+map({ 'n', 'v' }, '<leader>d', '"_d', opts)
+map({ 'n', 'v' }, '<leader>D', '"_D', opts)
+map({ 'n', 'v' }, '<leader>c', '"_c', opts)
+map({ 'n', 'v' }, '<leader>C', '"_C', opts)
 
 -- x key doesn't yank
-map('n', 'x', '"_x') 
-map('v', 'x', '"_x')
-map('n', 'X', '"_X')
-map('v', 'X', '"_X')
+map('n', 'x', '"_x', opts)
+map('v', 'x', '"_x', opts)
+map('n', 'X', '"_X', opts)
+map('v', 'X', '"_X', opts)
 
 -- yank to system clipboard
-map('n', '<leader>y', '"+y')
-map('v', '<leader>y', '"+y')
-map('n', '<leader>Y', '"+Y')
+map({ 'n', 'v' }, '<leader>y', '"+y', opts)
+map({ 'n', 'v' }, '<leader>Y', '"+Y', opts)
 
 -- buffer navigation
-map('n', '<C-h>', '<C-w>h')
-map('n', '<C-j>', '<C-w>j')
-map('n', '<C-k>', '<C-w>k')
-map('n', '<C-l>', '<C-w>l')
+map('n', '<C-h>', '<C-w>h', opts)
+map('n', '<C-j>', '<C-w>j', opts)
+map('n', '<C-k>', '<C-w>k', opts)
+map('n', '<C-l>', '<C-w>l', opts)
+
+-- -- buffers resizing
+-- map('n', '<A-,>', '<C-w><', opts) -- horizontal
+-- map('n', '<A-.>', '<C-w>>', opts)
+-- map('n', '<A-S-,>', '<C-w>5<', opts)
+-- map('n', '<A-S-.>', '<C-w>5>', opts)
+--
+-- map('n', '<A-t>', '<C-w>+', opts) -- vertical
+-- map('n', '<A-s>', '<C-w>-', opts)
+-- map('n', '<A-S-t>', '<C-w>5+', opts)
+-- map('n', '<A-S-s>', '<C-w>5-', opts)
 
 -- standard diagnostic navigation
-map('n', '[d', vim.diagnostic.goto_prev)
-map('n', ']d', vim.diagnostic.goto_next)
+map('n', '[d', vim.diagnostic.goto_prev, opts)
+map('n', ']d', vim.diagnostic.goto_next, opts)
 
 -- keep screen centered after large movements
-map('n', '<C-u>', '<C-u>zz')
-map('n', '<C-d>', '<C-d>zz')
-map('n', '<C-f>', '<C-f>zz')
-map('n', '<C-b>', '<C-b>zz')
-map('n', 'n', 'nzzzv')
-map('n', 'N', 'Nzzzv')
+map('n', '<C-u>', '<C-u>zz', opts)
+map('n', '<C-d>', '<C-d>zz', opts)
+map('n', '<C-f>', '<C-f>zz', opts)
+map('n', '<C-b>', '<C-b>zz', opts)
+map('n', 'n', 'nzzzv', opts)
+map('n', 'N', 'Nzzzv', opts)
 
 -- start a replace under current word
-map('n', '<leader>sw', [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
+map('n', '<leader>sw', [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]], opts)
+
+-- toggle line wrap
+map('n', '<leader>w', function()
+  vim.wo.wrap = not vim.wo.wrap
+end, opts)
 
 -- lol, who doesn't mistype these sometimes?
 vim.api.nvim_create_user_command('WQ', 'wq', {})
@@ -63,15 +82,3 @@ vim.api.nvim_create_user_command('W', 'w', {})
 vim.api.nvim_create_user_command('Qa', 'qa', {})
 vim.api.nvim_create_user_command('Q', 'q', {})
 
-
-
---- Plugin Keymaps ---
-
--- telescope
-local builtin = require('telescope.builtin')
-local extensions = require('telescope').extensions
-map('n', '<leader>ff', function() builtin.find_files {hidden = true} end)
-map('n', '<leader>fg', builtin.git_files)
-map('n', '<leader>fb', builtin.buffers)
-map('n', '<leader>lg', builtin.live_grep)
-map('n', '<leader>ss', extensions.persisted.persisted)

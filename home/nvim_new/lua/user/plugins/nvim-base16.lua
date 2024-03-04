@@ -1,5 +1,7 @@
 return {
   'RRethy/base16-nvim',
+  lazy = false,
+  priority = 1000,
   config = function()
     local base16 = require('base16-colorscheme')
 
@@ -26,9 +28,12 @@ return {
     vim.api.nvim_set_hl(0, 'RainbowDelimiterBlue', { fg = colors.base0D, bg = nil })
     vim.api.nvim_set_hl(0, 'RainbowDelimiterViolet', { fg = colors.base0E, bg = nil })
 
-    vim.api.nvim_set_hl(0, 'VertSplit', { fg = colors.base01, bg = colors.base01 })
+    -- vim.api.nvim_set_hl(0, 'VertSplit', { fg = colors.base01, bg = colors.base01 })
 
     vim.api.nvim_set_hl(0, 'LineNr', { fg = colors.base03, bg = colors.base00 })
+    vim.api.nvim_set_hl(0, 'CursorLineNr', { fg = colors.base04, bg = colors.base00 })
+
+    vim.api.nvim_set_hl(0, 'WinSeparator', { fg = colors.base02, bg = colors.base00 })
 
     vim.api.nvim_set_hl(0, 'MiniCursorword', { bg = colors.base01 })
     vim.api.nvim_set_hl(0, 'MiniCursorwordCurrent', { bg = colors.base01 })

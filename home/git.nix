@@ -5,10 +5,12 @@ let
     gaa = "git add --all";
     gc = "git commit";
     gcm = "git commit -m";
+    gca = "git commit --amend";
     gs = "git status";
     gd = "git diff";
     gl = "git log";
     gp = "git pull";
+    gP = "git push";
     gr = "git rebase";
     grc = "git rebase --continue";
     gm = "git merge";
