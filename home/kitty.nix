@@ -2,6 +2,10 @@
   programs.kitty = with config.scheme.withHashtag; {
     enable = true;
     #theme = "Gruvbox Material Dark Medium";
+    keybindings = {
+      "ctrl+shift+left" = "no_op";
+      "ctrl+shift+right" = "no_op";
+    };
     settings = {
       font = "CaskaydiaCove NF SemiBold";
       bold_font = "auto";
