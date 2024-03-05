@@ -24,7 +24,17 @@ return {
       },
     },
     sections = {
-      lualine_a = { 'mode' },
+      lualine_a = {
+        {
+          'mode',
+          -- color = function()
+          --   return vim.g.smart_resize_mode and { bg = require('base16-colorscheme').colors.base0E } or nil
+          -- end,
+          fmt = function(str, _)
+            return vim.g.smart_resize_mode and 'SPLIT RESIZE' or str
+          end,
+        },
+      },
       lualine_b = { 'branch' },
       lualine_c = {
         {
