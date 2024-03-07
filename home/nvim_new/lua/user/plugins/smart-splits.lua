@@ -3,6 +3,7 @@ return {
   dependencies = {
     'kwkarlwang/bufresize.nvim',
   },
+  event = 'VeryLazy',
   config = function()
     local smart_splits = require('smart-splits')
     local opts = {

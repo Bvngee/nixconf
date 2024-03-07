@@ -45,7 +45,7 @@ return {
           symbols = {
             modified = '+',
             readonly = '!',
-            unnamed = '[?]',
+            unnamed = '[No Name]',
           },
           separator = {
             right = '',

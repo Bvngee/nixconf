@@ -11,7 +11,7 @@ vim.o.number = true
 vim.o.relativenumber = true
 vim.o.cursorline = true
 vim.o.cursorlineopt = 'number'
-vim.o.signcolumn = 'auto:1'
+vim.o.signcolumn = 'yes:1'
 vim.o.undofile = true
 -- vim.o.sessionoptions = 'buffers,curdir,folds,globals,tabpages,winpos,winsize'
 

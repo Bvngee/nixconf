@@ -7,3 +7,12 @@ vim.api.nvim_create_autocmd('TextYankPost', {
     vim.highlight.on_yank({ timeout = 75, higroup = 'Visual' })
   end,
 })
+
+-- Enable line wrapping and spell checking in certain file types
+vim.api.nvim_create_autocmd({ "FileType" }, {
+  pattern = { "gitcommit", "markdown" },
+  callback = function()
+    vim.opt_local.wrap = true
+    vim.opt_local.spell = true
+  end
+})

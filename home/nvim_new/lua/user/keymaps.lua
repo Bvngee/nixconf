@@ -29,10 +29,8 @@ map({ 'n', 'v' }, '<leader>c', '"_c', opts)
 map({ 'n', 'v' }, '<leader>C', '"_C', opts)
 
 -- x key doesn't yank
-map('n', 'x', '"_x', opts)
-map('v', 'x', '"_x', opts)
-map('n', 'X', '"_X', opts)
-map('v', 'X', '"_X', opts)
+map({ 'n', 'v' }, 'x', '"_x', opts)
+map({ 'n', 'v' }, 'X', '"_X', opts)
 
 -- yank to system clipboard
 map({ 'n', 'v' }, '<leader>y', '"+y', opts)
@@ -67,9 +65,6 @@ map('n', '<C-b>', '<C-b>zz', opts)
 map('n', 'n', 'nzzzv', opts)
 map('n', 'N', 'Nzzzv', opts)
 
--- start a replace under current word
-map('n', '<leader>sw', [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]], opts)
-
 -- toggle line wrap
 map('n', '<leader>w', function()
   vim.wo.wrap = not vim.wo.wrap
@@ -81,4 +76,3 @@ vim.api.nvim_create_user_command('Wq', 'wq', {})
 vim.api.nvim_create_user_command('W', 'w', {})
 vim.api.nvim_create_user_command('Qa', 'qa', {})
 vim.api.nvim_create_user_command('Q', 'q', {})
-

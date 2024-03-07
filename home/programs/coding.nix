@@ -45,5 +45,6 @@
 
     # Zig
     zig
+    zls
   ];
 }

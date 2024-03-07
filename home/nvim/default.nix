@@ -1,4 +1,5 @@
-{ pkgs, lib, config, pkgsUnstable, ... }: let
+{ pkgs, lib, config, pkgsUnstable, ... }:
+let
   unstableVimPlugins = pkgsUnstable.vimPlugins;
   persisted = pkgs.vimUtils.buildVimPlugin {
     name = "persisted";
@@ -10,15 +11,20 @@
     };
     configurePhase = "rm ./Makefile";
   };
-in {
+in
+{
   #home.file.".config/testFile".source = config.lib.file.mkOutOfStoreSymlink ../../testFile;
-  
+
   programs.neovim = {
     enable = true;
-    
+
     vimAlias = true;
     viAlias = true;
     vimdiffAlias = true;
+
+    withRuby = false;
+    withPython3 = false;
+    withNodeJs = false;
 
     plugins = with pkgs.vimPlugins; [
       # lsp
@@ -57,7 +63,7 @@ in {
       plenary-nvim
       nvim-web-devicons
       popup-nvim
-      
+
       # other
       gruvbox-material
       nvim-base16 #alternatives: Iron-E/nvim-highlite, ThemerCorp/themer.lua
@@ -80,14 +86,16 @@ in {
 
     extraPackages = with pkgs; [ gcc ripgrep fd nil lua-language-server stylua ];
 
-    extraLuaConfig = let
-      addLuaFile = file: ''
-        do -- ${toString file}
-        ${builtins.readFile file}
-        end
-      '';
-    in 
-      ( # base16.nix nvim integration using nvim-base16 plugin
+    extraLuaConfig =
+      let
+        addLuaFile = file: ''
+          do -- ${toString file}
+          ${builtins.readFile file}
+          end
+        '';
+      in
+      (
+        # base16.nix nvim integration using nvim-base16 plugin
         import ./config/plugins/nvim-base16.nix { inherit (config) scheme; }
       ) + "\n" +
       builtins.concatStringsSep "\n" (map addLuaFile [

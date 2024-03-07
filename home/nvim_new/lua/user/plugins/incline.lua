@@ -21,7 +21,7 @@ return {
       render = function(props)
         local filename = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(props.buf), ':t')
         if filename == '' then
-          filename = '[?]'
+          filename = '[No Name]'
         end
         local ft_icon, ft_color = devicons.get_icon_color(filename)
         local base16_scheme = require('base16-colorscheme').colors
