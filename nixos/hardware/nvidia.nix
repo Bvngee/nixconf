@@ -8,7 +8,8 @@
     # suspend/resume; also adds NVreg_PreserveVideoMemoryAllocations=1 kernel param
     powerManagement.enable = true;
 
-    modesetting.enable = true;
+    modesetting.enable = true; # also adds nvidia-drm.modeset=1 kernel param
+
     nvidiaSettings = false; # basically useless software
 
     # unbearable XWayland flickering on stable/latest due to no explicit sync support

@@ -36,11 +36,16 @@
   # Hands out realtime scheduling priority to user processes on demand
   security.rtkit.enable = true;
 
+  # Enable screen lockers to actually unlock the screen
+  security.pam.services.hyprlock = {};
+  security.pam.services.swaylock = {};
+
   # Modify how laptop lidSwitch/powerKey is handled
   services.logind = lib.mkIf (isMobile) {
     lidSwitch = "suspend";
     lidSwitchDocked = "ignore";
-    lidSwitchExternalPower = "ignore";
+    lidSwitchExternalPower = "suspend";
     powerKey = "ignore";
+    powerKeyLongPress = "poweroff";
   };
 }

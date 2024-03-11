@@ -33,9 +33,10 @@ in
   # Overrides package with hyprland flake package
   imports = [ inputs.hyprland.homeManagerModules.default ];
 
+  # NOTE: this module adds a Hyprland package to $PATH, but it should not be used.
+  # the actual Hyprland package is set and used via nixos module, NOT this HM module.
   wayland.windowManager.hyprland = {
     enable = true;
-    xwayland.enable = true;
     plugins = [
       inputs.split-monitor-workspaces.packages.${pkgs.system}.split-monitor-workspaces
     ];
@@ -162,7 +163,6 @@ in
               count = 10
           }
       }
-      
       
       # Change fullscreen/pinned border color # I wanna use rgba(d3869bff) too...
       windowrulev2 = bordercolor rgba(ea6962ff), fullscreen:1

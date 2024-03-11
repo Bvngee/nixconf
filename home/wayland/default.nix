@@ -1,7 +1,9 @@
 { pkgs, pkgsUnstable, ... }: {
   imports = [
     ./hyprland.nix
+    ./hyprlock.nix
     ./swayidle.nix
+    ./swaylock.nix
     ./swww.nix
   ];
 

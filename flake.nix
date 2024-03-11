@@ -18,6 +18,8 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    # v0.36.0 does not include the following commit, and will be patched instead
+    # https://github.com/hyprwm/Hyprland/commit/8e2a62e53bf51e8b4ae719d0e46797b0a26eeb22
     hyprland.url = "github:hyprwm/Hyprland/v0.36.0";
 
     split-monitor-workspaces = {
