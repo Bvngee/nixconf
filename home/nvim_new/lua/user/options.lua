@@ -7,6 +7,7 @@ vim.o.termguicolors = true
 vim.o.fileencoding = 'utf-8'
 vim.o.showmode = false
 vim.o.wrap = false
+vim.o.linebreak = true
 vim.o.number = true
 vim.o.relativenumber = true
 vim.o.cursorline = true
