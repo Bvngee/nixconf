@@ -1,0 +1,6 @@
+TODO:
+
+- finish nvim-cmp.lua (<C-j/k> or <C-n/p> ?)
+    - snippets too
+- finish configuring trouble (settings)
+- figure out what other plugins are still missing from nvim config v2

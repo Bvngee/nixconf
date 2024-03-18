@@ -1,5 +1,6 @@
 return {
   'nvim-treesitter/nvim-treesitter',
+  event = { 'VeryLazy', 'BufReadPost', 'BufNewFile', 'BufWritePre' },
   build = function()
     require('nvim-treesitter.install').update({ with_sync = true })()
   end,
@@ -14,7 +15,9 @@ return {
         enable = true,
         additional_vim_regex_higihlighting = false,
       },
-      indent = { enable = true },
+      indent = { enable = true }, -- wtf does this do?
     })
   end,
+
+  -- Do I want https://github.com/windwp/nvim-ts-autotag ???
 }

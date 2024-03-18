@@ -48,25 +48,13 @@ map('n', '<C-h>', '<C-w>h')
 map('n', '<C-j>', '<C-w>j')
 map('n', '<C-k>', '<C-w>k')
 map('n', '<C-l>', '<C-w>l')
-map('t', '<C-h>', '<C-w>h')
-map('t', '<C-j>', '<C-w>j')
-map('t', '<C-k>', '<C-w>k')
-map('t', '<C-l>', '<C-w>l')
 
--- -- buffers resizing
--- map('n', '<A-,>', '<C-w><') -- horizontal
--- map('n', '<A-.>', '<C-w>>')
--- map('n', '<A-S-,>', '<C-w>5<')
--- map('n', '<A-S-.>', '<C-w>5>')
---
--- map('n', '<A-t>', '<C-w>+') -- vertical
--- map('n', '<A-s>', '<C-w>-')
--- map('n', '<A-S-t>', '<C-w>5+')
--- map('n', '<A-S-s>', '<C-w>5-')
+-- create splits easier
+map('n', '<C-x>', '<CMD>split<CR>')
+map('n', '<C-v>', '<CMD>vsplit<CR>')
 
--- standard diagnostic navigation
-map('n', '[d', vim.diagnostic.goto_prev)
-map('n', ']d', vim.diagnostic.goto_next)
+-- Exit terminal mode easier. NOTE: This might not work in all terminal emulators/tmux/etc.
+map('t', '<Esc><Esc>', '<C-\\><C-n>')
 
 -- keep screen centered after large movements
 map('n', '<C-u>', '<C-u>zz')
