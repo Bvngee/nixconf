@@ -182,6 +182,8 @@ in
       windowrulev2 = float, title:^(Save As)(.*)$
       windowrulev2 = float, title:^(Library)(.*)$
       windowrulev2 = float, title:^(.*)(Bitwarden)(.*)$
+      windowrulev2 = suppressevent fullscreen,float, title:^(Extension: (Bitwarden - Free Password Manager) - — Mozilla Firefox)$
+      windowrulev2 = suppressevent fullscreen,float, title:^(Extension: (Bitwarden - Free Password Manager) - Bitwarden — Mozilla Firefox)$
       windowrulev2 = float, class:^(com.gabm.satty)$
       windowrulev2 = float, class:^(org.kde.dolphin)$
       
