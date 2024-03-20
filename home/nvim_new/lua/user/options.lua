@@ -7,6 +7,7 @@ vim.o.termguicolors = true
 vim.o.fileencoding = 'utf-8'
 vim.o.showmode = false
 vim.o.wrap = false
+vim.o.wrapscan = true
 vim.o.linebreak = true
 vim.o.number = true
 vim.o.relativenumber = true
@@ -39,7 +40,8 @@ vim.o.cmdwinheight = 3
 vim.opt_local.formatoptions:remove('o')
 vim.o.showcmdloc = 'statusline'
 vim.o.laststatus = 3
-vim.o.updatetime = 200 vim.o.hidden = true
+vim.o.updatetime = 200
+vim.o.hidden = true
 vim.o.scrolloff = 8
 vim.o.sidescrolloff = 8
 vim.o.inccommand = 'split'

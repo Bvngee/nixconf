@@ -8,14 +8,10 @@ end
 
 -- save all and close all keybinds
 map('n', '<C-s>', ':wa<CR>')
-map('n', '<C-q>', ':wqa<CR>')
+map('n', '<C-q>', ':qa<CR>')
 
--- stay in visual mode when indenting
-map('v', '<', '<gv')
-map('v', '>', '>gv')
-
--- make buffers take relatively equal space (useful after resizes)
-map('n', '<leader>=', '<C-w>=')
+-- clear search with <esc>
+map({ 'i', 'n' }, '<esc>', '<cmd>noh<cr><esc>')
 
 -- remove default Cmdwin hotkeys (doesn't work perfectly but eh)
 map('n', 'q:', '<nop>', { remap = true, silent = true })
@@ -49,9 +45,13 @@ map('n', '<C-j>', '<C-w>j')
 map('n', '<C-k>', '<C-w>k')
 map('n', '<C-l>', '<C-w>l')
 
--- create splits easier
-map('n', '<C-x>', '<CMD>split<CR>')
-map('n', '<C-v>', '<CMD>vsplit<CR>')
+-- manage splits easier
+map('n', '<leader>wx', '<cmd>split<cr>')
+map('n', '<leader>wv', '<cmd>vsplit<cr>')
+map('n', '<leader>wc', '<C-w>c')
+
+-- make buffers take relatively equal space (useful after resizes)
+map('n', '<leader>=', '<C-w>=')
 
 -- Exit terminal mode easier. NOTE: This might not work in all terminal emulators/tmux/etc.
 map('t', '<Esc><Esc>', '<C-\\><C-n>')
@@ -86,6 +86,8 @@ map('n', '<leader>w', function()
 end)
 
 -- lol, who doesn't mistype these sometimes?
+vim.api.nvim_create_user_command('WQa', 'wqa', {})
+vim.api.nvim_create_user_command('Wqa', 'wqa', {})
 vim.api.nvim_create_user_command('WQ', 'wq', {})
 vim.api.nvim_create_user_command('Wq', 'wq', {})
 vim.api.nvim_create_user_command('W', 'w', {})

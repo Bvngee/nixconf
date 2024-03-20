@@ -55,7 +55,13 @@ return {
               setType = true,
             },
             diagnostics = {
-              disable = { 'trailing-space', 'unused-local', 'unused-function', 'unused-vararg' },
+              disable = {
+                'missing-fields',
+                'trailing-space',
+                'unused-local',
+                'unused-function',
+                'unused-vararg',
+              },
             },
             telemetry = { enable = false },
           },
@@ -146,7 +152,7 @@ return {
       },
       virtual_text = {
         spacing = 4,
-        source = 'if_many',
+        source = 'never',
         -- prefix = "●" -- 󰝤 󱓻 󱓻 
       },
       severity_sort = true,

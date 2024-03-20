@@ -59,7 +59,7 @@ return {
     'echasnovski/mini.pairs',
     event = 'VeryLazy',
     opts = {
-      modes = { insert = true, command = false, terminal = false },
+      modes = { insert = true, command = true, terminal = false },
       --stylua: ignore
       mappings = {
         ['('] = { action = 'open', pair = '()', neigh_pattern = '[^\\].' },
@@ -118,5 +118,40 @@ return {
         },
       }
     end,
+  },
+
+  {
+    'echasnovski/mini.cursorword',
+    event = { 'BufReadPost', 'BufNewFile', 'BufWritePre' },
+  },
+
+  {
+    'echasnovski/mini.move',
+    event = 'VeryLazy',
+    opts = {
+      -- If I ever remove this plugin, I can mess around with these again:
+      -- -- move lines up/down
+      -- map('v', '<A-j>', ":m '>+1<cr>gv=gv")
+      -- map('v', '<A-k>', ":m '<-2<cr>gv=gv")
+      --
+      -- -- move lines left/right
+      -- map('v', '<A-h>', '<gv')
+      -- map('v', '<A-l>', '>gv')
+      -- map('v', '<', '<gv')
+      -- map('v', '>', '>gv')
+      mappings = {
+        -- Move visual selection in Visual mode.
+        left = '<A-h>',
+        right = '<A-l>',
+        down = '<A-j>',
+        up = '<A-k>',
+
+        -- Aove current line in Normal mode
+        line_left = '<A-h>',
+        line_right = '<A-l>',
+        line_down = '<A-j>',
+        line_up = '<A-k>',
+      },
+    },
   },
 }

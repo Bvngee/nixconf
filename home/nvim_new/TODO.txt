@@ -2,5 +2,7 @@ TODO:
 
 - finish nvim-cmp.lua (<C-j/k> or <C-n/p> ?)
     - snippets too
-- finish configuring trouble (settings)
+- finish configuring trouble (settings) (make each error on one line or smth? idk)
 - figure out what other plugins are still missing from nvim config v2
+- make better wrap-keybinds stuff (based on lazyvim?) that actually works on launch (before toggling manually)
+- fix the "- **changed**:" message every fucking save (format?)

@@ -84,7 +84,7 @@ in
       mini-nvim
     ];
 
-    extraPackages = with pkgs; [ gcc ripgrep fd nil lua-language-server stylua ];
+    extraPackages = with pkgs; [ gnumake gcc ripgrep fd nil lua-language-server stylua ];
 
     extraLuaConfig =
       let
