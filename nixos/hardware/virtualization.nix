@@ -25,9 +25,13 @@ in
     bottles-51-11
   ];
 
-  virtualisation.libvirtd = {
-    enable = true;
+  virtualisation = {
+    libvirtd.enable = true;
+    docker = {
+      enable = true;
+      enableNvidia = true;
+    };
   };
 
-  users.users.${user}.extraGroups = [ "libvirtd" ];
+  users.users.${user}.extraGroups = [ "libvirtd" "docker" ];
 }
