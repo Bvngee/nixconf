@@ -24,17 +24,12 @@ return {
       },
       completion = { completeopt = 'menu,menuone,noinsert' },
 
+      -- stylua: ignore
       mapping = cmp.mapping.preset.insert({
         -- C-n
-        ['<C-j>'] = cmp.mapping(
-          cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Select }),
-          { 'i', 'c' }
-        ),
+        ['<C-j>'] = cmp.mapping( cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Select }), { 'i', 'c' }),
         -- C-p
-        ['<C-k>'] = cmp.mapping(
-          cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Select }),
-          { 'i', 'c' }
-        ),
+        ['<C-k>'] = cmp.mapping( cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Select }), { 'i', 'c' }),
 
         -- C-y
         ['<C-Space>'] = cmp.mapping(cmp.mapping.confirm({ select = true }), { 'i', 'c' }),
@@ -43,15 +38,12 @@ return {
 
         ['<C-u>'] = cmp.mapping(cmp.mapping.scroll_docs(-4), { 'i', 'c' }),
         ['<C-d>'] = cmp.mapping(cmp.mapping.scroll_docs(4), { 'i', 'c' }),
+
         ['<C-l>'] = cmp.mapping(function()
-          if luasnip.expand_or_locally_jumpable() then
-            luasnip.expand_or_jump()
-          end
+          if luasnip.expand_or_locally_jumpable() then luasnip.expand_or_jump() end
         end, { 'i', 's' }),
         ['<C-h>'] = cmp.mapping(function()
-          if luasnip.locally_jumpable(-1) then
-            luasnip.jump(-1)
-          end
+          if luasnip.locally_jumpable(-1) then luasnip.jump(-1) end
         end, { 'i', 's' }),
       }),
       sources = cmp.config.sources({

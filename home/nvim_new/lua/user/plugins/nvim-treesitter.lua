@@ -10,7 +10,10 @@ return {
       ensure_installed = 'all',
       sync_install = false,
       auto_install = true,
-      ignore_install = { 'comment' },
+      ignore_install = {
+        'comment', -- bad with raindow-delimiters
+        'smali', -- failing to download
+      },
       highlight = {
         enable = true,
         additional_vim_regex_higihlighting = false,
