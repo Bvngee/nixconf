@@ -23,6 +23,9 @@
     firefox
     zoom-us
     gnome.gnome-calculator
+    gnome.gnome-notes
+    gnome.gnome-disk-utility # nixos only?
+    gnome.file-roller # replace ark?
     libsForQt5.kcalc
     mission-center
     snapshot
