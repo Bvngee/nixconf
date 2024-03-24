@@ -28,7 +28,7 @@ return {
             vim.keymap.set('n', 'H', '5h', { remap = true })
             vim.keymap.set('n', 'L', '5l', { remap = true })
             vim.keymap.set('n', 'J', '5j', { remap = true })
-            vim.keymap.set('n', 'K', '5k', { remap = true })
+            vim.keymap.set('n', 'K', '5k', { remap = true }) -- TODO: This doesn't work (cuz of lsp hover)
           end,
           on_leave = function()
             vim.notify('Exiting resize mode, all keymaps restored')

@@ -40,6 +40,8 @@ vim.o.cmdwinheight = 3
 vim.opt_local.formatoptions:remove('o')
 vim.o.showcmdloc = 'statusline'
 vim.o.laststatus = 3
+vim.opt.shortmess:append('cC') -- do I want these?
+vim.opt.shortmess:remove('sS')
 vim.o.updatetime = 200
 vim.o.hidden = true
 vim.o.scrolloff = 8

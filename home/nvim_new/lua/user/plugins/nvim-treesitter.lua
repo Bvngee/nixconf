@@ -18,7 +18,7 @@ return {
         enable = true,
         additional_vim_regex_higihlighting = false,
       },
-      indent = { enable = true }, -- wtf does this do?
+      indent = { enable = false }, -- wtf does this do?
     })
   end,
 

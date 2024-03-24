@@ -21,3 +21,5 @@ require('lazy').setup('user.plugins', {
     enabled = false,
   },
 })
+
+vim.keymap.set('n', '<leader>la', require('lazy').home)
