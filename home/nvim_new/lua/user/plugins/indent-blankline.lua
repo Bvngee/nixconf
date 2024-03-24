@@ -3,6 +3,10 @@ return {
   event = 'VeryLazy',
   main = 'ibl',
   opts = {
+    viewport_buffer = {
+      min = 100,
+      max = 600,
+    },
     indent = {
       char = '▏',
     },

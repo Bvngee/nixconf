@@ -1,26 +1,28 @@
--- specify neodev as a dependency of lspconfig to get loading order right
-local neodev = {
-  'folke/neodev.nvim',
-  opts = {
-    override = function(root_dir, library)
-      local enable = root_dir:find('nvim', 1, true) ~= nil
-        or root_dir:find('nixconf', 1, true) ~= nil
-      if enable then
-        library.enabled = true
-        library.types = true
-        library.runtime = true
-        library.plugins = true
-      end
-    end,
-  },
-}
-
 return {
   'neovim/nvim-lspconfig',
   event = { 'BufReadPost', 'BufNewFile', 'BufWritePre' },
   dependencies = {
     'hrsh7th/nvim-cmp', -- to create capabilities
-    neodev,
+    {
+      'folke/neodev.nvim',
+      opts = {
+        override = function(root_dir, library)
+          local enable = root_dir:find('nvim', 1, true) ~= nil
+            or root_dir:find('nixconf', 1, true) ~= nil
+          if enable then
+            library.enabled = true
+            library.types = true
+            library.runtime = true
+            library.plugins = true
+          end
+        end,
+      },
+    },
+    -- {
+    --   'smjonas/inc-rename.nvim',
+    --   opts = { input_buffer_type = 'dressing' },
+    --   main = 'inc_rename',
+    -- },
   },
   config = function()
     -- Available keys are:
@@ -114,7 +116,7 @@ return {
       group = vim.api.nvim_create_augroup('UserLspConfig', {}),
       callback = function(event)
         local tele = require('telescope.builtin')
-        local function map(mode, lhs, rhs)
+        local function map(mode, lhs, rhs, opts)
           vim.keymap.set(mode, lhs, rhs, { buffer = event.buf })
         end
         map('n', 'gd', tele.lsp_definitions)
@@ -126,8 +128,8 @@ return {
         map('n', '<leader>ws', tele.lsp_dynamic_workspace_symbols)
         map('n', 'K', vim.lsp.buf.hover)
         map('n', '<leader>k', vim.lsp.buf.signature_help)
-        map('n', '<space>rn', vim.lsp.buf.rename)
         map({ 'n', 'v' }, '<space>ca', vim.lsp.buf.code_action)
+        map('n', '<leader>rn', vim.lsp.buf.rename)
       end,
     })
 

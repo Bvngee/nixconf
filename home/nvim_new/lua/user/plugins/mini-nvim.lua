@@ -60,22 +60,26 @@ return {
     event = 'VeryLazy',
     opts = {
       modes = { insert = true, command = true, terminal = false },
-      --stylua: ignore
+      -- stylua: ignore
+      -- the neigh_pattern format is two regexp's, for neighboring chars.
+      -- I.e. '..' is any|any, '.[^\\]' is any|not-backslash
+      -- https://www.lua.org/manual/5.1/manual.html#5.4.1
       mappings = {
-        ['('] = { action = 'open', pair = '()', neigh_pattern = '[^\\].' },
-        ['['] = { action = 'open', pair = '[]', neigh_pattern = '[^\\].' },
-        ['{'] = { action = 'open', pair = '{}', neigh_pattern = '[^\\].' },
+        ['('] = { action = 'open', pair = '()', neigh_pattern = '[^\\][^%a]' }, -- dont activate after a \
+        ['['] = { action = 'open', pair = '[]', neigh_pattern = '[^\\][^%a]' }, -- or before any char
+        ['{'] = { action = 'open', pair = '{}', neigh_pattern = '[^\\][^%a]' },
 
         [')'] = { action = 'close', pair = '()', neigh_pattern = '[^\\].' },
         [']'] = { action = 'close', pair = '[]', neigh_pattern = '[^\\].' },
         ['}'] = { action = 'close', pair = '{}', neigh_pattern = '[^\\].' },
 
-        ['<'] = { action = 'open', pair = '<>', neigh_pattern = '[^\\].' }, -- Do I want these?
-        ['>'] = { action = 'close', pair = '<>', neigh_pattern = '[^\\].' },
+        -- ['<'] = { action = 'open', pair = '<>', neigh_pattern = '[^\\].' }, -- Do I want these?
+        -- ['>'] = { action = 'close', pair = '<>', neigh_pattern = '[^\\].' },
 
-        ['"'] = { action = 'closeopen', pair = '""', neigh_pattern = '[^\\].', register = { cr = false } },
-        ["'"] = { action = 'closeopen', pair = "''", neigh_pattern = '[^%a\\].', register = { cr = false } },
-        ['`'] = { action = 'closeopen', pair = '``', neigh_pattern = '[^\\].', register = { cr = false } },
+        -- At the moment, this doesn't allow autopairing ' or " before or after itself. Maybe change in the future
+        ['"'] = { action = 'closeopen', pair = '""', neigh_pattern = '[^%a\\\"][^%a\"]', register = { cr = false } },
+        ["'"] = { action = 'closeopen', pair = "''", neigh_pattern = '[^%a\\\'][^%a\']', register = { cr = false } },
+        ['`'] = { action = 'closeopen', pair = '``', neigh_pattern = '[^\\`][^%a`]', register = { cr = false } },
       },
     },
   },
@@ -123,6 +127,7 @@ return {
   {
     'echasnovski/mini.cursorword',
     event = { 'BufReadPost', 'BufNewFile', 'BufWritePre' },
+    opts = {},
   },
 
   {

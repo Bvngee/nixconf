@@ -1,4 +1,5 @@
 local function map(mode, lhs, rhs, opts)
+  -- TODO: this doesnt merge unless opts are passed
   local default_opts = { noremap = true, silent = true }
   if opts then
     opts = vim.tbl_extend('force', default_opts, opts)

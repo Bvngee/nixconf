@@ -9,11 +9,11 @@ vim.api.nvim_create_autocmd('TextYankPost', {
 })
 
 -- Enable line wrapping and spell checking in certain file types
-vim.api.nvim_create_autocmd({ "FileType" }, {
-  pattern = { "gitcommit", "markdown" },
+vim.api.nvim_create_autocmd({ 'FileType' }, {
+  pattern = { 'gitcommit', 'markdown' },
   callback = function()
-    vim.wo.spell = true
+    -- vim.wo.spell = true
     vim.wo.wrap = true
     SetWrapKeymaps() -- defined in keymaps.lua
-  end
+  end,
 })
