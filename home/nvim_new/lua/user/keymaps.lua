@@ -1,11 +1,28 @@
 local function map(mode, lhs, rhs, opts)
-  -- TODO: this doesnt merge unless opts are passed
-  local default_opts = { noremap = true, silent = true }
+  local default_opts = { remap = false, silent = true }
   if opts then
     opts = vim.tbl_extend('force', default_opts, opts)
+  else
+    opts = default_opts
   end
   vim.keymap.set(mode, lhs, rhs, opts)
 end
+
+-- better up/down
+map({ 'n', 'x' }, 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true })
+map({ 'n', 'x' }, '<Down>', "v:count == 0 ? 'gj' : 'j'", { expr = true })
+map({ 'n', 'x' }, 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true })
+map({ 'n', 'x' }, '<Up>', "v:count == 0 ? 'gk' : 'k'", { expr = true })
+
+-- left/right end of line that works with wrapped lines (and easier-to-reach)
+-- NOTE: currently this is copy-pasted into ./plugins/smart-splits.lua to reset
+-- the mappings properly.
+map({ 'n', 'v' }, 'H', function()
+  return vim.wo.wrap and 'g^' or '^'
+end, { remap = true, expr = true })
+map({ 'n', 'v' }, 'L', function()
+  return vim.wo.wrap and 'g$' or '$'
+end, { remap = true, expr = true })
 
 -- save all and close all keybinds
 map('n', '<C-s>', ':wa<CR>')
@@ -15,16 +32,12 @@ map('n', '<C-q>', ':qa<CR>')
 map({ 'i', 'n' }, '<esc>', '<cmd>noh<cr><esc>')
 
 -- remove default Cmdwin hotkeys (doesn't work perfectly but eh)
-map('n', 'q:', '<nop>', { remap = true, silent = true })
-map('n', 'q/', '<nop>', { remap = true, silent = true })
-map('n', 'q?', '<nop>', { remap = true, silent = true })
+map('n', 'q:', '<nop>', { remap = true })
+map('n', 'q/', '<nop>', { remap = true })
+map('n', 'q?', '<nop>', { remap = true })
 
 -- maintain register contents after paste
 map('v', 'p', '"_dP')
-
--- easier-to-reach keybinds for moving to beginning/end of line
-map({ 'n', 'v' }, 'H', '^')
-map({ 'n', 'v' }, 'L', '$')
 
 -- easier [delete/change]-without-yank keybind
 map({ 'n', 'v' }, '<leader>d', '"_d')
@@ -65,25 +78,9 @@ map('n', '<C-b>', '<C-b>zz')
 map('n', 'n', 'nzzzv')
 map('n', 'N', 'Nzzzv')
 
--- set better movement keybinds for wrap mode
-function SetWrapKeymaps()
-  if vim.wo.wrap then
-    map({ 'n', 'v' }, 'j', 'gj')
-    map({ 'n', 'v' }, 'k', 'gk')
-    map({ 'n', 'v' }, 'L', 'g$')
-    map({ 'n', 'v' }, 'H', 'g^')
-  else
-    vim.keymap.del({ 'n', 'v' }, 'j')
-    vim.keymap.del({ 'n', 'v' }, 'k')
-    map({ 'n', 'v' }, 'H', '^')
-    map({ 'n', 'v' }, 'L', '$')
-  end
-end
-
 -- toggle wrap mode and update movement hotkeys
 map('n', '<leader>w', function()
   vim.wo.wrap = not vim.wo.wrap
-  SetWrapKeymaps()
 end)
 
 -- lol, who doesn't mistype these sometimes?

@@ -30,7 +30,6 @@ return {
     -- filetypes (table)
     -- capabilities (table)
     -- settings (table)
-
     local servers = {
       nil_ls = {},
       lua_ls = {

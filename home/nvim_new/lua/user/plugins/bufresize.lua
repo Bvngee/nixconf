@@ -1,6 +1,7 @@
-local opts = { noremap = true, silent = true, }
+local opts = { noremap = true, silent = true }
 return {
   'kwkarlwang/bufresize.nvim',
+  event = 'VeryLazy',
   opts = {
     register = {
       keys = {

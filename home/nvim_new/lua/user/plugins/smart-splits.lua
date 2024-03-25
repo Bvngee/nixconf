@@ -28,14 +28,22 @@ return {
             vim.keymap.set('n', 'H', '5h', { remap = true })
             vim.keymap.set('n', 'L', '5l', { remap = true })
             vim.keymap.set('n', 'J', '5j', { remap = true })
-            vim.keymap.set('n', 'K', '5k', { remap = true }) -- TODO: This doesn't work (cuz of lsp hover)
+            -- TODO: This doesn't work (cuz of lsp hover)
+            vim.keymap.set('n', 'K', '5k', { remap = true })
           end,
           on_leave = function()
             vim.notify('Exiting resize mode, all keymaps restored')
-            vim.keymap.del('n', '<S-h>')
-            vim.keymap.del('n', '<S-l>')
-            vim.keymap.del('n', '<S-j>')
-            vim.keymap.del('n', '<S-k>')
+
+            vim.keymap.del('n', 'J')
+            vim.keymap.del('n', 'K')
+
+            -- these are copy-pasted from ../keymaps.lua
+            vim.keymap.set({ 'n', 'v' }, 'H', function()
+              return vim.wo.wrap and 'g^' or '^'
+            end, { remap = true, expr = true })
+            vim.keymap.set({ 'n', 'v' }, 'L', function()
+              return vim.wo.wrap and 'g$' or '$'
+            end, { remap = true, expr = true })
 
             require('bufresize').register()
           end,

@@ -14,6 +14,13 @@ vim.api.nvim_create_autocmd({ 'FileType' }, {
   callback = function()
     -- vim.wo.spell = true
     vim.wo.wrap = true
-    SetWrapKeymaps() -- defined in keymaps.lua
+  end,
+})
+
+-- just setting `vim.opt_local.formatoptions:remove('o')` doesn't work, as neovim
+-- resets it later itself in ftplugin/lua.vim or smth (taken from chris@machine)
+vim.api.nvim_create_autocmd({ 'BufWinEnter' }, {
+  callback = function()
+    vim.cmd('set formatoptions-=o')
   end,
 })

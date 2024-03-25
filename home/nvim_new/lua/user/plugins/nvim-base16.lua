@@ -1,5 +1,27 @@
 return {
   'RRethy/base16-nvim',
+  dependencies = {
+    {
+      'NvChad/nvim-colorizer.lua',
+      opts = {
+        filetypes = { '*' },
+        user_default_options = {
+          RGB = true, -- #RGB hex codes
+          RRGGBB = true, -- #RRGGBB hex codes
+          names = false, -- "Name" codes like Blue or blue
+          RRGGBBAA = true, -- #RRGGBBAA hex codes
+          AARRGGBB = false, -- 0xAARRGGBB hex codes
+          rgb_fn = true, -- CSS rgb() and rgba() functions
+          hsl_fn = true, -- CSS hsl() and hsla() functions
+          css = false, -- Enable all CSS features: rgb_fn, hsl_fn, names, RGB, RRGGBB
+          css_fn = false, -- Enable all CSS *functions*: rgb_fn, hsl_fn
+          mode = 'background', -- Set the display mode. foreground, background,  virtualtext
+          virtualtext = '██', --■, , 
+        },
+        buftypes = {},
+      },
+    },
+  },
   lazy = false,
   priority = 1000,
   config = function()
@@ -32,6 +54,9 @@ return {
 
     vim.api.nvim_set_hl(0, 'LineNr', { fg = colors.base03, bg = colors.base00 })
     vim.api.nvim_set_hl(0, 'CursorLineNr', { fg = colors.base04, bg = colors.base00 })
+
+    vim.api.nvim_set_hl(0, 'NormalFloat', { bg = colors.base01 })
+    vim.api.nvim_set_hl(0, 'Float', { bg = colors.base01 })
 
     vim.api.nvim_set_hl(0, 'WinSeparator', { fg = colors.base02, bg = colors.base00 })
 

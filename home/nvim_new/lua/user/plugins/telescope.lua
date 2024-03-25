@@ -21,7 +21,7 @@ return {
           i = {
             ['<Esc>'] = actions.close,
             ['<C-c>'] = actions.close,
-            ['<C-Esc>'] = { '<Esc>', type = "command" }, -- normal mode
+            ['<C-Esc>'] = { '<Esc>', type = 'command' }, -- normal mode
 
             ['<C-k>'] = actions.move_selection_previous,
             ['<C-j>'] = actions.move_selection_next,
@@ -37,8 +37,8 @@ return {
             ['<Esc>'] = actions.close,
             ['<C-c>'] = actions.close,
 
-            ['<C-u>'] = { "10k", type = "command" },
-            ['<C-d>'] = { "10j", type = "command" },
+            ['<C-u>'] = { '10k', type = 'command' },
+            ['<C-d>'] = { '10j', type = 'command' },
 
             ['<C-q>'] = actions.smart_send_to_qflist,
             ['<C-l>'] = actions.smart_send_to_loclist,
@@ -69,13 +69,19 @@ return {
       },
       extensions = {
         ['zf-native'] = {},
+        ['session-lens'] = {},
+        -- persisted = {
+        --   layout_config = { width = 0.55, height = 0.55 },
+        -- },
       },
     })
 
     telescope.load_extension('zf-native')
+    telescope.load_extension('session-lens')
+    -- telescope.load_extension('persisted')
 
     local function map(mode, lhs, rhs)
-      vim.keymap.set(mode, lhs, rhs, { noremap = true, silent = true })
+      vim.keymap.set(mode, lhs, rhs, { remap = false, silent = true })
     end
 
     map('n', '<leader>sF', function()
@@ -87,15 +93,16 @@ return {
     map('n', '<leader>sw', builtin.grep_string)
     map('n', '<leader>sb', builtin.buffers)
     map('n', '<leader>sh', builtin.help_tags)
+    map('n', '<leader>sH', builtin.highlights)
     map('n', '<leader>sk', builtin.keymaps)
     map('n', '<leader>st', builtin.builtin)
     map('n', '<leader>sd', builtin.diagnostics)
 
-    map('n', '<leader>/', function()
+    map('n', '<leader>s/', function()
       builtin.current_buffer_fuzzy_find(require('telescope.themes').get_dropdown({
         previewer = false,
       }))
     end)
-    -- vim.keymap.set('n', '<leader>ss', extensions.persisted.persisted, opts)
+    -- map('n', '<leader>ss', extensions.persisted.persisted, opts)
   end,
 }
