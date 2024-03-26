@@ -1,8 +1,6 @@
 TODO:
 
-- fix noice.nvim's routes
 - figure out why auto-session's :mksession files have `wincmd =` in them (resetting window/buf sizes)
-- make auto-session reliably use noice's mini mode for startup notifications (vim.notify)
 - is there a way to make smart-splits' resize_mode use S-k without interfering with lsp hover?
 - finish configuring trouble (settings) (make each error on one line or smth? idk)
 - Do I want to use noice's renderring overrides (markdown, cmp..)? Are they even better? xD

@@ -34,20 +34,17 @@ return {
     'folke/noice.nvim',
   },
   opts = function()
-    vim.keymap.set(
-      'n',
-      '<leader>ss',
-      require('auto-session.session-lens').search_session,
-      { noremap = true }
-    )
+    vim.keymap.set('n', '<leader>ss', require('auto-session.session-lens').search_session)
+    vim.keymap.set('n', '<leader>ls', '<cmd>SessionRestore<cr>')
 
     return {
-      log_level = 'info', -- TODO: to make the 'press enter' thing go away, I think it depends on ficing NOICE's routes
+      -- TODO: to make the 'press enter' thing go away, I think it depends on ficing NOICE's routes
+      log_level = 'info',
       auto_session_enable_last_session = false, -- Loads the last loaded session if session for cwd does not exist
       auto_session_enabled = true, -- Enables/disables the plugin's auto save and restore features
       auto_session_create_enabled = true, -- Enables/disables the plugin's session auto creation,
       auto_save_enabled = true, -- Enables/disables auto saving,
-      auto_restore_enabled = true, -- Enables/disables auto restoring,
+      auto_restore_enabled = false, -- Enables/disables auto restoring,
       auto_session_suppress_dirs = { '~/', '~/dev', '~/Developer', '~/Downloads' }, -- Suppress session create/restore if in one of the list of dirs,
       auto_session_allowed_dirs = nil, -- Allow session create/restore if in one of the list of dirs,
       auto_session_use_git_branch = true, -- Use the git branch to differentiate the session name,

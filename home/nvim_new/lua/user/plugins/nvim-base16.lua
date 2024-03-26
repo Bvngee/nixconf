@@ -4,7 +4,13 @@ return {
     {
       'NvChad/nvim-colorizer.lua',
       opts = {
-        filetypes = { '*' },
+        filetypes = {
+          '*',
+          '!noice',
+        },
+        buftypes = {
+          '!nofile',
+        },
         user_default_options = {
           RGB = true, -- #RGB hex codes
           RRGGBB = true, -- #RRGGBB hex codes
@@ -18,7 +24,6 @@ return {
           mode = 'background', -- Set the display mode. foreground, background,  virtualtext
           virtualtext = '██', --■, , 
         },
-        buftypes = {},
       },
     },
   },
@@ -36,32 +41,37 @@ return {
       illuminate = false,
     }
 
-    local colors = require('user.generated_base16_colors')
+    local c = require('user.generated_base16_colors')
 
-    base16.setup(colors, config)
+    base16.setup(c, config)
 
-    -- modifications and additions to nvim-base16's somewhat opinionated highlighting choices
+    --- Modifications and additions to nvim-base16's somewhat opinionated highlighting choices
 
-    vim.api.nvim_set_hl(0, 'RainbowDelimiterRed', { fg = colors.base08, bg = nil })
-    vim.api.nvim_set_hl(0, 'RainbowDelimiterOrange', { fg = colors.base09, bg = nil })
-    vim.api.nvim_set_hl(0, 'RainbowDelimiterYellow', { fg = colors.base0A, bg = nil })
-    vim.api.nvim_set_hl(0, 'RainbowDelimiterGreen', { fg = colors.base0B, bg = nil })
-    vim.api.nvim_set_hl(0, 'RainbowDelimiterCyan', { fg = colors.base0C, bg = nil })
-    vim.api.nvim_set_hl(0, 'RainbowDelimiterBlue', { fg = colors.base0D, bg = nil })
-    vim.api.nvim_set_hl(0, 'RainbowDelimiterViolet', { fg = colors.base0E, bg = nil })
+    vim.api.nvim_set_hl(0, 'RainbowDelimiterRed', { fg = c.base08, bg = nil })
+    vim.api.nvim_set_hl(0, 'RainbowDelimiterOrange', { fg = c.base09, bg = nil })
+    vim.api.nvim_set_hl(0, 'RainbowDelimiterYellow', { fg = c.base0A, bg = nil })
+    vim.api.nvim_set_hl(0, 'RainbowDelimiterGreen', { fg = c.base0B, bg = nil })
+    vim.api.nvim_set_hl(0, 'RainbowDelimiterCyan', { fg = c.base0C, bg = nil })
+    vim.api.nvim_set_hl(0, 'RainbowDelimiterBlue', { fg = c.base0D, bg = nil })
+    vim.api.nvim_set_hl(0, 'RainbowDelimiterViolet', { fg = c.base0E, bg = nil })
+
+    -- I can't figure out how to make the `:!` prompt not blue but eh, whatever
+    -- vim.api.nvim_set_hl(0, 'NoiceCmdlinePrompt', { link = 'Normal' })
+    -- vim.api.nvim_set_hl(0, 'NoiceCmdlinePopup', { link = 'Normal' })
+    -- vim.api.nvim_set_hl(0, 'NoiceCmdlineIcon', { link = 'Normal' })
+
+    vim.api.nvim_set_hl(0, 'MiniCursorword', { bg = c.base01 })
+    vim.api.nvim_set_hl(0, 'MiniCursorwordCurrent', { bg = c.base01 })
 
     -- vim.api.nvim_set_hl(0, 'VertSplit', { fg = colors.base01, bg = colors.base01 })
 
-    vim.api.nvim_set_hl(0, 'LineNr', { fg = colors.base03, bg = colors.base00 })
-    vim.api.nvim_set_hl(0, 'CursorLineNr', { fg = colors.base04, bg = colors.base00 })
+    vim.api.nvim_set_hl(0, 'LineNr', { fg = c.base03, bg = c.base00 })
+    vim.api.nvim_set_hl(0, 'CursorLineNr', { fg = c.base04, bg = c.base00 })
 
-    vim.api.nvim_set_hl(0, 'NormalFloat', { bg = colors.base01 })
-    vim.api.nvim_set_hl(0, 'Float', { bg = colors.base01 })
+    vim.api.nvim_set_hl(0, 'NormalFloat', { bg = c.base01 })
+    vim.api.nvim_set_hl(0, 'Float', { bg = c.base01 })
 
-    vim.api.nvim_set_hl(0, 'WinSeparator', { fg = colors.base02, bg = colors.base00 })
-
-    vim.api.nvim_set_hl(0, 'MiniCursorword', { bg = colors.base01 })
-    vim.api.nvim_set_hl(0, 'MiniCursorwordCurrent', { bg = colors.base01 })
+    vim.api.nvim_set_hl(0, 'WinSeparator', { fg = c.base02, bg = c.base00 })
 
     -- https://github.com/RRethy/nvim-base16/blob/master/lua/base16-colorscheme.lua
     -- for more info. Most @___ like to TS___ (eg. @type links to TSType)
@@ -83,11 +93,11 @@ return {
     -- this deviates from the base16 spec, but IMO looks better. See
     -- https://github.com/base16-project/base16/blob/main/styling.md
     -- for more info. Probably only works with limited base16 schemes.
-    vim.api.nvim_set_hl(0, 'TSProperty', { fg = colors.base0C }) --was base05
-    vim.api.nvim_set_hl(0, 'Identifier', { fg = colors.base05 }) --was base08
-    vim.api.nvim_set_hl(0, 'TSVariable', { fg = colors.base05 }) --was base08
-    vim.api.nvim_set_hl(0, 'TSPunctDelimiter', { fg = colors.base05 }) --was base0F
+    vim.api.nvim_set_hl(0, 'TSProperty', { fg = c.base0C }) --was base05
+    vim.api.nvim_set_hl(0, 'Identifier', { fg = c.base05 }) --was base08
+    vim.api.nvim_set_hl(0, 'TSVariable', { fg = c.base05 }) --was base08
+    vim.api.nvim_set_hl(0, 'TSPunctDelimiter', { fg = c.base05 }) --was base0F
     --vim.api.nvim_set_hl(0, 'TSBoolean', { fg = colors.base0E }) --was base09
-    vim.api.nvim_set_hl(0, 'SpecialChar', { fg = colors.base0A }) --was base0F
+    vim.api.nvim_set_hl(0, 'SpecialChar', { fg = c.base0A }) --was base0F
   end,
 }

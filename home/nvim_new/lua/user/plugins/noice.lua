@@ -8,30 +8,53 @@ return {
     routes = {
       { -- redirect long messages to splits
         filter = {
-          event = 'notify',
-          min_height = 15,
-        },
-        view = 'split',
-      },
-      { -- disable search virtual text
-        filter = {
           event = 'msg_show',
-          kind = '',
-          find = 'written',
+          min_height = 8,
         },
-        opts = { skip = true },
+        view = 'split', -- view = 'popup',
       },
     },
     cmdline = {
       enabled = true,
       view = 'cmdline',
       format = {
-        cmdline = false,
-        search_down = false,
-        search_up = false,
-        filter = false,
-        lua = false,
-        help = false,
+        cmdline = {
+          pattern = '^:',
+          lang = 'vim',
+          conceal = false,
+          icon = false,
+        },
+        search_down = {
+          kind = 'search',
+          pattern = '^/',
+          lang = 'regex',
+          conceal = true,
+          icon = '', -- 
+        },
+        search_up = {
+          kind = 'search',
+          pattern = '^%?',
+          lang = 'regex',
+          conceal = true,
+          icon = '', -- 
+        },
+        filter = {
+          pattern = '^:%s*!',
+          lang = 'bash',
+          conceal = false,
+          icon = false,
+        },
+        lua = {
+          pattern = { '^:%s*lua%s+', '^:%s*lua%s*=%s*', '^:%s*=%s*' },
+          -- lang = 'lua',
+          conceal = false,
+          icon = false,
+        },
+        help = {
+          pattern = '^:%s*he?l?p?%s+',
+          conceal = false,
+          icon = false,
+        },
         input = {}, -- Used by input()
       },
     },
