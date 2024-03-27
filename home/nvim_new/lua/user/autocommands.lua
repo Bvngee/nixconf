@@ -22,5 +22,6 @@ vim.api.nvim_create_autocmd({ 'FileType' }, {
 vim.api.nvim_create_autocmd({ 'BufWinEnter' }, {
   callback = function()
     vim.cmd('set formatoptions-=o')
+    vim.cmd('set formatoptions+=cr') -- TODO: I think this can just be a regular set?
   end,
 })
