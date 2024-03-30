@@ -35,8 +35,10 @@
   "nvim-ts-context-commentstring": { "branch": "main", "commit": "7ab799a9792f7cf3883cf28c6a00ad431f3d382a" },
   "nvim-web-devicons": { "branch": "master", "commit": "6ed787740a3b275b748328eb2dc7dd22dae1c064" },
   "plenary.nvim": { "branch": "master", "commit": "f7adfc4b3f4f91aab6caebf42b3682945fbc35be" },
+  "rainbow-delimiters.nvim": { "branch": "master", "commit": "580bc045c7ab3ab3ebd267774038c0d8cc19c789" },
   "smart-splits.nvim": { "branch": "master", "commit": "cd59333ecf787856065f1c0e4cd41b0d9ec9c432" },
   "telescope-zf-native.nvim": { "branch": "master", "commit": "c8ac635fb51065bb3a77f51bcec585a8dddf8652" },
   "telescope.nvim": { "branch": "master", "commit": "1e591885751d255b12c3649253cb6c2838e2c724" },
-  "trouble.nvim": { "branch": "main", "commit": "f1168feada93c0154ede4d1fe9183bf69bac54ea" }
+  "trouble.nvim": { "branch": "main", "commit": "f1168feada93c0154ede4d1fe9183bf69bac54ea" },
+  "vim-sleuth": { "branch": "master", "commit": "1cc4557420f215d02c4d2645a748a816c220e99b" }
 }
