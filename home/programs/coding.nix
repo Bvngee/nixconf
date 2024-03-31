@@ -5,11 +5,13 @@
     vscodium-fhs
 
     # C/C++
-    gcc13
+    gcc13 # stdenv.cc?
+    gnumake
     pkgsUnstable.clang-tools_17
     gdb
     meson
     ninja
+    cmake
 
     # Rust
     rustup
