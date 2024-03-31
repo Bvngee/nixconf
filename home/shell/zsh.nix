@@ -17,36 +17,45 @@ in
     shellAliases = {
       # regular ls,ll,la etc aliases are handled by eza's settings
       tree = "eza --icons --group-directories-first --tree";
+
+      # defined by zoxide
+      cd = "z";
+      cdi = "zi";
     };
     initExtraFirst = ''
-            # automatically called by zsh-vi-mode plugin
-            function zvm_config() {
-              ZVM_READKEY_ENGINE=$ZVM_READKEY_ENGINE_NEX # required for below
-              ZVM_ESCAPE_KEYTIMEOUT=0.001
-              ZVM_VI_SURROUND_BINDKEY=s-prefix
-      	      ZVM_LINE_INIT_MODE=$ZVM_MODE_INSERT
+      # automatically called by zsh-vi-mode plugin
+      function zvm_config() {
+        ZVM_READKEY_ENGINE=$ZVM_READKEY_ENGINE_NEX # required for below
+        ZVM_ESCAPE_KEYTIMEOUT=0.001
+        ZVM_VI_SURROUND_BINDKEY=s-prefix
+        ZVM_LINE_INIT_MODE=$ZVM_MODE_INSERT
 
-              # no clue whatsoever how this works, but it makes visual mode look ok
-              ZVM_VI_HIGHLIGHT_BACKGROUND="white" #\033[
-              ZVM_VI_HIGHLIGHT_FOREGROUND="\033["
-            }
+        # no clue whatsoever how this works, but it makes visual mode look ok
+        ZVM_VI_HIGHLIGHT_BACKGROUND="white" #\033[
+        ZVM_VI_HIGHLIGHT_FOREGROUND="\033["
+      }
 
-            # set normal/visual mode keybindings here, as they might conflict with zsh-vi-mode
-            function zvm_after_lazy_keybindings() {
-              bindkey -M vicmd 'k' history-substring-search-up
-              bindkey -M vicmd 'j' history-substring-search-down
-            }
+      # set normal/visual mode keybindings here, as they might conflict with zsh-vi-mode
+      function zvm_after_lazy_keybindings() {
+        bindkey -M vicmd 'k' history-substring-search-up
+        bindkey -M vicmd 'j' history-substring-search-down
+      }
 
-            function zvm_after_init() {
-              # needs to be here to work around zsh-vi-mode
-              bindkey '^ ' autosuggest-accept
-              bindkey '^y' autosuggest-accept
-            }
+      function zvm_after_init() {
+        # needs to be here to work around zsh-vi-mode
+        bindkey '^ ' autosuggest-accept
+        bindkey '^y' autosuggest-accept
+      }
+
+      # if ZSH_PROFILE is set, do profiling
+      if [ "$ZSH_PROFILE" -eq 1 ]; then
+        zmodload zsh/zprof
+      fi
     '';
     initExtra = ''
       function flakify() {
         if [ ! -e flake.nix ]; then
-          git clone https://raw.githubusercontent.com/BvngeeCord/nix-flake-template/main/flake.nix
+          git clone https://raw.githubusercontent.com/BvngeeCord/nix-flake-template/blob/main/flake.nix
           echo "Copied flake.nix template!"
         fi
         if [ ! -e .envrc ]; then
@@ -76,6 +85,13 @@ in
         file = "share/zsh/zsh-autopair/autopair.zsh";
         src = pkgs.zsh-autopair;
       }
+      # too complex, doesn't integrate well with other plugins, seems hard to configure
+      # note: requires `enableCompletion = true;`
+      # {
+      #   name = "zsh-autocomplete";
+      #   file = "share/zsh-autocomplete/zsh-autocomplete.plugin.zsh";
+      #   src = pkgs.zsh-autocomplete;
+      # }
     ];
   };
 
@@ -106,5 +122,9 @@ in
     HISTORY_SUBSTRING_SEARCH_ENSURE_UNIQUE=1
     HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_FOUND='underline,bold'
     HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_NOT_FOUND='underline,bold'
+
+    if [ "$ZSH_PROFILE" -eq 1 ]; then
+      zprof
+    fi
   '';
 }

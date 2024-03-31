@@ -36,7 +36,7 @@
 
     # adds extra compatibility tools to your STEAM_EXTRA_COMPAT_TOOLS_PATHS
     extraCompatPackages = [
-      inputs.nix-gaming.packages.${pkgs.system}.proton-ge
+      inputs.nix-gaming.packages.${pkgs.system}.proton-ge # Do I rly need this?
     ];
   };
 
@@ -51,6 +51,7 @@
 
     # Games
     prismlauncher
+    # (prismlauncher.override { withWaylandGLFW = true; }) # not in 23.11
     lunar-client
   ];
 }
