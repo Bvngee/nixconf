@@ -12,6 +12,7 @@
     meson
     ninja
     cmake
+    pkg-config
 
     # Rust
     rustup

@@ -65,7 +65,7 @@ map('n', '<leader>wv', '<cmd>vsplit<cr>')
 map('n', '<leader>wc', '<C-w>c')
 
 -- make buffers take relatively equal space (useful after resizes)
-map('n', '<leader>=', '<C-w>=')
+map('n', '<leader>w=', '<C-w>=')
 
 -- Exit terminal mode easier. NOTE: This might not work in all terminal emulators/tmux/etc.
 map('t', '<Esc><Esc>', '<C-\\><C-n>')

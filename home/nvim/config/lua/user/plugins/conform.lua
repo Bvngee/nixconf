@@ -7,10 +7,11 @@ return {
     -- https://github.com/stevearc/conform.nvim#formatters
     conform.setup({
       notify_on_error = false,
-      format_on_save = {
-        timeout_ms = 500,
-        lsp_fallback = true, -- Do I want this?
-      },
+      -- format_on_save = {
+      --   timeout_ms = 500,
+      --   lsp_fallback = true, -- Do I want this?
+      -- },
+      format_on_save = false, -- This is annoying sometimes...
       formatters_by_ft = {
         lua = { 'stylua' },
         nix = { 'nixpkgs_fmt' },
