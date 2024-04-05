@@ -30,7 +30,7 @@
       inactive_tab_foreground = base04;
       tab_bar_background = base01;
 
-      background_opacity = "0.9";
+      # background_opacity = "0.9";
 
       color0 = base00;
       color1 = base08;
