@@ -10,13 +10,15 @@
     onlyoffice-bin
     libreoffice
 
-    # Discord
+    # Chat apps
     vesktop
     #(pkgsUnstable.discord.override {
     #(pkgs.discord.override {
     #  withOpenASAR = false;
     #  withVencord = false;
     #})
+    element-desktop
+    cinny-desktop
 
     # Misc/Other
     obs-studio
@@ -29,7 +31,6 @@
     libsForQt5.kcalc
     mission-center
     snapshot
-    element-desktop
-    cinny-desktop
+    helvum # pipewire graph thingy
   ];
 }

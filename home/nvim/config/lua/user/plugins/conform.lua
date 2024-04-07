@@ -36,7 +36,8 @@ return {
     })
 
     conform.formatters.clang_format = {
-      prepend_args = { '-fallback-style=llvm', '-style=file' },
+      -- TODO: {IndentWidth: vim.XXX, IndentStyle: vim.xxx} ??? .editorconfig???
+      prepend_args = { '--fallback-style=llvm', '--style=file' },
     }
 
     vim.keymap.set({ 'n', 'v' }, '<leader>fo', function()
