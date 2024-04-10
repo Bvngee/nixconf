@@ -16,9 +16,12 @@ vim.o.cursorline = true
 vim.o.cursorlineopt = 'number'
 vim.o.signcolumn = 'yes:1'
 vim.o.undofile = true
-vim.o.sessionoptions = -- used with auto-session
-  'blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions'
 vim.g.netrw_banner = 0 -- is this the correct var name?
+
+-- used with autosession
+-- removed 'localoptions' - autosession gets weird setting incorrect values
+vim.o.sessionoptions =
+  'blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal'
 
 -- (lua and vimscript plugins only)
 vim.g.loaded_perl_provider = 0

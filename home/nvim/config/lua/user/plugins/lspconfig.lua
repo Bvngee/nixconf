@@ -94,6 +94,9 @@ return {
           '/home/user/.cache/jdtls/workspace',
         },
       },
+      astro = { -- npm i @astrojs/language-server
+        cmd = { 'npx', 'astro-ls', '--stdio' } -- is this acceptable?
+      },
     }
 
     local lspconfig = require('lspconfig')

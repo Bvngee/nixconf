@@ -43,6 +43,7 @@
     nodePackages.typescript-language-server
     nodePackages.typescript
     nodePackages.eslint
+    nodePackages.prettier
     pkgsUnstable.prettierd
     sassc
 
