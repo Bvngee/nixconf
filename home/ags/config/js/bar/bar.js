@@ -1,3 +1,5 @@
+import { nixSnowflake } from "../nix-snowflake-path.js";
+
 const start = Widget.Box({
   hpack: "start",
   children: [
@@ -5,7 +7,7 @@ const start = Widget.Box({
     Widget.EventBox({
       on_primary_click: () => print('powermenu!'),
       child: Widget.Icon({
-        icon: 'style/nix-snowflake.svg',
+        icon: nixSnowflake,
         size: 20,
       })
     }),

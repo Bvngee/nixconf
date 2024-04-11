@@ -1,0 +1,1 @@
+/nix/store/mf9p765sk48pr24q1wspcim8w7fqn437-home-manager-files/dev/nixconf/home/ags/config/js/nix-snowflake-path.js
