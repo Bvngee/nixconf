@@ -2,7 +2,7 @@
   scheme = config.scheme.withHashtag;
 in {
   services.dunst = {
-    enable = true;
+    enable = false;
     settings = {
       global = {
         follow = "none";

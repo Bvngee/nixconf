@@ -24,6 +24,7 @@
     obs-studio
     firefox
     zoom-us
+    gnome.gnome-calendar
     gnome.gnome-calculator
     gnome.gnome-notes
     gnome.gnome-disk-utility # nixos only?

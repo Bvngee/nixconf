@@ -1,4 +1,4 @@
-{ pkgs, ... }: let
+{ pkgs, pkgsUnstable, ... }: let
   wallpaperScript = pkgs.writeShellScriptBin "apply_wallpaper" ''
     wallpaper=$1
     swww img \
@@ -28,7 +28,7 @@ in {
 
   home.packages = with pkgs; [
     libnotify
-    swww
+    pkgsUnstable.swww
 
     wallpaperScript
     randomWallpaperScript
