@@ -9,5 +9,5 @@
     wireplumber.enable = true;
   };
 
-  # is there something I should add here? Is it "rtkit" or something? Cant remember
+  programs.noisetorch.enable = true;
 }
