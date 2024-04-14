@@ -25,8 +25,8 @@
   ];
 
   # no idea if these are necessary. note: nvidia-vaapi-driver is added automatically but kept here for explicitness sake
-  hardware.opengl.extraPackages = with pkgs; [ libva nvidia-vaapi-driver ];
-  hardware.opengl.extraPackages32 = with pkgs.pkgsi686Linux; [ libva nvidia-vaapi-driver ];
+  hardware.opengl.extraPackages = with pkgs; [ nvidia-vaapi-driver ];
+  hardware.opengl.extraPackages32 = with pkgs.pkgsi686Linux; [ nvidia-vaapi-driver ];
 
   # necessary for both X and Wayland based apps
   services.xserver.videoDrivers = [ "nvidia" ];
