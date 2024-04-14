@@ -97,6 +97,7 @@ return {
     map('n', '<leader>sk', builtin.keymaps)
     map('n', '<leader>st', builtin.builtin)
     map('n', '<leader>sd', builtin.diagnostics)
+    map('n', '<leader>sd', builtin.resume)
 
     map('n', '<leader>s/', function()
       builtin.current_buffer_fuzzy_find(require('telescope.themes').get_dropdown({
