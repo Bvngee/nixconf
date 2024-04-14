@@ -46,7 +46,7 @@ return {
         },
         lua = {
           pattern = { '^:%s*lua%s+', '^:%s*lua%s*=%s*', '^:%s*=%s*' },
-          -- lang = 'lua',
+          lang = 'lua',
           conceal = false,
           icon = false,
         },

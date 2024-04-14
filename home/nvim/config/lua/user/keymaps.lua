@@ -78,6 +78,11 @@ map('n', '<C-b>', '<C-b>zz')
 map('n', 'n', 'nzzzv')
 map('n', 'N', 'Nzzzv')
 
+-- open quickfix/location list, only if populated
+-- note: can be cleared with `:cexpr []`
+map('n', '<leader>ql', '<cmd>cw<cr>')
+map('n', '<leader>ll', '<cmd>lw<cr>')
+
 -- toggle wrap mode and update movement hotkeys
 map('n', '<leader>w', function()
   vim.wo.wrap = not vim.wo.wrap
