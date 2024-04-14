@@ -25,3 +25,11 @@ vim.api.nvim_create_autocmd({ 'BufWinEnter' }, {
     vim.cmd('set formatoptions+=cr') -- TODO: I think this can just be a regular set?
   end,
 })
+
+-- temporary hackfix for "uv_close: Assertion `!uv__is_closing(handle)` failed."
+-- https://github.com/neovim/neovim/issues/21856
+vim.api.nvim_create_autocmd({ "VimLeave" }, {
+  callback = function()
+    vim.fn.jobstart("", { detach = true })
+  end,
+})
