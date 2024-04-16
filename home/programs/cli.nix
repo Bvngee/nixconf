@@ -13,5 +13,8 @@
         zip
         jq
         killall
+        wget
+        curl
+        lm_sensors
     ];
 }

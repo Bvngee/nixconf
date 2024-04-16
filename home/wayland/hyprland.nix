@@ -80,10 +80,12 @@ in
 
       gestures {
           workspace_swipe = true
-          workspace_swipe_invert = true
-          #workspace_swipe_forever = true
-          #workspace_swipe_min_speed_to_force = 0
-          #workspace_swipe_use_r = true
+          workspace_swipe_invert = false # ???
+          workspace_swipe_forever = false
+          workspace_swipe_min_speed_to_force = 10
+          workspace_swipe_use_r = true
+          workspace_swipe_cancel_ratio = 0.25
+          workspace_swipe_direction_lock = false
       }
       
       general {
