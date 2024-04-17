@@ -33,6 +33,10 @@
   # Necessary to set GTK related settings (eg. to set themes)
   programs.dconf.enable = true;
 
+  # DBus service that provides power management support for applications
+  #TODO(power management): TLP (#1 so far)? power-profiles-daemon? auto-cpufreq?
+  services.upower.enable = true;
+
   # Hands out realtime scheduling priority to user processes on demand
   security.rtkit.enable = true;
 
