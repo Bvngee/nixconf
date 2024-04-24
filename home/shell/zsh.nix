@@ -4,6 +4,11 @@ let
   relToDotDir = file: (lib.optionalString (cfg.dotDir != null) (cfg.dotDir + "/")) + file;
 in
 {
+  home.prorams = with pkgs; [
+    trash-cli
+    rmtrash
+  ];
+
   programs.zsh = {
     enable = true;
     autocd = true;
@@ -18,9 +23,14 @@ in
       # regular ls,ll,la etc aliases are handled by eza's settings
       tree = "eza --icons --group-directories-first --tree";
 
-      # defined by zoxide
+      # z/zi is defined by zoxide
       cd = "z";
       cdi = "zi";
+
+      # do I want these?
+      rm = "rmtrash";
+      rmdir = "rmdirtrash";
+      #sudo = "sudo ";
     };
     initExtraFirst = ''
       # automatically called by zsh-vi-mode plugin
