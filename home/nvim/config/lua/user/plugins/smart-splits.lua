@@ -25,25 +25,27 @@ return {
         hooks = {
           on_enter = function()
             vim.notify('Entering resize mode: use h/j/k/l to resize')
-            vim.keymap.set('n', 'H', '5h', { remap = true })
-            vim.keymap.set('n', 'L', '5l', { remap = true })
-            vim.keymap.set('n', 'J', '5j', { remap = true })
-            -- TODO: This doesn't work (cuz of lsp hover)
-            vim.keymap.set('n', 'K', '5k', { remap = true })
+            vim.keymap.set('n', 'H', '6h', { remap = true })
+            vim.keymap.set('n', 'L', '6l', { remap = true })
+            vim.keymap.set('n', 'J', '6j', { remap = true })
+            -- -- TODO: This doesn't work (cuz of lsp hover)
+            vim.keymap.set('n', 'K', '6k', { remap = true })
           end,
           on_leave = function()
             vim.notify('Exiting resize mode, all keymaps restored')
 
+            vim.keymap.del('n', 'H')
+            vim.keymap.del('n', 'L')
             vim.keymap.del('n', 'J')
             vim.keymap.del('n', 'K')
 
-            -- these are copy-pasted from ../keymaps.lua
-            vim.keymap.set({ 'n', 'v' }, 'H', function()
-              return vim.wo.wrap and 'g^' or '^'
-            end, { remap = true, expr = true })
-            vim.keymap.set({ 'n', 'v' }, 'L', function()
-              return vim.wo.wrap and 'g$' or '$'
-            end, { remap = true, expr = true })
+            -- -- these are copy-pasted from ../keymaps.lua
+            -- vim.keymap.set({ 'n', 'v' }, 'H', function()
+            --   return vim.wo.wrap and 'g^' or '^'
+            -- end, { remap = true, expr = true })
+            -- vim.keymap.set({ 'n', 'v' }, 'L', function()
+            --   return vim.wo.wrap and 'g$' or '$'
+            -- end, { remap = true, expr = true })
 
             require('bufresize').register()
           end,

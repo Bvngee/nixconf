@@ -31,14 +31,13 @@ return {
   -- event = 'VeryLazy', -- this breaks session loading afaict
   dependencies = {
     'nvim-telescope/telescope.nvim',
-    'folke/noice.nvim',
+    'folke/noice.nvim', -- for loading order
   },
   opts = function()
     vim.keymap.set('n', '<leader>ss', require('auto-session.session-lens').search_session)
     vim.keymap.set('n', '<leader>ls', '<cmd>SessionRestore<cr>')
 
     return {
-      -- TODO: to make the 'press enter' thing go away, I think it depends on ficing NOICE's routes
       log_level = 'info',
       auto_session_enable_last_session = false, -- Loads the last loaded session if session for cwd does not exist
       auto_session_enabled = true, -- Enables/disables the plugin's auto save and restore features

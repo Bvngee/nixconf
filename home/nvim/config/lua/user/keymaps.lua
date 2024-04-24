@@ -14,15 +14,15 @@ map({ 'n', 'x' }, '<Down>', "v:count == 0 ? 'gj' : 'j'", { expr = true })
 map({ 'n', 'x' }, 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true })
 map({ 'n', 'x' }, '<Up>', "v:count == 0 ? 'gk' : 'k'", { expr = true })
 
--- left/right end of line that works with wrapped lines (and easier-to-reach)
--- NOTE: currently this is copy-pasted into ./plugins/smart-splits.lua to reset
--- the mappings properly.
-map({ 'n', 'v' }, 'H', function()
-  return vim.wo.wrap and 'g^' or '^'
-end, { remap = true, expr = true })
-map({ 'n', 'v' }, 'L', function()
-  return vim.wo.wrap and 'g$' or '$'
-end, { remap = true, expr = true })
+-- -- left/right end of line that works with wrapped lines (and easier-to-reach)
+-- -- NOTE: currently this is copy-pasted into ./plugins/smart-splits.lua to reset
+-- -- the mappings properly.
+-- map({ 'n', 'v' }, 'H', function()
+--   return vim.wo.wrap and 'g^' or '^'
+-- end, { remap = true, expr = true })
+-- map({ 'n', 'v' }, 'L', function()
+--   return vim.wo.wrap and 'g$' or '$'
+-- end, { remap = true, expr = true })
 
 -- save all and close all keybinds
 map('n', '<C-s>', ':wa<CR>')
@@ -84,7 +84,7 @@ map('n', '<leader>ql', '<cmd>cw<cr>')
 map('n', '<leader>ll', '<cmd>lw<cr>')
 
 -- toggle wrap mode and update movement hotkeys
-map('n', '<leader>w', function()
+map('n', '<leader>ww', function()
   vim.wo.wrap = not vim.wo.wrap
 end)
 
