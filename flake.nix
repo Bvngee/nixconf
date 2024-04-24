@@ -27,6 +27,11 @@
       inputs.hyprland.follows = "hyprland";
     };
 
+    hy3 = {
+      url = "github:outfoxxed/hy3?ref=hl0.36.0";
+      inputs.hyprland.follows = "hyprland";
+    };
+
     ags = {
       url = "github:Aylur/ags";
       inputs.nixpkgs.follows = "nixpkgs";

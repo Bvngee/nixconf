@@ -9,12 +9,15 @@
         btop
         htop
         neofetch
+        fastfetch
+        pfetch-rs
         unzip
         zip
         jq
         killall
         wget
         curl
+        socat
         lm_sensors
     ];
 }

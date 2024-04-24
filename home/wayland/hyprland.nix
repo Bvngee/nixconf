@@ -1,4 +1,4 @@
-{ lib, config, inputs, pkgs, hostname, isMobile, ... }:
+{ lib, config, inputs, pkgs, pkgsUnstable, hostname, isMobile, ... }:
 let
   isNvidia = builtins.elem hostname [ "pc" ];
   nvidiaEnvVars = ''
@@ -15,30 +15,42 @@ let
     '' else ''
       monitor = , preferred, auto, 1
     '';
-  screenshot = pkgs.writeShellScriptBin "screenshot" ''
+  screenshot = pkgs.writeShellScript "screenshot" ''
     grim -g "$(slurp)" - | satty \
       --filename - \
       --output-filename \
       ~/Pictures/Screenshots/$(date '+%m%d%Y-%H:%M:%S').png
   '';
-  screenshotFull = pkgs.writeShellScriptBin "screenshotFull" ''
+  screenshotFull = pkgs.writeShellScript "screenshotFull" ''
     grim -o - | satty \
       --filename - \
       --fullscreen \
       --output-filename \
       ~/Pictures/Screenshots/$(date '+%m%d%Y-%H:%M:%S').png
   '';
+  pyprCli = pkgs.writeShellScript "pyprCli" ''
+    ${pkgs.socat} - "UNIX-CONNECT:/tmp/hypr/$${HYPRLAND_INSTANCE_SIGNATURE}/.pyprland.sock" <<< $$@
+  '';
 in
 {
   # Overrides package with hyprland flake package
   imports = [ inputs.hyprland.homeManagerModules.default ];
 
+  home.packages = [
+    pkgsUnstable.pyprland # TODO: 2.2.9 isnt in unstable yet, so this stuff doesnt work
+  ];
+  xdg.configFile."hypr/pyprland.toml".text = ''
+    [pyprland]
+    plugins = [ "magnify" ]
+  '';
+  
   # NOTE: this module adds a Hyprland package to $PATH, but it should not be used.
   # the actual Hyprland package is set and used via nixos module, NOT this HM module.
   wayland.windowManager.hyprland = {
     enable = true;
     plugins = [
       inputs.split-monitor-workspaces.packages.${pkgs.system}.split-monitor-workspaces
+      inputs.hy3.packages.${pkgs.system}.hy3
     ];
     extraConfig = ''
       ${lib.optionalString (isNvidia) nvidiaEnvVars}
@@ -53,6 +65,7 @@ in
       exec-once = thunar --daemon # faster opening
       exec-once = sleep 0.5 && swww init # change to swww-daemon when updating swww version
       exec-once = ags
+      #exec-once = pypr # TODO: uncomment
       
       input {
           kb_layout = us,us
@@ -60,6 +73,8 @@ in
           kb_options = grp:alts_toggle
           kb_model =
           kb_rules =
+
+          numlock_by_default = true
       
           repeat_rate = 25
           repeat_delay = 300
@@ -74,8 +89,6 @@ in
       
           # -1.0 - 1.0, 0 means no modification.
           ${if isMobile then "sensitivity = -0.15" else "sensitivity = -0.75"}
-      
-          numlock_by_default = true
       }
 
       gestures {
@@ -84,7 +97,7 @@ in
           workspace_swipe_forever = false
           workspace_swipe_min_speed_to_force = 10
           workspace_swipe_use_r = true
-          workspace_swipe_cancel_ratio = 0.25
+          workspace_swipe_cancel_ratio = 0.15
           workspace_swipe_direction_lock = false
       }
       
@@ -95,7 +108,7 @@ in
           # col.active_border = rgba(7daea3ff) rgba(00000000) rgba(d3869bff) 35deg
           # col.inactive_border = rgba(00000000)
       
-          layout = dwindle
+          layout = hy3 # dwindle
       }
       
       binds {
@@ -120,7 +133,7 @@ in
               passes = 2
               new_optimizations = true
           }
-          rounding = 7
+          rounding = 10
       
           # dim_inactive = true
           # dim_strength = 0.1
@@ -134,6 +147,7 @@ in
       
       animations {
           enabled = true
+          first_launch_animation = false
       
           # quickened animations:
           animation = workspaces, 1, 8, default
@@ -152,19 +166,25 @@ in
           pseudotile = true
           preserve_split = true # you probably want this
       }
-      
       master {
           new_is_master = true
       }
 
       xwayland {
-        force_zero_scaling = true
-        use_nearest_neighbor = true
+          force_zero_scaling = true
+          use_nearest_neighbor = true
       }
       
       plugin {
           split-monitor-workspaces {
               count = 10
+          }
+          hy3 {
+              autotile {
+                  enable = true
+                  trigger_width = 800
+                  trigger_height = 500
+              }
           }
       }
       
@@ -185,7 +205,7 @@ in
       windowrulev2 = float, title:^(Select a File)(.*)$
       windowrulev2 = float, title:^(Save As)(.*)$
       windowrulev2 = float, title:^(Library)(.*)$
-      windowrulev2 = float, title:^(.*)(Bitwarden)(.*)$
+      windowrulev2 = suppressevent fullscreen,float, title:^(.*)(Bitwarden)(.*)$
       windowrulev2 = suppressevent fullscreen,float, title:^(Extension: (Bitwarden - Free Password Manager) - — Mozilla Firefox)$
       windowrulev2 = suppressevent fullscreen,float, title:^(Extension: (Bitwarden - Free Password Manager) - Bitwarden — Mozilla Firefox)$
       windowrulev2 = float, class:^(com.gabm.satty)$
@@ -193,7 +213,7 @@ in
       
       # idle inhibit while watching videos
       windowrulev2 = idleinhibit focus, class:^(mpv|.+exe)$
-      windowrulev2 = idleinhibit focus, class:^(firefox)$, title:^(.*YouTube.*)$ # not sure this works?
+      windowrulev2 = idleinhibit focus, class:^(firefox)$, title:^(.*YouTube.*)$ # I think this has false positives?
       
       # Blur notification popups
       layerrule = blur, notifications
@@ -212,8 +232,8 @@ in
       bind = , XF86AudioMicMute, exec, wpctl set-mute @DEFAULT_SOURCE@ toggle
       binde = , XF86MonBrightnessUp, exec, brightnessctl s 5%+
       binde = , XF86MonBrightnessDown, exec, brightnessctl s 5%-
-      bind = , Print, exec, ${screenshot}/bin/screenshot
-      bind = CONTROL, Print, exec, ${screenshotFull}/bin/screenshotFull
+      bind = , Print, exec, ${screenshot.outPath}
+      bind = CONTROL, Print, exec, ${screenshotFull.outPath}
       bind = ALT, F5, exec, playerctl previous
       bind = ALT, F6, exec, playerctl next
       bind = ALT, F7, exec, playerctl play-pause
@@ -222,7 +242,6 @@ in
       bind = SUPER, D, killactive
       bind = SUPER, V, togglefloating,
       bind = SUPER SHIFT, P, pin,
-      bind = SUPER, P, pseudo, # for dwindle layout
       bind = SUPER, X, togglesplit, # for dwindle layout
       bind = SUPER, F, fullscreen, 1
       bind = SUPER SHIFT, F, fullscreen, 0
@@ -257,37 +276,38 @@ in
       
       # Move window in direction
       # SUPER + CONTROL + [ vim keys ]
-      bind = SUPER CONTROL, H, movewindow, l
-      bind = SUPER CONTROL, J, movewindow, d
-      bind = SUPER CONTROL, K, movewindow, u
-      bind = SUPER CONTROL, L, movewindow, r
+      bind = SUPER CONTROL, H, hy3:movewindow, l
+      bind = SUPER CONTROL, J, hy3:movewindow, d
+      bind = SUPER CONTROL, K, hy3:movewindow, u
+      bind = SUPER CONTROL, L, hy3:movewindow, r
       
       # Move window focus 
       # SUPER + [ vim keys ]
-      bind = SUPER, H, movefocus, l
-      bind = SUPER, L, movefocus, r
-      bind = SUPER, K, movefocus, u
-      bind = SUPER, J, movefocus, d
-      bind = SUPER, left, movefocus, l
-      bind = SUPER, right, movefocus, r
-      bind = SUPER, up, movefocus, u
-      bind = SUPER, down, movefocus, d
+      bind = SUPER, H, hy3:movefocus, l
+      bind = SUPER, L, hy3:movefocus, r
+      bind = SUPER, K, hy3:movefocus, u
+      bind = SUPER, J, hy3:movefocus, d
+      bind = SUPER, left, hy3:movefocus, l
+      bind = SUPER, right, hy3:movefocus, r
+      bind = SUPER, up, hy3:movefocus, u
+      bind = SUPER, down, hy3:movefocus, d
       
       # Scroll through existing workspaces (includes first empty and previous workspace)
-      # SUPER + SHIFT + [ scroll wheel / mouse buttons / vim keys ]
-      bind = SUPER SHIFT, mouse_down, workspace, r+1
-      bind = SUPER SHIFT, mouse_up, workspace, r-1
+      # SUPER + SHIFT + [ mouse buttons / vim keys ]
       bind = SUPER SHIFT, mouse:273, workspace, r+1
       bind = SUPER SHIFT, mouse:272, workspace, r-1
       bind = SUPER SHIFT, L, workspace, r+1
       bind = SUPER SHIFT, H, workspace, r-1
       bind = SUPER SHIFT, K, workspace, empty
       bind = SUPER SHIFT, J, workspace, previous
+
+      # Zoom into screen
+      # SUPER + SHIFT + [ scroll wheel ]
+      bind = SUPER SHIFT, mouse_up, exec, ${pyprCli.outPath} zoom ++0.1
+      bind = SUPER SHIFT, mouse_up, exec, ${pyprCli.outPath} zoom --0.1
       
       # Focus monitor 
       # SUPER + CONTROL + [ scroll wheel / mouse buttons / vim keys ] 
-      bind = SUPER SHIFT CONTROL, mouse_up, focusmonitor, r
-      bind = SUPER SHIFT CONTROL, mouse_down, focusmonitor, l
       bind = SUPER SHIFT CONTROL, mouse:273, focusmonitor, r
       bind = SUPER SHIFT CONTROL, mouse:272, focusmonitor, l
       bind = SUPER SHIFT CONTROL, L, focusmonitor, r

@@ -4,7 +4,7 @@ let
   relToDotDir = file: (lib.optionalString (cfg.dotDir != null) (cfg.dotDir + "/")) + file;
 in
 {
-  home.prorams = with pkgs; [
+  home.packages = with pkgs; [
     trash-cli
     rmtrash
   ];
