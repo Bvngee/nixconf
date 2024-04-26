@@ -6,7 +6,7 @@ in
 {
   home.packages = with pkgs; [
     trash-cli
-    rmtrash
+    #rmtrash # SO SLOW
   ];
 
   programs.zsh = {
@@ -27,9 +27,9 @@ in
       cd = "z";
       cdi = "zi";
 
-      # do I want these?
-      rm = "rmtrash";
-      rmdir = "rmdirtrash";
+      # do I want these? SO SLOW
+      #rm = "rmtrash";
+      #rmdir = "rmdirtrash";
       #sudo = "sudo ";
     };
     initExtraFirst = ''

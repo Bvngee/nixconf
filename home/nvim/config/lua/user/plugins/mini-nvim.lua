@@ -65,7 +65,7 @@ return {
       -- I.e. '..' is any|any, '.[^\\]' is any|not-backslash
       -- https://www.lua.org/manual/5.1/manual.html#5.4.1
       mappings = {
-        ['('] = { action = 'open', pair = '()', neigh_pattern = '[^\\][^%a]' }, -- dont activate after a \
+        ['('] = { action = 'open', pair = '()', neigh_pattern = '[^\\][^%a]' }, -- dont activate after a '\'
         ['['] = { action = 'open', pair = '[]', neigh_pattern = '[^\\][^%a]' }, -- or before any char
         ['{'] = { action = 'open', pair = '{}', neigh_pattern = '[^\\][^%a]' },
 
@@ -73,13 +73,13 @@ return {
         [']'] = { action = 'close', pair = '[]', neigh_pattern = '[^\\].' },
         ['}'] = { action = 'close', pair = '{}', neigh_pattern = '[^\\].' },
 
-        -- ['<'] = { action = 'open', pair = '<>', neigh_pattern = '[^\\].' }, -- Do I want these?
-        -- ['>'] = { action = 'close', pair = '<>', neigh_pattern = '[^\\].' },
+        -- ['<'] = { action = 'open',  pair = '<>', neigh_pattern = '[^\\].' }, -- Do I want these?
+        -- ['>'] = { action = 'close', pair = '<>', neigh_pattern = '[^\\].' }, -- probably not
 
         -- At the moment, this doesn't allow autopairing ' or " before or after itself. Maybe change in the future
         ['"'] = { action = 'closeopen', pair = '""', neigh_pattern = '[^%a\\\"][^%a\"]', register = { cr = false } },
         ["'"] = { action = 'closeopen', pair = "''", neigh_pattern = '[^%a\\\'][^%a\']', register = { cr = false } },
-        ['`'] = { action = 'closeopen', pair = '``', neigh_pattern = '[^\\`][^%a`]', register = { cr = false } },
+        ['`'] = { action = 'closeopen', pair = '``', neigh_pattern = '[^\\`][^%a`]',     register = { cr = false } },
       },
     },
   },
