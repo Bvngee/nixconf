@@ -93,11 +93,12 @@ in
 
       gestures {
           workspace_swipe = true
-          workspace_swipe_invert = true # ???
+          workspace_swipe_invert = false
           workspace_swipe_forever = false
-          workspace_swipe_min_speed_to_force = 10
+          workspace_swipe_min_speed_to_force = 5
+          workspace_swipe_distance = 300
           workspace_swipe_use_r = true
-          workspace_swipe_cancel_ratio = 0.15
+          workspace_swipe_cancel_ratio = 0.1
           workspace_swipe_direction_lock = false
       }
       
