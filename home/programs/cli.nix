@@ -18,6 +18,8 @@
         wget
         curl
         socat
+        dig
+        traceroute
         lm_sensors
     ];
 }
