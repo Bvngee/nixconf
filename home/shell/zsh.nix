@@ -6,7 +6,6 @@ in
 {
   home.packages = with pkgs; [
     trash-cli
-    #rmtrash # SO SLOW
   ];
 
   programs.zsh = {
@@ -26,11 +25,6 @@ in
       # z/zi is defined by zoxide
       cd = "z";
       cdi = "zi";
-
-      # do I want these? SO SLOW
-      #rm = "rmtrash";
-      #rmdir = "rmdirtrash";
-      #sudo = "sudo ";
     };
     initExtraFirst = ''
       # automatically called by zsh-vi-mode plugin

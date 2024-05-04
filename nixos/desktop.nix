@@ -15,10 +15,6 @@
   environment.systemPackages = with pkgs; [
     git # Useful when debugging
     home-manager # TODO: figure out if this is right (HM as NixOS module instead?)
-
-    # Password manager
-    bitwarden
-    bitwarden-cli
   ];
 
   fonts.enableDefaultPackages = true;
@@ -32,10 +28,6 @@
 
   # Necessary to set GTK related settings (eg. to set themes)
   programs.dconf.enable = true;
-
-  # DBus service that provides power management support for applications
-  #TODO(power management): TLP (#1 so far)? power-profiles-daemon? auto-cpufreq?
-  services.upower.enable = true;
 
   # Hands out realtime scheduling priority to user processes on demand
   security.rtkit.enable = true;

@@ -33,5 +33,9 @@
     mission-center
     snapshot
     helvum # pipewire graph thingy
+
+    # Password manager
+    bitwarden
+    bitwarden-cli
   ];
 }

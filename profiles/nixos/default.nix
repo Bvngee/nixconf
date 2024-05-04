@@ -37,6 +37,7 @@ let
     ../../nixos/hardware/backlight.nix
     ../../nixos/hardware/opengl.nix
     ../../nixos/hardware/usb.nix
+    ../../nixos/hardware/power.nix
     ../../nixos/hardware/audio.nix
     ../../nixos/hardware/network.nix
     ../../nixos/hardware/bluetooth.nix

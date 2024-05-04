@@ -1,12 +1,46 @@
 { lib, pkgs, isMobile, ... }: {
-  services.tlp = lib.mkIf (isMobile) {
-    enable = true;
-    setings = {
-      DEVICES_TO_DISABLE_ON_STARTUP = "bluetooth";
+
+  # General power-related features (suspent-to-ram, general powersaving)
+  powerManagement.enable = true;
+
+  # DBus service that provides power management support for applications
+  services.upower.enable = true;
+
+  # Linux power management interface, specifically used for hardware integrations
+  services.acpid.enable = isMobile;
+
+  services.auto-cpufreq = {
+    enable = isMobile;
+    settings = {
+      battery = {
+        governor = "powersave";
+        turbo = "auto";
+      };
+      charger = {
+        governor = "powersave";
+        turbo = "auto";
+      };
     };
   };
 
-  udev.extraRules =
+  # Provides a DBus interface for users to be able to switch between power saving modes
+  services.power-profiles-daemon.enable = false; # prefer auto-cpufreq
+
+  # services.tlp = lib.mkIf (isMobile) { # prefer auto-cpufreq
+  #   enable = true;
+  #   setings = {
+  #     DEVICES_TO_DISABLE_ON_STARTUP = "bluetooth";
+  #   };
+  # };
+
+  # Throttles CPU freq if temps get too high - temperature management daemon
+  services.thermald.enable = isMobile;
+
+  environment.systemPackages = with pkgs; [
+    powertop
+  ];
+
+  services.udev.extraRules =
     let
       unplugged = pkgs.writeShellScript "unplugged" ''
         notify-send "Disconnected from AC power!"
