@@ -48,6 +48,7 @@ let
     ../../home/programs/gui.nix
     ../../home/wayland
     ../../home/shell
+    ../../home/joshuto
     ../../home/nvim
     ../../home/ags
   ];
