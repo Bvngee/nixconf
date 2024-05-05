@@ -40,20 +40,25 @@
     powertop
   ];
 
+  # TODO: none of this is working
   services.udev.extraRules =
     let
       unplugged = pkgs.writeShellScript "unplugged" ''
-        notify-send "Disconnected from AC power!"
+        ${lib.getExe pkgs.libnotify} "Disconnected from AC power!"
       '';
 
       plugged = pkgs.writeShellScript "plugged" ''
-        notify-send "Connected to AC power!"
+        ${lib.getExe pkgs.libnotify} "Connected to AC power!"
+      '';
+      lowBattery = pkgs.writeShellScript "lowBattery" ''
+        ${lib.getExe pkgs.libnotify} -u critical "Battery critically low!"
       '';
     in
     lib.mkIf (isMobile)
       ''
-        # start/stop services on power (un)plug
-        SUBSYSTEM=="power_supply", ATTR{online}=="1", RUN+="${plugged}"
-        SUBSYSTEM=="power_supply", ATTR{online}=="0", RUN+="${unplugged}"
+        # notify-send critical battery/charge information
+        SUBSYSTEM=="power_supply", ATTR{online}=="1", ENV{DBUS_SESSION_BUS_ADDRESS}="unix:path=/run/user/$UID/bus", RUN+="${pkgs.su}/bin/su jack -c ${plugged}"
+        SUBSYSTEM=="power_supply", ATTR{online}=="0", ENV{DBUS_SESSION_BUS_ADDRESS}="unix:path=/run/user/$UID/bus", RUN+="${pkgs.su}/bin/su jack -c ${unplugged}"
+        SUBSYSTEM=="power_supply", ATTR{status}=="discharging", ATTR{capacity}=="[0-5]", ENV{DBUS_SESSION_BUS_ADDRESS}="unix:path=/run/user/$UID/bus", RUN+="${pkgs.su}/bin/su jack -c ${lowBattery}"
       '';
 }
