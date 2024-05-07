@@ -7,7 +7,7 @@
   services.upower.enable = true;
 
   # Linux power management interface, specifically used for hardware integrations
-  services.acpid.enable = isMobile;
+  services.acpid.enable = true;
 
   services.auto-cpufreq = {
     enable = isMobile;
@@ -17,7 +17,7 @@
         turbo = "auto";
       };
       charger = {
-        governor = "powersave";
+        governor = "balanced";
         turbo = "auto";
       };
     };

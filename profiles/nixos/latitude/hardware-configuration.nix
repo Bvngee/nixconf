@@ -32,6 +32,6 @@
   # networking.interfaces.wlo1.useDHCP = lib.mkDefault true;
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
-  #powerManagement.cpuFreqGovernor = lib.mkDefault "powersave"; # TLP
+  #powerManagement.cpuFreqGovernor = lib.mkDefault "powersave"; # see power.nix
   hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
 }

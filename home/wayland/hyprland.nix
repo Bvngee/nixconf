@@ -50,7 +50,7 @@ in
     enable = true;
     plugins = [
       inputs.split-monitor-workspaces.packages.${pkgs.system}.split-monitor-workspaces
-      inputs.hy3.packages.${pkgs.system}.hy3
+      #inputs.hy3.packages.${pkgs.system}.hy3 # not used anymore
     ];
     extraConfig = ''
       ${lib.optionalString (isNvidia) nvidiaEnvVars}
@@ -109,7 +109,7 @@ in
           # col.active_border = rgba(7daea3ff) rgba(00000000) rgba(d3869bff) 35deg
           # col.inactive_border = rgba(00000000)
       
-          layout = hy3 # dwindle
+          layout = dwindle # hy3
       }
       
       binds {
@@ -277,21 +277,21 @@ in
       
       # Move window in direction
       # SUPER + CONTROL + [ vim keys ]
-      bind = SUPER CONTROL, H, hy3:movewindow, l
-      bind = SUPER CONTROL, J, hy3:movewindow, d
-      bind = SUPER CONTROL, K, hy3:movewindow, u
-      bind = SUPER CONTROL, L, hy3:movewindow, r
+      bind = SUPER CONTROL, H, movewindow, l
+      bind = SUPER CONTROL, J, movewindow, d
+      bind = SUPER CONTROL, K, movewindow, u
+      bind = SUPER CONTROL, L, movewindow, r
       
       # Move window focus 
       # SUPER + [ vim keys ]
-      bind = SUPER, H, hy3:movefocus, l
-      bind = SUPER, L, hy3:movefocus, r
-      bind = SUPER, K, hy3:movefocus, u
-      bind = SUPER, J, hy3:movefocus, d
-      bind = SUPER, left, hy3:movefocus, l
-      bind = SUPER, right, hy3:movefocus, r
-      bind = SUPER, up, hy3:movefocus, u
-      bind = SUPER, down, hy3:movefocus, d
+      bind = SUPER, H, movefocus, l
+      bind = SUPER, L, movefocus, r
+      bind = SUPER, K, movefocus, u
+      bind = SUPER, J, movefocus, d
+      bind = SUPER, left, movefocus, l
+      bind = SUPER, right, movefocus, r
+      bind = SUPER, up, movefocus, u
+      bind = SUPER, down, movefocus, d
       
       # Scroll through existing workspaces (includes first empty and previous workspace)
       # SUPER + SHIFT + [ mouse buttons / vim keys ]

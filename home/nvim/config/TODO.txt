@@ -1,5 +1,7 @@
 TODO:
 
+- nvim-treesitter-context!!!
+
 - why does <esc> not do :noh in normal mode (but only sometimes?)?
 - ./home/nvim/config/lua/user/plugins/conform.lua clang-format
 
