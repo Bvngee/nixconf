@@ -37,5 +37,8 @@
     # Password manager
     bitwarden
     bitwarden-cli
+
+    zulip
+    zulip-term
   ];
 }
