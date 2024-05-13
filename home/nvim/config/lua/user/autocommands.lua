@@ -12,8 +12,8 @@ vim.api.nvim_create_autocmd('TextYankPost', {
 vim.api.nvim_create_autocmd({ 'FileType' }, {
   pattern = { 'gitcommit', 'markdown' },
   callback = function()
-    -- vim.wo.spell = true
-    vim.wo.wrap = true
+    vim.wo.wrap = true -- toggle with <leader>ww (keymaps.lua)
+    vim.bo.textwidth = 80
   end,
 })
 
@@ -22,7 +22,6 @@ vim.api.nvim_create_autocmd({ 'FileType' }, {
 vim.api.nvim_create_autocmd({ 'BufWinEnter' }, {
   callback = function()
     vim.cmd('set formatoptions-=o')
-    vim.cmd('set formatoptions+=cr') -- TODO: I think this can just be a regular set?
   end,
 })
 
