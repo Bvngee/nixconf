@@ -21,5 +21,6 @@
         dig
         traceroute
         lm_sensors
+        tokei
     ];
 }
