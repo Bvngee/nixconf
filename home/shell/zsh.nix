@@ -8,6 +8,12 @@ in
     trash-cli
   ];
 
+  ## How to Fix "zsh: corrupt history file"
+  # mv ~/.local/share/zsh_history ~/.local/share/zsh_history_bad
+  # strings ~/.local/share/zsh_history_bad > ~/.local/share/zsh_history
+  # fc -R ~/.local/share/zsh_history 
+  # rm ~/.local/share/zsh_history_bad  
+
   programs.zsh = {
     enable = true;
     autocd = true;
