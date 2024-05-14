@@ -22,6 +22,10 @@
     nodePackages.pyright
     pkgsUnstable.ruff
 
+    # MicroPython
+    adafruit-ampy
+    mpremote
+
     # Java
     temurin-bin-18
     jdt-language-server

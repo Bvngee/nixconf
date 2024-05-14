@@ -1,4 +1,4 @@
-{ lib, pkgs, isMobile, ... }: {
+{ lib, pkgs, isMobile, username, ... }: {
 
   # General power-related features (suspent-to-ram, general powersaving)
   powerManagement.enable = true;
@@ -57,8 +57,8 @@
     lib.mkIf (isMobile)
       ''
         # notify-send critical battery/charge information
-        SUBSYSTEM=="power_supply", ATTR{online}=="1", ENV{DBUS_SESSION_BUS_ADDRESS}="unix:path=/run/user/$UID/bus", RUN+="${pkgs.su}/bin/su jack -c ${plugged}"
-        SUBSYSTEM=="power_supply", ATTR{online}=="0", ENV{DBUS_SESSION_BUS_ADDRESS}="unix:path=/run/user/$UID/bus", RUN+="${pkgs.su}/bin/su jack -c ${unplugged}"
-        SUBSYSTEM=="power_supply", ATTR{status}=="discharging", ATTR{capacity}=="[0-5]", ENV{DBUS_SESSION_BUS_ADDRESS}="unix:path=/run/user/$UID/bus", RUN+="${pkgs.su}/bin/su jack -c ${lowBattery}"
+        SUBSYSTEM=="power_supply", ATTR{online}=="1", ENV{XDG_RUNTIME_DIR}="/run/user/$(id -u ${username})", RUN+="${pkgs.su}/bin/su ${username} -c ${plugged}"
+        SUBSYSTEM=="power_supply", ATTR{online}=="0", ENV{XDG_RUNTIME_DIR}="/run/user/$(id -u ${username})", RUN+="${pkgs.su}/bin/su ${username} -c ${unplugged}"
+        SUBSYSTEM=="power_supply", ATTR{status}=="discharging", ATTR{capacity}=="[0-5]", ENV{XDG_RUNTIME_DIR}="/run/user/$(id -u ${username})", RUN+="${pkgs.su}/bin/su ${username} -c ${lowBattery}"
       '';
 }
