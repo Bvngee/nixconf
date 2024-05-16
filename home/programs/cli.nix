@@ -20,6 +20,7 @@
         socat
         dig
         traceroute
+        nmap
         lm_sensors
         tokei
     ];
