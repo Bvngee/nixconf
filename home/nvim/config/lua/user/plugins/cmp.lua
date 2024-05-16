@@ -1,20 +1,3 @@
-local luasnip_dep = {
-  'L3MON4D3/LuaSnip',
-  build = (vim.fn.has('win32') == 1 or vim.fn.executable('make') == 0) and 'make install_jsregexp'
-    or '',
-  dependencies = {
-    {
-      'rafamadriz/friendly-snippets',
-      -- I dont need fucking lorem ipsum in my completion menu
-      build = 'rm ./snippets/global.json',
-    },
-  },
-  config = function()
-    require('luasnip').config.setup({})
-    require('luasnip.loaders.from_vscode').lazy_load({})
-  end,
-}
-
 return {
   'hrsh7th/nvim-cmp',
   event = 'InsertEnter',
@@ -25,7 +8,7 @@ return {
     'hrsh7th/cmp-cmdline',
     -- 'dmitmel/cmp-cmdline-history', -- get's annoying
     'FelipeLema/cmp-async-path', -- 'hrsh7th/cmp-path',
-    luasnip_dep,
+    'L3MON4D3/LuaSnip',
     'saadparwaiz1/cmp_luasnip',
   },
   config = function()

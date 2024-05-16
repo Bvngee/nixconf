@@ -74,21 +74,22 @@ return {
     vim.api.nvim_set_hl(0, 'WinSeparator', { fg = c.base02, bg = c.base00 })
 
     -- https://github.com/RRethy/nvim-base16/blob/master/lua/base16-colorscheme.lua
-    -- for more info. Most @___ like to TS___ (eg. @type links to TSType)
-    vim.api.nvim_set_hl(0, '@lsp.type.namespace', { link = '@namespace' })
-    vim.api.nvim_set_hl(0, '@lsp.type.type', { link = '@type' })
-    vim.api.nvim_set_hl(0, '@lsp.type.class', { link = '@type' })
-    vim.api.nvim_set_hl(0, '@lsp.type.enum', { link = '@type' })
-    vim.api.nvim_set_hl(0, '@lsp.type.interface', { link = '@type' })
-    vim.api.nvim_set_hl(0, '@lsp.type.struct', { link = '@structure' })
-    vim.api.nvim_set_hl(0, '@lsp.type.parameter', { link = '@parameter' })
-    vim.api.nvim_set_hl(0, '@lsp.type.variable', { link = '@variable' })
-    vim.api.nvim_set_hl(0, '@lsp.type.property', { link = '@property' })
-    vim.api.nvim_set_hl(0, '@lsp.type.enumMember', { link = '@constant' })
-    vim.api.nvim_set_hl(0, '@lsp.type.function', { link = '@function' })
-    vim.api.nvim_set_hl(0, '@lsp.type.method', { link = '@method' })
-    vim.api.nvim_set_hl(0, '@lsp.type.macro', { link = '@macro' })
-    vim.api.nvim_set_hl(0, '@lsp.type.decorator', { link = '@function' })
+    -- for more info. Most @___ link to TS___ (eg. @type links to TSType)
+    -- I dont think these are needed anymore (see #96); leaving here just in case.
+    --vim.api.nvim_set_hl(0, '@lsp.type.namespace', { link = '@namespace' })
+    --vim.api.nvim_set_hl(0, '@lsp.type.type', { link = '@type' })
+    --vim.api.nvim_set_hl(0, '@lsp.type.class', { link = '@type' })
+    --vim.api.nvim_set_hl(0, '@lsp.type.enum', { link = '@type' })
+    --vim.api.nvim_set_hl(0, '@lsp.type.interface', { link = '@type' })
+    --vim.api.nvim_set_hl(0, '@lsp.type.struct', { link = '@type' })
+    --vim.api.nvim_set_hl(0, '@lsp.type.parameter', { link = '@parameter' })
+    --vim.api.nvim_set_hl(0, '@lsp.type.variable', { link = '@variable' })
+    --vim.api.nvim_set_hl(0, '@lsp.type.property', { link = '@property' })
+    --vim.api.nvim_set_hl(0, '@lsp.type.enumMember', { link = '@constant' })
+    --vim.api.nvim_set_hl(0, '@lsp.type.function', { link = '@function' })
+    --vim.api.nvim_set_hl(0, '@lsp.type.method', { link = '@method' })
+    --vim.api.nvim_set_hl(0, '@lsp.type.macro', { link = '@macro' }) -- @function.maco ?
+    --vim.api.nvim_set_hl(0, '@lsp.type.decorator', { link = '@function' })
 
     -- this deviates from the base16 spec, but IMO looks better. See
     -- https://github.com/base16-project/base16/blob/main/styling.md

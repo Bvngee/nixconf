@@ -5,6 +5,8 @@ return {
   dependencies = {
     {
       'rafamadriz/friendly-snippets',
+      -- I dont need fucking lorem ipsum in my completion menu
+      -- this breaks Lazy's updating - not sure if the `exclude` below actually works?
       build = 'rm snippets/global.json',
     },
   },

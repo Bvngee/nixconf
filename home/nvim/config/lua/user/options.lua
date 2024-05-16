@@ -22,21 +22,19 @@ vim.g.netrw_banner = 0 -- is this the correct var name?
 
 -- used with autosession
 -- removed 'localoptions' - autosession gets weird setting incorrect values
-opt.sessionoptions =
-  'blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal'
+opt.sessionoptions = 'blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal'
 
 -- also see conform.nvim, :h fo-table
 opt.formatoptions = opt.formatoptions
-  - "a" -- autoformatting
-  - "t" -- dont autowrap all text with '\n'
-  + "c" -- do autowrap comments
-  - "o" -- (also set in autocommands.lua)
-  + "r"
-  - "q"
-  - "n"
-  - "2"
-  + "j"
-  
+  - 'a' -- autoformatting
+  - 't' -- dont autowrap all text with '\n'
+  + 'c' -- do autowrap comments
+  - 'o' -- (also set in autocommands.lua)
+  + 'r'
+  - 'q'
+  - 'n'
+  - '2'
+  + 'j'
 
 -- (lua and vimscript plugins only)
 vim.g.loaded_perl_provider = 0
@@ -66,7 +64,7 @@ opt.updatetime = 200
 opt.hidden = true
 opt.scrolloff = 8
 opt.sidescrolloff = 8
-opt.inccommand = 'split'
+opt.inccommand = 'nosplit' -- split enables the preview winow when doing substitutions and similar things
 opt.incsearch = true
 opt.hlsearch = true
 opt.ignorecase = true
