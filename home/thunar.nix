@@ -1,15 +1,17 @@
-{ lib, user, hostname, ... }: {
+{ config, lib, user, hostname, ... }: {
 
   # Standard GTK3 Bookmarks
-  gtk.gtk3.bookmarks = [
-    #"file:///home/${user}/" # Toolbar Home button instead
-    "file:///home/${user}/Desktop"
-    "file:///home/${user}/Documents"
-    "file:///home/${user}/Downloads"
-    "file:///home/${user}/Videos"
-    "file:///home/${user}/Pictures"
-    "file:///home/${user}/dev"
-    "file:///home/${user}/.config"
+  gtk.gtk3.bookmarks = let
+    home = config.home.homeDirectory;
+  in [
+    # "file://${home}/ Home"
+    "file://${home}/Desktop"
+    "file://${home}/Documents"
+    "file://${home}/Downloads"
+    "file://${home}/Videos"
+    "file://${home}/Pictures"
+    "file://${home}/dev"
+    "file://${home}/.config"
   ] ++ lib.optionals (hostname == "pc") [
     "file:///mnt/windows"
     "file:///mnt/SecondaryDrive"
@@ -18,6 +20,7 @@
   ];
 
   # Make thunar side panel a different color than the main panel
+  # TODO: somehow get ride of those ugly grey border lines?
   gtk.gtk3.extraCss = ''
     .thunar .sidebar .view { background-color: @window_bg_color; }
   '';
