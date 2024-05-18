@@ -24,17 +24,7 @@ return {
       },
     },
     sections = {
-      lualine_a = {
-        {
-          'mode',
-          -- color = function()
-          --   return vim.g.smart_resize_mode and { bg = require('base16-colorscheme').colors.base0E } or nil
-          -- end,
-          fmt = function(str, _)
-            return vim.g.smart_resize_mode and 'SPLIT RESIZE' or str
-          end,
-        },
-      },
+      lualine_a = { 'mode' },
       lualine_b = { 'branch' },
       lualine_c = {
         {
@@ -85,7 +75,7 @@ return {
           'progress',
           separator = '',
           padding = {
-            right = 0,
+            right = 1,
             left = 1,
           },
           fmt = function(str)
@@ -98,7 +88,9 @@ return {
             right = 1,
             left = 0,
           },
-          -- fmt = function(str) end,
+          -- fmt = function(str)
+          --   return str:gsub(' ', '0')
+          -- end,
         },
       },
     },

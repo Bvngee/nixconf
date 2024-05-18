@@ -14,6 +14,12 @@ map({ 'n', 'x' }, '<Down>', "v:count == 0 ? 'gj' : 'j'", { expr = true })
 map({ 'n', 'x' }, 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true })
 map({ 'n', 'x' }, '<Up>', "v:count == 0 ? 'gk' : 'k'", { expr = true })
 
+-- -- resize splits -- sticking with smart-splits for now
+-- map('n', '<A-,>', '<C-w>5<') -- lesser (horizontal)
+-- map('n', '<A-.>', '<C-w>5>') -- greater (horizontal)
+-- map('n', '<A-t>', '<C-w>2+') -- taller (vertical)
+-- map('n', '<A-s>', '<C-w>2-') -- smaller (vertical)
+
 -- -- left/right end of line that works with wrapped lines (and easier-to-reach)
 -- -- NOTE: currently this is copy-pasted into ./plugins/smart-splits.lua to reset
 -- -- the mappings properly.
@@ -63,8 +69,7 @@ map('n', '<C-l>', '<C-w>l')
 map('n', '<leader>wx', '<cmd>split<cr>')
 map('n', '<leader>wv', '<cmd>vsplit<cr>')
 map('n', '<leader>wc', '<C-w>c')
-
--- make buffers take relatively equal space (useful after resizes)
+-- make splits take relatively equal space (useful after resizes)
 map('n', '<leader>w=', '<C-w>=')
 
 -- Exit terminal mode easier. NOTE: This might not work in all terminal emulators/tmux/etc.

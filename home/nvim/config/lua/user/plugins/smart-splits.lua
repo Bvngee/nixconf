@@ -18,39 +18,39 @@ return {
       at_edge = 'stop',
       move_cursor_same_row = false,
       cursor_follows_swapped_bufs = true,
-      resize_mode = {
-        quit_key = '<ESC>',
-        resize_keys = { 'h', 'j', 'k', 'l' },
-        silent = true,
-        hooks = {
-          on_enter = function()
-            vim.notify('Entering resize mode: use h/j/k/l to resize')
-            vim.keymap.set('n', 'H', '6h', { remap = true })
-            vim.keymap.set('n', 'L', '6l', { remap = true })
-            vim.keymap.set('n', 'J', '6j', { remap = true })
-            -- -- TODO: This doesn't work (cuz of lsp hover)
-            vim.keymap.set('n', 'K', '6k', { remap = true })
-          end,
-          on_leave = function()
-            vim.notify('Exiting resize mode, all keymaps restored')
-
-            vim.keymap.del('n', 'H')
-            vim.keymap.del('n', 'L')
-            vim.keymap.del('n', 'J')
-            vim.keymap.del('n', 'K')
-
-            -- -- these are copy-pasted from ../keymaps.lua
-            -- vim.keymap.set({ 'n', 'v' }, 'H', function()
-            --   return vim.wo.wrap and 'g^' or '^'
-            -- end, { remap = true, expr = true })
-            -- vim.keymap.set({ 'n', 'v' }, 'L', function()
-            --   return vim.wo.wrap and 'g$' or '$'
-            -- end, { remap = true, expr = true })
-
-            require('bufresize').register()
-          end,
-        },
-      },
+      -- resize_mode = {
+      --   quit_key = '<ESC>',
+      --   resize_keys = { 'h', 'j', 'k', 'l' },
+      --   silent = true,
+      --   hooks = {
+      --     on_enter = function()
+      --       vim.notify('Entering resize mode: use h/j/k/l to resize!')
+      --       vim.keymap.set('n', 'H', '6h', { remap = true })
+      --       vim.keymap.set('n', 'L', '6l', { remap = true })
+      --       vim.keymap.set('n', 'J', '6j', { remap = true })
+      --       -- -- TODO: This doesn't work (cuz of lsp hover)
+      --       vim.keymap.set('n', 'K', '6k', { remap = true })
+      --     end,
+      --     on_leave = function()
+      --       vim.notify('Exiting resize mode!')
+      --
+      --       vim.keymap.del('n', 'H')
+      --       vim.keymap.del('n', 'L')
+      --       vim.keymap.del('n', 'J')
+      --       vim.keymap.del('n', 'K')
+      --
+      --       -- -- these are copy-pasted from ../keymaps.lua
+      --       -- vim.keymap.set({ 'n', 'v' }, 'H', function()
+      --       --   return vim.wo.wrap and 'g^' or '^'
+      --       -- end, { remap = true, expr = true })
+      --       -- vim.keymap.set({ 'n', 'v' }, 'L', function()
+      --       --   return vim.wo.wrap and 'g$' or '$'
+      --       -- end, { remap = true, expr = true })
+      --
+      --       require('bufresize').register()
+      --     end,
+      --   },
+      -- },
       ignored_events = {
         'BufEnter',
         'WinEnter',
@@ -61,29 +61,19 @@ return {
 
     smart_splits.setup(opts)
 
-    -- TODO: do i want to keep using arrow keys? do I want resize mode / regular keymaps / both?
-    -- -- resizing splits
-    -- vim.keymap.set('n', '<C-left>', function() smart_splits.resize_left(1) end)
-    -- vim.keymap.set('n', '<C-right>', function() smart_splits.resize_right(1) end)
-    -- vim.keymap.set('n', '<C-up>', function() smart_splits.resize_up(1) end)
-    -- vim.keymap.set('n', '<C-down>', function() smart_splits.resize_down(1) end)
-    -- vim.keymap.set('n', '<C-S-left>', function() smart_splits.resize_left(5) end)
-    -- vim.keymap.set('n', '<C-S-right>', function() smart_splits.resize_right(5) end)
-    -- vim.keymap.set('n', '<C-S-up>', function() smart_splits.resize_up(5) end)
-    -- vim.keymap.set('n', '<C-S-down>', function() smart_splits.resize_down(5) end)
-    -- -- moving between splits
-    -- vim.keymap.set('n', '<C-h>', smart_splits.move_cursor_left)
-    -- vim.keymap.set('n', '<C-j>', smart_splits.move_cursor_down)
-    -- vim.keymap.set('n', '<C-k>', smart_splits.move_cursor_up)
-    -- vim.keymap.set('n', '<C-l>', smart_splits.move_cursor_right)
+    -- resizing splits
+    vim.keymap.set('n', '<C-A-h>', function() smart_splits.resize_left(6) end)
+    vim.keymap.set('n', '<C-A-l>', function() smart_splits.resize_right(6) end)
+    vim.keymap.set('n', '<C-A-k>', function() smart_splits.resize_up(4) end)
+    vim.keymap.set('n', '<C-A-j>', function() smart_splits.resize_down(4) end)
 
     -- swapping buffers between windows
-    vim.keymap.set('n', '<C-A-h>', smart_splits.swap_buf_left)
-    vim.keymap.set('n', '<C-A-l>', smart_splits.swap_buf_right)
-    vim.keymap.set('n', '<C-A-j>', smart_splits.swap_buf_down)
-    vim.keymap.set('n', '<C-A-k>', smart_splits.swap_buf_up)
+    vim.keymap.set('n', '<C-A-left>', smart_splits.swap_buf_left)
+    vim.keymap.set('n', '<C-A-right>', smart_splits.swap_buf_right)
+    vim.keymap.set('n', '<C-A-down>', smart_splits.swap_buf_down)
+    vim.keymap.set('n', '<C-A-up>', smart_splits.swap_buf_up)
 
-    -- persistent rezize mode
-    vim.keymap.set('n', '<leader>rs', smart_splits.start_resize_mode)
+    -- -- persistent rezize mode
+    -- vim.keymap.set('n', '<leader>rs', smart_splits.start_resize_mode)
   end,
 }
