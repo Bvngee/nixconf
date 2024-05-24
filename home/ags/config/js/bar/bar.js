@@ -23,7 +23,7 @@ const end = Widget.Box({
     Widget.EventBox({
       on_primary_click: () => Utils.execAsync("gnome-calendar"),
       child: Widget.Label().poll(1000, (self) => {
-        self.label = Utils.exec('date "+%a %b %e, %-I:%M%P"');
+        self.label = Utils.exec('date "+%A %b %e, %-I:%M%P"');
       }),
     }),
   ],
