@@ -21,6 +21,7 @@ in
     virt-manager
     virt-viewer
     libguestfs-with-appliance
+    virtiofsd
 
     bottles-51-11
   ];
