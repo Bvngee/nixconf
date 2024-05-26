@@ -22,6 +22,7 @@
         traceroute
         nmap
         lm_sensors
+        usbutils
         tokei
     ];
 }
