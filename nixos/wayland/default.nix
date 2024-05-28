@@ -21,7 +21,9 @@
   xdg.portal = {
     enable = true;
     xdgOpenUsePortal = true; # TODO: improve this section
-    extraPortals = with pkgs; [ xdg-desktop-portal-gtk ];
+    extraPortals = with pkgs; [ 
+      # xdg-desktop-portal-gtk # Already added by Gnome; causes an error when added here too
+    ];
     config.common = {
       default = [ "gtk" ];
       "org.freedesktop.impl.portal.Secret" = [ "gnome-keyring" ];

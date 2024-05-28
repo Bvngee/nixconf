@@ -22,6 +22,7 @@
         "application/x-extension-xht" = browser;
         "application/json" = browser;
 
+        #"application/x-xz-compressed-tar" = ["org.kde.ark.desktop"];
         "application/x-xz-compressed-tar" = ["org.kde.ark.desktop"];
 
         "audio/*" = ["mpv.desktop"];

@@ -71,6 +71,7 @@ in
       ../../nixos/programs/gaming.nix
 
       ../../nixos/kde.nix
+      ../../nixos/gnome.nix
       ../../nixos/hardware/openrgb.nix
       ../../nixos/hardware/nvidia.nix
       ../../nixos/hardware/virtualization.nix

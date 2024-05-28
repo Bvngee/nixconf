@@ -19,6 +19,8 @@
     #})
     element-desktop
     cinny-desktop
+    zulip
+    zulip-term
 
     # Misc/Other
     obs-studio
@@ -27,8 +29,8 @@
     gnome.gnome-calendar
     gnome.gnome-calculator
     gnome.gnome-notes
-    gnome.gnome-disk-utility # nixos only?
-    gnome.file-roller # replace ark?
+    gnome.gnome-disk-utility
+    gnome.file-roller # better default over kde's ark?
     libsForQt5.kcalc
     mission-center
     snapshot
@@ -38,7 +40,13 @@
     bitwarden
     bitwarden-cli
 
-    zulip
-    zulip-term
   ];
+
+  programs = {
+  };
+
+  services = {
+    # do I want this?
+    amberol.enable = true; # starts as systemd service
+  };
 }

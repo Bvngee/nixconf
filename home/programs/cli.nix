@@ -23,6 +23,7 @@
         nmap
         lm_sensors
         usbutils
+        pciutils
         tokei
     ];
 }

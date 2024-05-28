@@ -75,9 +75,22 @@ in
         fi
         # $${EDITOR:-vim} flake.nix
       }
+
+      # stolen from https://github.com/ohmyzsh/ohmyzsh/blob/master/plugins/fancy-ctrl-z
+      fancy-ctrl-z () {
+        if [[ $#BUFFER -eq 0 ]]; then
+          BUFFER="fg"
+          zle accept-line -w
+        else
+          zle push-input -w
+          zle clear-screen -w
+        fi
+      }
+      zle -N fancy-ctrl-z
+      bindkey '^Z' fancy-ctrl-z
     '';
 
-    enableAutosuggestions = true;
+    autosuggestion.enable = true;
     enableCompletion = true;
     syntaxHighlighting.enable = true;
     historySubstringSearch.enable = true;
@@ -94,6 +107,11 @@ in
         name = "zsh-autopair";
         file = "share/zsh/zsh-autopair/autopair.zsh";
         src = pkgs.zsh-autopair;
+      }
+      {
+        name = "zsh-nix-shell";
+        file = "nix-shell.plugin.zsh";
+        src = pkgs.zsh-nix-shell;
       }
       # too complex, doesn't integrate well with other plugins, seems hard to configure
       # note: requires `enableCompletion = true;`

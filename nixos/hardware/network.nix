@@ -7,9 +7,10 @@
   networking.networkmanager.enable = true;
   users.users.${user}.extraGroups = [ "networkmanager" ];
 
-  programs.nm-applet = {
-    enable = true;
-    indicator = true;
-  };
+  # spams annoying notifications, tray menu is barely useful
+  # programs.nm-applet = {
+  #   enable = false;
+  #   indicator = true;
+  # };
 
 }

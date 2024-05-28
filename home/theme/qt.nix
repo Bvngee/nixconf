@@ -2,7 +2,7 @@
 
   qt = {
     enable = true;
-    platformTheme = "qtct"; # If I ever switch to Kvantum, set to "qtct"
+    platformTheme.name = "qtct"; # If I ever switch to Kvantum, set to "qtct"
     style = {
       #name = "kvantum"; # I haven't found a good-working Kvantum theme...
 

@@ -58,8 +58,11 @@ in
       # monitor = name, res@hz, pos, scale
       ${monitorConfig}
       
+      # Is pantheon-agent-polkit better than polkit-kde-agent?
+      #exec-once = ${pkgs.libsForQt5.polkit-kde-agent}/libexec/polkit-kde-authentication-agent-1
+      exec-once = ${pkgs.pantheon.pantheon-agent-polkit}/libexec/policykit-1-pantheon/io.elementary.desktop.agent-polkit
+
       exec-once = hyprctl setcursor ${config.home.pointerCursor.name} ${toString config.home.pointerCursor.size}
-      exec-once = ${pkgs.libsForQt5.polkit-kde-agent}/libexec/polkit-kde-authentication-agent-1
       # exec-once = wl-paste --watch cliphist store # add all CLIPBOARD copies in the cliphist store
       #exec-once = wl-paste -p --watch wl-copy -p "" # keep PRIMARY buffer empty (functionally removes middle-click-paste)
       exec-once = thunar --daemon # faster opening
