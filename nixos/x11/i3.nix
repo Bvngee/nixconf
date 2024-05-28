@@ -1,11 +1,12 @@
-{ config, lib, pkgs, ... }:
+{ config, pkgs, ... }:
 let
   cfg = config.services.xserver.windowManager.i3;
 in
 {
+  # see https://github.com/NixOS/nixpkgs/blob/bfb7a882678e518398ce9a31a881538679f6f092/nixos/modules/services/x11/display-managers/default.nix#L282 
+  # for how this adds i3 to the display manager
   services.xserver.windowManager.i3 = {
-    # add stuff manually
-    enable = false;
+    enable = true;
 
     # NOTE: none of this is configured at all
     extraPackages = with pkgs; [
@@ -18,24 +19,4 @@ in
   environment.systemPackages = [
     cfg.package
   ] ++ cfg.extraPackages;
-
-  # Add i3 startup command manually to display manager session list
-  # (ass opposed to window manager list)
-  services.xserver.displayManager.session = [
-    {
-      manage = "desktop";
-      name = "startx-i3";
-      start = ''
-        ${cfg.extraSessionCommands}
-
-        ${lib.optionalString cfg.updateSessionEnvironment ''
-          systemctl --user import-environment PATH DISPLAY XAUTHORITY DESKTOP_SESSION XDG_CONFIG_DIRS XDG_DATA_DIRS XDG_RUNTIME_DIR XDG_SESSION_ID DBUS_SESSION_BUS_ADDRESS || true
-          dbus-update-activation-environment --systemd --all || true
-        ''}
-
-        startx ${cfg.package}/bin/i3 -- vt1 &
-        waitPID=$!
-      '';
-    }
-  ];
 }

@@ -18,13 +18,8 @@
     });
 
   # Add Hyprland to display manager session list
-  services.xserver.displayManager.session = [
-    # Configure manually to avoid calling Hyprland package added to $PATH by HM
-    {
-      manage = "desktop";
-      name = "Hyprland";
-      start = "${config.programs.hyprland.package}/bin/Hyprland";
-    }
+  services.displayManager.sessionPackages = [
+    config.programs.hyprland.package
   ];
 
   # Install Hyprland's xdg-desktop-portal impl
@@ -34,7 +29,8 @@
     ];
     config.hyprland = {
       default = [ "hyprland" "gtk" ];
-      #"org.freedesktop.impl.portal.Screencast" = "hyprland"; # we shouldn't need to be this specific
+      # we shouldn't need to be this specific
+      #"org.freedesktop.impl.portal.Screencast" = "hyprland";
       #"org.freedesktop.impl.portal.Screenshot" = "hyprland";
     };
   };
