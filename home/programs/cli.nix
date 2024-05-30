@@ -25,5 +25,6 @@
         usbutils
         pciutils
         tokei
+        #nvtopPackages.full # uncomment in future? throwing annoying trace warnings
     ];
 }

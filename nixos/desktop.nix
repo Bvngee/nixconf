@@ -25,6 +25,8 @@
   security.pam.services.login.enableGnomeKeyring = true;
   security.pam.services.greetd.enableGnomeKeyring = true;
   security.pam.services.tuigreet.enableGnomeKeyring = true;
+  # GUI for managing gnome-keyring entries
+  programs.seahorse.enable = true;
 
   # (there's already a polkitd service from somewhere, but I'll keep this anyways)
   # Manage unpriviledged processes' access to priviledged processes

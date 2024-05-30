@@ -46,7 +46,5 @@
   };
 
   services = {
-    # do I want this?
-    amberol.enable = true; # starts as systemd service
   };
 }
