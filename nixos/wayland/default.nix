@@ -1,4 +1,4 @@
-{ pkgs, ... }: {
+{ lib, config, pkgs, ... }: {
   imports = [
     ./hyprland.nix
     ./sway.nix
@@ -21,9 +21,11 @@
   xdg.portal = {
     enable = true;
     xdgOpenUsePortal = true; # TODO: improve this section
-    extraPortals = with pkgs; [ 
-      # xdg-desktop-portal-gtk # Already added by Gnome; causes an error when added here too
-    ];
+    # x-d-p-gtk is already added by Gnome; causes an error when duplicated here too
+    # TODO: is there a better solution (investigate why the above error happens)?
+    extraPortals = lib.optional
+      (!config.services.xserver.desktopManager.gnome.enable)
+      pkgs.xdg-desktop-portal-gtk;
     config.common = {
       default = [ "gtk" ];
       "org.freedesktop.impl.portal.Secret" = [ "gnome-keyring" ];

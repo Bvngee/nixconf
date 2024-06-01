@@ -10,6 +10,10 @@
     onlyoffice-bin
     libreoffice
 
+    # Password manager
+    bitwarden
+    bitwarden-cli
+
     # Chat apps
     vesktop
     #(pkgsUnstable.discord.override {
@@ -35,11 +39,7 @@
     mission-center
     snapshot
     helvum # pipewire graph thingy
-
-    # Password manager
-    bitwarden
-    bitwarden-cli
-
+    zed-editor
   ];
 
   programs = {
