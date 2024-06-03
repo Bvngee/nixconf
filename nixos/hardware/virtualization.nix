@@ -1,19 +1,6 @@
-{ pkgs, user, ... }:
+{ config, pkgs, user, ... }:
 let
-  # https://github.com/bottlesdevs/Bottles/issues/3162
-  # NOTE: still crashes on my pc when intercating with the gui, even with latest version below
-  bottles-51-11-unwrapped = pkgs.bottles-unwrapped.overrideAttrs {
-    version = "51.11";
-    src = pkgs.fetchFromGitHub {
-      owner = "bottlesdevs";
-      repo = "Bottles";
-      rev = "51.11";
-      sha256 = "sha256-uS3xmTu+LrVFX93bYcJvYjl6179d3IjpxLKrOXn8Z8Y=";
-    };
-  };
-  bottles-51-11 = pkgs.bottles.override {
-    bottles-unwrapped = bottles-51-11-unwrapped;
-  };
+  isNvidia = builtins.elem "nvidia" config.services.xserver.videoDrivers;
 in
 {
   environment.systemPackages = with pkgs; [
@@ -23,16 +10,37 @@ in
     libguestfs-with-appliance
     virtiofsd
 
-    bottles-51-11
+    # nice wine/proton wrapper using gtk4 (alternative is lutris)
+    bottles
+
+    # not sure if I really need these?
+    podman-compose
+    podman-desktop
+
+    # basically a docker/podman wrapper that simplifies making tightly-integrated linux containers
+    # NOTE(https://github.com/89luca89/distrobox/issues/1229):
+    # put "skip_workdir=1" in ~/.config/distrobox/distrobox.conf
+    distrobox
   ];
 
   virtualisation = {
     libvirtd.enable = true;
     docker = {
       enable = true;
-      enableNvidia = true;
+    };
+    podman = {
+      enable = true;
+      # not sure that I want these yet... podman has some differences that might get annoying
+      # if it fully replaces docker (especially since I dont have that much experience with docker yet)
+      dockerCompat = false;
+      dockerSocket.enable = false;
+
+      defaultNetwork.settings.dns_enabled = true;
     };
   };
+
+  # replaces [docker/podman].enableNvidia
+  hardware.nvidia-container-toolkit.enable = isNvidia;
 
   users.users.${user}.extraGroups = [ "libvirtd" "docker" ];
 }
