@@ -1,6 +1,6 @@
-{ pkgs, ... }: {
+{ flakeRoot, config, pkgs, ... }: {
   home.packages = [ pkgs.waybar ];
 
-  xdg.configFile."waybar/style.css".source = ./style.css;
-  xdg.configFile."waybar/config.jsonc".source = ./config.jsonc;
+  xdg.configFile."waybar".source = 
+    config.lib.file.mkOutOfStoreSymlink "${flakeRoot}/home/waybar/config";
 }

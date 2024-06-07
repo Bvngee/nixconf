@@ -1,0 +1,185 @@
+@define-color base00 #292828;
+@define-color base01 #32302f;
+@define-color base02 #504945;
+@define-color base03 #665c54;
+@define-color base04 #bdae93;
+@define-color base05 #ddc7a1;
+@define-color base06 #ebdbb2;
+@define-color base07 #fbf1c7;
+@define-color base08 #ea6962;
+@define-color base09 #e78a4e;
+@define-color base0A #d8a657;
+@define-color base0B #a9b665;
+@define-color base0C #89b482;
+@define-color base0D #7daea3;
+@define-color base0E #d3869b;
+@define-color base0F #bd6f3e;
+
+@define-color fg @base06;
+@define-color bg @base01;
+@define-color bg-light @base02;
+@define-color bg-dark @base00;
+
+* {
+    font-family: Inter SemiBold, sans-serif;
+    font-size: 12px;
+    border: none;
+}
+
+#bar {
+    /*TODO: bar shadow?*/
+    box-shadow: 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22);
+}
+
+.background {
+    /* This could probably use some perfection */
+    background-color: mix(@bg, rgba(0,0,0,0.50), 0.1);
+}
+
+.widget-container button {
+    background-color: inherit;
+}
+
+box, menubar { /* not sure if necessary */
+    background-image: none;
+    box-shadow: none;
+}
+
+#bar button {
+    padding: 0;
+}
+
+button, label {
+    color: @fg;
+}
+
+button:hover {
+    /* background-color: @bg-dark; */
+}
+
+.popup {
+    border: 1px solid @bg-light;
+    background-color: @bg;
+    padding: 1em;
+}
+
+
+/* -- separator, widget spacing -- */
+
+#bar .separator {
+    color: @base03;
+    font-size: 10px;
+}
+
+#bar #end .widget {
+    margin-right: 1em;
+}
+
+.workspaces {
+    margin-right: 0.5em;
+}
+.focused-widget {
+    margin-left: 1em;
+}
+
+
+/* -- clock -- */
+
+.popup-clock .calendar-clock {
+    color: @fg;
+    font-size: 1.4em;
+    padding-bottom: 0.1em;
+}
+
+.popup-clock .calendar {
+    background-color: @bg;
+    /* TODO: improve. This makes everything the same color */
+    color: @base05;
+}
+
+.popup-clock .calendar .header {
+    padding-top: 1em;
+    border-top: 1px solid @bg-light;
+    font-size: 1.5em;
+}
+
+.popup-clock .calendar:selected {
+    background-color: @base0B;
+}
+
+
+/* -- music -- */
+
+.popup-music .album-art {
+    /*TODO: not working*/
+    border-radius: 100px;
+}
+
+.popup-music .icon-box {
+    margin-right: 0.4em;
+}
+
+.popup-music .title .icon, .popup-music .title .label {
+    font-size: 1.7em;
+}
+
+.popup-music .controls button {
+    margin-right: 0.5em;
+}
+
+.popup-music .controls *:disabled {
+    color: @base03;
+}
+
+.popup-music .volume .slider slider {
+    border-radius: 100%;
+}
+
+.popup-music .volume .icon {
+    margin-left: 4px;
+}
+
+.popup-music .progress .slider slider {
+    border-radius: 100%;
+}
+
+/* -- sys_info -- */
+
+.sysinfo {
+}
+
+.sysinfo .item {
+}
+
+
+/* -- tray -- */
+
+.tray {
+}
+
+/* -- volume -- */
+
+.popup-volume .device-box {
+    border-right: 1px solid @bg-light;
+}
+
+/* -- workspaces -- */
+
+.workspaces .item {
+    border-radius: 0;
+}
+
+.workspaces * {
+    padding: 0 0.85em;
+}
+
+.workspaces .item.focused {
+}
+.workspaces .item.visible {
+    background-color:rgba(0,0,0,0.40);
+    box-shadow: inset 0 -2px;
+}
+
+.workspaces .item:hover {
+}
+

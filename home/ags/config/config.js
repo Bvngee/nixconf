@@ -19,6 +19,6 @@ export default {
   style: css,
   windows: [
     notificationPopup,
-    bar,
+    // bar, # using ironbar for now
   ],
 };

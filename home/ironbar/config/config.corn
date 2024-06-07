@@ -1,0 +1,100 @@
+// vi: ft=corn
+let {
+  $separator = {
+    type = "label"
+    label = "|"
+    class = "separator"
+  }
+  $workspaces = {
+    type = "workspaces"
+    name_map = {
+      11 = "1"
+      12 = "2"
+      13 = "3"
+      14 = "4"
+      15 = "5"
+      16 = "6"
+      17 = "7"
+      18 = "8"
+      19 = "9"
+    }
+  }
+  // TODO: maybe only show if focused window is on bar's monitor?
+  // using something like `hyprctl activeworkspace -j | jq '.monitorID'`
+  $focused = {
+    type = "focused"
+    show_icon = true
+    show_title = true
+    icon_size = 16
+    truncate.mode = "end"
+    truncate.max_length = 60
+
+    // ".focused" clashes with focused workspace
+    class = "focused-widget"
+  }
+  $mpris = {
+    type = "music"
+    format = "{title}"
+    // icon_size = 20
+    player_type = "mpris"
+    show_status_icon = false
+    truncate.mode = "end"
+    truncate.max_length = 40
+  }
+  $tray = {
+    type = "tray"
+  }
+  $mic = {
+    type = "label"
+    label = "MIC {{wpctl get-volume @DEFAULT_AUDIO_SOURCE@ | awk '{print $2 * 100}'}}"
+    class = "mic-label"
+  }
+  $volume = {
+    type = "volume"
+    //format = "<span color='#ffffff'>VOL</span> {percentage}"
+    format = "VOL {percentage}"
+  }
+  $upower = {
+    type = "upower"
+    format = "BAT {percentage}" }
+  $sys_info = {
+    type = "sys_info"
+
+    interval.memory = 10
+    interval.cpu = 10
+
+    format = [
+      "CPU {cpu_percent}"
+      "MEM {memory_percent}"
+    ]
+  }
+  $clock = {
+    type = "clock"
+    format = "%-m/%-d/%Y %-I:%M%P"
+    format_popup = "%A %B %e, %-I:%M%P"
+  }
+}
+in {
+  height = 20
+  popup_gap = 5
+  position = "top"
+  start = [
+    $workspaces
+    $separator
+    $focused
+  ]
+  center = [
+    $mpris
+  ]
+  end = [
+    $tray
+    $separator
+    $mic
+    $volume
+    $separator
+    $sys_info
+    $separator
+    // $upower
+    $clock
+  ]
+}

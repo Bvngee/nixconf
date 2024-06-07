@@ -66,8 +66,9 @@ in
       # exec-once = wl-paste --watch cliphist store # add all CLIPBOARD copies in the cliphist store
       #exec-once = wl-paste -p --watch wl-copy -p "" # keep PRIMARY buffer empty (functionally removes middle-click-paste)
       exec-once = thunar --daemon # faster opening
-      exec-once = sleep 0.5 && swww init # change to swww-daemon when updating swww version
+      exec-once = sleep 0.5 && swww init # TODO: change to swww-daemon when updating swww version
       exec-once = ags
+      exec-once = ironbar
       #exec-once = pypr # TODO: uncomment
       
       input {

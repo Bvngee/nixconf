@@ -33,7 +33,6 @@ let
     ../../home/kitty.nix
     ../../home/ghostty.nix
     ../../home/dunst.nix
-    ../../home/ironbar.nix
     ../../home/spicetify.nix
     ../../home/thunar.nix
     ../../home/theme/fonts.nix
@@ -49,6 +48,8 @@ let
     ../../home/wayland
     ../../home/shell
     ../../home/joshuto
+    ../../home/ironbar
+    ../../home/waybar
     ../../home/nvim
     ../../home/ags
   ];
