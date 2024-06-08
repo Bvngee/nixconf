@@ -1,6 +1,6 @@
 import Gio from "gi://Gio";
 import { notificationPopup } from "./js/notifications/notifications.js";
-import { bar } from "./js/bar/bar.js";
+// import { bar } from "./js/bar/bar.js";
 
 const scss = App.configDir + "/style/main.scss";
 const css = App.configDir + "/compiled.css";

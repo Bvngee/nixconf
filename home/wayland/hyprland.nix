@@ -66,7 +66,7 @@ in
       # exec-once = wl-paste --watch cliphist store # add all CLIPBOARD copies in the cliphist store
       #exec-once = wl-paste -p --watch wl-copy -p "" # keep PRIMARY buffer empty (functionally removes middle-click-paste)
       exec-once = thunar --daemon # faster opening
-      exec-once = sleep 0.5 && swww init # TODO: change to swww-daemon when updating swww version
+      exec-once = sleep 0.5 && swww init # TODO: change to swww-daemon when updating swww version to >=0.9.0
       exec-once = ags
       exec-once = ironbar
       #exec-once = pypr # TODO: uncomment
@@ -230,7 +230,7 @@ in
       bind = SUPER, E, exec, [float; size 1100 700; move cursor -50% -50%] thunar
       bind = SUPER, W, exec, firefox
   
-      # Media keys
+      # Media keys (for all bind flags: https://wiki.hyprland.org/Configuring/Binds/)
       bindle = , XF86AudioRaiseVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.05+ -l 1.0
       bindle = , XF86AudioLowerVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.05-
       bind = , XF86AudioMute, exec, wpctl set-mute @DEFAULT_SINK@ toggle
@@ -239,9 +239,14 @@ in
       binde = , XF86MonBrightnessDown, exec, brightnessctl s 5%-
       bind = , Print, exec, ${screenshot.outPath}
       bind = CONTROL, Print, exec, ${screenshotFull.outPath}
-      bind = ALT, F5, exec, playerctl previous
-      bind = ALT, F6, exec, playerctl next
-      bind = ALT, F7, exec, playerctl play-pause
+      bindl = ALT, F5, exec, playerctl previous
+      bindl = ALT, F6, exec, playerctl next
+      bindl = ALT, F7, exec, playerctl play-pause
+
+      # Zoom into screen
+      # SUPER + SHIFT + [ scroll wheel ]
+      bind = SUPER SHIFT, mouse_up, exec, ${pyprCli.outPath} zoom ++0.1
+      bind = SUPER SHIFT, mouse_down, exec, ${pyprCli.outPath} zoom --0.1
       
       # Hyprland functions
       bind = SUPER, D, killactive
@@ -305,11 +310,6 @@ in
       bind = SUPER SHIFT, H, workspace, r-1
       bind = SUPER SHIFT, K, workspace, empty
       bind = SUPER SHIFT, J, workspace, previous
-
-      # Zoom into screen
-      # SUPER + SHIFT + [ scroll wheel ]
-      bind = SUPER SHIFT, mouse_up, exec, ${pyprCli.outPath} zoom ++0.1
-      bind = SUPER SHIFT, mouse_up, exec, ${pyprCli.outPath} zoom --0.1
       
       # Focus monitor 
       # SUPER + CONTROL + [ scroll wheel / mouse buttons / vim keys ] 
