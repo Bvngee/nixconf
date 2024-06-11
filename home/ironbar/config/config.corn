@@ -60,8 +60,8 @@ let {
   $sys_info = {
     type = "sys_info"
 
-    interval.memory = 10
-    interval.cpu = 10
+    interval.memory = 5
+    interval.cpu = 5
 
     format = [
       "CPU {cpu_percent}"

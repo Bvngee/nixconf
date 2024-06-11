@@ -22,6 +22,11 @@
     config.programs.hyprland.package
   ];
 
+  # Add Hyprland, hyprctl, etc to PATH
+  environment.systemPackages = [
+    config.programs.hyprland.package
+  ];
+
   # Install Hyprland's xdg-desktop-portal impl
   xdg.portal = {
     extraPortals = [

@@ -1,10 +1,4 @@
 { pkgs, ... }: {
-  nix.settings = { # TODO: REMOVE
-    # add github:fufexan/nix-gaming cachix
-    substituters = [ "https://nix-gaming.cachix.org/" ];
-    trusted-public-keys = [ "nix-gaming.cachix.org-1:nbjlureqMbRAxR1gJ/f3hxemL9svXaZF/Ees8vCUUs4=" ];
-  };
-
   programs.steam = {
     enable = true;
 
@@ -43,8 +37,9 @@
     wine # wine-wayland ?
 
     # Games
-    # (prismlauncher.override { withWaylandGLFW = true; }) # not in 23.11
-    prismlauncher
     lunar-client
+    # note: https://github.com/glfw/glfw/issues/2510#issuecomment-2002622024
+    # glfw-wayland-minecraft requires __GL_THREADED_OPTIMIZATIONS=0 on nvidia
+    (prismlauncher.override { withWaylandGLFW = true; })
   ];
 }

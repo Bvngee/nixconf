@@ -31,6 +31,9 @@ in
       # z/zi is defined by zoxide
       cd = "z";
       cdi = "zi";
+
+      # best fetch so far
+      fetch = "fastfetch";
     };
     initExtraFirst = ''
       # automatically called by zsh-vi-mode plugin

@@ -32,6 +32,9 @@
       inputs.hyprland.follows = "hyprland";
     };
 
+    # not in nixpkgs yet
+    woomer.url = "github:coffeeispower/woomer";
+
     ags = {
       url = "github:Aylur/ags";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -43,8 +46,6 @@
     };
 
     spicetify-nix.url = "github:the-argus/spicetify-nix";
-
-    nix-gaming.url = "github:fufexan/nix-gaming";
 
     base16.url = "github:SenchoPens/base16.nix";
 
