@@ -27,5 +27,6 @@
     inotify-tools
     playerctl
     libnotify
+    glib
   ];
 }

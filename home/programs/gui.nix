@@ -23,6 +23,7 @@
     #})
     element-desktop
     cinny-desktop
+    fractal
     zulip
     zulip-term
 

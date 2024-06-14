@@ -36,10 +36,5 @@ in
           (lib.mapAttrsToList (k: v: "\$${k}: ${v};") palette)
         }
       '';
-
-    # Copy the nixos logo SVG into a JS file so that it can be imported for use in the bar
-    "${flakeRootFromHomeDir}/home/ags/config/js/nix-snowflake-path.js".text = ''
-      export const nixSnowflake = "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
-    '';
   };
 }
