@@ -1,40 +1,32 @@
-@define-color base00 #292828;
-@define-color base01 #32302f;
-@define-color base02 #504945;
-@define-color base03 #665c54;
-@define-color base04 #bdae93;
-@define-color base05 #ddc7a1;
-@define-color base06 #ebdbb2;
-@define-color base07 #fbf1c7;
-@define-color base08 #ea6962;
-@define-color base09 #e78a4e;
-@define-color base0A #d8a657;
-@define-color base0B #a9b665;
-@define-color base0C #89b482;
-@define-color base0D #7daea3;
-@define-color base0E #d3869b;
-@define-color base0F #bd6f3e;
+/* @define-color fg @base06; */
+/* @define-color bg @base01; */
+/* @define-color bg-light @base02; */
+/* @define-color bg-dark @base00; */
 
-@define-color fg @base06;
-@define-color bg @base01;
-@define-color bg-light @base02;
-@define-color bg-dark @base00;
+@define-color fg alpha(@accent_fg_color, 0.9);
+@define-color bg alpha(@headerbar_bg_color, 0.8);
+@define-color border mix(@fg, @bg, 0.8);
+@define-color shade #1a1a1a;
+@define-color shadow alpha(@shade, 0.5);
+
+/* @define-color bg-translucent alpha(@bg, 0.9); */
 
 * {
-    font-family: Inter SemiBold, sans-serif;
+    font-weight: unset;
+    /* font-family: Inter Medium, sans-serif; */
+    font-family: Hack Nerd Font, sans-serif;
     font-size: 12px;
     border: none;
 }
 
-#bar {
-    /*TODO: bar shadow?*/
-    box-shadow: 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22);
-    border-bottom: 2px solid @bg-light;
+.background {
+    background-color: transparent;
 }
 
-.background {
-    /* This could probably use some perfection */
-    background-color: mix(@bg, rgba(0,0,0,0.50), 0.1);
+#bar {
+    background-color: @bg;
+    margin-bottom: 5px; /* gives the bar room for a shadow */
+    box-shadow: 0 0 3px 1px @shadow;
 }
 
 .widget-container button {
@@ -51,6 +43,7 @@ box, menubar { /* not sure if necessary */
 
 button, label {
     color: @fg;
+    text-shadow: 2px 2px 3px @shadow;
 }
 
 button:hover {
@@ -58,17 +51,25 @@ button:hover {
 }
 
 .popup {
-    box-shadow: 0 19px 38px rgba(0,0,0,0.90), 0 15px 12px rgba(0,0,0,0.92);
-    border: 1px solid @bg-light;
+    /* border: 1px solid @bg-light; */
     background-color: @bg;
     padding: 1em;
+    margin: 10px;
+    box-shadow: 0 0 3px 1px @shadow;
+}
+
+.popup button {
+    background-color: alpha(@shade, 0.2);
+}
+.popup button:hover {
+    background-color: alpha(@shade, 0.4);
 }
 
 
 /* -- separator, widget spacing -- */
 
 #bar .separator {
-    color: @base03;
+    color: alpha(@fg, 0.6);
     font-size: 10px;
 }
 
@@ -95,17 +96,17 @@ button:hover {
 .popup-clock .calendar {
     background-color: @bg;
     /* TODO: improve. This makes everything the same color */
-    color: @base05;
+    color: @fg;
 }
 
 .popup-clock .calendar .header {
     padding-top: 1em;
-    border-top: 1px solid @bg-light;
+    border-top: 1px solid @border;
     font-size: 1.5em;
 }
 
 .popup-clock .calendar:selected {
-    background-color: @base0B;
+    background-color: @accent_color;
 }
 
 
@@ -113,7 +114,7 @@ button:hover {
 
 .popup-music .album-art {
     /*TODO: not working*/
-    border-radius: 100px;
+    /* border-radius: 100px; */
 }
 
 .popup-music .icon-box {
@@ -161,7 +162,7 @@ button:hover {
 /* -- volume -- */
 
 .popup-volume .device-box {
-    border-right: 1px solid @bg-light;
+    border-right: 1px solid @border;
 }
 
 /* -- workspaces -- */
@@ -178,7 +179,7 @@ button:hover {
 }
 .workspaces .item.visible {
     background-color: rgba(0,0,0,0.40);
-    box-shadow: inset 0 -2px;
+    box-shadow: inset 0 -2px @accent_color;
 }
 
 .workspaces .item:hover {

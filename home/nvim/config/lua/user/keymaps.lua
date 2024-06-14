@@ -65,12 +65,14 @@ map('n', '<C-j>', '<C-w>j')
 map('n', '<C-k>', '<C-w>k')
 map('n', '<C-l>', '<C-w>l')
 
--- manage splits easier
-map('n', '<leader>wx', '<cmd>split<cr>')
-map('n', '<leader>wv', '<cmd>vsplit<cr>')
-map('n', '<leader>wc', '<C-w>c')
--- make splits take relatively equal space (useful after resizes)
-map('n', '<leader>w=', '<C-w>=')
+-- -- manage splits easier -- not using anymore, use <C-w> instead
+-- map('n', '<leader>wx', '<cmd>split<cr>')
+-- map('n', '<leader>wv', '<cmd>vsplit<cr>')
+-- map('n', '<leader>wc', '<C-w>c')
+
+-- I like x/v for horizontal/vertical better than s/v
+-- Note: this does break some default keybinds I think
+map('n', '<C-w>x', '<C-w>s')
 
 -- Exit terminal mode easier. NOTE: This might not work in all terminal emulators/tmux/etc.
 map('t', '<Esc><Esc>', '<C-\\><C-n>')

@@ -34,6 +34,10 @@ in
 
       # best fetch so far
       fetch = "fastfetch";
+
+      # not sure which one I like yet (if any)
+      js = "joshuto";
+      yy = "yazi";
     };
     initExtraFirst = ''
       # automatically called by zsh-vi-mode plugin
@@ -78,6 +82,8 @@ in
         fi
         # $${EDITOR:-vim} flake.nix
       }
+
+      export PATH="$PATH:$HOME/.local/bin"
 
       # stolen from https://github.com/ohmyzsh/ohmyzsh/blob/master/plugins/fancy-ctrl-z
       fancy-ctrl-z () {

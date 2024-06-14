@@ -8,7 +8,7 @@ let
     gca = "git commit --amend";
     gs = "git status";
     gd = "git diff";
-    gl = "git log";
+    gl = "git prettylog"; # see below, alternative to "git log"
     gp = "git pull";
     gP = "git push";
     gr = "git rebase";
@@ -24,6 +24,7 @@ in
       enable = true;
       userName = "Jack N";
       userEmail = "nystromjp@gmail.com";
+      aliases.prettylog = "git log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit";
     };
 
     zsh.shellAliases = shellAliases;

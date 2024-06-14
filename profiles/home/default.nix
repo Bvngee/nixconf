@@ -47,11 +47,11 @@ let
     ../../home/programs/gui.nix
     ../../home/wayland
     ../../home/shell
-    ../../home/joshuto
-    ../../home/ironbar
     ../../home/waybar
     ../../home/nvim
     ../../home/ags
+
+    ../../home/static
   ];
 in
 {

@@ -1,0 +1,39 @@
+add_newline = false
+format = "[](fg:4)$directory[](fg:6 bg:4)$git_branch$git_status[](fg:2 bg:6)$nix_shell[](fg:2) "
+
+[directory]
+fish_style_pwd_dir_length = 1
+format = "[ $path ](bg:4 fg:0)"
+truncate_to_repo = false
+truncation_length = 5
+truncation_symbol = "…/"
+
+[git_branch]
+format = "[( $branch )](bg:6 fg:0)"
+
+[git_status]
+format = "[($all_status$ahead_behind )](bg:6 fg:0)"
+
+[nix_shell]
+format = "[( $name )](bg:2 fg:0)"
+
+
+# (toGray ''\['') #   󰉋  󰉋  
+# ''$directory''
+# #(toGray ''\]'')
+# ''(''
+# #(toGray ''\('') #   󰊢 󰊢    
+# #(toGray " 󰧞 ")
+# " "
+# ''$git_branch$git_status''
+# #(toGray ''\)'')
+# '')''
+# ''(''
+# #(toGray ''<'') #  ❄️ 
+# #(toGray " 󰧞 ")
+# " "
+# ''$nix_shell''
+# #(toGray ''>'')
+# '')''
+# (toGray ''\]'')
+# ''$character ''

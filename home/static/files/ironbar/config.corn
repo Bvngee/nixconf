@@ -1,4 +1,5 @@
 // vi: ft=corn
+// vi: commentstring=//\ %s
 let {
   $separator = {
     type = "label"
@@ -25,13 +26,18 @@ let {
     type = "focused"
     show_icon = true
     show_title = true
-    icon_size = 16
+    icon_size = 20
     truncate.mode = "end"
-    truncate.max_length = 60
+    truncate.max_length = 40
 
     // ".focused" clashes with focused workspace
     class = "focused-widget"
   }
+  // polling is bad, ill just suffer with title instead of class
+  // $focusedclass = {
+  //   type = "label"
+  //   label = "{{hyprctl activewindow -j | jq '.class' | sed 's|\"||g'}}"
+  // }
   $mpris = {
     type = "music"
     format = "{title}"
