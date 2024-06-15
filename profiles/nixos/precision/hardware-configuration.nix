@@ -14,40 +14,14 @@
   boot.extraModulePackages = [ ];
 
   fileSystems."/" =
-    { device = "tmpfs";
-      fsType = "tmpfs";
-    };
-
-  fileSystems."/iso" =
-    { device = "/dev/disk/by-uuid/A840-CC00";
-      fsType = "vfat";
-      options = [ "fmask=0022" "dmask=0022" ];
-    };
-
-  fileSystems."/nix/.ro-store" =
-    { device = "/iso/nix-store.squashfs";
-      fsType = "squashfs";
-      options = [ "loop" ];
-    };
-
-  fileSystems."/nix/.rw-store" =
-    { device = "tmpfs";
-      fsType = "tmpfs";
-    };
-
-  fileSystems."/nix/store" =
-    { device = "overlay";
-      fsType = "overlay";
-    };
-
-  fileSystems."/mnt" =
     { device = "/dev/disk/by-uuid/8cd3d4d8-f6df-4a54-909e-fab018c1c223";
       fsType = "ext4";
     };
 
-  fileSystems."/mnt/boot" =
+  fileSystems."/boot" =
     { device = "/dev/disk/by-uuid/6C16-CAA2";
       fsType = "vfat";
+      # added by "mount -o umask=077" which I think is new in the install manual?
       options = [ "fmask=0077" "dmask=0077" ];
     };
 
