@@ -2,7 +2,8 @@
 let
   mkNixosSystem = config:
     let
-      nixpkgsConf = { # Not sure why this is needed at all? nixpkgs.nix does the same
+      nixpkgsConf = {
+        # Not sure why this is needed at all? nixpkgs.nix does the same
         config.allowUnfree = true;
         config.allowUnfreePredicate = _: true;
       };
@@ -66,14 +67,13 @@ in
     flakeRoot = "/home/jack/dev/nixconf";
     base16-theme = "gruvbox-material-dark-medium.yaml";
     modules = [
-      ./pc/hardware-configuration.nix
-      { system.stateVersion = "23.05"; }
+      ./pc
 
       ../../nixos/programs/gaming.nix
 
       ../../nixos/kde.nix
       ../../nixos/hardware/openrgb.nix
-      ../../nixos/hardware/nvidia.nix
+      ../../nixos/hardware/ssd.nix
       ../../nixos/hardware/virtualization.nix
     ] ++ commonGraphicalModules;
   };
@@ -88,11 +88,11 @@ in
     flakeRoot = "/home/jack/dev/nixconf";
     base16-theme = "gruvbox-material-dark-medium.yaml";
     modules = [
-      ./latitude/hardware-configuration.nix
-      { system.stateVersion = "23.05"; }
+      ./latitude
 
       ../../nixos/kde.nix
       ../../nixos/hardware/virtualization.nix
+      ../../nixos/hardware/ssd.nix
     ] ++ commonGraphicalModules;
   };
 
@@ -106,11 +106,11 @@ in
     flakeRoot = "/home/jack/dev/nixconf";
     base16-theme = "gruvbox-material-dark-medium.yaml";
     modules = [
-      ./precision/hardware-configuration.nix
-      { system.stateVersion = "24.05"; }
+      ./precision
 
       ../../nixos/kde.nix
       ../../nixos/hardware/virtualization.nix
+      ../../nixos/hardware/ssd.nix
     ] ++ commonGraphicalModules;
   };
 }

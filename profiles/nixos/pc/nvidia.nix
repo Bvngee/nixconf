@@ -1,5 +1,5 @@
-{ config, pkgs, ... }: {
-  # Change depending on hostname later if necessary
+{ config, ... }: {
+  # Nvidia config for pc's GTX 1650S
 
   hardware.nvidia = {
     # until https://github.com/NVIDIA/open-gpu-kernel-modules/issues/472 is resolved?
@@ -30,21 +30,14 @@
   # only works for 545+ I think
   # https://wiki.archlinux.org/title/Talk:NVIDIA#Framebuffer_consoles_experimental_support
   boot.kernelParams = [ "nvidia_drm.fbdev=1" ];
+  
+  # Make sure we're not uing nouveau
+  boot.blacklistedKernelModules = [ "nouveau" ];
 
-  # not sure if this is necessary, stolen from sioodmy's dotfiles
-  environment.systemPackages = with pkgs; [
-    vulkan-loader
-    vulkan-validation-layers
-    vulkan-tools
-  ];
-
-  # no idea if these are necessary. note: nvidia-vaapi-driver is added automatically but kept here for explicitness sake
-  hardware.opengl.extraPackages = with pkgs; [ nvidia-vaapi-driver ];
-  hardware.opengl.extraPackages32 = with pkgs.pkgsi686Linux; [ nvidia-vaapi-driver ];
+  # Note: nvidia-vaapi-driver is added automatically with "nvidia" added to videoDrivers
+  hardware.opengl.extraPackages = [ ]; # I don't think vaapiVdpau is necessary? Still not sure
+  hardware.opengl.extraPackages32 = [ ];
 
   # necessary for both X and Wayland based apps
   services.xserver.videoDrivers = [ "nvidia" ];
-
-  # only necessary on SOME nvidia systems
-  environment.sessionVariables.WLR_NO_HARDWARE_CURSORS = "1";
 }
