@@ -24,7 +24,7 @@ in
       enable = true;
       userName = "Jack N";
       userEmail = "nystromjp@gmail.com";
-      aliases.prettylog = "git log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit";
+      aliases.prettylog = "log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit";
     };
 
     zsh.shellAliases = shellAliases;
