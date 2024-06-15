@@ -95,4 +95,22 @@ in
       ../../nixos/hardware/virtualization.nix
     ] ++ commonGraphicalModules;
   };
+
+  "precision" = mkNixosSystem {
+    system = "x86_64-linux";
+    user = "jack";
+    hostname = "precision";
+    isMobile = true;
+    locale = "en_US.UTF-8";
+    timezone = "America/Los_Angeles";
+    flakeRoot = "/home/jack/dev/nixconf";
+    base16-theme = "gruvbox-material-dark-medium.yaml";
+    modules = [
+      ./precision/hardware-configuration.nix
+      { system.stateVersion = "24.05"; }
+
+      ../../nixos/kde.nix
+      ../../nixos/hardware/virtualization.nix
+    ] ++ commonGraphicalModules;
+  };
 }
