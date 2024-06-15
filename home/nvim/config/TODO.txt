@@ -1,5 +1,7 @@
 TODO:
 
+- holy shit can we not compile 69k treesitter parsers at once
+
 - nvim-treesitter-context!!!
 
 - why does <esc> not do :noh in normal mode (but only sometimes?)?
