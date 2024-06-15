@@ -54,9 +54,10 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # Requires git SSH access to the repo as of now (still private)
-    #ghostty.url = "git+ssh://git@github.com/mitchellh/ghostty?ref=main&rev=09c765f42a0c972b0cd5367a5195a600a261e400";
-    ghostty.url = "git+ssh://git@github.com/mitchellh/ghostty";
+    # Temporarily disabled, as git auth via ssh is ANNOYING
+    # # Requires git SSH access to the repo as of now (still private)
+    # #ghostty.url = "git+ssh://git@github.com/mitchellh/ghostty?ref=main&rev=09c765f42a0c972b0cd5367a5195a600a261e400";
+    # ghostty.url = "git+ssh://git@github.com/mitchellh/ghostty";
   };
 
 }

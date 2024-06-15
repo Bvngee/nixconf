@@ -1,9 +1,9 @@
 { config, inputs, pkgs, ... }: {
-  # Note: Ghostty's cachix cache is enabled in nixos/nix.nix temporarily
-
-  home.packages = [
-    inputs.ghostty.packages.${pkgs.system}.default
-  ];
+  # Temporarily disabled, as git auth via ssh is ANNOYING
+  # # Note: Ghostty's cachix cache is enabled in nixos/nix.nix temporarily
+  # home.packages = [
+  #   inputs.ghostty.packages.${pkgs.system}.default
+  # ];
 
   # Waiting on:
   # https://github.com/mitchellh/ghostty/issues/1307
