@@ -14,7 +14,13 @@
   environment.systemPackages = with pkgs; [
     vulkan-loader
     vulkan-validation-layers
+    vulkan-extension-layer
     vulkan-tools
+
+    # probably useful for debugging
+    mesa-demos
+    glxinfo
+    vdpauinfo
   ];
 
 }

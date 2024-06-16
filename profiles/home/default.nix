@@ -2,7 +2,8 @@
 let
   mkHomeManagerConfiguration = config:
     let
-      nixpkgsConf = { # Not sure why this is needed at all? nixpkgs.nix does the same
+      nixpkgsConf = {
+        # Not sure why this is needed at all? nixpkgs.nix does the same
         config.allowUnfree = true;
         config.allowUnfreePredicate = _: true;
       };

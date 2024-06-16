@@ -28,5 +28,6 @@
     playerctl
     libnotify
     glib
+    lsof
   ];
 }

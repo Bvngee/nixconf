@@ -30,6 +30,7 @@
     # Misc/Other
     obs-studio
     firefox
+    ungoogled-chromium
     zoom-us
     gnome.gnome-calendar
     gnome.gnome-calculator
