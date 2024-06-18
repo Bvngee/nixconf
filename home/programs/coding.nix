@@ -13,6 +13,8 @@
     ninja
     cmake
     pkg-config
+    valgrind
+    kdePackages.kcachegrind
 
     # Rust
     rustup

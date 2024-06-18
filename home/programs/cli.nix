@@ -29,5 +29,6 @@
     libnotify
     glib
     lsof
+    graphviz
   ];
 }
