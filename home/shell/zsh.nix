@@ -24,21 +24,6 @@ in
       ignoreDups = true;
       ignoreSpace = true;
     };
-    shellAliases = {
-      # regular ls,ll,la etc aliases are handled by eza's settings
-      tree = "eza --icons --group-directories-first --tree";
-
-      # z/zi is defined by zoxide
-      cd = "z";
-      cdi = "zi";
-
-      # best fetch so far
-      fetch = "fastfetch";
-
-      # not sure which one I like yet (if any)
-      js = "joshuto";
-      yy = "yazi";
-    };
     initExtraFirst = ''
       # automatically called by zsh-vi-mode plugin
       function zvm_config() {

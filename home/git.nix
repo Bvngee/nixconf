@@ -1,6 +1,15 @@
-{ ... }:
-let
-  shellAliases = {
+{ ... }: {
+  programs = {
+    gh.enable = true;
+    git = {
+      enable = true;
+      userName = "Jack N";
+      userEmail = "nystromjp@gmail.com";
+      aliases.prettylog = "log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit";
+    };
+  };
+
+  home.shellAliases = {
     ga = "git add";
     gaa = "git add --all";
     gc = "git commit";
@@ -15,19 +24,5 @@ let
     grc = "git rebase --continue";
     gm = "git merge";
   };
-in
-{
-  programs = {
-    gh.enable = true;
 
-    git = {
-      enable = true;
-      userName = "Jack N";
-      userEmail = "nystromjp@gmail.com";
-      aliases.prettylog = "log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit";
-    };
-
-    zsh.shellAliases = shellAliases;
-    bash.shellAliases = shellAliases;
-  };
 }
