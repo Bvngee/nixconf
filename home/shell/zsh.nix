@@ -123,7 +123,7 @@ in
         src = pkgs.zsh-nix-shell;
       }
       # too complex, doesn't integrate well with other plugins, seems hard to configure
-      # note: requires `enableCompletion = true;`
+      # note: requires `enableCompletion = true;` # from future: did I mean "= false" there? I forget lol
       # {
       #   name = "zsh-autocomplete";
       #   file = "share/zsh-autocomplete/zsh-autocomplete.plugin.zsh";
