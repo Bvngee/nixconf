@@ -1,4 +1,4 @@
-{ pkgs, pkgsUnstable, ... }: {
+{ pkgs, pkgsUnstable, user, ... }: {
   home.packages = with pkgs; [
     # IDEs and Editors
     jetbrains.idea-community
@@ -56,5 +56,15 @@
     # Zig
     zig
     zls
+
+    # Go
+    go
+    gopls
   ];
+
+  home.sessionVariables = {
+    GOPATH = "/home/${user}/.local/share/go";
+    GOMODCACHE = "/home/${user}/.cache/go/pkg/mod";
+  };
+
 }

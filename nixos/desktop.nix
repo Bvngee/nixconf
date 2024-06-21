@@ -14,7 +14,6 @@
 
   environment.systemPackages = with pkgs; [
     git # Useful when debugging
-    home-manager # TODO: figure out if this is right (HM as NixOS module instead?)
   ];
 
   fonts.enableDefaultPackages = true;
