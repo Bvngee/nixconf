@@ -29,7 +29,7 @@
     cdi = "zi";
 
     # best fetch so far
-    fetch = "fastfetch";
+    fetch = "fastfetch --structure Title:Separator:OS:Host:Kernel:Uptime:Packages:Shell:Display:DE:WM:WMTheme:Theme:Icons:Font:Cursor:Terminal:TerminalFont:CPU:GPU:Memory:Swap:Battery:PowerAdapter:Break:Colors";
 
     # not sure which one I like yet (if any)
     js = "joshuto";
