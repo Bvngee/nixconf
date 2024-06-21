@@ -1,0 +1,5 @@
+- refactor hm/nixos profiles to be configured together rather than separately
+    - consider hm as nixos module instead of standalone?
+- use proper config module for profiles instead of abusing extraSpecialArgs
+
+- todo: add delta/bat, integrate with git
