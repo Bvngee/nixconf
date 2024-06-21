@@ -29,6 +29,6 @@
     libnotify
     glib
     lsof
-    graphviz
+    # graphviz # getting weird collisions (libgvc.so) with ags :/
   ];
 }

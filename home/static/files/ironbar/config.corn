@@ -45,7 +45,7 @@ let {
     player_type = "mpris"
     show_status_icon = false
     truncate.mode = "end"
-    truncate.max_length = 40
+    truncate.max_length = 60
   }
   $tray = {
     type = "tray"

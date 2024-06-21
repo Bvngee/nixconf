@@ -133,18 +133,6 @@ in
     };
     modules = [
       { home.stateVersion = "23.05"; }
-
-      ../../home/home.nix
-      ../../home/xdg.nix
-      ../../home/theme.nix
-      ../../home/git.nix
-      ../../home/base16.nix
-
-      ../../home/programs/cli.nix
-      ../../home/programs/coding.nix
-      ../../home/wayland
-      ../../home/shell
-      ../../home/nvim
     ];
   };
 }
