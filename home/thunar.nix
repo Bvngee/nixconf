@@ -68,7 +68,7 @@
       <name>Open Terminal Here</name>
       <submenu></submenu>
       <unique-id>1702940142376854-1</unique-id>
-      <command>sh -c '$TERMINAL -d %f'</command>
+      <command>${config.home.sessionVariables.TERMINAL} -d %f</command>
       <description>Open Terminal Here</description>
       <range></range>
       <patterns>*</patterns>
