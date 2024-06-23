@@ -1,4 +1,4 @@
-{ inputs, pkgs, config, theme, ... }:
+{ inputs, pkgs, config, ... }:
 let
   base16-schemes = pkgs.fetchFromGitHub {
     owner = "tinted-theming";
@@ -13,7 +13,7 @@ in
   ];
 
   # base16.nix scheme
-  scheme = "${base16-schemes}/${theme.base16-scheme}.yaml"; #nord
+  scheme = "${base16-schemes}/${config.profile.theme.base16Theme}.yaml"; #nord
 
   home.packages = with config.scheme.withHashtag; let
     printScheme = pkgs.writeShellScriptBin "printScheme" ''

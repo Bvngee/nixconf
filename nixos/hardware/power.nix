@@ -1,4 +1,8 @@
-{ lib, pkgs, isMobile, user, ... }: {
+{ config, lib, pkgs, ... }:
+let
+  inherit (config.profile) isMobile mainUser;
+in
+{
 
   # General power-related features (suspent-to-ram, general powersaving)
   powerManagement.enable = true;
@@ -40,7 +44,7 @@
     powertop
   ];
 
-  # TODO: none of this is working
+  # TODO: none of this is working :(
   services.udev.extraRules =
     let
       unplugged = pkgs.writeShellScript "unplugged" ''
@@ -54,11 +58,11 @@
         ${lib.getExe pkgs.libnotify} -u critical "Battery critically low!"
       '';
     in
-    lib.mkIf (isMobile)
+    lib.mkIf (config.profile.isMobile)
       ''
         # notify-send critical battery/charge information
-        SUBSYSTEM=="power_supply", ATTR{online}=="1", ENV{XDG_RUNTIME_DIR}="/run/user/$(id -u ${user})", RUN+="${pkgs.su}/bin/su ${user} -c ${plugged}"
-        SUBSYSTEM=="power_supply", ATTR{online}=="0", ENV{XDG_RUNTIME_DIR}="/run/user/$(id -u ${user})", RUN+="${pkgs.su}/bin/su ${user} -c ${unplugged}"
-        SUBSYSTEM=="power_supply", ATTR{status}=="discharging", ATTR{capacity}=="[0-5]", ENV{XDG_RUNTIME_DIR}="/run/user/$(id -u ${user})", RUN+="${pkgs.su}/bin/su ${user} -c ${lowBattery}"
+        SUBSYSTEM=="power_supply", ATTR{online}=="1", ENV{XDG_RUNTIME_DIR}="/run/user/$(id -u ${mainUser})", RUN+="${pkgs.su}/bin/su ${mainUser} -c ${plugged}"
+        SUBSYSTEM=="power_supply", ATTR{online}=="0", ENV{XDG_RUNTIME_DIR}="/run/user/$(id -u ${mainUser})", RUN+="${pkgs.su}/bin/su ${mainUser} -c ${unplugged}"
+        SUBSYSTEM=="power_supply", ATTR{status}=="discharging", ATTR{capacity}=="[0-5]", ENV{XDG_RUNTIME_DIR}="/run/user/$(id -u ${mainUser})", RUN+="${pkgs.su}/bin/su ${mainUser} -c ${lowBattery}"
       '';
 }

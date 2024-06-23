@@ -1,6 +1,6 @@
-{ config, pkgs, flakeRoot, ... }: {
+{ config, pkgs, ... }: {
   xdg.configFile."nvim".source =
-    config.lib.file.mkOutOfStoreSymlink "${flakeRoot}/home/nvim/config";
+    config.lib.file.mkOutOfStoreSymlink "${config.profile.flakeRoot}/home/nvim/config";
 
   programs.neovim = {
     enable = true;

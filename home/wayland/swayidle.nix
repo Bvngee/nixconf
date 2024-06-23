@@ -1,4 +1,4 @@
-{ theme, pkgs, pkgsUnstable, ... }:
+{ config, pkgs, ... }:
 let
   suspendScript = pkgs.writeShellScript "suspend-script" ''
     ${pkgs.pipewire}/bin/pw-cli i all 2>&1 | ${pkgs.ripgrep}/bin/rg running -q
@@ -10,7 +10,7 @@ let
   '';
 
   screenlockScript = pkgs.writeShellScript "screenlock-script" ''
-    ${pkgs.swaylock}/bin/swaylock -f -i ${theme.wallpaper}
+    ${pkgs.swaylock}/bin/swaylock -f -i ${config.profile.theme.wallpaper}
   '';
 in
 {

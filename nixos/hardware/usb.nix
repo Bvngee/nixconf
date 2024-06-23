@@ -1,4 +1,4 @@
-{ user, ... }: {
+{ config, ... }: {
   # This allows the user to access certain USB devices. My particular usecase
   # was using a Microbit in the browser via the WebUSB protocol.
 
@@ -10,5 +10,5 @@
   users.groups.plugdev = {};
 
   # adds my user to group
-  users.users.${user}.extraGroups = [ "plugdev" ];
+  users.users.${config.profile.mainUser}.extraGroups = [ "plugdev" ];
 }

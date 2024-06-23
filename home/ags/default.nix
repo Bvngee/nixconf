@@ -1,6 +1,7 @@
-{ config, inputs, lib, pkgs, flakeRoot, ... }:
+{ config, inputs, lib, pkgs, ... }:
 let
   inherit (builtins) substring stringLength;
+  inherit (config.profile) flakeRoot;
 
   ags = inputs.ags.packages.${pkgs.system}.agsWithTypes;
 
@@ -21,7 +22,6 @@ in
     # instead causes errors (mkOOSS throws "outside $HOME"), so unfortunately this must be done
     "${flakeRootFromHomeDir}/home/ags/config/types" = {
       source = "${ags}/share/com.github.Aylur.ags/types";
-      recursive = true;
     };
 
     # Generates scss variables for all matugen theme colors.

@@ -1,4 +1,5 @@
-{ lib, pkgs, config, isMobile, ... }: let
+{ lib, pkgs, config, ... }: let
+  inherit (config.profile) isMobile;
   isNvidia = builtins.elem "nvidia" config.services.xserver.videoDrivers;
 in {
 
@@ -26,7 +27,7 @@ in {
   # most likely not autodetect monitors as supporting DDC. This somewhat ugly hack
   # is needed as a workaround.
   # https://gitlab.com/ddcci-driver-linux/ddcci-driver-linux/-/issues/7#note_151296583
-  # TODO: this sometimes doesn't work? (not sure if related to the upgrade to 555)
+  # TODO: this sometimes doesn't work or only works partially? (not sure if related to the upgrade to 555)
   services.udev.extraRules = lib.mkIf (!isMobile && isNvidia) ''
     SUBSYSTEM=="i2c-dev", ACTION=="add",\
     ATTR{name}=="NVIDIA i2c adapter*",\

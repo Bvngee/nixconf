@@ -1,4 +1,4 @@
-{ config, lib, user, hostname, ... }: {
+{ config, lib, ... }: {
 
   # Standard GTK3 Bookmarks
   gtk.gtk3.bookmarks = let
@@ -12,7 +12,7 @@
     "file://${home}/Pictures"
     "file://${home}/dev"
     "file://${home}/.config"
-  ] ++ lib.optionals (hostname == "pc") [
+  ] ++ lib.optionals (config.profile.hostname == "pc") [
     "file:///mnt/windows"
     "file:///mnt/SecondaryDrive"
     "file:///mnt/arch-home"
@@ -68,8 +68,8 @@
       <name>Open Terminal Here</name>
       <submenu></submenu>
       <unique-id>1702940142376854-1</unique-id>
-      <command>kitty -d %f</command>
-      <description>Open Kitty Terminal Here</description>
+      <command>sh -c '$TERMINAL -d %f'</command>
+      <description>Open Terminal Here</description>
       <range></range>
       <patterns>*</patterns>
       <startup-notify/>

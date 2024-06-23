@@ -1,4 +1,4 @@
-{ config, pkgs, user, ... }:
+{ config, pkgs, ... }:
 let
   isNvidia = builtins.elem "nvidia" config.services.xserver.videoDrivers;
 in
@@ -42,5 +42,5 @@ in
   # replaces [docker/podman].enableNvidia
   hardware.nvidia-container-toolkit.enable = isNvidia;
 
-  users.users.${user}.extraGroups = [ "libvirtd" "docker" ];
+  users.users.${config.profile.mainUser}.extraGroups = [ "libvirtd" "docker" ];
 }

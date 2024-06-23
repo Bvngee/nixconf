@@ -1,8 +1,8 @@
-{ lib, pkgs, timezone, locale, isMobile, ... }: {
+{ config, lib, pkgs, ... }: {
   # Common configurations shared between all desktop-nixos variations.
 
-  time.timeZone = timezone;
-  i18n.defaultLocale = locale;
+  time.timeZone = config.profile.timezone;
+  i18n.defaultLocale = config.profile.locale;
 
   console = {
     packages = with pkgs; [ terminus_font ];
@@ -20,14 +20,16 @@
 
   # Used for apps that depend on a dbus secret-service provider
   services.gnome.gnome-keyring.enable = true; # prefer this over Kwallet
+
   # Let pam_gnome_keyring auto-unlock the user's default gnome keyring on login
   security.pam.services.login.enableGnomeKeyring = true;
   security.pam.services.greetd.enableGnomeKeyring = true;
   security.pam.services.tuigreet.enableGnomeKeyring = true;
+
   # GUI for managing gnome-keyring entries
   programs.seahorse.enable = true;
 
-  # (there's already a polkitd service from somewhere, but I'll keep this anyways)
+  # (polkitd is enabled from somewhere else already, but I'll keep this anyways)
   # Manage unpriviledged processes' access to priviledged processes
   security.polkit.enable = true;
 
@@ -52,7 +54,7 @@
   services.sysprof.enable = true;
 
   # Modify how laptop lidSwitch/powerKey is handled
-  services.logind = lib.mkIf (isMobile) {
+  services.logind = lib.mkIf (config.profile.isMobile) {
     lidSwitch = "suspend";
     lidSwitchDocked = "ignore";
     lidSwitchExternalPower = "suspend";

@@ -3,9 +3,9 @@
 
   outputs = { nixpkgs, ... }@inputs: {
 
-    nixosConfigurations = import ./profiles/nixos { inherit nixpkgs inputs; };
+    nixosConfigurations = import ./profiles/nixosConfigs.nix { inherit nixpkgs inputs; };
 
-    homeConfigurations = import ./profiles/home { inherit nixpkgs inputs; };
+    homeConfigurations = import ./profiles/homeConfigs.nix { inherit nixpkgs inputs; };
 
   };
 

@@ -1,10 +1,10 @@
-{ ... }: {
+{ config, ... }: {
   programs = {
     gh.enable = true;
     git = {
       enable = true;
-      userName = "Jack N";
-      userEmail = "nystromjp@gmail.com";
+      userName = config.profile.mainUserDesc;
+      userEmail = config.profile.mainUserEmail;
       aliases.prettylog = "log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit";
     };
   };
@@ -20,8 +20,7 @@
     gl = "git prettylog"; # see below, alternative to "git log"
     gp = "git pull";
     gP = "git push";
-    gr = "git rebase";
-    grc = "git rebase --continue";
+    grb = "git rebase";
     gm = "git merge";
   };
 

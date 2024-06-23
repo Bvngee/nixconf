@@ -1,5 +1,6 @@
-{ config, lib, pkgs, theme, ... }:
+{ config, lib, pkgs, ... }:
 let
+  inherit (config.profile) theme;
   c = config.programs.matugen.theme.colors.colors.${theme.variant};
   cu = import ./color-utils.nix { inherit lib; };
   inherit (cu) hexToRgba;

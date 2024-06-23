@@ -1,4 +1,4 @@
-{ config, pkgs, user, ... }: let
+{ config, pkgs, ... }: let
   sessionData = config.services.displayManager.sessionData.desktops;
   waylandSessions = "${sessionData}/share/wayland-sessions";
   xSessions = "${sessionData}/share/xsessions";
@@ -24,7 +24,7 @@ in {
       # TODO: once I've settled on a more permanent DE/env, make it autologin by setting this
       # initial_session = {
       #   command = ;
-      #   user = user;
+      #   user = config.profile.user;
       # };
     };
   };

@@ -1,4 +1,4 @@
-{ inputs, ... }: {
+{ config, inputs, ... }: {
     imports = [
         inputs.xremap-flake.nixosModules.default
     ];
@@ -6,7 +6,7 @@
         withWlroots = true; # future- make depend on variables?
         watch = true;
         #deviceName = "GMMK";
-        userName = "jack";
+        userName = config.profile.mainUser;
         serviceMode = "system";
         config = {
             modmap = [

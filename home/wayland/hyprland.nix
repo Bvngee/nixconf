@@ -1,6 +1,6 @@
-{ lib, inputs, pkgs, hostname, ... }:
+{ config, lib, inputs, pkgs, ... }:
 let
-  isNvidia = builtins.elem hostname [ "pc" ];
+  isNvidia = builtins.elem config.profile.hostname [ "pc" ];
   nvidiaEnvVars = ''
     # NVIDIA env vars (added automatically)
     env = LIBVA_DRIVER_NAME,nvidia
@@ -9,7 +9,7 @@ let
     env = WLR_NO_HARDWARE_CURSORS,1
   '';
   monitorConfig =
-    if (hostname == "pc") then ''
+    if (config.profile.hostname == "pc") then ''
       monitor = DP-2, 2560x1440@75, 0x270, 1
       monitor = DP-1, 2560x1440@75, 2560x0, 1, transform, 1
     '' else ''

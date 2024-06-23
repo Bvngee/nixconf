@@ -1,4 +1,6 @@
-{ inputs, lib, pkgs, theme, ... }: {
+{ config, inputs, lib, pkgs, ... }: let
+  inherit (config.profile) theme;
+in {
   home.packages = [
     # added for debugging purposes
     inputs.matugen.packages.${pkgs.system}.default
