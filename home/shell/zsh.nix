@@ -55,7 +55,7 @@ in
       fi
     '';
     initExtra = ''
-      function flakify() {
+      flakify() {
         if [ ! -e flake.nix ]; then
           git clone https://raw.githubusercontent.com/BvngeeCord/nix-flake-template/blob/main/flake.nix
           echo "Copied flake.nix template!"

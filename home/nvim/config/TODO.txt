@@ -1,5 +1,7 @@
 TODO:
 
+- https://github.com/NixOS/nixpkgs/pull/269042
+
 - WHY DO COMMENTS ACT SO WIERD WITH INDENTING (start at col 0, stop indenting once they hit the wall..)
 
 - holy shit can we not compile 69k treesitter parsers at once

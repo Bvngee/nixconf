@@ -1,12 +1,8 @@
 { config, inputs, lib, pkgs, ... }:
 let
-  inherit (builtins) substring stringLength;
   inherit (config.profile) flakeRoot;
 
   ags = inputs.ags.packages.${pkgs.system}.agsWithTypes;
-
-  homeDir = config.home.homeDirectory;
-  flakeRootFromHomeDir = substring (stringLength "${homeDir}/") (-1) flakeRoot;
 in
 {
   home.packages = [
@@ -20,12 +16,12 @@ in
   home.file = {
     # Links the Ags types folder straight into this directory. Adding it to ~/.condig/ags
     # instead causes errors (mkOOSS throws "outside $HOME"), so unfortunately this must be done
-    "${flakeRootFromHomeDir}/home/ags/config/types" = {
+    "${flakeRoot}/home/ags/config/types" = {
       source = "${ags}/share/com.github.Aylur.ags/types";
     };
 
     # Generates scss variables for all matugen theme colors.
-    "${flakeRootFromHomeDir}/home/ags/config/style/matugen_colors.scss".text =
+    "${flakeRoot}/home/ags/config/style/matugen_colors.scss".text =
       let
         m = config.programs.matugen;
         palette = m.theme.colors.colors.${m.variant};
