@@ -31,6 +31,5 @@
     glib
     lsof
     # graphviz # getting weird collisions (libgvc.so) with ags :/
-    moar
   ];
 }

@@ -23,6 +23,10 @@
       nix-direnv.enable = true;
       enableZshIntegration = true;
     };
+
+    bat = {
+      enable = true;
+    };
   };
 
   home.shellAliases = {
