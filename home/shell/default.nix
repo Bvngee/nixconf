@@ -12,7 +12,7 @@
       icons = true;
     };
 
-    programs.zoxide = {
+    zoxide = {
       enable = true;
       enableZshIntegration = true;
       options = [ ];
