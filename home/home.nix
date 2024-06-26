@@ -23,5 +23,7 @@
     VISUAL = "nvim";
     BROWSER = "firefox";
     TERMINAL = "kitty";
+    PAGER = "moar";
+    SYSTEMD_PAGER = "moar";
   };
 }

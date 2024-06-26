@@ -10,6 +10,7 @@
     htop
     neofetch fastfetch pfetch-rs
     unzip
+    trash-cli
     zip
     jq
     killall
@@ -30,5 +31,6 @@
     glib
     lsof
     # graphviz # getting weird collisions (libgvc.so) with ags :/
+    moar
   ];
 }

@@ -4,10 +4,6 @@ let
   relToDotDir = file: (lib.optionalString (cfg.dotDir != null) (cfg.dotDir + "/")) + file;
 in
 {
-  home.packages = with pkgs; [
-    trash-cli
-  ];
-
   ## How to Fix "zsh: corrupt history file"
   # mv ~/.local/share/zsh_history ~/.local/share/zsh_history_bad
   # strings ~/.local/share/zsh_history_bad > ~/.local/share/zsh_history
@@ -115,12 +111,6 @@ in
       #   src = pkgs.zsh-autocomplete;
       # }
     ];
-  };
-
-  programs.zoxide = {
-    enable = true;
-    enableZshIntegration = true;
-    options = [ ];
   };
 
   # Unfortunately, there is currently no way to add anything to .zshrc after the lines

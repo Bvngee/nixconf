@@ -1,5 +1,4 @@
 { ... }: {
-
   imports = [
     ./zsh.nix
     ./starship.nix
@@ -11,6 +10,12 @@
       enableZshIntegration = true;
       extraOptions = [ "--group-directories-first" ];
       icons = true;
+    };
+
+    programs.zoxide = {
+      enable = true;
+      enableZshIntegration = true;
+      options = [ ];
     };
 
     direnv = {
