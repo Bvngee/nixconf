@@ -1,4 +1,4 @@
-{ config, pkgs, pkgsUnstable, ... }: {
+{ config, pkgs, ... }: {
   home.packages = with pkgs; [
     # IDEs and Editors
     jetbrains.idea-community
@@ -7,7 +7,7 @@
     # C/C++
     gcc13 # stdenv.cc?
     gnumake
-    pkgsUnstable.clang-tools_17
+    clang-tools_17
     gdb
     meson
     ninja
@@ -22,7 +22,7 @@
     # Python
     python3 # doesn't handle python packages
     nodePackages.pyright
-    pkgsUnstable.ruff
+    ruff
 
     # MicroPython
     adafruit-ampy
@@ -50,7 +50,7 @@
     nodePackages.typescript
     nodePackages.eslint
     nodePackages.prettier
-    pkgsUnstable.prettierd
+    prettierd
     sassc
 
     # Zig
