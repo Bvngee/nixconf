@@ -9,6 +9,9 @@ in
   # strings ~/.local/share/zsh_history_bad > ~/.local/share/zsh_history
   # fc -R ~/.local/share/zsh_history 
   # rm ~/.local/share/zsh_history_bad  
+  # OR
+  # history 0 > ~/.local/share/zsh_history
+  # and remove all the initial numbers
 
   programs.zsh = {
     enable = true;
