@@ -10,8 +10,8 @@
     };
   };
 
-  # not sure if this is necessary at all; stolen from the nvidia section of sioodmy's dotfiles
   environment.systemPackages = with pkgs; [
+    # not sure if these are necessary at all; stolen from the nvidia section of sioodmy's dotfiles
     vulkan-loader
     vulkan-validation-layers
     vulkan-extension-layer
@@ -21,6 +21,7 @@
     mesa-demos
     glxinfo
     vdpauinfo
+    libva-utils
   ];
 
 }
