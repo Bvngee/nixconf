@@ -16,11 +16,6 @@
 
     # Chat apps
     vesktop
-    #(pkgsUnstable.discord.override {
-    #(pkgs.discord.override {
-    #  withOpenASAR = false;
-    #  withVencord = false;
-    #})
     element-desktop
     cinny-desktop
     fractal
