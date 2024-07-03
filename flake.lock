@@ -403,6 +403,22 @@
         "type": "github"
       }
     },
+    "nixpkgs-ironbar": {
+      "locked": {
+        "lastModified": 1714982094,
+        "narHash": "sha256-+48iBHfQZklw8LzLYW6kyI69LNKaD4XkGXOP8Qxp2cY=",
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "rev": "fc55cdb8340a3258a1ad6f3eb8df52dac36c3e70",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nixos",
+        "ref": "fc55cdb8340a3258a1ad6f3eb8df52dac36c3e70",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
     "nixpkgs-lib": {
       "locked": {
         "dir": "lib",
@@ -542,6 +558,7 @@
         "hyprland": "hyprland",
         "matugen": "matugen",
         "nixpkgs": "nixpkgs_2",
+        "nixpkgs-ironbar": "nixpkgs-ironbar",
         "nixpkgs-unstable": "nixpkgs-unstable",
         "spicetify-nix": "spicetify-nix",
         "split-monitor-workspaces": "split-monitor-workspaces",
