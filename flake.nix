@@ -7,6 +7,18 @@
 
     homeConfigurations = import ./profiles/homeConfigs.nix { inherit nixpkgs inputs; };
 
+    packages =
+      let
+        supportedSystems = [ "x86_64-linux" "x86_64-darwin" "aarch64-linux" "aarch64-darwin" ];
+        forAllSystems = fn:
+          nixpkgs.lib.genAttrs supportedSystems (system: fn nixpkgs.legacyPackages.${system});
+      in
+      forAllSystems (pkgs: rec {
+        github-readme-stats = pkgs.callPackage ./pkgs/github-readme-stats { };
+        github-readme-stats-docker = pkgs.callPackage ./pkgs/github-readme-stats/docker.nix {
+          inherit github-readme-stats;
+        };
+      });
   };
 
   inputs = {
