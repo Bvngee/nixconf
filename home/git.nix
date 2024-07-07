@@ -62,6 +62,7 @@
     gl = "git prettylog"; # see below, alternative to "git log"
     gp = "git pull";
     gP = "git push";
+    gPf = "git push --force";
     grb = "git rebase";
     gm = "git merge";
   };
