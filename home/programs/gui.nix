@@ -38,6 +38,7 @@
     mission-center
     snapshot
     helvum # pipewire graph thingy
+    pavucontrol
     zed-editor
   ];
 

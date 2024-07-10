@@ -18,8 +18,8 @@ return {
         'RainbowDelimiterRed',
         'RainbowDelimiterOrange',
         'RainbowDelimiterYellow',
-        'RainbowDelimiterGreen',
-        'RainbowDelimiterCyan',
+        'RainbowDelimiterGreen', -- maybe yeet this one too?
+        -- 'RainbowDelimiterCyan',
         'RainbowDelimiterBlue',
         'RainbowDelimiterViolet',
       },

@@ -1,5 +1,7 @@
 TODO:
 
+- make mini.ai more conservative on when it adds doubles
+
 - https://github.com/NixOS/nixpkgs/pull/269042
 
 - WHY DO COMMENTS ACT SO WIERD WITH INDENTING (start at col 0, stop indenting once they hit the wall..)

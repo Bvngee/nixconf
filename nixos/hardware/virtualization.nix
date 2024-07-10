@@ -21,6 +21,9 @@ in
     # NOTE(https://github.com/89luca89/distrobox/issues/1229):
     # put "skip_workdir=1" in ~/.config/distrobox/distrobox.conf
     distrobox
+
+    # lets you explore docker container layers
+    dive
   ];
 
   virtualisation = {

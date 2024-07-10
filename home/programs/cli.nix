@@ -30,6 +30,7 @@
     libnotify
     glib
     lsof
+    progress
     # graphviz # getting weird collisions (libgvc.so) with ags :/
   ];
 }
