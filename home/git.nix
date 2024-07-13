@@ -60,6 +60,7 @@
     gs = "git status";
     gd = "git diff";
     gds = "git diff --staged";
+    gls = "git ls-files";
     gl = "git prettylog"; # see below, alternative to "git log"
     gp = "git pull";
     gP = "git push";
