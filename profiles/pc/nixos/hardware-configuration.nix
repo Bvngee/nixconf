@@ -20,16 +20,6 @@
       fsType = "vfat";
     };
 
-  fileSystems."/mnt/arch-root" =
-    { device = "/dev/disk/by-uuid/9b90fa4f-a28f-4d53-b557-6c2aaf6ce9a7";
-      fsType = "ext4";
-    };
-
-  fileSystems."/mnt/arch-home" =
-    { device = "/dev/disk/by-uuid/d29ad69c-40b2-4855-864a-22cbccb42bdc";
-      fsType = "ext4";
-    };
-
   fileSystems."/mnt/SecondaryDrive" =
     { device = "/dev/disk/by-uuid/70927F05927ECF5A";
       fsType = "ntfs3";

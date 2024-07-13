@@ -15,8 +15,6 @@
   ] ++ lib.optionals (config.profile.hostname == "pc") [
     "file:///mnt/windows"
     "file:///mnt/SecondaryDrive"
-    "file:///mnt/arch-home"
-    "file:///mnt/arch-root"
   ];
 
   # Make thunar side panel a different color than the main panel

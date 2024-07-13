@@ -40,4 +40,7 @@ in
     ${monitorConfig}
   '';
 
+  # Note, usefull script
+  # `hyprctl clients -j | jq '.[] | select(.xwayland == true) | {title: .title, class: .class}'`
+
 }

@@ -40,6 +40,9 @@
     helvum # pipewire graph thingy
     pavucontrol
     zed-editor
+
+    # Super heavy apps
+    davinci-resolve-studio
   ];
 
   programs = {
