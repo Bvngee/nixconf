@@ -13,8 +13,12 @@
         # not sure exactly what these do, copied from NotAShelf
         core.whitespace = "fix,-indent-with-non-tab,trailing-space,cr-at-eol";
 
+        # shows both your changes, conflicting changes, and original
         merge.conflictstyle = "diff3";
-        diff.colorMoved = "default";
+
+        # the colors are annoying. Note however that "no" marks moved lines as diffs even if they're unchanged
+        # https://git-scm.com/docs/git-diff#Documentation/git-diff.txt---color-movedltmodegt
+        diff.colorMoved = "no";
       };
 
       delta = {

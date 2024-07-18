@@ -31,6 +31,7 @@
     glib
     lsof
     progress
+    ffmpeg
     # graphviz # getting weird collisions (libgvc.so) with ags :/
   ];
 }
