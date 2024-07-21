@@ -24,6 +24,10 @@ in
 
     # lets you explore docker container layers
     dive
+
+    # useful for things like moving images between registries and other locations or 
+    # inspecting images without downloading
+    skopeo # note: nix2container contains a patched version with support for a "nix:" source type
   ];
 
   virtualisation = {

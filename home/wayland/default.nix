@@ -21,6 +21,7 @@
       satty
       inputs.woomer.packages.${system}.default
       hyprpicker
+      wlsunset
 
       # Preferred PolKit agent
       pkgs.pantheon.pantheon-agent-polkit
