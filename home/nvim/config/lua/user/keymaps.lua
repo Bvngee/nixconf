@@ -37,6 +37,9 @@ map('n', '<C-q>', ':qa<CR>')
 -- clear search with <esc>
 map({ 'i', 'n' }, '<esc>', '<cmd>noh<cr><esc>')
 
+-- ctrl+backspace in insert mode
+map('i', '<C-Backspace>', '<C-w>')
+
 -- remove default Cmdwin hotkeys (doesn't work perfectly but eh)
 map('n', 'q:', '<nop>', { remap = true })
 map('n', 'q/', '<nop>', { remap = true })

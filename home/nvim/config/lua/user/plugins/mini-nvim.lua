@@ -18,21 +18,73 @@ return {
     },
   },
 
+  -- Note:
+  -- e textobject is snake_case / camelCase
+  -- b textobject is an alias for }]) aka "brackets"
+  -- q textobject is an alias for "'`
+  -- u/U is inside function call (arguments), aka "usage"
   {
     'echasnovski/mini.ai',
+    dependencies = {
+      -- for ai.gen_spec.treesitter() to work, the treesitter queries for things
+      -- like @block or @function need to be added for each lanuage. These are not
+      -- provided by default, so we'll use nvim-treesitter-textobjects's collection
+      -- of queries. note: it also has an alternative method of textobject creation,
+      -- but we will use mini.ai's instead.
+      'nvim-treesitter/nvim-treesitter-textobjects',
+    },
     event = 'VeryLazy',
     opts = function()
+      local function testFunctionThatsSuperCool(temp, asdlksd)
+        print('hi')
+      end
       local ai = require('mini.ai')
       return {
-        n_lines = 500,
+        n_lines = 100,
         custom_textobjects = {
-          o = ai.gen_spec.treesitter({
+          o = ai.gen_spec.treesitter({ -- code block
             a = { '@block.outer', '@conditional.outer', '@loop.outer' },
             i = { '@block.inner', '@conditional.inner', '@loop.inner' },
-          }, {}),
-          f = ai.gen_spec.treesitter({ a = '@function.outer', i = '@function.inner' }, {}),
-          c = ai.gen_spec.treesitter({ a = '@class.outer', i = '@class.inner' }, {}),
-          t = { '<([%p%w]-)%f[^<%w][^<>]->.-</%1>', '^<.->().*()</[^/]->$' },
+          }),
+          f = ai.gen_spec.treesitter(
+            { a = '@function.outer', i = '@function.inner' },
+            { search_method = 'cover' }
+          ), -- function
+          c = ai.gen_spec.treesitter({ a = '@class.outer', i = '@class.inner' }), -- class
+          t = { '<([%p%w]-)%f[^<%w][^<>]->.-</%1>', '^<.->().*()</[^/]->$' }, -- tags
+          d = { '%f[%d]%d+' }, -- digits
+          e = { -- Word with case
+            {
+              '%u[%l%d]+%f[^%l%d]',
+              '%f[%S][%l%d]+%f[^%l%d]',
+              '%f[%P][%l%d]+%f[^%l%d]',
+              '^[%l%d]+%f[^%l%d]',
+            },
+            '^().*()$',
+          },
+          -- i = LazyVim.mini.ai_indent, -- indent -- requires mini.indent
+          g = function() -- Whole buffer
+            local from = { line = 1, col = 1 }
+            local to = {
+              line = vim.fn.line('$'),
+              col = math.max(vim.fn.getline('$'):len(), 1),
+            }
+            return { from = from, to = to }
+          end,
+          u = ai.gen_spec.function_call(), -- u for "Usage"
+          U = ai.gen_spec.function_call({ name_pattern = '[%w_]' }), -- without dot in function name
+
+          -- By default, closing and opening bracket types differ, where closing bracket includes whitespace
+          -- in the textobject and opening doesn't. I hate this, I wan't them to behave the same and always
+          -- include whitespace.
+          ['('] = { '%b()', '^.().*().$' },
+          [')'] = { '%b()', '^.().*().$' },
+          ['['] = { '%b[]', '^.().*().$' },
+          [']'] = { '%b[]', '^.().*().$' },
+          ['{'] = { '%b{}', '^.().*().$' },
+          ['}'] = { '%b{}', '^.().*().$' },
+          ['<'] = { '%b<>', '^.().*().$' },
+          ['>'] = { '%b<>', '^.().*().$' },
         },
       }
     end,
@@ -60,28 +112,74 @@ return {
     event = 'VeryLazy',
     opts = {
       modes = { insert = true, command = true, terminal = false },
-      -- stylua: ignore
+      -- stylua: ignore start
       -- the neigh_pattern format is two regexp's, for neighboring chars.
       -- I.e. '..' is any|any, '.[^\\]' is any|not-backslash
       -- https://www.lua.org/manual/5.1/manual.html#5.4.1
       mappings = {
-        ['('] = { action = 'open', pair = '()', neigh_pattern = '[^\\][^%a]' }, -- dont activate after a '\'
-        ['['] = { action = 'open', pair = '[]', neigh_pattern = '[^\\][^%a]' }, -- or before any char
-        ['{'] = { action = 'open', pair = '{}', neigh_pattern = '[^\\][^%a]' },
-
+        -- Skip open autopairing after a backslash and before almost anything
+        ['('] = { action = 'open', pair = '()', neigh_pattern = '[^\\][^%w%%%\'%"%.%`%$%\\]' },
+        ['['] = { action = 'open', pair = '[]', neigh_pattern = '[^\\][^%w%%%\'%"%.%`%$%\\]' },
+        ['{'] = { action = 'open', pair = '{}', neigh_pattern = '[^\\][^%w%%%\'%"%.%`%$%\\]' },
+        -- Only skip closing after a backslash
         [')'] = { action = 'close', pair = '()', neigh_pattern = '[^\\].' },
         [']'] = { action = 'close', pair = '[]', neigh_pattern = '[^\\].' },
         ['}'] = { action = 'close', pair = '{}', neigh_pattern = '[^\\].' },
+        -- Skip autopairing quotes after themselves and before almost anything
+        ['"'] = { action = 'closeopen', pair = '""', neigh_pattern = '[^%w\\"][^%w%%%\'%"%.%`%$%\\]', register = { cr = false } },
+        ["'"] = { action = 'closeopen', pair = "''", neigh_pattern = '[^%w\\\'][^%w%%%\'%"%.%`%$%\\]', register = { cr = false } },
+        ['`'] = { action = 'closeopen', pair = '``', neigh_pattern = '[^\\`][^%w%%%\'%"%.%`%$%\\]',     register = { cr = false } },
 
         -- ['<'] = { action = 'open',  pair = '<>', neigh_pattern = '[^\\].' }, -- Do I want these?
         -- ['>'] = { action = 'close', pair = '<>', neigh_pattern = '[^\\].' }, -- probably not
-
-        -- At the moment, this doesn't allow autopairing ' or " before or after itself. Maybe change in the future
-        ['"'] = { action = 'closeopen', pair = '""', neigh_pattern = '[^%a\\\"][^%a\"]', register = { cr = false } },
-        ["'"] = { action = 'closeopen', pair = "''", neigh_pattern = '[^%a\\\'][^%a\']', register = { cr = false } },
-        ['`'] = { action = 'closeopen', pair = '``', neigh_pattern = '[^\\`][^%a`]',     register = { cr = false } },
       },
+      -- stylua: ignore end
     },
+    config = function(_, opts)
+      -- Stolen shamelessly from Folke in LazyVim. See
+      -- https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/util/mini.lua
+      local pairs = require('mini.pairs')
+      pairs.setup(opts)
+      local open = pairs.open
+      ---@diagnostic disable-next-line: duplicate-set-field
+      pairs.open = function(pair, neigh_pattern)
+        if vim.fn.getcmdline() ~= '' then
+          return open(pair, neigh_pattern)
+        end
+        local o, c = pair:sub(1, 1), pair:sub(2, 2)
+        local line = vim.api.nvim_get_current_line()
+        local cursor = vim.api.nvim_win_get_cursor(0)
+        local next = line:sub(cursor[2] + 1, cursor[2] + 1)
+        local before = line:sub(1, cursor[2])
+
+        -- In Markdown files, use special handling for ``` (multiline code blocks)
+        if vim.bo.filetype == 'markdown' and o == '`' and before:match('^%s*``') then
+          return '`\n```' .. vim.api.nvim_replace_termcodes('<up>', true, true, true)
+        end
+
+        -- If inside a "string" treesitter node, don't do any autopairing
+        local ok, captures =
+          pcall(vim.treesitter.get_captures_at_pos, 0, cursor[1] - 1, math.max(cursor[2] - 1, 0))
+        for _, capture in ipairs(ok and captures or {}) do
+          if vim.tbl_contains({ 'string' }, capture.capture) then
+            return o
+          end
+        end
+
+        -- If the next character is the closing char AND there's more closings than openings
+        -- on this line, skip autopairing (only if opening and closing chars are different)
+        if next == c and c ~= o then
+          local _, count_open = line:gsub(vim.pesc(pair:sub(1, 1)), '')
+          local _, count_close = line:gsub(vim.pesc(pair:sub(2, 2)), '')
+          if count_close > count_open then
+            return o
+          end
+        end
+
+        -- Use original mini.pairs open() method
+        return open(pair, neigh_pattern)
+      end
+    end,
   },
 
   {
@@ -151,7 +249,7 @@ return {
         down = '<A-j>',
         up = '<A-k>',
 
-        -- Aove current line in Normal mode
+        -- Move current line in Normal mode
         line_left = '<A-h>',
         line_right = '<A-l>',
         line_down = '<A-j>',
