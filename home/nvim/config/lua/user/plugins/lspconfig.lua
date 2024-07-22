@@ -97,6 +97,7 @@ return {
       astro = { -- npm i @astrojs/language-server
         cmd = { 'npx', 'astro-ls', '--stdio' } -- is this acceptable?
       },
+      mesonlsp = {},
     }
 
     local lspconfig = require('lspconfig')

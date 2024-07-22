@@ -1,8 +1,6 @@
 TODO:
 
-- make mini.ai more conservative on when it adds doubles
-
-- https://github.com/NixOS/nixpkgs/pull/269042
+- figure out why auto-session's :mksession files have `wincmd =` in them (resetting window/buf sizes)
 
 - WHY DO COMMENTS ACT SO WIERD WITH INDENTING (start at col 0, stop indenting once they hit the wall..)
 
@@ -11,9 +9,9 @@ TODO:
 - nvim-treesitter-context!!!
 
 - why does <esc> not do :noh in normal mode (but only sometimes?)?
-- ./home/nvim/config/lua/user/plugins/conform.lua clang-format
 
-- figure out why auto-session's :mksession files have `wincmd =` in them (resetting window/buf sizes)
-- is there a way to make smart-splits' resize_mode use S-k without interfering with lsp hover?
 - finish configuring trouble (settings) (make each error on one line or smth? idk)
+
 - Do I want to use noice's renderring overrides (markdown, cmp..)? Are they even better? xD
+
+- ./home/nvim/config/lua/user/plugins/conform.lua clang-format ?

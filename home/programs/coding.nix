@@ -1,4 +1,4 @@
-{ config, pkgs, ... }: {
+{ config, pkgs, pkgsUnstable, ... }: {
   home.packages = with pkgs; [
     # IDEs and Editors
     jetbrains.idea-community
@@ -15,6 +15,7 @@
     pkg-config
     valgrind
     kdePackages.kcachegrind
+    pkgsUnstable.mesonlsp
 
     # Rust
     rustup
