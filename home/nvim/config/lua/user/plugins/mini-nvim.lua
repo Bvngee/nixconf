@@ -20,36 +20,45 @@ return {
 
   -- Note:
   -- e textobject is snake_case / camelCase
+  -- counts are supported, so smth like "c2inq" does "change in 2 next "
   -- b textobject is an alias for }]) aka "brackets"
   -- q textobject is an alias for "'`
   -- u/U is inside function call (arguments), aka "usage"
+  -- with mini.comment, there is also a gc textobject for comments (no a/i support)
   {
     'echasnovski/mini.ai',
+    -- for ai.gen_spec.treesitter() to work, the treesitter queries for things
+    -- like @block or @function need to be added for each lanuage. These are not
+    -- provided by default, so we'll use nvim-treesitter-textobjects's collection
+    -- of queries. note: it also has an alternative method of textobject creation,
+    -- but we will use mini.ai's instead.
     dependencies = {
-      -- for ai.gen_spec.treesitter() to work, the treesitter queries for things
-      -- like @block or @function need to be added for each lanuage. These are not
-      -- provided by default, so we'll use nvim-treesitter-textobjects's collection
-      -- of queries. note: it also has an alternative method of textobject creation,
-      -- but we will use mini.ai's instead.
       'nvim-treesitter/nvim-treesitter-textobjects',
     },
     event = 'VeryLazy',
     opts = function()
-      local function testFunctionThatsSuperCool(temp, asdlksd)
-        print('hi')
-      end
       local ai = require('mini.ai')
       return {
         n_lines = 100,
+        search_method = "cover_or_next", -- first search for covering ranges, then next ones
+        mappings = {
+          around = 'a',
+          inside = 'i',
+
+          around_next = 'an',
+          inside_next = 'in',
+          around_last = 'al',
+          inside_last = 'il',
+
+          goto_left = 'g[',
+          goto_right = 'g]',
+        },
         custom_textobjects = {
           o = ai.gen_spec.treesitter({ -- code block
             a = { '@block.outer', '@conditional.outer', '@loop.outer' },
             i = { '@block.inner', '@conditional.inner', '@loop.inner' },
           }),
-          f = ai.gen_spec.treesitter(
-            { a = '@function.outer', i = '@function.inner' },
-            { search_method = 'cover' }
-          ), -- function
+          f = ai.gen_spec.treesitter({ a = '@function.outer', i = '@function.inner' }), -- function
           c = ai.gen_spec.treesitter({ a = '@class.outer', i = '@class.inner' }), -- class
           t = { '<([%p%w]-)%f[^<%w][^<>]->.-</%1>', '^<.->().*()</[^/]->$' }, -- tags
           d = { '%f[%d]%d+' }, -- digits
@@ -75,7 +84,7 @@ return {
           U = ai.gen_spec.function_call({ name_pattern = '[%w_]' }), -- without dot in function name
 
           -- By default, closing and opening bracket types differ, where closing bracket includes whitespace
-          -- in the textobject and opening doesn't. I hate this, I wan't them to behave the same and always
+          -- in the textobject and opening doesn't. I hate that, I wan't them to behave the same and always
           -- include whitespace.
           ['('] = { '%b()', '^.().*().$' },
           [')'] = { '%b()', '^.().*().$' },
@@ -94,6 +103,8 @@ return {
     'echasnovski/mini.surround',
     event = 'VeryLazy',
     opts = {
+      n_lines = 50,
+      search_method = 'cover_or_next', -- do I want this (as opposed to default of 'cover')?
       mappings = {
         add = 'sa', -- Add surrounding in Normal and Visual modes
         delete = 'sd', -- Delete surrounding
@@ -101,9 +112,10 @@ return {
         find_left = 'sF', -- Find surrounding (to the left)
         highlight = 'sh', -- Highlight surrounding
         replace = 'sr', -- Replace surrounding
-        update_n_lines = 'sn', -- Update `n_lines`
+        update_n_lines = 'sn', -- Update the value of `n_lines`
+        suffix_last = 'l', -- Suffix to search with "prev" method
+        suffix_next = 'n', -- Suffix to search with "next" method
       },
-      silent = false,
     },
   },
 
