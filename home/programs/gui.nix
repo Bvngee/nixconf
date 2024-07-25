@@ -34,6 +34,7 @@
     gnome.gnome-font-viewer
     gnome.gnome-control-center # this is NOT intended to be used outside Gnome, but still has some useful features
     gnome.file-roller # better default over kde's ark?
+    baobab # disk utilization viewer (gtk)
     libsForQt5.kcalc
     mission-center
     snapshot

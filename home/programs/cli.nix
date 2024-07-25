@@ -32,6 +32,7 @@
     lsof
     progress
     ffmpeg
+    ncdu # disk utilization viewer
     # graphviz # getting weird collisions (libgvc.so) with ags :/
   ];
 }
