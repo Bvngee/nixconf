@@ -1,4 +1,4 @@
-{ pkgs, ... }: {
+{ config, pkgs, ... }: {
   home.packages = with pkgs; [
     # Image, video
     libsForQt5.gwenview
@@ -43,7 +43,7 @@
     zed-editor
 
     # Super heavy apps
-    davinci-resolve-studio
+    (if config.profile.hostname == "pc" then davinci-resolve-studio else davinci-resolve)
   ];
 
   programs = {
