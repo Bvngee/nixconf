@@ -2,6 +2,12 @@ nix-env --delete-generations +n, where n is the amount to keep
 
 sudo nix-collect-garbage --delete-older-than 14d
 
-sudo nix profile wipe-history --profile /nix/var/nix/profiles/system --older-than 5d
-sudo nix profile history --profile /nix/var/nix/profiles/system
-
+Note on buildInputs vs nativeBuildInputs (which I always mix up):
+- Think of cross compilation!
+  * *native*buildInputs are native binaries for the build computer, i.e. build deps.
+  * buildInputs *may not* be native to the build computer, i.e. runtime deps.
+In the case of native compilation (not cross), these both use the build computer's os/arch.
+- Note that pkgs.callPackage secretly uses pkgs.buildPackages.X for things inside of
+nativeBuildInputs, which is why cross compilation is mostly invisible to the package.nix
+author :O (and why you should always callPackage so things get resolved properly)
+- see https://jade.fyi/blog/flakes-arent-real/ cross compilation section
