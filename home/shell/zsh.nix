@@ -4,15 +4,6 @@ let
   relToDotDir = file: (lib.optionalString (cfg.dotDir != null) (cfg.dotDir + "/")) + file;
 in
 {
-  ## How to Fix "zsh: corrupt history file"
-  # mv ~/.local/share/zsh_history ~/.local/share/zsh_history_bad
-  # strings ~/.local/share/zsh_history_bad > ~/.local/share/zsh_history
-  # fc -R ~/.local/share/zsh_history 
-  # rm ~/.local/share/zsh_history_bad  
-  # OR
-  # history 0 > ~/.local/share/zsh_history
-  # and remove all the initial numbers
-
   programs.zsh = {
     enable = true;
     autocd = true;
@@ -67,10 +58,20 @@ in
         # $${EDITOR:-vim} flake.nix
       }
 
+      # Fix for "zsh: corrupt history file"
+      fixCorruptZshHistory() {
+        history 0 | sed -E 's/^ *[0-9]* *(.*)$/\1/' > ~/.local/share/zsh_history
+        # OR
+        # mv ~/.local/share/zsh_history ~/.local/share/zsh_history_bad
+        # strings ~/.local/share/zsh_history_bad > ~/.local/share/zsh_history
+        # fc -R ~/.local/share/zsh_history 
+        # rm ~/.local/share/zsh_history_bad  
+      }
+
       export PATH="$PATH:$HOME/.local/bin"
 
       # stolen from https://github.com/ohmyzsh/ohmyzsh/blob/master/plugins/fancy-ctrl-z
-      fancy-ctrl-z () {
+      fancy-ctrl-z() {
         if [[ $#BUFFER -eq 0 ]]; then
           BUFFER="fg"
           zle accept-line -w
