@@ -11,3 +11,10 @@ In the case of native compilation (not cross), these both use the build computer
 nativeBuildInputs, which is why cross compilation is mostly invisible to the package.nix
 author :O (and why you should always callPackage so things get resolved properly)
 - see https://jade.fyi/blog/flakes-arent-real/ cross compilation section
+
+Notes on `ln -s input $out` vs `cp input $out`:
+- if input resolves to a store path, ln -s saves space and should be used.
+  if not, the build is impure and cp should be used.
+- if you ln -s a single file from a 10gb store path into $out, now $out depends
+  on the entire 10gb store path which cannot be gc'ed.
+- see https://discourse.nixos.org/t/symlinking-vs-copying-into-out/11132
