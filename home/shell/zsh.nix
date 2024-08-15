@@ -47,13 +47,9 @@ in
     initExtra = ''
       flakify() {
         if [ ! -e flake.nix ]; then
-          git clone https://raw.githubusercontent.com/BvngeeCord/nix-flake-template/blob/main/flake.nix
-          echo "Copied flake.nix template!"
-        fi
-        if [ ! -e .envrc ]; then
-          echo "use flake" > .envrc
-          direnv allow
-          echo "Create and enabled .envrc!"
+          curl -OL https://raw.githubusercontent.com/Bvngee/nix-flake-template/main/flake.nix
+          curl -OL https://raw.githubusercontent.com/Bvngee/nix-flake-template/main/.envrc
+          echo "Added flake.nix/.envrc template!"
         fi
         # $${EDITOR:-vim} flake.nix
       }
