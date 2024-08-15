@@ -6,7 +6,7 @@ return {
 
     -- https://github.com/stevearc/conform.nvim#formatters
     conform.setup({
-      notify_on_error = false,
+      notify_on_error = true,
       -- format_on_save = {
       --   timeout_ms = 500,
       --   lsp_fallback = true, -- Do I want this?
@@ -36,9 +36,13 @@ return {
     })
 
     conform.formatters.clang_format = {
-      -- TODO: {IndentWidth: vim.XXX, IndentStyle: vim.xxx} ??? .editorconfig???
+      -- Future: {IndentWidth: vim.XXX, IndentStyle: vim.xxx} ??? .editorconfig???
       prepend_args = { '--fallback-style=llvm', '--style=file' },
     }
+
+    -- TODO: In newer neovim versions this isn't needed
+    -- https://github.com/neovim/neovim/pull/28904
+    vim.g.zig_fmt_autosave = 0
 
     vim.keymap.set({ 'n', 'v' }, '<leader>fo', function()
       require('conform').format({
