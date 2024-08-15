@@ -16,6 +16,7 @@ in
     "joshuto".source = mkLink "joshuto";
     "hypr/hyprland.conf".source = mkLink "hypr/hyprland.conf";
     "starship.toml".source = mkLink "starship.toml";
+    "btop/btop.conf".source = mkLink "btop/btop.conf";
   };
 
   home.file = {
