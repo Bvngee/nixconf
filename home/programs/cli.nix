@@ -5,6 +5,7 @@
     fd
     nix-prefetch-scripts
     nix-output-monitor # nom
+    nix-index # nix-locate and nix-index
     appimage-run #nixos workaround
     file
     btop
