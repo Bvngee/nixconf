@@ -15,6 +15,10 @@
     # because I have no will to report stupid bugs, and this seems to fix my multi-monitor bar
     nixpkgs-ironbar.url = "github:nixos/nixpkgs?ref=fc55cdb8340a3258a1ad6f3eb8df52dac36c3e70";
 
+    # nix-index, but with a prebuilt database (and convenient hm/nixos modules)
+    nix-index-database.url = "github:nix-community/nix-index-database";
+    nix-index-database.inputs.nixpkgs.follows = "nixpkgs";
+
     home-manager = {
       url = "github:nix-community/home-manager/release-24.05";
       inputs.nixpkgs.follows = "nixpkgs";

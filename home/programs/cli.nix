@@ -1,11 +1,10 @@
-{ pkgs, ... }: {
+{ inputs, pkgs, ... }: {
   # Cli/Tui tools and commands
   home.packages = with pkgs; [
     ripgrep
     fd
     nix-prefetch-scripts
     nix-output-monitor # nom
-    nix-index # nix-locate and nix-index
     appimage-run #nixos workaround
     file
     btop
@@ -15,6 +14,8 @@
     trash-cli
     zip
     jq
+    fzf
+    zf
     killall
     wget
     curl
@@ -37,4 +38,16 @@
     ncdu # disk utilization viewer
     # graphviz # getting weird collisions (libgvc.so) with ags :/
   ];
+
+  imports = [
+    # enables programs.nix-index with prebuilt database, and provides options below
+    inputs.nix-index-database.hmModules.nix-index
+  ];
+
+  programs.nix-index.symlinkToCacheHome = true;
+  # annoying and slow command-not-found behavior
+  programs.nix-index.enableZshIntegration = false;
+  programs.nix-index.enableBashIntegration = false;
+  # I prefer this
+  programs.nix-index-database.comma.enable = true;
 }
