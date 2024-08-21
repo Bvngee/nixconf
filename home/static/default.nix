@@ -17,6 +17,7 @@ in
     "hypr/hyprland.conf".source = mkLink "hypr/hyprland.conf";
     "starship.toml".source = mkLink "starship.toml";
     "btop/btop.conf".source = mkLink "btop/btop.conf";
+    "i3/config".source = mkLink "i3/config";
   };
 
   home.file = {

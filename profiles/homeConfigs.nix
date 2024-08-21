@@ -41,6 +41,7 @@ let
     ../home/programs/coding.nix
     ../home/programs/gui.nix
     ../home/wayland
+    ../home/x11
     ../home/shell
     ../home/waybar
     ../home/nvim
