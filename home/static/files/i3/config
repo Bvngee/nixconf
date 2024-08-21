@@ -80,6 +80,10 @@ bindsym $mod+h focus left
 bindsym $mod+j focus down
 bindsym $mod+k focus up
 bindsym $mod+l focus right
+bindsym $mod+Left focus left
+bindsym $mod+Down focus down
+bindsym $mod+Up focus up
+bindsym $mod+Right focus right
 
 # doesnt create workspaces :/
 bindsym $mod+Shift+h workspace prev_on_output
@@ -91,19 +95,11 @@ bindsym --whole-window $mod+Shift+button3 workspace next_on_output
 bindsym $mod+Shift+Control+h focus output left
 bindsym $mod+Shift+Control+l focus output right
 
-# alternatively, you can use the cursor keys:
-bindsym $mod+Left focus left
-bindsym $mod+Down focus down
-bindsym $mod+Up focus up
-bindsym $mod+Right focus right
-
 # move focused window
 bindsym $mod+Control+h move left
 bindsym $mod+Control+j move down
 bindsym $mod+Control+k move up
 bindsym $mod+Control+l move right
-
-# alternatively, you can use the cursor keys:
 bindsym $mod+Control+Left move left
 bindsym $mod+Control+Down move down
 bindsym $mod+Control+Up move up
