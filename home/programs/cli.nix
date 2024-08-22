@@ -14,6 +14,7 @@
     trash-cli
     zip
     jq
+    yq # (jq but for yaml/xml/toml)
     fzf
     zf
     killall

@@ -31,7 +31,7 @@ exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
 exec --no-startup-id xrandr --output HDMI-0 --off --output DP-0 --mode 2560x1440 --pos 2560x0 --rotate left --output DP-1 --off --output HDMI-1 --off --output DP-2 --primary --mode 2560x1440 --pos 0x404 --rotate normal --output DP-3 --off
 
 # I think this fixes mouse stuff? idk X is weird
-exec --no-startup-id rdb ~/.Xresources
+exec --no-startup-id xrdb ~/.Xresources
 
 # Mouse accel stuff (15 is the device ID of my Glorious model O mouse)
 exec --no-startup-id xinput set-prop 15 'libinput Accel Speed' -0.1
