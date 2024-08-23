@@ -4,5 +4,6 @@
     xss-lock
     dex
     xdotool
+    xwd
   ];
 }
