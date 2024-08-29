@@ -19,34 +19,56 @@ return {
       defaults = {
         mappings = {
           i = {
-            ['<Esc>'] = actions.close,
+            -- gonna try to force myself to use C-c (or C-esc if thats easier)
+            -- ['<Esc>'] = actions.close,
             ['<C-c>'] = actions.close,
-            ['<C-Esc>'] = { '<Esc>', type = 'command' }, -- normal mode
+            ['<C-Esc>'] = actions.close, 
+            -- ['<C-Esc>'] = { '<Esc>', type = 'command' }, -- normal mode
 
             ['<C-k>'] = actions.move_selection_previous,
             ['<C-j>'] = actions.move_selection_next,
+
+            -- C-u/C-d are used for preview buffer scrolling :/
+            -- ['<C-u>'] = function(prompt_bufnr)
+            --   for _ = 1, 10, 1 do
+            --     actions.move_selection_previous(prompt_bufnr)
+            --   end
+            -- end,
+            -- ['<C-d>'] = function(prompt_bufnr)
+            --   for _ = 1, 10, 1 do
+            --     actions.move_selection_next(prompt_bufnr)
+            --   end
+            -- end,
+
+            ['<C-Down>'] = actions.cycle_history_next,
+            ['<C-Up>'] = actions.cycle_history_prev,
 
             ['<C-q>'] = actions.smart_send_to_qflist,
             ['<C-l>'] = actions.smart_send_to_loclist,
             ['<C-t>'] = trouble_tele.open_with_trouble,
 
-            ['<Tab>'] = actions.toggle_selection,
-            ['<S-Tab>'] = false,
+            ['<c-f>'] = actions.to_fuzzy_refine,
+
+            ['<C-Space>'] = actions.toggle_selection,
+            ['<Tab>'] = actions.toggle_selection + actions.move_selection_next,
+            ['<S-Tab>'] = actions.toggle_selection + actions.move_selection_previous,
           },
           n = {
             ['<Esc>'] = actions.close,
             ['<C-c>'] = actions.close,
 
-            ['<C-u>'] = { '10k', type = 'command' },
-            ['<C-d>'] = { '10j', type = 'command' },
+            ['<C-Down>'] = actions.cycle_history_next,
+            ['<C-Up>'] = actions.cycle_history_prev,
 
             ['<C-q>'] = actions.smart_send_to_qflist,
             ['<C-l>'] = actions.smart_send_to_loclist,
             ['<C-t>'] = trouble_tele.open_with_trouble,
 
-            [' '] = actions.toggle_selection,
-            ['<Tab>'] = actions.toggle_selection,
-            ['<S-Tab>'] = false,
+            ['<c-f>'] = actions.to_fuzzy_refine,
+
+            ['<C-Space>'] = actions.toggle_selection,
+            ['<Tab>'] = actions.toggle_selection + actions.move_selection_next,
+            ['<S-Tab>'] = actions.toggle_selection + actions.move_selection_previous,
           },
         },
         multi_icon = '',
@@ -63,6 +85,24 @@ return {
             },
             n = {
               ['dd'] = actions.delete_buffer,
+            },
+          },
+        },
+        
+        -- both live_grep and lsp_dynamic_workspace_symbols override C-space
+        -- with to_fuzzy_refine which I use C-f for. See
+        -- https://github.com/nvim-telescope/telescope.nvim/blob/5972437de807c3bc101565175da66a1aa4f8707a/lua/telescope/builtin/__lsp.lua#L455
+        live_grep = {
+          mappings = {
+            i = {
+              ['<C-Space>'] = actions.toggle_selection,
+            },
+          },
+        },
+        lsp_dynamic_workspace_symbols = {
+          mappings = {
+            i = {
+              ['<C-Space>'] = actions.toggle_selection,
             },
           },
         },

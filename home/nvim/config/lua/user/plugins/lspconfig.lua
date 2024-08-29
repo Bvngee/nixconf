@@ -129,7 +129,7 @@ return {
         map('n', 'gr', tele.lsp_references)
         map('n', 'gI', tele.lsp_implementations) -- `gi` is a thing already
         map('n', '<leader>ds', tele.lsp_document_symbols)
-        map('n', '<leader>ws', tele.lsp_dynamic_workspace_symbols)
+        map('n', '<leader>ws', tele.lsp_dynamic_workspace_symbols) -- consider https://www.reddit.com/r/neovim/comments/14ipa7j/difference_between_telescope_lsp_workspace/
         map('n', 'K', vim.lsp.buf.hover)
         map('n', '<leader>k', vim.lsp.buf.signature_help)
         map({ 'n', 'v' }, '<space>ca', vim.lsp.buf.code_action)
