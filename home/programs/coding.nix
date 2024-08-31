@@ -3,6 +3,7 @@
     # IDEs and Editors
     jetbrains.idea-community
     vscodium-fhs
+    pkgsUnstable.zed-editor
 
     # C/C++
     gcc13 # stdenv.cc?

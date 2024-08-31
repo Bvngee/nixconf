@@ -17,7 +17,7 @@
     #package = config.boot.kernelPackages.nvidiaPackages.production; # production => 535
 
     # beta 555 drivers with explicit sync support!
-    package = config.boot.kernelPackages.nvidiaPackages.latest;
+    package = config.boot.kernelPackages.nvidiaPackages.stable;
   };
 
   # only works for 545+ I think

@@ -1,13 +1,13 @@
 { inputs, pkgs, ... }: let 
-  spicetifyPkgs = inputs.spicetify-nix.packages.${pkgs.system}.default;
+  spicetifyPkgs = inputs.spicetify-nix.legacyPackages.${pkgs.system};
 in {
-  imports = [ inputs.spicetify-nix.homeManagerModule ];
+  imports = [ inputs.spicetify-nix.homeManagerModules.default ];
 
   programs.spicetify = {
     enable = true;
     # spotifyPackage = pkgsUnstable.spotify;
     # spicetifyPackage = pkgsUnstable.spicetify-cli;
-    theme = spicetifyPkgs.themes.Default;
+    theme = spicetifyPkgs.themes.default;
     enabledExtensions = with spicetifyPkgs.extensions; [
       seekSong
       hidePodcasts
@@ -15,8 +15,7 @@ in {
       playNext
     ];
     enabledCustomApps = with spicetifyPkgs.apps; [
-      localFiles
-      new-releases
+      newReleases
     ];
   };
 }

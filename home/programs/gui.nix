@@ -40,7 +40,6 @@
     snapshot
     helvum # pipewire graph thingy
     pavucontrol
-    zed-editor
 
     # Super heavy apps
     (if config.profile.hostname == "pc" then davinci-resolve-studio else davinci-resolve)
