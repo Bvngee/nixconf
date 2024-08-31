@@ -8,7 +8,7 @@ return {
       strategy = {
         [''] = rd.strategy['global'],
         -- vim = rd.strategy['local'],
-        zig = rd.strategy['noop'],
+        -- zig = rd.strategy['noop'], -- lag seems to be fixed!
       },
       query = {
         [''] = 'rainbow-delimiters',
