@@ -56,6 +56,7 @@ return {
           n = {
             ['<Esc>'] = actions.close,
             ['<C-c>'] = actions.close,
+            ['<C-Esc>'] = actions.close, 
 
             ['<C-Down>'] = actions.cycle_history_next,
             ['<C-Up>'] = actions.cycle_history_prev,
