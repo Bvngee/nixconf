@@ -16,6 +16,9 @@
     git # Useful when debugging
   ];
 
+  # So I can use flatpaks if I ever (rarely) need to
+  services.flatpak.enable = true;
+
   fonts.enableDefaultPackages = true;
 
   # Used for apps that depend on a dbus secret-service provider
