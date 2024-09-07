@@ -1,6 +1,7 @@
 # (blahblah$variable) will only render if all the variables in the parenthesis are non-empty
 # see https://starship.rs/config/#conditional-format-strings
 
+command_timeout = 1500 # milliseconds
 add_newline = false
 format = "[](fg:4)$directory$hostname[ ](bg:4)[](fg:6 bg:4)$git_branch$git_status[](fg:2 bg:6)$nix_shell[](fg:2) "
 
