@@ -5,7 +5,7 @@
     program_options = {
       udisks_version = 2;
       notify = true;
-      tray = "auto";
+      tray = false; # "auto"
       terminal = "${config.home.sessionVariables.TERMINAL} -d";
     };
   };
