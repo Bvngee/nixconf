@@ -29,7 +29,7 @@
   # See https://github.com/nix-community/home-manager/issues/2064
   systemd.user.targets.tray = {
     Unit = {
-      Description = "Home Manager System Tray";
+      Description = "Home Manager Proxy System Tray";
       Requires = [ "graphical-session-pre.target" ];
     };
   };
