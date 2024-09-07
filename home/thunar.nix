@@ -54,6 +54,7 @@
       <property name="last-details-view-column-order" type="string" value="THUNAR_COLUMN_NAME,THUNAR_COLUMN_SIZE,THUNAR_COLUMN_SIZE_IN_BYTES,THUNAR_COLUMN_TYPE,THUNAR_COLUMN_DATE_MODIFIED"/>
       <property name="misc-status-bar-active-info" type="uint" value="15"/>
       <property name="misc-recursive-permissions" type="string" value="THUNAR_RECURSIVE_PERMISSIONS_ASK"/>
+      <property name="misc-volume-management" type="bool" value="false"/>
     </channel>
   '';
 
