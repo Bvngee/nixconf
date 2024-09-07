@@ -14,6 +14,8 @@
 
   environment.systemPackages = with pkgs; [
     git # Useful when debugging
+
+    # (import /home/jack/dev/nixpkgs {}).bitwarden
   ];
 
   # So I can use flatpaks if I ever (rarely) need to
@@ -31,6 +33,9 @@
 
   # GUI for managing gnome-keyring entries
   programs.seahorse.enable = true;
+
+  # Udisk graphical front end
+  programs.gnome-disks.enable = true;
 
   # (polkitd is enabled from somewhere else already, but I'll keep this anyways)
   # Manage unpriviledged processes' access to priviledged processes

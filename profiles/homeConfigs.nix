@@ -29,6 +29,7 @@ let
     ../home/ghostty.nix
     ../home/dunst.nix
     ../home/spicetify.nix
+    ../home/udiskie.nix
     ../home/thunar.nix
     ../home/theme/fonts.nix
     ../home/theme/cursor.nix

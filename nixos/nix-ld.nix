@@ -1,7 +1,6 @@
 { pkgs, ... }: {
   programs.nix-ld = {
     enable = true;
-    package = pkgs.nix-ld-rs;
     # See defaults here: https://github.com/NixOS/nixpkgs/blob/5bb0c5ac60d5dc25c08ce3910ff75ea1da0e4026/nixos/modules/programs/nix-ld.nix#L44-L59
     libraries = with pkgs; [
       # Stolen from https://github.com/Mic92/dotfiles/blob/57cf7fdf8705a5362fc19114b8395cdbf7668e94/nixos/modules/nix-ld.nix#L6-L58
@@ -32,6 +31,7 @@
       libuuid
       libxkbcommon
       libxml2
+      libsecret
       mesa
       nspr
       nss

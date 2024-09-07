@@ -24,4 +24,13 @@
     BROWSER = "firefox";
     TERMINAL = "kitty";
   };
+
+  # This fixes a bug where some HM systemd services have `Requires = [ "tray.target" ];`
+  # See https://github.com/nix-community/home-manager/issues/2064
+  systemd.user.targets.tray = {
+    Unit = {
+      Description = "Home Manager System Tray";
+      Requires = [ "graphical-session-pre.target" ];
+    };
+  };
 }

@@ -11,7 +11,7 @@
     libreoffice
 
     # Password manager
-    bitwarden
+    # bitwarden
     bitwarden-cli
 
     # Chat apps
@@ -30,7 +30,6 @@
     gnome.gnome-calendar
     gnome.gnome-calculator
     gnome.gnome-notes
-    gnome.gnome-disk-utility
     gnome.gnome-font-viewer
     gnome.gnome-control-center # this is NOT intended to be used outside Gnome, but still has some useful features
     gnome.file-roller # better default over kde's ark?
