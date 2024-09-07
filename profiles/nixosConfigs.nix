@@ -38,6 +38,7 @@ let
     ../nixos/hardware/network.nix
     ../nixos/hardware/bluetooth.nix
     ../nixos/hardware/libinput.nix
+    ../nixos/hardware/qmk.nix
 
     ../nixos/boot/systemd-boot.nix
     ../nixos/boot/kernel.nix
