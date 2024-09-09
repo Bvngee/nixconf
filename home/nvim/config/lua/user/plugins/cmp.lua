@@ -30,8 +30,8 @@ return {
         -- C-p
         ['<C-k>'] = cmp.mapping(cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Select }), { 'i' }),
 
-        -- C-y
         ['<C-Space>'] = cmp.mapping(cmp.mapping.confirm({ select = true }), { 'i', 'c' }),
+        ['<C-y>'] = cmp.mapping(cmp.mapping.confirm({ select = true }), { 'i', 'c' }),
 
         ['<C-e>'] = cmp.mapping(cmp.mapping.abort(), { 'i', 'c' }),
 
