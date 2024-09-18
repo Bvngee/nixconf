@@ -15,4 +15,7 @@
       device_added = false;
     };
   };
+
+  # Todo: add '-v' ?
+  # systemd.user.services.udiskie.Unit.Service.ExecStart = 
 }

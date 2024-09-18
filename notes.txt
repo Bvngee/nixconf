@@ -24,4 +24,4 @@ Note on manually stepping through the build process of a derivation:
 - use `nix develop nixpkgs#program` in a new empty directory, but STAY IN BASH. For some
   reason when entering ZSH you lose certain things like genericBuild and runPhase.
 - you can manually `runPhase unpackPhase` for every single phase (listed here: 
-  https://nixos.org/manual/nixpkgs/stable/#sec-stdenv-phases), OR you can just run `genericBuild`
+  https://nixos.org/manual/nixpkgs/stable/#sec-stdenv-phases ), OR you can just run `genericBuild`
