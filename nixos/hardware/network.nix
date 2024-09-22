@@ -32,26 +32,19 @@
       };
       connection = {
         id = "UCSC ResWiFi (via nixconf)";
-        interface-name = "wlp2s0";
         type = "wifi";
-        uuid = "22badf69-1a4b-4a7a-a819-78d218e5801f";
         autoconnect = true;
       };
-      ipv4 = {
-        method = "auto";
-      };
-      ipv6 = {
-        addr-gen-mode = "default";
-        method = "auto";
-      };
-      proxy = { };
       wifi = {
         ssid = "ResWiFi";
         mode = "infrastructure";
       };
-      wifi-security = {
-        key-mgmt = "wpa-eap";
-      };
+      wifi-security.key-mgmt = "wpa-eap";
+
+      ipv4.method = "auto";
+      ipv6.method = "auto";
+      ipv6.addr-gen-mode = "default";
+      proxy = { };
     };
   };
 
