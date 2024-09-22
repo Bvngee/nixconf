@@ -17,33 +17,29 @@
   # the imperatively created networks.
   # Config spec: https://networkmanager.dev/docs/api/latest/nm-settings-nmcli.html
   networking.networkmanager.ensureProfiles.profiles = {
-    "UCSC ResWiFi (via nixconf)" = lib.mkIf (config.profile.isMobile) {
-      "802-1x" = {
-        anonymous-identity = "anon";
-        ca-cert = "${pkgs.fetchurl {
-          url = "https://its.ucsc.edu/wireless/docs/ca.crt";
-          hash = "sha256-XrH90kYbm+QpqMrAROtmHcJDUF+6TIm3DWoYF14Jydc=";
-        }}";
-        domain-suffix-match = "ucsc.edu";
-        eap = "peap;";
-        identity = "jnystrom@ucsc.edu";
-        password-flags = 0;
-        phase2-auth = "mschapv2";
-      };
-      connection = {
-        id = "UCSC ResWiFi (via nixconf)";
-        type = "wifi";
-        autoconnect = true;
-      };
+    "UCSC ResWiFi (nixconf)" = lib.mkIf (config.profile.isMobile) {
       wifi = {
         ssid = "ResWiFi";
         mode = "infrastructure";
       };
+      "802-1x" = {
+        ca-cert = "${pkgs.fetchurl {
+          url = "https://its.ucsc.edu/wireless/docs/ca.crt";
+          hash = "sha256-XrH90kYbm+QpqMrAROtmHcJDUF+6TIm3DWoYF14Jydc=";
+        }}";
+        anonymous-identity = "anon";
+        domain-suffix-match = "ucsc.edu";
+        eap = "peap;";
+        identity = "jnystrom@ucsc.edu";
+        password-flags = 0; # Store password
+        phase2-auth = "mschapv2";
+      };
+      connection = {
+        id = "UCSC ResWiFi (nixconf)";
+        type = "wifi";
+        autoconnect = true;
+      };
       wifi-security.key-mgmt = "wpa-eap";
-
-      ipv4.method = "auto";
-      ipv6.method = "auto";
-      ipv6.addr-gen-mode = "default";
       proxy = { };
     };
   };
