@@ -44,22 +44,7 @@
     };
   };
 
-  # Configures wpa_supplicant directly; effectively incompatible with
-  # the above networkingmanager profiles.
-  # networking.wireless.networks = {
-  #   ResWiFi =
-  #     let
-  #       cert = pkgs.fetchurl {
-  #         url = "https://its.ucsc.edu/wireless/docs/ca.crt";
-  #         hash = "sha256-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=";
-  #       };
-  #     in
-  #     {
-  #       auth = ''
-  #         eap=PEAP
-  #         ca_cert="${cert}"
-  #         phase2="auth=MSCHAPV2"
-  #       '';
-  #     };
-  # };
+  # Configures wpa_supplicant directly; mostly incompatible with the above networkingmanager
+  # profiles (unless you make nm give up ownership of the entire wireless interface)
+  # networking.wireless.networks = { };
 }
