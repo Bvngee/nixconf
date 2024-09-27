@@ -16,7 +16,33 @@
   # then converted to nix code via https://github.com/janik-haag/nm2nix. These exist alongside
   # the imperatively created networks.
   # Config spec: https://networkmanager.dev/docs/api/latest/nm-settings-nmcli.html
+  # TODO: abstract
   networking.networkmanager.ensureProfiles.profiles = {
+    "UCSC eduroam (nixconf)" = lib.mkIf (config.profile.isMobile) {
+      wifi = {
+        ssid = "eduroam";
+        mode = "infrastructure";
+      };
+      "802-1x" = {
+        ca-cert = "${pkgs.fetchurl {
+          url = "https://its.ucsc.edu/wireless/docs/ca.crt";
+          hash = "sha256-XrH90kYbm+QpqMrAROtmHcJDUF+6TIm3DWoYF14Jydc=";
+        }}";
+        anonymous-identity = "anon";
+        domain-suffix-match = "ucsc.edu";
+        eap = "peap;";
+        identity = "jnystrom@ucsc.edu";
+        password-flags = 0; # Store password
+        phase2-auth = "mschapv2";
+      };
+      connection = {
+        id = "UCSC eduroam (nixconf)";
+        type = "wifi";
+        autoconnect = true;
+      };
+      wifi-security.key-mgmt = "wpa-eap";
+      proxy = { };
+    };
     "UCSC ResWiFi (nixconf)" = lib.mkIf (config.profile.isMobile) {
       wifi = {
         ssid = "ResWiFi";
