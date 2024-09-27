@@ -62,7 +62,9 @@ let {
   }
   $upower = {
     type = "upower"
-    format = "BAT {percentage}" }
+    format = "BAT {percentage}"
+    icon_size = 1
+  }
   $sys_info = {
     type = "sys_info"
 
@@ -100,7 +102,8 @@ in {
     $separator
     $sys_info
     $separator
-    // $upower
+    $upower
+    $separator
     $clock
   ]
 }
