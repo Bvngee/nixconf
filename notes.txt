@@ -25,3 +25,6 @@ Note on manually stepping through the build process of a derivation:
   reason when entering ZSH you lose certain things like genericBuild and runPhase.
 - you can manually `runPhase unpackPhase` for every single phase (listed here: 
   https://nixos.org/manual/nixpkgs/stable/#sec-stdenv-phases ), OR you can just run `genericBuild`
+
+To see the difference / what changes between generations:
+`nix profile diff-closures --profile /nix/var/nix/profiles/system`
