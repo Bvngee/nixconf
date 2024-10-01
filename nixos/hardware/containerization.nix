@@ -24,6 +24,15 @@ in
   virtualisation = {
     docker = {
       enable = true;
+      daemon.settings = {
+        features = {
+          # this makes docker use containerd's image store instead of it's own,
+          # which supports multiarch images (among other things).
+          # https://docs.docker.com/build/building/multi-platform/#enable-the-containerd-image-store
+          # https://github.com/docker/roadmap/issues/371
+          "containerd-snapshotter" = true;
+        };
+      };
     };
     podman = {
       enable = true;
