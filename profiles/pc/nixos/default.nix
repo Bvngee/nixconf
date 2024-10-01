@@ -6,9 +6,4 @@
   ];
 
   system.stateVersion = "23.05";
-
-  boot.binfmt.emulatedSystems = [
-    "x86_64-windows"
-    "aarch64-linux"
-  ];
 }

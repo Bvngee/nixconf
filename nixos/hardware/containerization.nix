@@ -4,15 +4,6 @@ let
 in
 {
   environment.systemPackages = with pkgs; [
-    qemu
-    virt-manager
-    virt-viewer
-    libguestfs-with-appliance
-    virtiofsd
-
-    # nice wine/proton wrapper using gtk4 (alternative is lutris)
-    bottles
-
     # not sure if I really need these?
     podman-compose
     podman-desktop
@@ -31,7 +22,6 @@ in
   ];
 
   virtualisation = {
-    libvirtd.enable = true;
     docker = {
       enable = true;
     };
@@ -49,5 +39,5 @@ in
   # replaces [docker/podman].enableNvidia
   hardware.nvidia-container-toolkit.enable = isNvidia;
 
-  users.users.${config.profile.mainUser}.extraGroups = [ "libvirtd" "docker" ];
+  users.users.${config.profile.mainUser}.extraGroups = [ "docker" ];
 }

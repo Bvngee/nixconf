@@ -39,9 +39,11 @@ let
     ../nixos/hardware/bluetooth.nix
     ../nixos/hardware/libinput.nix
     ../nixos/hardware/qmk.nix
+    ../nixos/hardware/containerization.nix
 
     ../nixos/boot/systemd-boot.nix
     ../nixos/boot/kernel.nix
+    ../nixos/boot/binfmt.nix
 
     ../nixos/programs/thunar.nix
     ../nixos/programs/xremap.nix
@@ -63,7 +65,7 @@ in
       ../nixos/kde.nix
       ../nixos/hardware/openrgb.nix
       ../nixos/hardware/ssd.nix
-      ../nixos/hardware/virtualization.nix
+      ../nixos/hardware/vms.nix
     ] ++ commonGraphicalNixosModules;
   };
   "latitude" = mkNixosSystem {
@@ -73,7 +75,6 @@ in
       ./latitude/nixos
 
       ../nixos/kde.nix
-      ../nixos/hardware/virtualization.nix
       ../nixos/hardware/ssd.nix
     ] ++ commonGraphicalNixosModules;
   };
@@ -84,7 +85,7 @@ in
       ./precision/nixos
 
       ../nixos/kde.nix
-      ../nixos/hardware/virtualization.nix
+      ../nixos/hardware/vms.nix
       ../nixos/hardware/ssd.nix
     ] ++ commonGraphicalNixosModules;
   };

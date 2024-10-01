@@ -15,7 +15,7 @@
   environment.systemPackages = with pkgs; [
     git # Useful when debugging
 
-    # (import /home/jack/dev/nixpkgs {}).bitwarden
+    (import /home/jack/dev/nixpkgs {}).bitwarden
   ];
 
   # So I can use flatpaks if I ever (rarely) need to
