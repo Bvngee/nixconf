@@ -76,7 +76,7 @@ return {
           'clangd',
           '--background-index',
           '--clang-tidy',
-          '--header-insertion=iwyu',
+          '--header-insertion=never', -- iwyu
           '--header-insertion-decorators',
           '--compile-commands-dir="build/"',
           '--enable-config',
