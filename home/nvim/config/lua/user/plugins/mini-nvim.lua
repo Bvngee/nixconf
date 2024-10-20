@@ -40,7 +40,7 @@ return {
       local ai = require('mini.ai')
       return {
         n_lines = 100,
-        search_method = "cover_or_next", -- first search for covering ranges, then next ones
+        search_method = 'cover_or_next', -- first search for covering ranges, then next ones
         mappings = {
           around = 'a',
           inside = 'i',
@@ -62,12 +62,12 @@ return {
           c = ai.gen_spec.treesitter({ a = '@class.outer', i = '@class.inner' }), -- class
           t = { '<([%p%w]-)%f[^<%w][^<>]->.-</%1>', '^<.->().*()</[^/]->$' }, -- tags
           d = { '%f[%d]%d+' }, -- digits
-          e = { -- Word with case
+          e = { -- LKSD_AFJSDLF_FASLKDJF
             {
               '%u[%l%d]+%f[^%l%d]',
-              '%f[%S][%l%d]+%f[^%l%d]',
-              '%f[%P][%l%d]+%f[^%l%d]',
-              '^[%l%d]+%f[^%l%d]',
+              '%f[%S][%a%d]+%f[^%a%d]',
+              '%f[%P][%a%d]+%f[^%a%d]',
+              '^[%a%d]+%f[^%a%d]',
             },
             '^().*()$',
           },
