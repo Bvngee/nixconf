@@ -67,6 +67,7 @@
     gls = "git ls-files";
     gl = "git prettylog"; # see below, alternative to "git log"
     gp = "git pull";
+    gprb = "git pull --rebase";
     gP = "git push";
     gPf = "git push --force";
     grb = "git rebase";
