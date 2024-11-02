@@ -5,7 +5,6 @@
     fd
     nix-prefetch-scripts
     nix-output-monitor # nom
-    appimage-run #nixos workaround
     file
     btop
     htop

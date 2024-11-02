@@ -21,6 +21,10 @@
   # So I can use flatpaks if I ever (rarely) need to
   services.flatpak.enable = true;
 
+  # Installs appimage-run script and registers it to be used automativally with binfmt
+  programs.appimage.enable = true;
+  programs.appimage.binfmt = true;
+
   fonts.enableDefaultPackages = true;
 
   # Used for apps that depend on a dbus secret-service provider
