@@ -8,6 +8,7 @@
     winetricks
   ];
 
+  # Annoyingly this requires compiling qemu from source atm: https://github.com/NixOS/nixpkgs/issues/221056
   boot.binfmt.emulatedSystems =
     let
       # It's possible some of these combinations don't work; most are untested.
