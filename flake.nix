@@ -12,8 +12,11 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-24.05";
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
+    # sometimes I want to update nnixpkgs-unstable without recompiling linux_xanmod and
+    # nvidia drivers. When I do feel like it, I can fast-forward this to nixpkgs-unstable
+    nixpkgs-kernel-packages.url = "github:nixos/nixpkgs/8a3354191c0d7144db9756a74755672387b702ba";
     # because I have no will to report stupid bugs, and this seems to fix my multi-monitor bar
-    nixpkgs-ironbar.url = "github:nixos/nixpkgs?ref=fc55cdb8340a3258a1ad6f3eb8df52dac36c3e70";
+    nixpkgs-ironbar.url = "github:nixos/nixpkgs/fc55cdb8340a3258a1ad6f3eb8df52dac36c3e70";
 
     # nix-index, but with a prebuilt database (and convenient hm/nixos modules)
     nix-index-database.url = "github:nix-community/nix-index-database";
