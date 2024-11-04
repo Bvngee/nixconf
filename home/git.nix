@@ -56,6 +56,7 @@
   home.sessionVariables.DELTA_PAGER = "less -RF";
 
   home.shellAliases = {
+    g = "git";
     ga = "git add";
     gaa = "git add --all";
     gc = "git commit";
