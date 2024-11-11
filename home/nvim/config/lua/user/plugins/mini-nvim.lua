@@ -39,7 +39,7 @@ return {
     opts = function()
       local ai = require('mini.ai')
       return {
-        n_lines = 100,
+        n_lines = 200,
         search_method = 'cover_or_next', -- first search for covering ranges, then next ones
         mappings = {
           around = 'a',
@@ -62,7 +62,7 @@ return {
           c = ai.gen_spec.treesitter({ a = '@class.outer', i = '@class.inner' }), -- class
           t = { '<([%p%w]-)%f[^<%w][^<>]->.-</%1>', '^<.->().*()</[^/]->$' }, -- tags
           d = { '%f[%d]%d+' }, -- digits
-          e = { -- LKSD_AFJSDLF_FASLKDJF
+          e = { -- snake_case_words, camelCaseWords, in lower and upper case
             {
               '%u[%l%d]+%f[^%l%d]',
               '%f[%S][%a%d]+%f[^%a%d]',
@@ -103,7 +103,7 @@ return {
     'echasnovski/mini.surround',
     event = 'VeryLazy',
     opts = {
-      n_lines = 50,
+      n_lines = 100,
       search_method = 'cover_or_next', -- do I want this (as opposed to default of 'cover')?
       mappings = {
         add = 'sa', -- Add surrounding in Normal and Visual modes
@@ -115,6 +115,20 @@ return {
         update_n_lines = 'sn', -- Update the value of `n_lines`
         suffix_last = 'l', -- Suffix to search with "prev" method
         suffix_next = 'n', -- Suffix to search with "next" method
+      },
+      custom_surroundings = {
+        -- Similarly to with mini.ai, I hate how '(' and ')' differ with
+        -- inclusion of whitespace, it's too much for my tiny brain to think
+        -- about. Now both exclude whitespace. I can always `sai( `.
+        -- https://github.com/echasnovski/mini.surround/blob/48a9795c9d352c771e1ab5dedab6063c0a2df037/lua/mini/surround.lua#L1079-L1086
+        ['('] = { input = { '%b()', '^.().*().$' }, output = { left = '(', right = ')' } },
+        [')'] = { input = { '%b()', '^.().*().$' }, output = { left = '(', right = ')' } },
+        ['['] = { input = { '%b[]', '^.().*().$' }, output = { left = '[', right = ']' } },
+        [']'] = { input = { '%b[]', '^.().*().$' }, output = { left = '[', right = ']' } },
+        ['{'] = { input = { '%b{}', '^.().*().$' }, output = { left = '{', right = '}' } },
+        ['}'] = { input = { '%b{}', '^.().*().$' }, output = { left = '{', right = '}' } },
+        ['<'] = { input = { '%b<>', '^.().*().$' }, output = { left = '<', right = '>' } },
+        ['>'] = { input = { '%b<>', '^.().*().$' }, output = { left = '<', right = '>' } },
       },
     },
   },
@@ -141,9 +155,6 @@ return {
         ['"'] = { action = 'closeopen', pair = '""', neigh_pattern = '[^%w\\"][^%w%%%\'%"%.%`%$%\\]', register = { cr = false } },
         ["'"] = { action = 'closeopen', pair = "''", neigh_pattern = '[^%w\\\'][^%w%%%\'%"%.%`%$%\\]', register = { cr = false } },
         ['`'] = { action = 'closeopen', pair = '``', neigh_pattern = '[^\\`][^%w%%%\'%"%.%`%$%\\]',     register = { cr = false } },
-
-        -- ['<'] = { action = 'open',  pair = '<>', neigh_pattern = '[^\\].' }, -- Do I want these?
-        -- ['>'] = { action = 'close', pair = '<>', neigh_pattern = '[^\\].' }, -- probably not
       },
       -- stylua: ignore end
     },
