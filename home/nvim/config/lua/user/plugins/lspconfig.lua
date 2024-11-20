@@ -84,6 +84,7 @@ return {
       },
       pyright = {},
       tsserver = {},
+      tailwindcss = {},
       zls = {},
       jdtls = { -- not working
         cmd = {

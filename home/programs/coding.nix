@@ -48,8 +48,9 @@
 
     # JS/TS
     nodejs
-    nodePackages.typescript-language-server
     nodePackages.typescript
+    nodePackages.typescript-language-server
+    tailwindcss-language-server
     nodePackages.eslint
     nodePackages.prettier
     prettierd
