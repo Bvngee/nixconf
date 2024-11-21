@@ -39,7 +39,7 @@ return {
     opts = function()
       local ai = require('mini.ai')
       return {
-        n_lines = 200,
+        n_lines = 500, -- does this become a performance problem? its nice for tags
         search_method = 'cover_or_next', -- first search for covering ranges, then next ones
         mappings = {
           around = 'a',
