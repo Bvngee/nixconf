@@ -85,6 +85,7 @@ return {
       pyright = {},
       tsserver = {},
       tailwindcss = {},
+      lemminx = {},
       zls = {},
       jdtls = { -- not working
         cmd = {

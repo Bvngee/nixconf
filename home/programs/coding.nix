@@ -51,6 +51,7 @@
     nodePackages.typescript
     nodePackages.typescript-language-server
     tailwindcss-language-server
+    lemminx # xml lsp
     nodePackages.eslint
     nodePackages.prettier
     prettierd
