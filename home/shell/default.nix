@@ -4,30 +4,6 @@
     ./starship.nix
   ];
 
-  programs = {
-    eza = {
-      enable = true;
-      enableZshIntegration = true;
-      extraOptions = [ "--group-directories-first" ];
-      icons = true;
-    };
-
-    zoxide = {
-      enable = true;
-      enableZshIntegration = true;
-      options = [ ];
-    };
-
-    direnv = {
-      enable = true;
-      nix-direnv.enable = true;
-      enableZshIntegration = true;
-    };
-
-    bat = {
-      enable = true;
-    };
-  };
 
   home.shellAliases = {
     # regular ls,ll,la etc aliases are handled by eza's settings
