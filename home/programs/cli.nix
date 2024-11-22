@@ -37,7 +37,7 @@
     ffmpeg
     ncdu # disk utilization viewer
     # graphviz # getting weird collisions (libgvc.so) with ags :/
-    tldr
+    tealdeer # faster tldr client
   ];
 
   imports = [
