@@ -19,6 +19,11 @@
         # the colors are annoying. Note however that "no" marks moved lines as diffs even if they're unchanged
         # https://git-scm.com/docs/git-diff#Documentation/git-diff.txt---color-movedltmodegt
         diff.colorMoved = "no";
+
+        # I often want to add a shell.nix, .envrc (and thus .direnv/), etc to
+        # random projects without seeing the annoying unstaged message in git
+        # status (set below)
+        core.excludesfile = "~/.config/git/global_gitignore";
       };
 
       delta = {
@@ -72,7 +77,15 @@
     gP = "git push";
     gPf = "git push --force";
     grb = "git rebase";
+    grs = "git reset";
+    grsh = "git reset --hard";
     gm = "git merge";
   };
 
+  xdg.configFile."git/global_gitignore".text = ''
+    .envrc
+    .direnv/
+    # do I want this? Do I want flake.nix/flake.lock too?
+    shell.nix
+  '';
 }
