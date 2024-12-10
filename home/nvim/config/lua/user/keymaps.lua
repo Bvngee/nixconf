@@ -98,6 +98,12 @@ map('n', '<leader>ww', function()
   vim.wo.wrap = not vim.wo.wrap
 end)
 
+-- execute current line / visual selection
+-- these don't seem to be working; might require nvim 0.10.x? or maybe broken
+-- in some other way?
+map('n', '<leader>x', '<cmd>.lua<cr>')
+map('v', '<leader>x', '<cmd>lua<cr>')
+
 -- lol, who doesn't mistype these sometimes?
 vim.api.nvim_create_user_command('WQa', 'wqa', {})
 vim.api.nvim_create_user_command('Wqa', 'wqa', {})

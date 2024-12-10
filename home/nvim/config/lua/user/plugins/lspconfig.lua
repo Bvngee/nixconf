@@ -78,14 +78,14 @@ return {
           '--clang-tidy',
           '--header-insertion=never', -- iwyu
           '--header-insertion-decorators',
-          '--compile-commands-dir="build/"',
+          --'--compile-commands-dir="build/"',
           '--enable-config',
         },
       },
       pyright = {},
       tsserver = {},
       tailwindcss = {},
-      lemminx = {},
+      lemminx = {}, -- for XML
       zls = {},
       jdtls = { -- not working
         cmd = {

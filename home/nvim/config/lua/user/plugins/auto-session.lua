@@ -31,7 +31,7 @@ return {
   -- event = 'VeryLazy', -- this breaks session loading afaict
   dependencies = {
     'nvim-telescope/telescope.nvim',
-    'folke/noice.nvim', -- for loading order
+    -- 'folke/noice.nvim', -- for loading order -- see noice.lua for why I removed noice
   },
   opts = function()
     vim.keymap.set('n', '<leader>ss', require('auto-session.session-lens').search_session)

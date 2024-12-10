@@ -1,5 +1,13 @@
 return {
+  -- This is way too invasive, has caused lots of errors, and is too experimental.
+  -- I love the syntax highlighting on the cmdline and the fidget.nvim alternative, 
+  -- but tbh that's it; I don't need all the other crap. I will instead switch to
+  -- fidget.nvim and hope that smth like https://github.com/neovim/neovim/issues/26346
+  -- gets merged soon!
   'folke/noice.nvim',
+  enabled = false,
+
+
   -- event = 'VeryLazy',
   lazy = false,
   dependencies = 'MunifTanjim/nui.nvim',

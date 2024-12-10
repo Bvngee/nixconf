@@ -13,7 +13,6 @@ vim.api.nvim_create_autocmd({ 'FileType' }, {
   pattern = { 'gitcommit', 'markdown' },
   callback = function()
     vim.wo.wrap = true -- toggle with <leader>ww (keymaps.lua)
-    vim.bo.textwidth = 80
   end,
 })
 
