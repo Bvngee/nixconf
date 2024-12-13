@@ -1,70 +1,90 @@
 { config, pkgs, pkgsUnstable, ... }: {
-  home.packages = with pkgs; [
-    # IDEs and Editors
-    jetbrains.idea-community
-    vscodium-fhs
-    pkgsUnstable.zed-editor
+  home.packages =
+    let
+      # Some dynamic executables are unpatched but are loaded by patched nixpkgs
+      # executables, and therefore never pick up NIX_LD_LIBRARY_PATH. For
+      # example, interpreters that use dynamically linked libraries, like python3
+      # libraries run by nixpkgs' python. This wraps the interpreter for ease of
+      # use with those executables. WARNING: Using LD_LIBRARY_PATH like this can
+      # override some of the program's dylib links in the nix store; this should
+      # be generally ok though
+      makeNixLDWrapper = program: (pkgs.runCommand "${program.pname}-nix-ld-wrapped" { } ''
+        mkdir -p $out/bin
+        for file in ${program}/bin/*; do
+          new_file=$out/bin/$(basename $file)
+          echo "#! ${pkgs.bash}/bin/bash -e" >> $new_file
+          echo 'export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:$NIX_LD_LIBRARY_PATH"' >> $new_file
+          echo 'exec -a "$0" '$file' "$@"' >> $new_file
+          chmod +x $new_file
+        done
+      '');
+    in
+    with pkgs; [
+      # IDEs and Editors
+      jetbrains.idea-community
+      vscodium-fhs
+      pkgsUnstable.zed-editor
 
-    # C/C++
-    gcc13 # stdenv.cc?
-    gnumake
-    clang-tools_17
-    gdb
-    meson
-    ninja
-    cmake
-    pkg-config
-    valgrind
-    kdePackages.kcachegrind
-    pkgsUnstable.mesonlsp
+      # C/C++
+      gcc13 # stdenv.cc?
+      gnumake
+      clang-tools_17
+      gdb
+      meson
+      ninja
+      cmake
+      pkg-config
+      valgrind
+      kdePackages.kcachegrind
+      pkgsUnstable.mesonlsp
 
-    # Rust
-    rustup
+      # Rust
+      rustup
 
-    # Python
-    python3 # doesn't handle python packages
-    nodePackages.pyright
-    ruff
+      # Python
+      (makeNixLDWrapper python3)
+      nodePackages.pyright
+      ruff
 
-    # MicroPython
-    adafruit-ampy
-    mpremote
+      # MicroPython
+      adafruit-ampy
+      mpremote
 
-    # Java
-    temurin-bin-18
-    jdt-language-server
+      # Java
+      temurin-bin-18
+      jdt-language-server
 
-    # Lua
-    lua-language-server
-    stylua
+      # Lua
+      lua-language-server
+      stylua
 
-    # Shell
-    nodePackages.bash-language-server
-    shellcheck
+      # Shell
+      nodePackages.bash-language-server
+      shellcheck
 
-    # Nix
-    nixpkgs-fmt
-    nil
+      # Nix
+      nixpkgs-fmt
+      nil
 
-    # JS/TS
-    nodejs
-    nodePackages.typescript
-    nodePackages.typescript-language-server
-    tailwindcss-language-server
-    lemminx # xml lsp
-    nodePackages.eslint
-    nodePackages.prettier
-    prettierd
-    sassc
+      # JS/TS
+      nodejs
+      nodePackages.typescript
+      nodePackages.typescript-language-server
+      tailwindcss-language-server
+      lemminx # xml lsp
+      nodePackages.eslint
+      nodePackages.prettier
+      prettierd
+      sassc
 
-    # Zig
-    zig
-    zls
+      # Zig
+      zig
+      zls
 
-    # Go
-    go
-    gopls
-  ];
+      # Go
+      go
+      gopls
+    ];
 
   home.sessionVariables = {
     GOPATH = "/home/${config.profile.mainUser}/.local/share/go";
