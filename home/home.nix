@@ -23,6 +23,7 @@
     VISUAL = "nvim";
     BROWSER = "firefox";
     TERMINAL = "kitty";
+    MANPAGER = "nvim +Man\!";
   };
 
   # This fixes a bug where some HM systemd services have `Requires = [ "tray.target" ];`

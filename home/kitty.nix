@@ -6,12 +6,9 @@
       "ctrl+shift+left" = "no_op";
       "ctrl+shift+right" = "no_op";
     };
+    font.name = "Hack Nerd Font";
     settings = {
-      font = "CaskaydiaCove NF SemiBold";
       enable_audio_bell = "no";
-      bold_font = "auto";
-      italic_font = "auto";
-      bold_italic_font = "auto";
       
       tab_bar_style = "powerline";
       tab_powerline_style = "angled";
