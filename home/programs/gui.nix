@@ -5,6 +5,8 @@
     mpv
     imv
     gimp
+    inkscape
+    zathura
 
     # Office Suite
     onlyoffice-bin
