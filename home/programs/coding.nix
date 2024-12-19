@@ -76,6 +76,7 @@
       nodePackages.prettier
       prettierd
       sassc
+      nodePackages.ts-node
 
       # Zig
       zig
