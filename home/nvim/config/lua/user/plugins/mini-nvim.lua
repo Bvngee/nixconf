@@ -39,8 +39,14 @@ return {
     opts = function()
       local ai = require('mini.ai')
       return {
-        n_lines = 500, -- does this become a performance problem? its nice for tags
-        search_method = 'cover_or_next', -- first search for covering ranges, then next ones
+        -- This can be really annoying for some textobjects but it's nice for tags
+        n_lines = 500,
+        -- First search for covering ranges, then next ones. Ideally I'd only
+        -- use 'cover' since searching for next textobject can be super fucky
+        -- with large ones like functions (I only want to cif if Im actually in
+        -- a function!) but it's too hard to give up the _or_next behavior for
+        -- smaller textobjects like quotes of brackets.
+        search_method = 'cover_or_next',
         mappings = {
           around = 'a',
           inside = 'i',
@@ -104,7 +110,7 @@ return {
     event = 'VeryLazy',
     opts = {
       n_lines = 100,
-      search_method = 'cover_or_next', -- do I want this (as opposed to default of 'cover')?
+      search_method = 'cover', -- do I want this or cover_or_next? Probably a good idea to force explicit n/l
       mappings = {
         add = 'sa', -- Add surrounding in Normal and Visual modes
         delete = 'sd', -- Delete surrounding
@@ -112,7 +118,9 @@ return {
         find_left = 'sF', -- Find surrounding (to the left)
         highlight = 'sh', -- Highlight surrounding
         replace = 'sr', -- Replace surrounding
+
         update_n_lines = 'sn', -- Update the value of `n_lines`
+
         suffix_last = 'l', -- Suffix to search with "prev" method
         suffix_next = 'n', -- Suffix to search with "next" method
       },
@@ -135,74 +143,79 @@ return {
 
   {
     'echasnovski/mini.pairs',
-    event = 'VeryLazy',
-    opts = {
-      modes = { insert = true, command = true, terminal = false },
-      -- stylua: ignore start
-      -- the neigh_pattern format is two regexp's, for neighboring chars.
-      -- I.e. '..' is any|any, '.[^\\]' is any|not-backslash
-      -- https://www.lua.org/manual/5.1/manual.html#5.4.1
-      mappings = {
-        -- Skip open autopairing after a backslash and before almost anything
-        ['('] = { action = 'open', pair = '()', neigh_pattern = '[^\\][^%w%%%\'%"%.%`%$%\\]' },
-        ['['] = { action = 'open', pair = '[]', neigh_pattern = '[^\\][^%w%%%\'%"%.%`%$%\\]' },
-        ['{'] = { action = 'open', pair = '{}', neigh_pattern = '[^\\][^%w%%%\'%"%.%`%$%\\]' },
-        -- Only skip closing after a backslash
-        [')'] = { action = 'close', pair = '()', neigh_pattern = '[^\\].' },
-        [']'] = { action = 'close', pair = '[]', neigh_pattern = '[^\\].' },
-        ['}'] = { action = 'close', pair = '{}', neigh_pattern = '[^\\].' },
-        -- Skip autopairing quotes after themselves and before almost anything
-        ['"'] = { action = 'closeopen', pair = '""', neigh_pattern = '[^%w\\"][^%w%%%\'%"%.%`%$%\\]', register = { cr = false } },
-        ["'"] = { action = 'closeopen', pair = "''", neigh_pattern = '[^%w\\\'][^%w%%%\'%"%.%`%$%\\]', register = { cr = false } },
-        ['`'] = { action = 'closeopen', pair = '``', neigh_pattern = '[^\\`][^%w%%%\'%"%.%`%$%\\]',     register = { cr = false } },
-      },
-      -- stylua: ignore end
-    },
-    config = function(_, opts)
-      -- Stolen shamelessly from Folke in LazyVim. See
-      -- https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/util/mini.lua
-      local pairs = require('mini.pairs')
-      pairs.setup(opts)
-      local open = pairs.open
-      ---@diagnostic disable-next-line: duplicate-set-field
-      pairs.open = function(pair, neigh_pattern)
-        if vim.fn.getcmdline() ~= '' then
-          return open(pair, neigh_pattern)
-        end
-        local o, c = pair:sub(1, 1), pair:sub(2, 2)
-        local line = vim.api.nvim_get_current_line()
-        local cursor = vim.api.nvim_win_get_cursor(0)
-        local next = line:sub(cursor[2] + 1, cursor[2] + 1)
-        local before = line:sub(1, cursor[2])
-
-        -- In Markdown files, use special handling for ``` (multiline code blocks)
-        if vim.bo.filetype == 'markdown' and o == '`' and before:match('^%s*``') then
-          return '`\n```' .. vim.api.nvim_replace_termcodes('<up>', true, true, true)
-        end
-
-        -- If inside a "string" treesitter node, don't do any autopairing
-        local ok, captures =
-          pcall(vim.treesitter.get_captures_at_pos, 0, cursor[1] - 1, math.max(cursor[2] - 1, 0))
-        for _, capture in ipairs(ok and captures or {}) do
-          if vim.tbl_contains({ 'string' }, capture.capture) then
-            return o
-          end
-        end
-
-        -- If the next character is the closing char AND there's more closings than openings
-        -- on this line, skip autopairing (only if opening and closing chars are different)
-        if next == c and c ~= o then
-          local _, count_open = line:gsub(vim.pesc(pair:sub(1, 1)), '')
-          local _, count_close = line:gsub(vim.pesc(pair:sub(2, 2)), '')
-          if count_close > count_open then
-            return o
-          end
-        end
-
-        -- Use original mini.pairs open() method
-        return open(pair, neigh_pattern)
-      end
-    end,
+    -- ngl, I feel like autopairs gets in the way more than it helps. I can turn
+    -- this back on if I change my mind about that.
+    enabled = false,
+    -- event = 'VeryLazy',
+    -- opts = {
+    --   modes = { insert = true, command = true, terminal = false },
+    --   -- stylua: ignore start
+    --   -- the neigh_pattern format is two regexp's, for neighboring chars.
+    --   -- I.e. '..' is any|any, '.[^\\]' is any|not-backslash
+    --   -- https://www.lua.org/manual/5.1/manual.html#5.4.1
+    --   mappings = {
+    --     -- Skip open autopairing after a backslash and before almost anything
+    --     ['('] = { action = 'open', pair = '()', neigh_pattern = '[^\\][^%w%%%\'%"%.%`%$%\\]' },
+    --     ['['] = { action = 'open', pair = '[]', neigh_pattern = '[^\\][^%w%%%\'%"%.%`%$%\\]' },
+    --     ['{'] = { action = 'open', pair = '{}', neigh_pattern = '[^\\][^%w%%%\'%"%.%`%$%\\]' },
+    --
+    --     -- Only skip closing after a backslash
+    --     [')'] = { action = 'close', pair = '()', neigh_pattern = '[^\\].' },
+    --     [']'] = { action = 'close', pair = '[]', neigh_pattern = '[^\\].' },
+    --     ['}'] = { action = 'close', pair = '{}', neigh_pattern = '[^\\].' },
+    --
+    --     -- Skip autopairing quotes after themselves and before almost anything
+    --     ['"'] = { action = 'closeopen', pair = '""', neigh_pattern = '[^%w\\"][^%w%%%\'%"%.%`%$%\\]', register = { cr = false } },
+    --     ["'"] = { action = 'closeopen', pair = "''", neigh_pattern = '[^%w\\\'][^%w%%%\'%"%.%`%$%\\]', register = { cr = false } },
+    --     ['`'] = { action = 'closeopen', pair = '``', neigh_pattern = '[^\\`][^%w%%%\'%"%.%`%$%\\]',     register = { cr = false } },
+    --   },
+    --   -- stylua: ignore end
+    -- },
+    -- config = function(_, opts)
+    --   -- Stolen shamelessly from Folke in LazyVim. See
+    --   -- https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/util/mini.lua
+    --   local pairs = require('mini.pairs')
+    --   pairs.setup(opts)
+    --   local open = pairs.open
+    --   ---@diagnostic disable-next-line: duplicate-set-field
+    --   pairs.open = function(pair, neigh_pattern)
+    --     if vim.fn.getcmdline() ~= '' then
+    --       return open(pair, neigh_pattern)
+    --     end
+    --     local o, c = pair:sub(1, 1), pair:sub(2, 2)
+    --     local line = vim.api.nvim_get_current_line()
+    --     local cursor = vim.api.nvim_win_get_cursor(0)
+    --     local next = line:sub(cursor[2] + 1, cursor[2] + 1)
+    --     local before = line:sub(1, cursor[2])
+    --
+    --     -- In Markdown files, use special handling for ``` (multiline code blocks)
+    --     if vim.bo.filetype == 'markdown' and o == '`' and before:match('^%s*``') then
+    --       return '`\n```' .. vim.api.nvim_replace_termcodes('<up>', true, true, true)
+    --     end
+    --
+    --     -- If inside a "string" treesitter node, don't do any autopairing
+    --     local ok, captures =
+    --       pcall(vim.treesitter.get_captures_at_pos, 0, cursor[1] - 1, math.max(cursor[2] - 1, 0))
+    --     for _, capture in ipairs(ok and captures or {}) do
+    --       if vim.tbl_contains({ 'string' }, capture.capture) then
+    --         return o
+    --       end
+    --     end
+    --
+    --     -- If the next character is the closing char AND there's more closings than openings
+    --     -- on this line, skip autopairing (only if opening and closing chars are different)
+    --     if next == c and c ~= o then
+    --       local _, count_open = line:gsub(vim.pesc(pair:sub(1, 1)), '')
+    --       local _, count_close = line:gsub(vim.pesc(pair:sub(2, 2)), '')
+    --       if count_close > count_open then
+    --         return o
+    --       end
+    --     end
+    --
+    --     -- Use original mini.pairs open() method
+    --     return open(pair, neigh_pattern)
+    --   end
+    -- end,
   },
 
   {
