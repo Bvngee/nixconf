@@ -3,7 +3,9 @@
   home.packages = with pkgs; [
     ripgrep
     fd
-    nix-prefetch-scripts
+    nix-prefetch-scripts # for bzr, cvs, git, hg, svn
+    nix-prefetch-github # for fetchFromGitHub
+    nix-prefetch-docker # for dockerTools.pullImage
     nix-output-monitor # nom
     file
     btop
