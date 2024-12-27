@@ -20,9 +20,9 @@ return {
 
   -- Note:
   -- e textobject is snake_case / camelCase
-  -- counts are supported, so smth like "c2inq" does "change in 2 next "
+  -- counts are supported, so smth like "c2inq" does "change in 2nd next quote"
   -- b textobject is an alias for }]) aka "brackets"
-  -- q textobject is an alias for "'`
+  -- q textobject is an alias for "'` aka "quotes"
   -- u/U is inside function call (arguments), aka "usage"
   -- with mini.comment, there is also a gc textobject for comments (no a/i support)
   {
@@ -64,17 +64,55 @@ return {
             a = { '@block.outer', '@conditional.outer', '@loop.outer' },
             i = { '@block.inner', '@conditional.inner', '@loop.inner' },
           }),
-          f = ai.gen_spec.treesitter({ a = '@function.outer', i = '@function.inner' }), -- function
+          f = ai.gen_spec.treesitter({ a = '@function.outer', i = '@function.inner' }), -- function DEFINITION
+          u = ai.gen_spec.function_call(), -- u for "Usage" (function CALL)
+          U = ai.gen_spec.function_call({ name_pattern = '[%w_]' }), -- same as 'u' but without dot in function name
+
+          -- These seem to be too spotty / unsupported in language queries to be
+          -- worthy of replacing the regex-based defaults in mini.ai
+          -- ['='] = ai.gen_spec.treesitter({
+          --   a = '@assignment.outer', -- these don't account for dicts/attributes (eg lua tables)
+          --   i = '@assignment.inner',
+          -- }),
+          -- a = ai.gen_spec.treesitter({ a = '@parameter.outer', i = '@parameter.inner' }),
+
           c = ai.gen_spec.treesitter({ a = '@class.outer', i = '@class.inner' }), -- class
           t = { '<([%p%w]-)%f[^<%w][^<>]->.-</%1>', '^<.->().*()</[^/]->$' }, -- tags
           d = { '%f[%d]%d+' }, -- digits
-          e = { -- snake_case_words, camelCaseWords, in lower and upper case
+          e = { -- snake_case, camelCase, PascalCase, etc; all capitalizations
+            -- Lua 5.1 character classes and the undocumented frontier pattern:
+            -- https://www.lua.org/manual/5.1/manual.html#5.4.1
+            -- http://lua-users.org/wiki/FrontierPattern
             {
-              '%u[%l%d]+%f[^%l%d]',
-              '%f[%S][%a%d]+%f[^%a%d]',
-              '%f[%P][%a%d]+%f[^%a%d]',
-              '^[%a%d]+%f[^%a%d]',
+              -- Matches a single uppercase letter followed by 1+ lowercase
+              -- letters. This covers:
+              -- - PascalCaseWords (or the latter part of camelCaseWords)
+              '%u[%l%d]+%f[^%l%d]', -- An uppercase letter, 1+ lowercase letters, to end of lowercase letters
+
+              -- Matches lowercase letters up until not lowercase letter.
+              -- This covers:
+              -- - start of camelCaseWords (just the `camel`)
+              -- - snake_case_words in lowercase
+              -- - regular lowercase words
+              '%f[^%s%p][%l%d]+%f[^%l%d]', -- after whitespace/punctuation, 1+ lowercase letters, to end of lowercase letters
+              '^[%l%d]+%f[^%l%d]', -- after beginning of line, 1+ lowercase letters, to end of lowercase letters
+
+              -- Matches uppercase or lowercase letters up until not letters.
+              -- This covers:
+              -- - SNAKE_CASE_WORDS in uppercase
+              -- - Snake_Case_Words in titlecase
+              -- - regular UPPERCASE words
+              -- (it must be both uppercase and lowercase otherwise it will
+              -- match just the first letter of PascalCaseWords)
+              '%f[^%s%p][%a%d]+%f[^%a%d]', -- after whitespace/punctuation, 1+ letters, to end of letters
+              '^[%a%d]+%f[^%a%d]', -- after beginning of line, 1+ letters, to end of letters 
             },
+            -- { -- original version from mini.ai help file:
+            --   '%u[%l%d]+%f[^%l%d]',
+            --   '%f[%S][%l%d]+%f[^%l%d]',
+            --   '%f[%P][%l%d]+%f[^%l%d]',
+            --   '^[%l%d]+%f[^%l%d]',
+            -- },
             '^().*()$',
           },
           -- i = LazyVim.mini.ai_indent, -- indent -- requires mini.indent
@@ -86,8 +124,6 @@ return {
             }
             return { from = from, to = to }
           end,
-          u = ai.gen_spec.function_call(), -- u for "Usage"
-          U = ai.gen_spec.function_call({ name_pattern = '[%w_]' }), -- without dot in function name
 
           -- By default, closing and opening bracket types differ, where closing bracket includes whitespace
           -- in the textobject and opening doesn't. I hate that, I wan't them to behave the same and always
@@ -145,77 +181,77 @@ return {
     'echasnovski/mini.pairs',
     -- ngl, I feel like autopairs gets in the way more than it helps. I can turn
     -- this back on if I change my mind about that.
-    enabled = false,
-    -- event = 'VeryLazy',
-    -- opts = {
-    --   modes = { insert = true, command = true, terminal = false },
-    --   -- stylua: ignore start
-    --   -- the neigh_pattern format is two regexp's, for neighboring chars.
-    --   -- I.e. '..' is any|any, '.[^\\]' is any|not-backslash
-    --   -- https://www.lua.org/manual/5.1/manual.html#5.4.1
-    --   mappings = {
-    --     -- Skip open autopairing after a backslash and before almost anything
-    --     ['('] = { action = 'open', pair = '()', neigh_pattern = '[^\\][^%w%%%\'%"%.%`%$%\\]' },
-    --     ['['] = { action = 'open', pair = '[]', neigh_pattern = '[^\\][^%w%%%\'%"%.%`%$%\\]' },
-    --     ['{'] = { action = 'open', pair = '{}', neigh_pattern = '[^\\][^%w%%%\'%"%.%`%$%\\]' },
-    --
-    --     -- Only skip closing after a backslash
-    --     [')'] = { action = 'close', pair = '()', neigh_pattern = '[^\\].' },
-    --     [']'] = { action = 'close', pair = '[]', neigh_pattern = '[^\\].' },
-    --     ['}'] = { action = 'close', pair = '{}', neigh_pattern = '[^\\].' },
-    --
-    --     -- Skip autopairing quotes after themselves and before almost anything
-    --     ['"'] = { action = 'closeopen', pair = '""', neigh_pattern = '[^%w\\"][^%w%%%\'%"%.%`%$%\\]', register = { cr = false } },
-    --     ["'"] = { action = 'closeopen', pair = "''", neigh_pattern = '[^%w\\\'][^%w%%%\'%"%.%`%$%\\]', register = { cr = false } },
-    --     ['`'] = { action = 'closeopen', pair = '``', neigh_pattern = '[^\\`][^%w%%%\'%"%.%`%$%\\]',     register = { cr = false } },
-    --   },
-    --   -- stylua: ignore end
-    -- },
-    -- config = function(_, opts)
-    --   -- Stolen shamelessly from Folke in LazyVim. See
-    --   -- https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/util/mini.lua
-    --   local pairs = require('mini.pairs')
-    --   pairs.setup(opts)
-    --   local open = pairs.open
-    --   ---@diagnostic disable-next-line: duplicate-set-field
-    --   pairs.open = function(pair, neigh_pattern)
-    --     if vim.fn.getcmdline() ~= '' then
-    --       return open(pair, neigh_pattern)
-    --     end
-    --     local o, c = pair:sub(1, 1), pair:sub(2, 2)
-    --     local line = vim.api.nvim_get_current_line()
-    --     local cursor = vim.api.nvim_win_get_cursor(0)
-    --     local next = line:sub(cursor[2] + 1, cursor[2] + 1)
-    --     local before = line:sub(1, cursor[2])
-    --
-    --     -- In Markdown files, use special handling for ``` (multiline code blocks)
-    --     if vim.bo.filetype == 'markdown' and o == '`' and before:match('^%s*``') then
-    --       return '`\n```' .. vim.api.nvim_replace_termcodes('<up>', true, true, true)
-    --     end
-    --
-    --     -- If inside a "string" treesitter node, don't do any autopairing
-    --     local ok, captures =
-    --       pcall(vim.treesitter.get_captures_at_pos, 0, cursor[1] - 1, math.max(cursor[2] - 1, 0))
-    --     for _, capture in ipairs(ok and captures or {}) do
-    --       if vim.tbl_contains({ 'string' }, capture.capture) then
-    --         return o
-    --       end
-    --     end
-    --
-    --     -- If the next character is the closing char AND there's more closings than openings
-    --     -- on this line, skip autopairing (only if opening and closing chars are different)
-    --     if next == c and c ~= o then
-    --       local _, count_open = line:gsub(vim.pesc(pair:sub(1, 1)), '')
-    --       local _, count_close = line:gsub(vim.pesc(pair:sub(2, 2)), '')
-    --       if count_close > count_open then
-    --         return o
-    --       end
-    --     end
-    --
-    --     -- Use original mini.pairs open() method
-    --     return open(pair, neigh_pattern)
-    --   end
-    -- end,
+    -- enabled = true,
+    event = 'VeryLazy',
+    opts = {
+      modes = { insert = true, command = false, terminal = false },
+      -- stylua: ignore start
+      -- the neigh_pattern format is two regexp's, for neighboring chars.
+      -- I.e. '..' is any|any, '.[^\\]' is any|not-backslash
+      -- https://www.lua.org/manual/5.1/manual.html#5.4.1
+      mappings = {
+        -- Skip open autopairing after a backslash and before almost anything
+        ['('] = { action = 'open', pair = '()', neigh_pattern = '[^\\][^%w%%%\'%"%.%`%$%\\]' },
+        ['['] = { action = 'open', pair = '[]', neigh_pattern = '[^\\][^%w%%%\'%"%.%`%$%\\]' },
+        ['{'] = { action = 'open', pair = '{}', neigh_pattern = '[^\\][^%w%%%\'%"%.%`%$%\\]' },
+
+        -- Only skip closing after a backslash
+        [')'] = { action = 'close', pair = '()', neigh_pattern = '[^\\].' },
+        [']'] = { action = 'close', pair = '[]', neigh_pattern = '[^\\].' },
+        ['}'] = { action = 'close', pair = '{}', neigh_pattern = '[^\\].' },
+
+        -- Skip autopairing quotes after themselves and before almost anything
+        ['"'] = { action = 'closeopen', pair = '""', neigh_pattern = '[^%w\\"][^%w%%%\'%"%.%`%$%\\]', register = { cr = false } },
+        ["'"] = { action = 'closeopen', pair = "''", neigh_pattern = '[^%w\\\'][^%w%%%\'%"%.%`%$%\\]', register = { cr = false } },
+        ['`'] = { action = 'closeopen', pair = '``', neigh_pattern = '[^\\`][^%w%%%\'%"%.%`%$%\\]',     register = { cr = false } },
+      },
+      -- stylua: ignore end
+    },
+    config = function(_, opts)
+      -- Stolen shamelessly from Folke in LazyVim. See
+      -- https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/util/mini.lua
+      local pairs = require('mini.pairs')
+      pairs.setup(opts)
+      local open = pairs.open
+      ---@diagnostic disable-next-line: duplicate-set-field
+      pairs.open = function(pair, neigh_pattern)
+        if vim.fn.getcmdline() ~= '' then
+          return open(pair, neigh_pattern)
+        end
+        local o, c = pair:sub(1, 1), pair:sub(2, 2)
+        local line = vim.api.nvim_get_current_line()
+        local cursor = vim.api.nvim_win_get_cursor(0)
+        local next = line:sub(cursor[2] + 1, cursor[2] + 1)
+        local before = line:sub(1, cursor[2])
+
+        -- In Markdown files, use special handling for ``` (multiline code blocks)
+        if vim.bo.filetype == 'markdown' and o == '`' and before:match('^%s*``') then
+          return '`\n```' .. vim.api.nvim_replace_termcodes('<up>', true, true, true)
+        end
+
+        -- If inside a "string" treesitter node, don't do any autopairing
+        local ok, captures =
+          pcall(vim.treesitter.get_captures_at_pos, 0, cursor[1] - 1, math.max(cursor[2] - 1, 0))
+        for _, capture in ipairs(ok and captures or {}) do
+          if vim.tbl_contains({ 'string' }, capture.capture) then
+            return o
+          end
+        end
+
+        -- If the next character is the closing char AND there's more closings than openings
+        -- on this line, skip autopairing (only if opening and closing chars are different)
+        if next == c and c ~= o then
+          local _, count_open = line:gsub(vim.pesc(pair:sub(1, 1)), '')
+          local _, count_close = line:gsub(vim.pesc(pair:sub(2, 2)), '')
+          if count_close > count_open then
+            return o
+          end
+        end
+
+        -- Use original mini.pairs open() method
+        return open(pair, neigh_pattern)
+      end
+    end,
   },
 
   {
