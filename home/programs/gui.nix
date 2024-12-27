@@ -41,6 +41,7 @@
     snapshot
     helvum # pipewire graph thingy
     pavucontrol
+    showmethekey # shows keys typed in a little gui
 
     # Super heavy apps
     (if config.profile.hostname == "pc" then davinci-resolve-studio else davinci-resolve)
