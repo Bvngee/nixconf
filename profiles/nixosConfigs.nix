@@ -84,6 +84,8 @@ in
       ./precision/profile.nix
       ./precision/nixos
 
+      ../nixos/programs/gaming.nix
+
       ../nixos/kde.nix
       ../nixos/hardware/vms.nix
       ../nixos/hardware/ssd.nix
