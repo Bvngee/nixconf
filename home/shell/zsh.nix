@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, pkgsUnstable, ... }:
 let
   cfg = config.programs.zsh;
   relToDotDir = file: (lib.optionalString (cfg.dotDir != null) (cfg.dotDir + "/")) + file;
@@ -78,6 +78,9 @@ in
       }
       zle -N fancy-ctrl-z
       bindkey '^Z' fancy-ctrl-z
+
+      # https://github.com/haslersn/any-nix-shell (zsh-nix-shell alternative)
+      ${pkgsUnstable.any-nix-shell}/bin/any-nix-shell zsh | source /dev/stdin
     '';
 
     autosuggestion.enable = true;
@@ -97,11 +100,6 @@ in
         name = "zsh-autopair";
         file = "share/zsh/zsh-autopair/autopair.zsh";
         src = pkgs.zsh-autopair;
-      }
-      {
-        name = "zsh-nix-shell";
-        file = "nix-shell.plugin.zsh";
-        src = pkgs.zsh-nix-shell;
       }
       # too complex, doesn't integrate well with other plugins, seems hard to configure
       # note: requires `enableCompletion = true;` # from future: did I mean "= false" there? I forget lol

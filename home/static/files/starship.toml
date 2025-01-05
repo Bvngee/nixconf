@@ -3,7 +3,7 @@
 
 command_timeout = 1500 # milliseconds
 add_newline = false
-format = "[](fg:4)$directory$hostname[ ](bg:4)[](fg:6 bg:4)$git_branch$git_status[](fg:2 bg:6)$nix_shell[](fg:2) "
+format = "[](fg:4)$directory$hostname[ ](bg:4)[](fg:6 bg:4)$git_branch$git_status[](fg:2 bg:6)${custom.nix}[](fg:2) "
 
 [hostname]
 format = "[(@$hostname)](bg:4 fg:0)"
@@ -22,6 +22,25 @@ format = "[( $branch )](bg:6 fg:0)"
 [git_status]
 format = "[($all_status$ahead_behind )](bg:6 fg:0)"
 
-[nix_shell]
-format = "[( $name )](bg:2 fg:0)"
+# If in an interactive nix shell (new or old cli) and any-nix-shell is
+# installed, use that for the nix_shell string. Otherwise use the default
+# starship module
+[custom.nix]
+format = "[( $output )](bg:2 fg:0)"
+command = """
+if ([[ "$name" == "shell" || $IN_NIX_RUN ]]) && [[ "$ANY_NIX_SHELL_PKGS" != "" ]]; then
+    str="$(echo $ANY_NIX_SHELL_PKGS | xargs)"
+    if [ ${#str} -gt 20 ]; then
+        str="${str:0:20}…"
+    fi
+    echo \\"$str\\"
+else
+    starship module nix_shell
+fi
+"""
+when = true
 
+[nix_shell]
+# format = "[( $name )](bg:2 fg:0)" # original. used before custom.nix was made
+format = "$name"
+heuristic = true
