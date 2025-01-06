@@ -7,15 +7,12 @@ return {
   config = function()
     local configs = require('nvim-treesitter.configs')
     configs.setup({
+      -- stylua: ignore
       ensure_installed = {
-        'c',
-        'lua',
-        'vim',
-        'vimdoc',
-        'query',
-        'markdown',
-        'markdown_inline',
-        -- 'nix', 'bash', 'rust', 'javascript', 'typescript', 'zig', 'cmake', 'meson', 'html', 'css', 'json', 'astro',
+        -- critical
+        'c', 'lua', 'vim', 'vimdoc', 'query', 'markdown', 'markdown_inline',
+        -- extra
+        'nix', 'bash', 'rust', 'javascript', 'typescript', 'zig', 'cmake', 'meson', 'html', 'css', 'json', 'astro',
       },
       sync_install = false,
       auto_install = true,
@@ -34,6 +31,8 @@ return {
           if ok and stats and stats.size > max_filesize then
             return true
           else
+            -- TODO: this is having false positives? Maybe when needed
+            -- treesitter parsers aren't installed?
             vim.notify('Treesitter highlights disabled due to file size!', vim.log.levels.INFO)
           end
         end,
