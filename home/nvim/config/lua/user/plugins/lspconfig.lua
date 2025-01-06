@@ -96,9 +96,11 @@ return {
           '/home/user/.cache/jdtls/workspace',
         },
       },
-      astro = { -- npm i @astrojs/language-server
-        cmd = { 'npx', 'astro-ls', '--stdio' } -- is this acceptable?
+      -- previously did `npm i @astrojs/language-server`, now I use nixpkgs
+      astro = {
+        -- cmd = { 'npx', 'astro-ls', '--stdio' } -- for project-local installation
       },
+      svelte = {},
       mesonlsp = {},
     }
 

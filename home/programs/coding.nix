@@ -36,7 +36,7 @@
       pkg-config
       valgrind
       kdePackages.kcachegrind
-      pkgsUnstable.mesonlsp
+      pkgsUnstable.mesonlsp # 24.11
 
       # Rust
       rustup
@@ -69,8 +69,10 @@
       # JS/TS
       nodejs
       nodePackages.typescript
-      nodePackages.typescript-language-server
+      nodePackages.typescript-language-server # wraps tsserver
       tailwindcss-language-server
+      pkgsUnstable.astro-language-server # 24.11
+      pkgsUnstable.svelte-language-server # 24.11
       lemminx # xml lsp
       nodePackages.eslint
       nodePackages.prettier
