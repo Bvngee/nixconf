@@ -68,6 +68,8 @@
     gcm = "git commit -m";
     gca = "git commit --amend";
     gs = "git status";
+    gsw = "git switch";
+    gst = "git stash";
     gd = "git diff";
     gds = "git diff --staged";
     gls = "git ls-files";
