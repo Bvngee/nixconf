@@ -71,6 +71,7 @@
       nodePackages.typescript
       nodePackages.typescript-language-server # wraps tsserver
       tailwindcss-language-server
+      vscode-langservers-extracted # includes html/css/json/eslint
       pkgsUnstable.astro-language-server # 24.11
       pkgsUnstable.svelte-language-server # 24.11
       lemminx # xml lsp

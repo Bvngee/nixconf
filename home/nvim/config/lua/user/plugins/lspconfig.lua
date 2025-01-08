@@ -102,6 +102,13 @@ return {
       },
       svelte = {},
       mesonlsp = {},
+
+      -- from vscode-langservers-extracted:
+      cssls = {},
+      html = {},
+      jsonls = {}, -- no idea what this does ngl lol
+      --eslint = {} -- do I want this (for js/ts)?
+
     }
 
     local lspconfig = require('lspconfig')
