@@ -31,6 +31,7 @@
       libuuid
       libxkbcommon
       libxml2
+      libxslt
       libsecret
       mesa
       nspr

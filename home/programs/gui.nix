@@ -1,4 +1,23 @@
-{ config, pkgs, ... }: {
+{ config, pkgs, pkgsUnstable, ... }:
+let
+  # must download Packet_Tracer822_amd64_signed.deb manually
+  packettracerUnfixed = pkgsUnstable.ciscoPacketTracer8.override {
+    packetTracerSource = /home/jack/Downloads/Packet_Tracer822_amd64_signed.deb;
+  };
+  # fixes some weird collision with zoom-us. See pkgs/by-name/ci/ciscoPacketTracer8/package.nix
+  packettracer = packettracerUnfixed.overrideAttrs {
+    installPhase = ''
+      runHook preInstall
+
+      mkdir -p $out/bin
+      ln -s ${packettracerUnfixed}/bin/packettracer8 $out/bin/packettracer8
+
+      runHook postInstall
+
+    '';
+  };
+in
+{
   home.packages = with pkgs; [
     # Image, video
     libsForQt5.gwenview
@@ -43,6 +62,8 @@
     pavucontrol
     showmethekey # shows keys typed in a little gui
 
+    packettracer # for CSE 80N
+
     # Super heavy apps
     (if config.profile.hostname == "pc" then davinci-resolve-studio else davinci-resolve)
 
@@ -50,9 +71,7 @@
     # kicad-small # this excludes the kicad-packages3D library: https://gitlab.com/kicad/libraries/kicad-packages3D
   ];
 
-  programs = {
-  };
+  programs = { };
 
-  services = {
-  };
+  services = { };
 }
