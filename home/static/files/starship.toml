@@ -3,7 +3,7 @@
 
 command_timeout = 1500 # milliseconds
 add_newline = false
-format = "[](fg:4)$directory$hostname[ ](bg:4)[](fg:6 bg:4)$git_branch$git_status[](fg:2 bg:6)${custom.nix}[](fg:2) "
+format = "[](fg:4)$directory$hostname[ ](bg:4)[](fg:6 bg:4)$git_branch$git_status[](fg:2 bg:6)${custom.nix}$python[](fg:2) "
 
 [hostname]
 format = "[(@$hostname)](bg:4 fg:0)"
@@ -44,3 +44,6 @@ when = true
 # format = "[( $name )](bg:2 fg:0)" # original. used before custom.nix was made
 format = "$name"
 heuristic = true
+
+[python]
+format = '[( ${pyenv_prefix}$virtualenv )](bg:2 fg:0)'
