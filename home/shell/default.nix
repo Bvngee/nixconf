@@ -12,6 +12,8 @@
     cd = "z";
     cdi = "zi";
 
+    lsa = "ls -a";
+
     # a little overkill but hey why not
     ".." = "cd ..";
     "..." = "cd ../..";
