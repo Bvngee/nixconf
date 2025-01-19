@@ -1,16 +1,17 @@
 { config, pkgs, pkgsUnstable, ... }:
 let
-  # must download Packet_Tracer822_amd64_signed.deb manually
-  packettracerUnfixed = pkgsUnstable.ciscoPacketTracer8.override {
-    packetTracerSource = /home/jack/Downloads/Packet_Tracer822_amd64_signed.deb;
+  # Cisco PacketTracer: must download Packet_Tracer822_amd64_signed.deb manually
+  ptDebPath = /home/jack/Downloads/Packet_Tracer822_amd64_signed.deb;
+  ptUnfixed = pkgsUnstable.ciscoPacketTracer8.override {
+    packetTracerSource = ptDebPath;
   };
   # fixes some weird collision with zoom-us. See pkgs/by-name/ci/ciscoPacketTracer8/package.nix
-  packettracer = packettracerUnfixed.overrideAttrs {
+  pt = ptUnfixed.overrideAttrs {
     installPhase = ''
       runHook preInstall
 
       mkdir -p $out/bin
-      ln -s ${packettracerUnfixed}/bin/packettracer8 $out/bin/packettracer8
+      ln -s ${ptUnfixed}/bin/packettracer8 $out/bin/packettracer8
 
       runHook postInstall
 
@@ -62,14 +63,17 @@ in
     pavucontrol
     showmethekey # shows keys typed in a little gui
 
-    packettracer # for CSE 80N
-
-    # Super heavy apps
+    # Davinci Resolve only lets you use your Studio key on a select # of machines
     (if config.profile.hostname == "pc" then davinci-resolve-studio else davinci-resolve)
 
     # not using: I found this has some broken parts: https://github.com/NixOS/nixpkgs/issues/347150
     # kicad-small # this excludes the kicad-packages3D library: https://gitlab.com/kicad/libraries/kicad-packages3D
-  ];
+
+    # I need Cisco PacketTracer for CSE 80N, however it requires logging in to
+    # netacad.com download the .deb file manually. Since I don't always need it
+    # on every machine I'll just make it optional:
+  ] ++ lib.optional (builtins.pathExists ptDebPath) pt;
+
 
   programs = { };
 
