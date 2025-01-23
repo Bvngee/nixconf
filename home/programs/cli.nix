@@ -2,7 +2,7 @@
   # Cli/Tui tools and commands
   home.packages = with pkgs; [
     ripgrep
-    fd
+    tree
     nix-prefetch-scripts # for bzr, cvs, git, hg, svn
     nix-prefetch-github # for fetchFromGitHub
     nix-prefetch-docker # for dockerTools.pullImage
@@ -18,7 +18,6 @@
     zip
     jq
     yq # (jq but for yaml/xml/toml)
-    fzf
     zf
     killall
     wget
@@ -44,6 +43,35 @@
   ];
 
   programs = {
+    # cli fuzzy finder with nice shell integrations
+    fzf = {
+      enable = true;
+      enableZshIntegration = true;
+      defaultCommand = "fd --hidden"; # Using fd makes fzf waaaay faster
+      defaultOptions = [
+        "--height 40%"
+        "--bind 'ctrl-u:half-page-up'"
+        "--bind 'ctrl-d:half-page-down'"
+        "--bind 'change:top'"
+      ];
+
+      # for ALT-C keybind (cd)
+      changeDirWidgetCommand = "fd --no-hidden --type d";
+      # too noisy:
+      # changeDirWidgetOptions = "--preview 'eza --icons --tree {} | head -200'";
+
+      # for CTRL-T keybind (find file or directory)
+      fileWidgetCommand = "fd --hidden"; # this shows hidden files, do I want that?
+      # for CTRL-R keybind (command history search)
+      historyWidgetOptions = [ "--tiebreak=begin,chunk" ];
+    };
+
+    # faster/simpler `find` alternative
+    fd = {
+      enable = true;
+      extraOptions = [ "--hidden" ];
+    };
+
     # fancy ls
     eza = {
       enable = true;

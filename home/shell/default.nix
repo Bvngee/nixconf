@@ -1,4 +1,4 @@
-{ pkgs, ... }: {
+{ ... }: {
   imports = [
     ./zsh.nix
     ./starship.nix
@@ -26,11 +26,26 @@
 
     # not sure which one I like yet (if any)
     js = "joshuto";
+    y = "yazi";
     yy = "yazi";
   };
 
   home.sessionVariables = {
-    FZF_DEFAULT_COMMAND = "${pkgs.fd}/bin/fd"; # makes fzf waaaay faster.
+    # this is supposed to make colors and eg. mouse inputs work, tbh though idk
+    # if it does anything
+    LESS = "-RF";
   };
+
+  # GNU readline library used by many repls (eg. python, gdb)
+  programs.readline = {
+    enable = true;
+    includeSystemConfig = true;
+    # Do I want this? It's kinda cool but feels a little hacky/weird
+    extraConfig = ''
+      set editing-mode vi
+    '';
+  };
+
+  # home/cli.nix has lots more program configurations related to the shell!
 
 }

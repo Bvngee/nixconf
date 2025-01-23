@@ -10,6 +10,7 @@ in
     dotDir = ".config/zsh";
     history = {
       path = "${config.xdg.dataHome}/zsh_history";
+      size = 100000; # I like my history
       expireDuplicatesFirst = true;
       ignoreDups = true;
       ignoreSpace = true;
@@ -37,6 +38,12 @@ in
         # needs to be here to work around zsh-vi-mode
         bindkey '^ ' autosuggest-accept
         bindkey '^y' autosuggest-accept
+        bindkey 'A' autosuggest-clear # fixes conflict with zsh-vi-mode!!
+
+
+        # for some reason it seems like this is the only keybind that gets
+        # overriden by ZVM. /shrug
+        bindkey -M viins '^R' fzf-history-widget
       }
 
       # if ZSH_PROFILE is set, do profiling
@@ -78,6 +85,25 @@ in
       }
       zle -N fancy-ctrl-z
       bindkey '^Z' fancy-ctrl-z
+
+      # https://junegunn.github.io/fzf/tips/ripgrep-integration/#wrap-up
+      rgi() (
+        RELOAD='reload:rg --column --color=always --smart-case {q} || :'
+        OPENER='if [[ $FZF_SELECT_COUNT -eq 0 ]]; then
+                  vim {1} +{2}     # No selection. Open the current line in Vim.
+                else
+                  vim +cw -q {+f}  # Build quickfix list for the selected items.
+                fi'
+        fzf --disabled --ansi --multi \
+            --bind "start:$RELOAD" --bind "change:$RELOAD" \
+            --bind "enter:become:$OPENER" \
+            --bind "ctrl-o:execute:$OPENER" \
+            --bind 'alt-a:select-all,alt-d:deselect-all,ctrl-/:toggle-preview' \
+            --delimiter : \
+            --preview 'bat --style=full --color=always --highlight-line {2} {1}' \
+            --preview-window '~4,+{2}+4/3,<80(up)' \
+            --query "$*"
+      )
 
       # https://github.com/haslersn/any-nix-shell (zsh-nix-shell alternative)
       ${pkgsUnstable.any-nix-shell}/bin/any-nix-shell zsh | source /dev/stdin
