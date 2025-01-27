@@ -81,12 +81,14 @@ map('n', '<C-w>x', '<C-w>s')
 map('t', '<Esc><Esc>', '<C-\\><C-n>')
 
 -- keep screen centered after large movements
-map('n', '<C-u>', '<C-u>zz')
-map('n', '<C-d>', '<C-d>zz')
-map('n', '<C-f>', '<C-f>zz')
-map('n', '<C-b>', '<C-b>zz')
-map('n', 'n', 'nzzzv')
-map('n', 'N', 'Nzzzv')
+-- im starting to think it might be more annoying than it is helpful?
+-- map('n', '<C-u>', '<C-u>zz')
+-- map('n', '<C-d>', '<C-d>zz')
+-- map('n', '<C-f>', '<C-f>zz')
+-- map('n', '<C-b>', '<C-b>zz')
+-- turns out this is really annoying when just using search to navigate
+-- map('n', 'n', 'nzzzv')
+-- map('n', 'N', 'Nzzzv')
 
 -- open quickfix/location list, only if populated
 -- note: can be cleared with `:cexpr []`
