@@ -25,6 +25,8 @@
   # ~/.nix-profile/share/applications/nvim.desktop for HM) with a copy that sets
   # Terminal=False and launches neovim with $TERMINAL instead of letting whatever
   # the launching application is choose the terminal emulator
+
+  # TODO: THIS DOES NOT WORK WITH SYSTEMD-STARTED THUNAR
   home.file.".local/share/applications/nvim.desktop".source =
     let
       nvim = config.programs.neovim.package;
