@@ -67,7 +67,7 @@
     gc = "git commit";
     gcm = "git commit -m";
     gca = "git commit --amend";
-    gb = "git branch";
+    gbr = "git branch";
     gs = "git status";
     gsw = "git switch";
     gst = "git stash";
