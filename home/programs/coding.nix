@@ -18,6 +18,14 @@
           chmod +x $new_file
         done
       '');
+
+      # I wrote a blog post about this! https://bvngee.com/blogs/clangd-embedded-development
+      # I don't need all clang-tools to be unwrapped, only really clangd
+      # TODO(future me): remove when PRs/Issues are resolved
+      clangdUnwrapped = pkgs.runCommand "clangdUnwrapped" {} ''
+        mkdir -p $out/bin
+        ln -s ${pkgs.clang.cc}/bin/clangd $out/bin/clangd-unwrapped
+      '';
     in
     with pkgs; [
       # IDEs and Editors
@@ -29,6 +37,7 @@
       gcc13 # stdenv.cc?
       gnumake
       clang-tools_17
+      clangdUnwrapped 
       gdb
       meson
       ninja

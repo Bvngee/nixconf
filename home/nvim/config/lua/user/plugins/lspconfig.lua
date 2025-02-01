@@ -73,13 +73,15 @@ return {
       rust_analyzer = {},
       clangd = {
         cmd = {
-          'clangd',
+          'clangd-unwrapped', -- see https://bvngee.com/blogs/clangd-embedded-development
+          '--query-driver=**', -- whitelists all compiler binaries. Technically a security risk, but I'm usually working in trusted environments
+          -- '--compile-commands-dir="build/"',
+          '--enable-config', -- allows clangd to parse global or project-local configuration
           '--background-index',
           '--clang-tidy',
-          '--header-insertion=never', -- iwyu
+          '--header-insertion=never', -- iwyu is too annoying
           '--header-insertion-decorators',
-          --'--compile-commands-dir="build/"',
-          '--enable-config',
+          -- '--log=verbose',
         },
       },
       pyright = {},
@@ -108,7 +110,6 @@ return {
       html = {},
       jsonls = {}, -- no idea what this does ngl lol
       --eslint = {} -- do I want this (for js/ts)?
-
     }
 
     local lspconfig = require('lspconfig')
