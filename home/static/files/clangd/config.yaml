@@ -1,0 +1,6 @@
+# https://clangd.llvm.org/config#includes
+Diagnostics:
+  # Practically every C/C++ codebase I work on has unnecessary and transitive includes. This complains too much
+  UnusedIncludes: None
+  # I would love to use Strict for personal projects (it ensures non-transitive, complete includes) but not globally
+  MissingIncludes: None
