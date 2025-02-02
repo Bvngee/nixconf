@@ -19,6 +19,7 @@
       gdk-pixbuf
       glib
       gtk3
+      gtk2
       icu
       libGL
       libappindicator-gtk3
