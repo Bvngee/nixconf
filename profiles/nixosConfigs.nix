@@ -22,6 +22,7 @@ let
     ../nixos/nix.nix
     ../nixos/nixpkgs.nix
     ../nixos/nix-ld.nix
+    ../nixos/envfs.nix
     ../nixos/users.nix
     ../nixos/greetd.nix
     ../nixos/desktop.nix
