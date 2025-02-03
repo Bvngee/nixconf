@@ -32,6 +32,7 @@
     tokei
     #nvtopPackages.full # uncomment in future? throwing annoying trace warnings
     inotify-tools
+    inotify-info # script that shows all active watches
     playerctl
     libnotify
     glib

@@ -68,7 +68,8 @@ in
     gtk2.configLocation = "${config.xdg.configHome}/gtk-2.0/gtkrc";
     # Not sure if all this antialising and hinting stuff is necessary. Taken from NotAShelf
     gtk2.extraConfig = ''
-      gtk-theme-name="${if (theme.variant == "dark") then "Adwaita-dark" else "Adwaita"}"
+      # I don't trust gtk2 apps to handle theming
+      # gtk-theme-name="${if (theme.variant == "dark") then "Adwaita-dark" else "Adwaita"}"
       gtk-xft-antialias=1
       gtk-xft-hinting=1
       gtk-xft-hintstyle="hintslight"
