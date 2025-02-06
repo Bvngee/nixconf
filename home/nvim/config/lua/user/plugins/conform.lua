@@ -16,20 +16,30 @@ return {
         lua = { 'stylua' },
         nix = { 'nixpkgs_fmt' },
         python = { 'ruff_format' },
-        markdown = { { 'prettierd', 'prettier' } },
         rust = { 'rustfmt' },
         c = { 'clang_format' },
         cpp = { 'clang_format' },
         zig = { 'zigfmt' },
 
+        -- prettier should support all these OOTB
         javascript = { { 'prettierd', 'prettier' } },
+        javascriptreact = { { 'prettierd', 'prettier' } },
         typescript = { { 'prettierd', 'prettier' } },
+        typescriptreact = { { 'prettierd', 'prettier' } },
         css = { { 'prettierd', 'prettier' } },
+        scss = { { 'prettierd', 'prettier' } },
+        less = { { 'prettierd', 'prettier' } },
         html = { { 'prettierd', 'prettier' } },
         json = { { 'prettierd', 'prettier' } },
+        jsonc = { { 'prettierd', 'prettier' } },
+        yaml = { { 'prettierd', 'prettier' } },
+        markdown = { { 'prettierd', 'prettier' } },
+        ["markdown.mdx"] = { { 'prettierd', 'prettier' } },
 
-        -- NOTE: both require their respective `prettier-plugin-x` npm packages
+        -- NOTE: these require their respective `prettier-plugin-x` npm packages
         -- installed and added to .prettierrc
+        -- TODO: investigate installing npm packages globally if they're not in
+        -- nixpkgs?
         astro = { { 'prettierd', 'prettier' } },
         toml = { { 'prettierd', 'prettier' } },
       },
@@ -40,7 +50,7 @@ return {
       prepend_args = { '--fallback-style=llvm', '--style=file' },
     }
 
-    -- TODO: In newer neovim versions this isn't needed
+    -- TODO(0.10): In newer neovim versions this isn't needed
     -- https://github.com/neovim/neovim/pull/28904
     vim.g.zig_fmt_autosave = 0
 
