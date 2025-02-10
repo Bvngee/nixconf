@@ -25,6 +25,7 @@
     socat
     dig
     traceroute
+    screen
     nmap
     lm_sensors
     usbutils
