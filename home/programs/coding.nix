@@ -1,4 +1,4 @@
-{ config, pkgs, pkgsUnstable, ... }: {
+{ pkgs, pkgsUnstable, ... }: {
   home.packages =
     let
       # Some dynamic executables are unpatched but are loaded by patched nixpkgs
@@ -22,7 +22,7 @@
       # I wrote a blog post about this! https://bvngee.com/blogs/clangd-embedded-development
       # I don't need all clang-tools to be unwrapped, only really clangd
       # TODO(future me): remove when PRs/Issues are resolved
-      clangdUnwrapped = pkgs.runCommand "clangdUnwrapped" {} ''
+      clangdUnwrapped = pkgs.runCommand "clangdUnwrapped" { } ''
         mkdir -p $out/bin
         ln -s ${pkgs.clang.cc}/bin/clangd $out/bin/clangd-unwrapped
       '';
@@ -37,7 +37,7 @@
       gcc13 # stdenv.cc?
       gnumake
       clang-tools_17
-      clangdUnwrapped 
+      clangdUnwrapped
       gdb
       meson
       ninja
@@ -59,9 +59,7 @@
       adafruit-ampy
       mpremote
 
-      # Java
-      temurin-bin-18
-      pkgsUnstable.temurin-bin-23 # TODO: nixos-24.11
+      # Java (see jdks below)
       jdt-language-server
 
       # Lua
@@ -100,9 +98,32 @@
       gopls
     ];
 
+  # Setup JDKs
+  programs.java = {
+    enable = true;
+    package = pkgsUnstable.temurin-bin-23; # JAVA_HOME / default java
+  };
+  home.sessionPath = [ "~/.local/jdks" ];
+  home.file = # add additional JDKs to ~/.local/jdks
+    let
+      additionalJDKs = with pkgs; [
+        jdk8
+        jdk11 # jdk17 jdk23
+        temurin-bin-18
+        pkgsUnstable.temurin-bin-23 # TODO: nixos-24.11 has more temurin versions
+      ];
+    in
+    (builtins.listToAttrs (builtins.map
+      (jdk: {
+        name = ".local/jdks/${jdk.name}";
+        value = { source = jdk.home; };
+      })
+      additionalJDKs));
+
+
   home.sessionVariables = {
-    GOPATH = "/home/${config.profile.mainUser}/.local/share/go";
-    GOMODCACHE = "/home/${config.profile.mainUser}/.cache/go/pkg/mod";
+    GOPATH = "$HOME/.local/share/go";
+    GOMODCACHE = "$HOME/.cache/go/pkg/mod";
   };
 
 }
