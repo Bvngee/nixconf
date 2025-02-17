@@ -36,6 +36,10 @@
     LESS = "-RF";
   };
 
+  home.sessionPath = [
+    "~/.local/bin"
+  ];
+
   # GNU readline library used by many repls (eg. python, gdb)
   programs.readline = {
     enable = true;

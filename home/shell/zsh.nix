@@ -71,8 +71,6 @@ in
         # rm ~/.local/share/zsh_history_bad  
       }
 
-      export PATH="$PATH:$HOME/.local/bin"
-
       # stolen from https://github.com/ohmyzsh/ohmyzsh/blob/master/plugins/fancy-ctrl-z
       fancy-ctrl-z() {
         if [[ $#BUFFER -eq 0 ]]; then
