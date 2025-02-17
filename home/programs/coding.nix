@@ -31,7 +31,7 @@
       # IDEs and Editors
       jetbrains.idea-community
       vscodium-fhs
-      pkgsUnstable.zed-editor
+      pkgsUnstable.zed-editor # TODO: nixos-24.11
 
       # C/C++
       gcc13 # stdenv.cc?
@@ -61,6 +61,7 @@
 
       # Java
       temurin-bin-18
+      pkgsUnstable.temurin-bin-23 # TODO: nixos-24.11
       jdt-language-server
 
       # Lua
