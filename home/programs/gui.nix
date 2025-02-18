@@ -55,8 +55,10 @@ in
     gnome.gnome-font-viewer
     gnome.gnome-control-center # this is NOT intended to be used outside Gnome, but still has some useful features
     gnome.file-roller # better default over kde's ark?
+    pkgsUnstable.gnome-disk-utility # Udisk graphical front end (TODO: 24.11)
     baobab # disk utilization viewer (gtk)
-    gparted
+    gparted # partition manager
+    pkgsUnstable.seahorse # GUI for managing gnome-keyring entries (TODO: 24.11)
     libsForQt5.kcalc
     mission-center
     snapshot
@@ -75,13 +77,6 @@ in
     # on every machine I'll just make it optional:
     pt
   ];
-
-  # GUI for managing gnome-keyring entries
-  programs.seahorse.enable = true;
-
-  # Udisk graphical front end
-  programs.gnome-disks.enable = true;
-
 
   services = { };
 }

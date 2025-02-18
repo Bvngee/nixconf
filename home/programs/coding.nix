@@ -31,7 +31,7 @@
       # IDEs and Editors
       jetbrains.idea-community
       vscodium-fhs
-      pkgsUnstable.zed-editor # TODO: nixos-24.11
+      # pkgsUnstable.zed-editor # TODO: nixos-24.11: uncomment
 
       # C/C++
       gcc13 # stdenv.cc?
