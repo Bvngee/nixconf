@@ -56,6 +56,7 @@ in
     gnome.gnome-control-center # this is NOT intended to be used outside Gnome, but still has some useful features
     gnome.file-roller # better default over kde's ark?
     baobab # disk utilization viewer (gtk)
+    gparted
     libsForQt5.kcalc
     mission-center
     snapshot
@@ -72,10 +73,15 @@ in
     # I need Cisco PacketTracer for CSE 80N, however it requires logging in to
     # netacad.com download the .deb file manually. Since I don't always need it
     # on every machine I'll just make it optional:
-  ] ++ lib.optional (builtins.pathExists ptDebPath) pt;
+    pt
+  ];
 
+  # GUI for managing gnome-keyring entries
+  programs.seahorse.enable = true;
 
-  programs = { };
+  # Udisk graphical front end
+  programs.gnome-disks.enable = true;
+
 
   services = { };
 }

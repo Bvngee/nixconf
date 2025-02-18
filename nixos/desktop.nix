@@ -35,12 +35,6 @@
   security.pam.services.greetd.enableGnomeKeyring = true;
   security.pam.services.tuigreet.enableGnomeKeyring = true;
 
-  # GUI for managing gnome-keyring entries
-  programs.seahorse.enable = true;
-
-  # Udisk graphical front end
-  programs.gnome-disks.enable = true;
-
   # (polkitd is enabled from somewhere else already, but I'll keep this anyways)
   # Manage unpriviledged processes' access to priviledged processes
   security.polkit.enable = true;
