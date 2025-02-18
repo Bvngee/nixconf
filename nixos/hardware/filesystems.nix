@@ -4,5 +4,7 @@
 
   environment.systemPackages = with pkgs; [
     ntfs3g # FUSE-based NTFS driver. Needed for gparted to manage Windows partitions
+
+    exfatprogs # exFAT filesystem userspace utilities
   ];
 }
