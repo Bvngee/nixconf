@@ -39,6 +39,7 @@ let
     ../nixos/hardware/network.nix
     ../nixos/hardware/bluetooth.nix
     ../nixos/hardware/libinput.nix
+    ../nixos/hardware/filesystems.nix
     ../nixos/hardware/qmk.nix
     ../nixos/hardware/containerization.nix
 
