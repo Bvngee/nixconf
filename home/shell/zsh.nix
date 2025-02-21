@@ -38,8 +38,9 @@ in
         # needs to be here to work around zsh-vi-mode
         bindkey '^ ' autosuggest-accept
         bindkey '^y' autosuggest-accept
-        bindkey 'A' autosuggest-clear # fixes conflict with zsh-vi-mode!!
 
+        # TODO: no it doesn't. Investigate fixes again
+        # bindkey 'A' autosuggest-clear # fixes conflict with zsh-vi-mode!!
 
         # for some reason it seems like this is the only keybind that gets
         # overriden by ZVM. /shrug
