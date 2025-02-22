@@ -103,7 +103,7 @@
     enable = true;
     package = pkgsUnstable.temurin-bin-23; # JAVA_HOME / default java
   };
-  home.sessionPath = [ "~/.local/jdks" ];
+  home.sessionPath = [ "$HOME/.local/jdks" ];
   home.file = # add additional JDKs to ~/.local/jdks
     let
       additionalJDKs = with pkgs; [

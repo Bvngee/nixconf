@@ -37,7 +37,7 @@
   };
 
   home.sessionPath = [
-    "~/.local/bin"
+    "$HOME/.local/bin"
   ];
 
   # GNU readline library used by many repls (eg. python, gdb)
