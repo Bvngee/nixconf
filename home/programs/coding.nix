@@ -30,7 +30,7 @@
     with pkgs; [
       # IDEs and Editors
       jetbrains.idea-community
-      vscodium-fhs
+      vscode-fhs
       # pkgsUnstable.zed-editor # TODO: nixos-24.11: uncomment
 
       # C/C++
