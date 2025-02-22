@@ -22,6 +22,8 @@ in
   };
 
   home.file = {
-    ".local/bin".source = mkLink "bin";
+    ".local/bin/screenshot".source = mkLink "bin/screenshot";
+    ".local/bin/screenshotFull".source = mkLink "bin/screenshotFull";
+    ".local/bin/toggle_focus_mode_hyprland".source = mkLink "bin/toggle_focus_mode_hyprland";
   };
 }
