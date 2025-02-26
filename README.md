@@ -1,10 +1,8 @@
 # My NixOS and Home Manager configurations.
 
-Todo: add explanation of everything.
+Todo: add explanations of everything.
 
 # Useful notes for myself:
-
-nix-env --delete-generations +n, where n is the amount to keep
 
 sudo nix-collect-garbage --delete-older-than 14d
 
@@ -33,4 +31,5 @@ Note on manually stepping through the build process of a derivation:
   https://nixos.org/manual/nixpkgs/stable/#sec-stdenv-phases ), OR you can just run `genericBuild`
 
 To see the difference / what changes between generations:
+
 `nix profile diff-closures --profile /nix/var/nix/profiles/system`
