@@ -1,3 +1,9 @@
+# My NixOS and Home Manager configurations.
+
+Todo: add explanation of everything.
+
+# Useful notes for myself:
+
 nix-env --delete-generations +n, where n is the amount to keep
 
 sudo nix-collect-garbage --delete-older-than 14d
