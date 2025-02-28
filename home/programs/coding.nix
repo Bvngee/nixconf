@@ -8,6 +8,7 @@
       # use with those executables. WARNING: Using LD_LIBRARY_PATH like this can
       # override some of the program's dylib links in the nix store; this should
       # be generally ok though
+      # TODO: make this copy/symlink ALL files of original derivation, not just bin
       makeNixLDWrapper = program: (pkgs.runCommand "${program.pname}-nix-ld-wrapped" { } ''
         mkdir -p $out/bin
         for file in ${program}/bin/*; do
@@ -99,6 +100,7 @@
     ];
 
   # Setup JDKs
+  # TODO: Should I use makeNixLDWrapper on java (so that downloaded JARs work)??
   programs.java = {
     enable = true;
     package = pkgsUnstable.temurin-bin-23; # JAVA_HOME / default java
