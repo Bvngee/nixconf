@@ -42,7 +42,7 @@
     ffmpeg
     ncdu # disk utilization viewer
     # graphviz # getting weird collisions (libgvc.so) with ags :/
-    calc # cli calculator
+    calc # cli calculator. See `c` alias in home/shell/default.nix
   ];
 
   programs = {

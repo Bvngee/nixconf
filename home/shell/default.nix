@@ -28,6 +28,8 @@
     js = "joshuto";
     y = "yazi";
     yy = "yazi";
+
+    c = "calc -d --";
   };
 
   home.sessionVariables = {
