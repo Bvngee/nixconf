@@ -74,5 +74,6 @@ opt.incsearch = true
 opt.hlsearch = true
 opt.ignorecase = true
 opt.smartcase = true
-
+opt.secure = true -- sometimes "ex:" is misread as an ex command in source files
+opt.modelines = 2
 opt.termguicolors = true
