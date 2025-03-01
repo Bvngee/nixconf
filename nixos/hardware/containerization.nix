@@ -19,6 +19,11 @@ in
     # useful for things like moving images between registries and other locations or 
     # inspecting images without downloading
     skopeo # note: nix2container contains a patched version with support for a "nix:" source type
+
+    # nice wine/proton wrapper using gtk4 (alternative is lutris)
+    # Im putting bottles here aswell as vms.nix because sometimes I want to play
+    # with exe's on my weak laptop
+    bottles
   ];
 
   virtualisation = {
