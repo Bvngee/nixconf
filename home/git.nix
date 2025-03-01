@@ -65,6 +65,7 @@
     ga = "git add";
     gaa = "git add --all";
     gc = "git commit";
+    gco = "git checkout";
     gcm = "git commit -m";
     gca = "git commit --amend";
     gbr = "git branch";
