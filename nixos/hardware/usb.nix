@@ -29,10 +29,19 @@ in
   users.groups.plugdev = { };
   # Adds my user to group
   users.users.${config.profile.mainUser}.extraGroups = [ "plugdev" ];
-  # Allows users in plugdev group to access certain USB devices. My particular usecase
-  # was using a Microbit in the browser via the WebUSB protocol.
+
+  # Allows users in plugdev group to access certain USB devices. 
   services.udev.extraRules = ''
-    SUBSYSTEM=="usb", ATTR{idVendor}=="0d28", MODE="0664", GROUP="plugdev"
+    # Microbit (for use in the browser via the WebUSB)
+    SUBSYSTEMS=="usb", ATTR{idVendor}=="0d28", MODE="0664", GROUP="plugdev"
+
+    # https://github.com/stlink-org/stlink/tree/testing/config/udev/rules.d
+    # STM32 nucleo boards, with onboard st/linkv2-1. ie, STM32F0, STM32F4.
+    SUBSYSTEMS=="usb", ATTRS{idVendor}=="0483", ATTRS{idProduct}=="374a", MODE="0664", GROUP="plugdev", SYMLINK+="stlinkv2-1_%n"
+    SUBSYSTEMS=="usb", ATTRS{idVendor}=="0483", ATTRS{idProduct}=="374b", MODE="0664", GROUP="plugdev", SYMLINK+="stlinkv2-1_%n"
+    SUBSYSTEMS=="usb", ATTRS{idVendor}=="0483", ATTRS{idProduct}=="3752", MODE="0664", GROUP="plugdev", SYMLINK+="stlinkv2-1_%n"
+    # STM32 discovery boards, with onboard st/linkv2. ie, STM32L, STM32F4.
+    SUBSYSTEMS=="usb", ATTRS{idVendor}=="0483", ATTRS{idProduct}=="3748", MODE="0664", GROUP="plugdev", SYMLINK+="stlinkv2_%n"
   '';
 
 
