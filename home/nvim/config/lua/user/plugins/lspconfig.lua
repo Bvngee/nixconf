@@ -110,6 +110,8 @@ return {
       html = {},
       jsonls = {}, -- no idea what this does ngl lol
       --eslint = {} -- do I want this (for js/ts)?
+
+      tinymist = {}, -- typst
     }
 
     local lspconfig = require('lspconfig')
