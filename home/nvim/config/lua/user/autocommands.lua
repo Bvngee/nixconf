@@ -16,10 +16,11 @@ vim.api.nvim_create_autocmd({ 'FileType' }, {
   callback = function()
     -- Enable autowrap for text (not just comments)
     vim.opt_local.formatoptions:append('t')
-    -- Experimenting with insert-mode paragraph autoformatting for text-based
-    -- filetypes only. Is it too annoying? I like to have more control over
-    -- source code comments so I'll leave it off as default
+    -- I'm Experimenting with insert-mode paragraph autoformatting for
+    -- text-based filetypes only. Is it too annoying? I like to have more
+    -- control over source code comments so I'll leave it off as default
     vim.opt_local.formatoptions:append('a')
+    vim.opt_local.formatoptions:append('2') -- use 2nd line for autoformatting
   end,
 })
 
