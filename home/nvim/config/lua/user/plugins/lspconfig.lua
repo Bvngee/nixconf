@@ -85,7 +85,7 @@ return {
         },
       },
       pyright = {},
-      tsserver = {},
+      ts_ls = {},
       tailwindcss = {},
       lemminx = {}, -- for XML
       zls = {},
