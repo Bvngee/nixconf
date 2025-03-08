@@ -73,10 +73,10 @@ in
     # kicad-small # this excludes the kicad-packages3D library: https://gitlab.com/kicad/libraries/kicad-packages3D
 
     # I need Cisco PacketTracer for CSE 80N, however it requires logging in to
-    # netacad.com download the .deb file manually. Since I don't always need it
-    # on every machine I'll just make it optional:
-    pt
-  ];
+    # netacad.com download the .deb file manually. I don't always need it on
+    # every machine
+  ] ++ lib.optional (config.profile.hostname == "latitude" || config.profile.hostname == "precision")
+    pt;
 
   services = { };
 }
