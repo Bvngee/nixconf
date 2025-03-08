@@ -8,11 +8,12 @@ vim.api.nvim_create_autocmd('TextYankPost', {
   end,
 })
 
--- Enable line wrapping and spell checking in certain file types
+-- These filetypes should have comments AND text be autowrapped
+-- (see options.lua for default formatoptions)
 vim.api.nvim_create_autocmd({ 'FileType' }, {
-  pattern = { 'gitcommit', 'markdown' },
+  pattern = { 'gitcommit', 'markdown', 'text', 'typst' },
   callback = function()
-    vim.wo.wrap = true -- toggle with <leader>ww (keymaps.lua)
+    vim.opt_local.formatoptions:append('t')
   end,
 })
 

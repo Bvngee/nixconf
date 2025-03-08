@@ -26,17 +26,16 @@ opt.sessionoptions = 'blank,buffers,curdir,folds,help,tabpages,winsize,winpos,te
 
 -- also see conform.nvim, :h fo-table
 opt.formatoptions = opt.formatoptions
-  - 'a' -- autoformatting
-  - 't' -- dont autowrap all text...
-  + 'c' -- do autowrap just comments
+  - 'a' -- autoformatting of paragraphs
+  - 't' -- dont autowrap text... (autocommands.lua overrides this for certain filetypes)
+  + 'c' -- ...but do autowrap comments
   - 'o' -- don't insert comment after o/O commands (also set in autocommands.lua)
   + 'r' -- do insert comment after enter in insert mode
   - 'q' -- allow formatting comments with gq
   + 'n' -- recognize numbered lists
   - '2' -- don't use second line's indent level for formatting rest of paragraph
   + 'j' -- remove comment leader when joining comments
--- Inserd linebreak after 80 chars. Ideally this only applies for
--- comments/plaintext and code formatters do the rest...
+-- Insert linebreak automatically after 80 chars
 opt.textwidth = 80
 -- When formatting text, recognize numbered lists AND unordered lists.
 -- https://superuser.com/questions/99138/bulleted-lists-for-plain-text-documents-in-vim
