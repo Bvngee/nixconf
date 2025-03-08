@@ -8,17 +8,23 @@ vim.api.nvim_create_autocmd('TextYankPost', {
   end,
 })
 
--- For these filetypes, comments AND text should be autowrapped, and paragraphs
--- should be formatted automatically while typing in insert mode.
--- (see options.lua for default formatoptions)
+-- For these filetypes, comments AND text should be autowrapped when typing past
+-- 80 chars. (see options.lua for default formatoptions)
 vim.api.nvim_create_autocmd({ 'FileType' }, {
-  pattern = { 'gitcommit', 'markdown', 'text', 'typst' },
+  pattern = { 'gitcommit', 'markdown', 'text', 'typst', 'plaintex' },
   callback = function()
-    -- Enable autowrap for text (not just comments)
     vim.opt_local.formatoptions:append('t')
-    -- I'm Experimenting with insert-mode paragraph autoformatting for
-    -- text-based filetypes only. Is it too annoying? I like to have more
-    -- control over source code comments so I'll leave it off as default
+  end,
+})
+-- For languages without formatters that can enforce strict line wrap (like
+-- prettier does for markdown), use vim's builtin paragraph autoformatting. It's
+-- annoyingly too agressive, so I'd prefer to use an external formatter for
+-- linewrapping when supported.
+-- See https://github.com/Enter-tainer/typstyle/issues/104
+vim.api.nvim_create_autocmd({ 'FileType' }, {
+  pattern = { 'typst' },
+  callback = function()
+    -- also see https://chatgpt.com/c/67ccc688-a078-800e-a792-ef332b7a45b6
     vim.opt_local.formatoptions:append('a')
     vim.opt_local.formatoptions:append('2') -- use 2nd line for autoformatting
   end,
