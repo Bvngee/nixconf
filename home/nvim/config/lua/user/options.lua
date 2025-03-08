@@ -24,10 +24,11 @@ vim.g.netrw_banner = 0 -- is this the correct var name?
 -- removed 'localoptions' - autosession gets weird setting incorrect values
 opt.sessionoptions = 'blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal'
 
--- also see conform.nvim, :h fo-table
+-- See :h fo-table
+-- (autocommands.lua overrides 'a' and 't' for certain filetypes)
 opt.formatoptions = opt.formatoptions
-  - 'a' -- autoformatting of paragraphs
-  - 't' -- dont autowrap text... (autocommands.lua overrides this for certain filetypes)
+  - 'a' -- disable automatic formatting of entire paragraphs insert-mode
+  - 't' -- dont autowrap text...
   + 'c' -- ...but do autowrap comments
   - 'o' -- don't insert comment after o/O commands (also set in autocommands.lua)
   + 'r' -- do insert comment after enter in insert mode
