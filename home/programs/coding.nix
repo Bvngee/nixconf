@@ -101,6 +101,7 @@
       # Typst (LaTeX alternative - not necessarily coding, but adjacent)
       pkgsUnstable.typst # TODO: 24.11
       pkgsUnstable.tinymist
+      pkgsUnstable.typstyle
     ];
 
   # Setup JDKs

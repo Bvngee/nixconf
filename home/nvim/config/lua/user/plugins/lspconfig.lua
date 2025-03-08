@@ -111,7 +111,12 @@ return {
       jsonls = {}, -- no idea what this does ngl lol
       --eslint = {} -- do I want this (for js/ts)?
 
-      tinymist = {}, -- typst
+      tinymist = { -- typst
+        settings = {
+          formatterMode = 'typstyle', -- LSP format calls external formatter
+          exportPdf = 'onType',
+        },
+      },
     }
 
     local lspconfig = require('lspconfig')
