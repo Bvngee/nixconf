@@ -21,14 +21,15 @@ vim.api.nvim_create_autocmd({ 'FileType' }, {
 -- annoyingly too agressive, so I'd prefer to use an external formatter for
 -- linewrapping when supported.
 -- See https://github.com/Enter-tainer/typstyle/issues/104
-vim.api.nvim_create_autocmd({ 'FileType' }, {
-  pattern = { 'typst' },
-  callback = function()
-    -- also see https://chatgpt.com/c/67ccc688-a078-800e-a792-ef332b7a45b6
-    vim.opt_local.formatoptions:append('a')
-    vim.opt_local.formatoptions:append('2') -- use 2nd line for autoformatting
-  end,
-})
+-- just kidding, this shit is too annoying
+-- vim.api.nvim_create_autocmd({ 'FileType' }, {
+--   pattern = { 'typst' },
+--   callback = function()
+--     -- also see https://chatgpt.com/c/67ccc688-a078-800e-a792-ef332b7a45b6
+--     vim.opt_local.formatoptions:append('a')
+--     vim.opt_local.formatoptions:append('2') -- use 2nd line for autoformatting
+--   end,
+-- })
 
 -- just setting `vim.opt_local.formatoptions:remove('o')` doesn't work, as neovim
 -- resets it later itself in ftplugin/lua.vim or smth (taken from chris@machine)
