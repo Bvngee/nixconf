@@ -32,7 +32,9 @@ map({ 'n', 'x' }, '<Up>', "v:count == 0 ? 'gk' : 'k'", { expr = true })
 
 -- save all and close all keybinds
 map('n', '<C-s>', ':wa<CR>')
+map('i', '<C-s>', '<ESC>:wa<CR>a')
 map('n', '<C-q>', ':qa<CR>')
+map('i', '<C-q>', '<ESC>:qa<CR>a')
 
 -- clear search with <esc>
 map({ 'i', 'n' }, '<esc>', '<cmd>noh<cr><esc>')
