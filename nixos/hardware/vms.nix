@@ -13,5 +13,5 @@
     libvirtd.enable = true;
   };
 
-  users.users.${config.profile.mainUser}.extraGroups = [ "docker" ];
+  users.users.${config.profile.mainUser}.extraGroups = [ "docker" "libvirtd" ];
 }
