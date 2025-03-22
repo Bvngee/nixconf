@@ -1,10 +1,24 @@
 { lib, pkgs, config, ... }: {
 
   networking.hostName = config.profile.hostname;
-  networking.nameservers = [ "1.1.1.1" "1.0.0.1" "8.8.8.8" "8.8.4.4" ];
+  networking.nameservers = [ "1.1.1.1" "8.8.8.8" ];
 
   networking.networkmanager.enable = true;
+  # gives my user permission to change network settings
   users.users.${config.profile.mainUser}.extraGroups = [ "networkmanager" ];
+
+  # Sesolved will use the dns servers set in `networking.nameservers`:
+  # https://github.com/NixOS/nixpkgs/blob/7105ae3957700a9646cc4b766f5815b23ed0c682/nixos/modules/system/boot/resolved.nix#L18
+  # This also automatically sets `networking.resolvconf.enable` to false
+  services.resolved = {
+    enable = true;
+    # I'm not sure if I want this. Does it make dns slower? todo: do better testing or research
+    # dnsovertls = "false";
+  };
+
+  # tbh not sure if this is useful lol. "Whether to enable resolved for stage 1 networking"
+  # TODO(24.11): look into this maybe?
+  # boot.initrd.services.resolved.enable = true;
 
   # spams annoying notifications, tray menu is barely useful
   # programs.nm-applet = {
@@ -32,7 +46,7 @@
           domain-suffix-match = "ucsc.edu";
           eap = "peap;";
           identity = "jnystrom@ucsc.edu";
-          password-flags = 0; # Store password
+          password-flags = 0; # Store password # TODO: this doesn't actually remember the password for you
           phase2-auth = "mschapv2";
         };
         connection = {
