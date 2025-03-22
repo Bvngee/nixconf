@@ -1,7 +1,7 @@
 { lib, pkgs, config, ... }: {
 
   networking.hostName = config.profile.hostname;
-  networking.nameservers = [ "1.1.1.1" "8.8.8.8" ];
+  networking.nameservers = [ "1.1.1.1" "1.0.0.1" "8.8.8.8" "8.8.4.4" ];
 
   networking.networkmanager.enable = true;
   users.users.${config.profile.mainUser}.extraGroups = [ "networkmanager" ];
