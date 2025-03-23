@@ -43,6 +43,7 @@
     ncdu # disk utilization viewer
     # graphviz # getting weird collisions (libgvc.so) with ags :/
     calc # cli calculator. See `c` alias in home/shell/default.nix
+    nodePackages.dotenv-cli # TODO(24.11): this was removed from nodePackages
   ];
 
   programs = {
