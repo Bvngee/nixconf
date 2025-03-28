@@ -83,6 +83,7 @@
     grb = "git rebase";
     grs = "git reset";
     grsh = "git reset --hard";
+    grst = "git restore";
     gm = "git merge";
   };
 
