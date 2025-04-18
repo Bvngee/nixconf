@@ -45,6 +45,9 @@
       pipewire
       stdenv.cc.cc
       systemd
+      libgcrypt
+      libudev0-shim
+      # libgbm
       vulkan-loader
       xorg.libX11
       xorg.libXScrnSaver
