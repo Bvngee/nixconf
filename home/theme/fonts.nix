@@ -8,6 +8,8 @@
     noto-fonts
     noto-fonts-cjk
     font-awesome
+    corefonts
+    vistafonts
   ];
 
 }
