@@ -14,6 +14,9 @@
 
     lsa = "ls -a";
 
+    # useful for nix store paths. Calls realpath on the result of which
+    rpwhich = "f() { realpath $(which \"$1\") }; f";
+
     # a little overkill but hey why not
     ".." = "cd ..";
     "..." = "cd ../..";
