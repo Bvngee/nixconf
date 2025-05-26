@@ -117,6 +117,7 @@
         jdk8
         jdk11 # jdk17 jdk23
         temurin-bin-18
+        temurin-bin # 21
         pkgsUnstable.temurin-bin-23 # TODO: nixos-24.11 has more temurin versions
       ];
     in
