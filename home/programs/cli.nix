@@ -20,6 +20,7 @@
     yq # (jq but for yaml/xml/toml)
     zf
     killall
+    unixtools.xxd
     wget
     curl
     socat
