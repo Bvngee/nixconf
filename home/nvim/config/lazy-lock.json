@@ -40,5 +40,6 @@
   "telescope-zf-native.nvim": { "branch": "master", "commit": "c8ac635fb51065bb3a77f51bcec585a8dddf8652" },
   "telescope.nvim": { "branch": "master", "commit": "1e591885751d255b12c3649253cb6c2838e2c724" },
   "trouble.nvim": { "branch": "main", "commit": "f1168feada93c0154ede4d1fe9183bf69bac54ea" },
+  "undotree": { "branch": "master", "commit": "b951b87b46c34356d44aa71886aecf9dd7f5788a" },
   "vim-sleuth": { "branch": "master", "commit": "1cc4557420f215d02c4d2645a748a816c220e99b" }
 }
