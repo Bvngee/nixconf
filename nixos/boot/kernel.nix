@@ -15,7 +15,7 @@
       pkgsKernelPackages.linuxPackages_xanmod; # alias to pkgs.linuxKernel.packages.linux_xanmod
 
     # Any extra kernel modules go here
-    # extraModulePackages = with config.boot.kernelPackages; [];
-    # kernelModules = [];
+    extraModulePackages = [ ]; #with config.boot.kernelPackages; 
+    kernelModules = [ "ix_usb_can" ];
   };
 }

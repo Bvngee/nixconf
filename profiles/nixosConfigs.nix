@@ -42,6 +42,7 @@ let
     ../nixos/hardware/filesystems.nix
     ../nixos/hardware/qmk.nix
     ../nixos/hardware/zmk.nix
+    ../nixos/hardware/can.nix
     ../nixos/hardware/containerization.nix
 
     ../nixos/boot/systemd-boot.nix
