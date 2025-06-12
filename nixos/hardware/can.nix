@@ -1,3 +1,10 @@
+# To get the socketCAN interface up and running with a CAN-to-USB adapter, run
+# these commands in order:
+#
+# $ sudo ip link set can0 type can bitrate 500000
+# $ sudo ip link set up can0                     
+# $ ip a
+
 { config, pkgs, ... }: {
 
   # Kernel module containing HMS Ixxat socketCAN drivers. Downloaded from
