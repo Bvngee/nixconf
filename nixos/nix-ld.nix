@@ -49,6 +49,7 @@
       libudev0-shim
       # libgbm
       vulkan-loader
+      wayland
       xorg.libX11
       xorg.libXScrnSaver
       xorg.libXcomposite
@@ -63,6 +64,11 @@
       xorg.libxcb
       xorg.libxkbfile
       xorg.libxshmfence
+      xorg.xcbutilkeysyms
+      xorg.xcbutilimage
+      xorg.xcbutilrenderutil
+      xorg.xcbutilwm
+      xorg.xcbutilerrors
       zlib
     ];
   };
