@@ -1,4 +1,4 @@
-{ pkgs, pkgsUnstable, ... }: {
+{ pkgs, ... }: {
   environment.systemPackages = with pkgs; [
     qemu # emulate other architectures (literally magic)
 
@@ -7,9 +7,6 @@
     winetricks
   ];
 
-  # In 24.05, enabling emulatedSystems requires compiling qemu from source
-  # (https://github.com/NixOS/nixpkgs/issues/221056). qemu-user is covered by
-  # Hydra as of nixpkgs#314998, which will take effect when I update to 24.11.
   boot.binfmt.emulatedSystems =
     let
       # Some of these combinations may not work; most are untested.
@@ -66,28 +63,10 @@
   # kernel comes across non-native binaries inside the chroot, instead of doing a
   # path lookup for the qemu binary (which would obviously fail unless the qemu
   # binary is added to the container manually), it simply uses the already-opened
-  # file descriptor for it. One caveat of this: the qemu binaries must be fully
-  # static, as any dynamic library lookups will obviously fail within the
-  # chroot/container. This article by the author of the binfmt_misc F flag
-  # explains everything really well: https://lwn.net/Articles/679308/
+  # file descriptor for it. This requires the qemu binaries to be fully static, as
+  # any dynamic library lookups will obviously fail within the chroot/container.
+  # This article by the author of the binfmt_misc F flag explains everything really
+  # well: https://lwn.net/Articles/679308/
   # Also see this StackOverflow answer: https://stackoverflow.com/a/72890225/11424968
-
-  # This is a workaround for nixos-24.05: https://discourse.nixos.org/t/docker-ignoring-platform-when-run-in-nixos/21120/18?u=bvngeecord
-  # TODO: when updating to nixos 24.11, this will replace everything below!
-  # boot.binfmt.preferStaticEmulators = true;
-  boot.binfmt.registrations =
-    let
-      # I only really care about emulation in chroot-like environments when
-      # building container images for Arm64 servers. For now this is good enough.
-      system = "aarch64-linux";
-    in
-    {
-      ${system} = {
-        # Sets the interpreter for aarch64-linux's binfmt_misc registration to
-        # be statically compiled (eg. qemu-user-static).
-        interpreter = (pkgsUnstable.lib.systems.elaborate { inherit system; }).emulator pkgsUnstable.pkgsStatic;
-        # Adds F flag to the binfmt_misc registration. See explanation above
-        fixBinary = true;
-      };
-    };
+  boot.binfmt.preferStaticEmulators = true;
 }

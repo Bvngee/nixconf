@@ -1,4 +1,4 @@
-{ pkgs, pkgsUnstable, ... }: {
+{ pkgs, ... }: {
   home.packages =
     let
       # Some dynamic executables are unpatched but are loaded by patched nixpkgs
@@ -32,7 +32,7 @@
       # IDEs and Editors
       jetbrains.idea-community
       vscode-fhs
-      # pkgsUnstable.zed-editor # TODO: nixos-24.11: uncomment
+      zed-editor
 
       # C/C++
       gcc13 # stdenv.cc?
@@ -46,14 +46,14 @@
       pkg-config
       valgrind
       kdePackages.kcachegrind
-      pkgsUnstable.mesonlsp # 24.11
+      mesonlsp
 
       # Rust
       rustup
 
       # Python
       (makeNixLDWrapper python3)
-      nodePackages.pyright
+      pyright
       ruff
 
       # MicroPython
@@ -81,8 +81,8 @@
       nodePackages.typescript-language-server # wraps tsserver
       tailwindcss-language-server
       vscode-langservers-extracted # includes html/css/json/eslint
-      pkgsUnstable.astro-language-server # 24.11
-      pkgsUnstable.svelte-language-server # 24.11
+      astro-language-server
+      svelte-language-server
       lemminx # xml lsp
       nodePackages.eslint
       nodePackages.prettier
@@ -108,17 +108,17 @@
   # TODO: Should I use makeNixLDWrapper on java (so that downloaded JARs work)??
   programs.java = {
     enable = true;
-    package = pkgsUnstable.temurin-bin-23; # JAVA_HOME / default java
+    package = pkgs.temurin-bin-23; # JAVA_HOME / default java
   };
   home.sessionPath = [ "$HOME/.local/jdks" ];
   home.file = # add additional JDKs to ~/.local/jdks
     let
       additionalJDKs = with pkgs; [
-        jdk8
-        jdk11 # jdk17 jdk23
+        jdk8 # jdk17 jdk23
+        jdk11
         temurin-bin-18
         temurin-bin # 21
-        pkgsUnstable.temurin-bin-23 # TODO: nixos-24.11 has more temurin versions
+        temurin-bin-23
       ];
     in
     (builtins.listToAttrs (builtins.map

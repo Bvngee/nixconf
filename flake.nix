@@ -10,11 +10,13 @@
   };
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-24.05";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-24.11";
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
+
     # sometimes I want to update nnixpkgs-unstable without recompiling linux_xanmod and
-    # nvidia drivers. When I do feel like it, I can fast-forward this to nixpkgs-unstable
-    nixpkgs-kernel-packages.url = "github:nixos/nixpkgs/8a3354191c0d7144db9756a74755672387b702ba";
+    # nvidia drivers. When I do feel like it, I can fast-forward this
+    nixpkgs-kernel-packages.url = "github:nixos/nixpkgs/nixos-24.11";
+
     # because I have no will to report stupid bugs, and this seems to fix my multi-monitor bar
     nixpkgs-ironbar.url = "github:nixos/nixpkgs/fc55cdb8340a3258a1ad6f3eb8df52dac36c3e70";
 
@@ -23,35 +25,21 @@
     nix-index-database.inputs.nixpkgs.follows = "nixpkgs";
 
     home-manager = {
-      url = "github:nix-community/home-manager/release-24.05";
+      url = "github:nix-community/home-manager/release-24.11";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # v0.36.0 does not include the following commit, and will be patched instead
-    # https://github.com/hyprwm/Hyprland/commit/8e2a62e53bf51e8b4ae719d0e46797b0a26eeb22
-    hyprland.url = "github:hyprwm/Hyprland/v0.36.0";
+    hyprland.url = "github:hyprwm/Hyprland/v0.48.1";
 
-    split-monitor-workspaces = {
-      url = "github:Duckonaut/split-monitor-workspaces";
+    hyprsplit = {
+      url = "github:shezdy/hyprsplit";
       inputs.hyprland.follows = "hyprland";
-    };
-
-    hy3 = {
-      url = "github:outfoxxed/hy3?ref=hl0.36.0";
-      inputs.hyprland.follows = "hyprland";
-    };
-
-    # not in nixpkgs yet
-    woomer.url = "github:coffeeispower/woomer";
-
-    ags = {
-      url = "github:Aylur/ags";
-      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     xremap-flake = {
       url = "github:xremap/nix-flake";
       inputs.nixpkgs.follows = "nixpkgs";
+      inputs.hyprland.follows = "hyprland";
     };
 
     spicetify-nix = {
@@ -60,11 +48,6 @@
     };
 
     base16.url = "github:SenchoPens/base16.nix";
-
-    matugen = {
-      url = "github:InioX/matugen";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
 
     # Temporarily disabled, as git auth via ssh is ANNOYING
     # # Requires git SSH access to the repo as of now (still private)

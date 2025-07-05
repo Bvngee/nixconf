@@ -49,16 +49,16 @@ in
     firefox
     ungoogled-chromium
     zoom-us
-    gnome.gnome-calendar
-    gnome.gnome-calculator
-    gnome.gnome-notes
-    gnome.gnome-font-viewer
-    gnome.gnome-control-center # this is NOT intended to be used outside Gnome, but still has some useful features
-    gnome.file-roller # better default over kde's ark?
-    pkgsUnstable.gnome-disk-utility # Udisk graphical front end (TODO: 24.11)
+    gnome-calendar
+    gnome-calculator
+    gnome-notes
+    gnome-font-viewer
+    gnome-control-center # this is NOT intended to be used outside Gnome, but still has some useful features
+    file-roller # better default over kde's ark?
+    gnome-disk-utility # Udisk graphical front end
     baobab # disk utilization viewer (gtk)
     gparted # partition manager
-    pkgsUnstable.seahorse # GUI for managing gnome-keyring entries (TODO: 24.11)
+    seahorse # GUI for managing gnome-keyring entries
     libsForQt5.kcalc
     mission-center
     snapshot
@@ -67,7 +67,9 @@ in
     showmethekey # shows keys typed in a little gui
 
     # Davinci Resolve only lets you use your Studio key on a select # of machines
-    (if config.profile.hostname == "pc" then davinci-resolve-studio else davinci-resolve)
+    # TODO(25.05): for some reason this forces building spidermonkey from
+    # source. Has this been fixed yet?
+    # (if config.profile.hostname == "pc" then davinci-resolve-studio else davinci-resolve)
 
     # not using: I found this has some broken parts: https://github.com/NixOS/nixpkgs/issues/347150
     # kicad-small # this excludes the kicad-packages3D library: https://gitlab.com/kicad/libraries/kicad-packages3D

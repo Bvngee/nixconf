@@ -1,22 +1,21 @@
 { config, inputs, lib, pkgs, ... }: let
   inherit (config.profile) theme;
 in {
-  home.packages = [
-    # added for debugging purposes
-    inputs.matugen.packages.${pkgs.system}.default
-  ];
-
-  # Matugen's module works as a NixOS module and a HM module.
-  imports = [ inputs.matugen.nixosModules.default ];
-
-  programs.matugen = lib.mkIf (theme.wallpaper != null) {
-    enable = true;
-    wallpaper = theme.wallpaper;
-    templates = { }; # None so far - I'd rather configure using Nix
-    palette = "default"; # triadic, adjacent
-    jsonFormat = "hex"; # `#RRGGBB`
-    variant = theme.variant;
-  };
+  # home.packages = [
+  #   # added for debugging purposes
+  #   inputs.matugen.packages.${pkgs.system}.default
+  # ];
+  #
+  # # Matugen's module works as a NixOS module and a HM module.
+  # imports = [ inputs.matugen.nixosModules.default ];
+  #
+  # programs.matugen = lib.mkIf (theme.wallpaper != null) {
+  #   enable = true;
+  #   wallpaper = theme.wallpaper;
+  #   templates = { }; # None so far - I'd rather configure using Nix
+  #   jsonFormat = "hex"; # `#RRGGBB`
+  #   variant = theme.variant;
+  # };
 
 }
 

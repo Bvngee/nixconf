@@ -82,7 +82,7 @@
       enable = true;
       enableZshIntegration = true;
       extraOptions = [ "--group-directories-first" ];
-      icons = true;
+      icons = "auto";
     };
 
     # fancy cat

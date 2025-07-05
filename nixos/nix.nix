@@ -1,6 +1,6 @@
 { inputs, lib, pkgs, config, ... }: {
   nix = {
-    package = pkgs.nixFlakes;
+    package = pkgs.lix;
 
     # add flake inputs as registrys to make nix3 commands consistent with the flake
     registry = lib.mapAttrs (_: value: { flake = value; }) inputs;

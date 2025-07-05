@@ -6,7 +6,7 @@
   ];
 
   # Stolen from nixos-hardware
-  boot.kernelParams = [ "i915.enable_fbc=1" "i915.enable_psr=2" "i915.modeset=1" ];
+  boot.kernelParams = [ "i915.enable_fbc=1" "i915.enable_psr=2" ]; # "i915.modeset=1" is apparently deprecated
 
   # Force i915 driver to load BEFORE anything nvidia-related. Fixes a race
   # condition that causes anything chromium-based to take multiple minutes
@@ -16,8 +16,8 @@
   # https://issues.chromium.org/issues/351095641
   boot.kernelModules = lib.mkOrder 100 [ "i915" ];
 
-  hardware.opengl.extraPackages = [ pkgs.intel-media-driver ];
-  hardware.opengl.extraPackages32 = [ pkgs.pkgsi686Linux.intel-media-driver ];
+  hardware.graphics.extraPackages = [ pkgs.intel-media-driver ];
+  hardware.graphics.extraPackages32 = [ pkgs.pkgsi686Linux.intel-media-driver ];
 
   system.stateVersion = "24.05";
 }

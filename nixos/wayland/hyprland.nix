@@ -1,4 +1,4 @@
-{ inputs, config, pkgs, ... }: {
+{ pkgs, inputs, ... }: {
   # Enable Hyprland's cachix binary cache (must be done first)
   nix.settings = {
     substituters = [ "https://hyprland.cachix.org" ];
@@ -8,30 +8,17 @@
   # Overrides programs.hyprland package with version from the hyprland flake.
   imports = [ inputs.hyprland.nixosModules.default ];
 
-  # Hyprland v0.36.0 does not yet have this fix. this ignores the default programs.hyprland.package
-  # and makes the cache useless. NOTE: remove this on next release
-  programs.hyprland.package = inputs.hyprland.packages.${pkgs.system}.hyprland.overrideAttrs
-    (_finalAttrs: previousAttrs: {
-      patches = previousAttrs.patches ++ [
-        ./hyprland-000-fix-tty-switching.txt
-      ];
-    });
+  programs.hyprland = {
+    enable = true;
+    withUWSM = true;
 
-  # Add Hyprland to display manager session list
-  services.displayManager.sessionPackages = [
-    config.programs.hyprland.package
-  ];
-
-  # Add Hyprland, hyprctl, etc to PATH
-  environment.systemPackages = [
-    config.programs.hyprland.package
-  ];
-
+    # this field is added by the hyprland flake's nixos module
+    plugins = [
+      inputs.hyprsplit.packages.${pkgs.system}.hyprsplit
+    ];
+  };
   # Install Hyprland's xdg-desktop-portal impl
   xdg.portal = {
-    extraPortals = [
-      config.programs.hyprland.portalPackage
-    ];
     config.hyprland = {
       default = [ "hyprland" "gtk" ];
       # we shouldn't need to be this specific

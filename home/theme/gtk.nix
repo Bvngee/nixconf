@@ -1,9 +1,9 @@
 { config, lib, pkgs, ... }:
 let
   inherit (config.profile) theme;
-  c = config.programs.matugen.theme.colors.colors.${theme.variant};
-  cu = import ./color-utils.nix { inherit lib; };
-  inherit (cu) hexToRgba;
+  # c = config.programs.matugen.theme.colors.colors.${theme.variant};
+  # cu = import ./color-utils.nix { inherit lib; };
+  # inherit (cu) hexToRgba;
 in
 {
 
@@ -17,7 +17,7 @@ in
 
   home.packages = with pkgs; [
     adw-gtk3 # GTK3/4
-    gnome.gnome-themes-extra # GTK2 only
+    gnome-themes-extra # GTK2 only
 
     gradience # Not used to theme, but the GUI is nice for testing
   ];

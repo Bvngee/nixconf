@@ -6,7 +6,7 @@
     roboto
     inter
     noto-fonts
-    noto-fonts-cjk
+    noto-fonts-cjk-sans
     font-awesome
     corefonts
     vistafonts

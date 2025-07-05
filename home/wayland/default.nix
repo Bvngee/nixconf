@@ -1,4 +1,4 @@
-{ inputs, pkgs, ... }: {
+{ pkgs, ... }: {
   imports = [
     ./hyprland.nix
     ./hyprlock.nix
@@ -18,9 +18,9 @@
     libnotify
     playerctl
     satty
-    inputs.woomer.packages.${system}.default
     hyprpicker
     wlsunset
+    woomer
 
     # Preferred PolKit agent
     # (note that since these binaries are in /libexec we 

@@ -16,20 +16,22 @@
     # https://gitlab.freedesktop.org/xorg/xserver/-/merge_requests/967
     #package = config.boot.kernelPackages.nvidiaPackages.production; # production => 535
 
-    # beta 555 drivers with explicit sync support!
+    # nvidia drivers with explicit sync support (as of 555)!
     package = config.boot.kernelPackages.nvidiaPackages.stable;
   };
 
-  # only works for 545+ I think
-  # https://wiki.archlinux.org/title/Talk:NVIDIA#Framebuffer_consoles_experimental_support
-  boot.kernelParams = [ "nvidia_drm.fbdev=1" ];
+  # This should be done automatically: https://github.com/NixOS/nixpkgs/blob/0196e5372b8b7a282cb3bbe5cbf446617141ce38/nixos/modules/hardware/video/nvidia.nix#L658C29-L658C34
+  # TODO: test ^
+  # # only works for 545+ I think
+  # # https://wiki.archlinux.org/title/Talk:NVIDIA#Framebuffer_consoles_experimental_support
+  #boot.kernelParams = [ "nvidia_drm.fbdev=1" ];
   
   # Make sure we're not uing nouveau
   boot.blacklistedKernelModules = [ "nouveau" ];
 
   # Note: nvidia-vaapi-driver is added automatically with "nvidia" added to videoDrivers
-  hardware.opengl.extraPackages = [ ]; # I don't think vaapiVdpau is necessary? Still not sure
-  hardware.opengl.extraPackages32 = [ ];
+  hardware.graphics.extraPackages = [ ]; # I don't think vaapiVdpau is necessary? Still not sure
+  hardware.graphics.extraPackages32 = [ ];
 
   # necessary for both X and Wayland based apps
   services.xserver.videoDrivers = [ "nvidia" ];

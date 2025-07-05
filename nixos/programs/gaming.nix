@@ -34,12 +34,12 @@
 
     protontricks
     winetricks
-    wine # wine-wayland ?
+    wine
 
     # Games
     lunar-client
-    # note: https://github.com/glfw/glfw/issues/2510#issuecomment-2002622024
-    # glfw-wayland-minecraft requires __GL_THREADED_OPTIMIZATIONS=0 on nvidia
-    (prismlauncher.override { withWaylandGLFW = true; })
+    # note: glfw-wayland-minecraft might require __GL_THREADED_OPTIMIZATIONS=0 on nvidia
+    # https://github.com/glfw/glfw/issues/2510#issuecomment-2002622024
+    prismlauncher
   ];
 }
