@@ -1,32 +1,16 @@
-{ lib, config, pkgs, ... }: {
+{ pkgs, ... }: {
   imports = [
     ./hyprland.nix
     ./sway.nix
+    ./uwsm.nix
   ];
-
-  # TODO: these might break x11 sessions. Maybe I should move to compositor specific settings (like Hyprland's env keyword)?
-  environment.sessionVariables = {
-    _JAVA_AWT_WM_NONEREPARENTING = "1";
-    GDK_BACKEND = "wayland,x11";
-    SLD_VIDEODRIVER = "wayland";
-    QT_QPA_PLATFORM = "wayland;xcb";
-    XDG_SESSION_TYPE = "wayland";
-
-    NIXOS_OZONE_WL = "1";
-
-    LIBSEAT_BACKEND = "logind";
-  };
 
   programs.xwayland.enable = true;
 
   xdg.portal = {
     enable = true;
-    xdgOpenUsePortal = true; # TODO: improve this section
-    # x-d-p-gtk is already added by Gnome; causes an error when duplicated here too
-    # TODO: is there a better solution (investigate why the above error happens)?
-    extraPortals = lib.optional
-      (!config.services.xserver.desktopManager.gnome.enable)
-      pkgs.xdg-desktop-portal-gtk;
+    xdgOpenUsePortal = true;
+    extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
     config.common = {
       default = [ "gtk" ];
       "org.freedesktop.impl.portal.Secret" = [ "gnome-keyring" ];
@@ -34,7 +18,8 @@
   };
 
 
-  # NOTE: I believe the below is not necessary anymore. Kept here anyways for archival purposes
+  # NOTE: The below is not needed for Hyprland anymore, as it is solved by UWSM
+  # or the HM module's `systemd.enable`. Kept here anyways for archival purposes
   # -------------------------------------------------------------------------------------------
   # Replicates `systemctl --user import-environment PATH && systemctl --user restart xdg-desktop-portal.service`
   # which is a temporary fix for the "No Apps available" error when apps try to use the OpenURI portal. Refs:

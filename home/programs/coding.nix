@@ -99,9 +99,9 @@
       gopls
 
       # Typst (LaTeX alternative - not necessarily coding, but adjacent)
-      pkgsUnstable.typst # TODO: 24.11
-      pkgsUnstable.tinymist
-      pkgsUnstable.typstyle
+      typst
+      tinymist
+      typstyle
     ];
 
   # Setup JDKs
@@ -116,7 +116,6 @@
       additionalJDKs = with pkgs; [
         jdk8 # jdk17 jdk23
         jdk11
-        temurin-bin-18
         temurin-bin # 21
         temurin-bin-23
       ];

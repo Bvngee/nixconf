@@ -5,6 +5,7 @@
     ./swayidle.nix
     ./swaylock.nix
     ./swww.nix
+    ./uwsm.nix
   ];
 
   home.packages = with pkgs; [

@@ -1,8 +1,4 @@
-{ config, pkgs, ... }:
-let
-  isNvidia = builtins.elem "nvidia" config.services.xserver.videoDrivers;
-in
-{
+{ config, pkgs, ... }: {
   environment.systemPackages = with pkgs; [
     # not sure if I really need these?
     podman-compose
@@ -51,7 +47,7 @@ in
   };
 
   # replaces [docker/podman].enableNvidia
-  hardware.nvidia-container-toolkit.enable = isNvidia;
+  hardware.nvidia-container-toolkit.enable = config.profile.isNvidia;
 
   users.users.${config.profile.mainUser}.extraGroups = [ "docker" ];
 }

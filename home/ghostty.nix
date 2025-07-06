@@ -1,12 +1,11 @@
-{ config, inputs, pkgs, ... }: {
-  # Temporarily disabled, as git auth via ssh is ANNOYING
-  # # Note: Ghostty's cachix cache is enabled in nixos/nix.nix temporarily
-  # home.packages = [
-  #   inputs.ghostty.packages.${pkgs.system}.default
-  # ];
-
-  # Waiting on:
+{ config, ... }: {
+  # Witing on:
   # https://github.com/mitchellh/ghostty/issues/1307
+  programs.ghostty = {
+    enable = true;
+    enableZshIntegration = true;
+  };
+
   xdg.configFile."ghostty/config".text =
     with config.scheme.withHashtag; ''
       window-decoration = false
@@ -17,6 +16,7 @@
       cursor-style-blink = false
       cursor-style = block
       shell-integration-features = sudo,no-cursor
+      adjust-cursor-thickness = 1
     
       foreground = ${base05}
       background = ${base00}

@@ -1,16 +1,17 @@
-{ lib, pkgs, config, ... }: let
-  inherit (config.profile) isMobile;
-  isNvidia = builtins.elem "nvidia" config.services.xserver.videoDrivers;
-in {
+{ lib, pkgs, config, ... }:
+let
+  inherit (config.profile) isMobile isNvidia;
+in
+{
 
-  # TODO: script this somehow, in a bar or something
+  # TODO: script this somehow, in a bar or something:
   # `for dir in /sys/class/backlight/*; do brightnessctl s 5%- -d "${dir##*/}" & done`
   # for some reason brightnessctl isnt seeing all monitors so that might be necessary
 
   environment.systemPackages = with pkgs; [
     # Generic screen brightness control
     brightnessctl
-  ] 
+  ]
   ++ lib.optionals (!isMobile) [
     # External monitor backlight control via ddc
     ddcutil

@@ -1,4 +1,4 @@
-{ config, lib, pkgs, pkgsUnstable, ... }:
+{ config, pkgs, pkgsUnstable, ... }:
 let
   inherit (config.profile) flakeRoot;
 in

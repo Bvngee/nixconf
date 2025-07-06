@@ -12,7 +12,7 @@
       offload.enable = true;
       offload.enableOffloadCmd = true;
     };
-    # beta 555 drivers with explicit sync support!
+    # nvidia drivers with explicit sync support (as of 555)!
     package = config.boot.kernelPackages.nvidiaPackages.stable;
   };
   boot.blacklistedKernelModules = [ "nouveau" ];

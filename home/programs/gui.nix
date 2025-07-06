@@ -1,24 +1,4 @@
-{ config, pkgs, pkgsUnstable, ... }:
-let
-  # Cisco PacketTracer: must download Packet_Tracer822_amd64_signed.deb manually
-  ptDebPath = /home/jack/Downloads/Packet_Tracer822_amd64_signed.deb;
-  ptUnfixed = pkgsUnstable.ciscoPacketTracer8.override {
-    packetTracerSource = ptDebPath;
-  };
-  # fixes some weird collision with zoom-us. See pkgs/by-name/ci/ciscoPacketTracer8/package.nix
-  pt = ptUnfixed.overrideAttrs {
-    installPhase = ''
-      runHook preInstall
-
-      mkdir -p $out/bin
-      ln -s ${ptUnfixed}/bin/packettracer8 $out/bin/packettracer8
-
-      runHook postInstall
-
-    '';
-  };
-in
-{
+{ pkgs, ... }: {
   home.packages = with pkgs; [
     # Image, video
     libsForQt5.gwenview
@@ -72,13 +52,8 @@ in
     # (if config.profile.hostname == "pc" then davinci-resolve-studio else davinci-resolve)
 
     # not using: I found this has some broken parts: https://github.com/NixOS/nixpkgs/issues/347150
-    # kicad-small # this excludes the kicad-packages3D library: https://gitlab.com/kicad/libraries/kicad-packages3D
-
-    # I need Cisco PacketTracer for CSE 80N, however it requires logging in to
-    # netacad.com download the .deb file manually. I don't always need it on
-    # every machine
-  ] ++ lib.optional (config.profile.hostname == "latitude" || config.profile.hostname == "precision")
-    pt;
+   # kicad-small # this excludes the kicad-packages3D library: https://gitlab.com/kicad/libraries/kicad-packages3D
+  ];
 
   services = { };
 }

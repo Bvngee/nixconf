@@ -29,17 +29,10 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    hyprland.url = "github:hyprwm/Hyprland/v0.48.1";
-
-    hyprsplit = {
-      url = "github:shezdy/hyprsplit";
-      inputs.hyprland.follows = "hyprland";
-    };
-
+    # Used for the nixos module's xremap systemd service only. Package is used from nixpkgs
     xremap-flake = {
       url = "github:xremap/nix-flake";
       inputs.nixpkgs.follows = "nixpkgs";
-      inputs.hyprland.follows = "hyprland";
     };
 
     spicetify-nix = {
@@ -48,11 +41,5 @@
     };
 
     base16.url = "github:SenchoPens/base16.nix";
-
-    # Temporarily disabled, as git auth via ssh is ANNOYING
-    # # Requires git SSH access to the repo as of now (still private)
-    # #ghostty.url = "git+ssh://git@github.com/mitchellh/ghostty?ref=main&rev=09c765f42a0c972b0cd5367a5195a600a261e400";
-    # ghostty.url = "git+ssh://git@github.com/mitchellh/ghostty";
   };
-
 }

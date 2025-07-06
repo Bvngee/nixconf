@@ -85,11 +85,6 @@
       icons = "auto";
     };
 
-    # fancy cat
-    bat = {
-      enable = true;
-    };
-
     # the best navigation tool ever (replaces cd)
     zoxide = {
       enable = true;

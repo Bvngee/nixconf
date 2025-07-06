@@ -1,23 +1,12 @@
-{ pkgs, inputs, ... }: {
-  # Enable Hyprland's cachix binary cache (must be done first)
-  nix.settings = {
-    substituters = [ "https://hyprland.cachix.org" ];
-    trusted-public-keys = [ "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc=" ];
-  };
-
-  # Overrides programs.hyprland package with version from the hyprland flake.
-  imports = [ inputs.hyprland.nixosModules.default ];
-
+{ ... }: {
+  # Enable hyprland. Plugins are added via the home manager module.
   programs.hyprland = {
     enable = true;
+    # See https://wiki.hypr.land/Useful-Utilities/Systemd-start/#uwsm for
+    # warnings and recommendations. This option sets
+    # `programs.uwsm.waylandCompositors.hyprland.*` for us
     withUWSM = true;
-
-    # this field is added by the hyprland flake's nixos module
-    plugins = [
-      inputs.hyprsplit.packages.${pkgs.system}.hyprsplit
-    ];
   };
-  # Install Hyprland's xdg-desktop-portal impl
   xdg.portal = {
     config.hyprland = {
       default = [ "hyprland" "gtk" ];

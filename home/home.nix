@@ -1,4 +1,4 @@
-{ config, ... }: {
+{ lib, config, ... }: {
   home = {
     username = config.profile.mainUser;
     homeDirectory = "/home/${config.profile.mainUser}";
@@ -10,6 +10,12 @@
     manpages.enable = false;
     html.enable = false;
     json.enable = false;
+  };
+
+  # Less noisy and WAY FASTER home-manager CLI
+  news = {
+    display = "silent";
+    entries = lib.mkForce [ ];
   };
 
   # Adds the home-manager cli tool to home.packages (for standalone mode).
@@ -24,14 +30,5 @@
     BROWSER = "firefox";
     TERMINAL = "kitty";
     MANPAGER = "nvim +Man\!";
-  };
-
-  # This fixes a bug where some HM systemd services have `Requires = [ "tray.target" ];`
-  # See https://github.com/nix-community/home-manager/issues/2064
-  systemd.user.targets.tray = {
-    Unit = {
-      Description = "Home Manager Proxy System Tray";
-      Requires = [ "graphical-session-pre.target" ];
-    };
   };
 }

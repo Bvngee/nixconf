@@ -26,12 +26,17 @@
       type = lib.types.str;
     };
     flakeRoot = lib.mkOption {
-      description = "The absolute path where this flake is located in the system.";
+      description = "The absolute path where this flake is located in the system";
       example = "/home/user/dev/nixconf";
       type = lib.types.str;
     };
     isMobile = lib.mkOption {
       description = "Whether or not the profile's associated machine is a laptop (mobile) or desktop (stationary)";
+      default = false;
+      type = lib.types.bool;
+    };
+    isNvidia = lib.mkOption {
+      description = "Whether or not the profile's associated machine has an Nvidia GPU. See the profile's individual nixos configuration file for more nvidia-specific settings";
       default = false;
       type = lib.types.bool;
     };

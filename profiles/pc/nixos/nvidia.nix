@@ -21,9 +21,6 @@
   };
 
   # This should be done automatically: https://github.com/NixOS/nixpkgs/blob/0196e5372b8b7a282cb3bbe5cbf446617141ce38/nixos/modules/hardware/video/nvidia.nix#L658C29-L658C34
-  # TODO: test ^
-  # # only works for 545+ I think
-  # # https://wiki.archlinux.org/title/Talk:NVIDIA#Framebuffer_consoles_experimental_support
   #boot.kernelParams = [ "nvidia_drm.fbdev=1" ];
   
   # Make sure we're not uing nouveau
