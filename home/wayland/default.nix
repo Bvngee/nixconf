@@ -1,11 +1,11 @@
-{ pkgs, ... }: {
+{ pkgs, pkgsUnstable, ... }: {
   imports = [
     ./hyprland.nix
     ./hyprlock.nix
     ./swayidle.nix
     ./swaylock.nix
+    ./sway.nix
     ./swww.nix
-    ./uwsm.nix
   ];
 
   home.packages = with pkgs; [
@@ -22,6 +22,7 @@
     hyprpicker
     wlsunset
     woomer
+    pkgsUnstable.app2unit # standalone compositors should try to always use this to launch apps
 
     # Preferred PolKit agent
     # (note that since these binaries are in /libexec we 

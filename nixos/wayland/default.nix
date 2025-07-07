@@ -2,7 +2,7 @@
   imports = [
     ./hyprland.nix
     ./sway.nix
-    ./uwsm.nix
+    ./environment.nix
   ];
 
   programs.xwayland.enable = true;

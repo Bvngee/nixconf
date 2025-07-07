@@ -1,16 +1,20 @@
-{ config, pkgs, ... }: let
+{ config, pkgs, ... }:
+let
   sessionData = config.services.displayManager.sessionData.desktops;
   waylandSessions = "${sessionData}/share/wayland-sessions";
   xSessions = "${sessionData}/share/xsessions";
-in {
+in
+{
   services.greetd = {
     enable = true;
     vt = 2;
     settings = {
       default_session = {
-        # default --xsession-wrapper is "startx /usr/bin/env"
+        # note: default --xsession-wrapper is "startx /usr/bin/env"
+        # note: see ./wayland/environment.nix for wayland-session-wrapper.sh
         command = ''${pkgs.greetd.tuigreet}/bin/tuigreet \
           --sessions ${waylandSessions} \
+          --session-wrapper /etc/wayland-session-wrapper.sh \
           --xsessions ${xSessions} \
           --remember \
           --remember-session \

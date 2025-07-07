@@ -1,4 +1,4 @@
-{ inputs, config, pkgs, ... }:
+{ config, pkgs, ... }:
 let
   mkLink = relPath:
     config.lib.file.mkOutOfStoreSymlink "${config.profile.flakeRoot}/home/static/files/${relPath}";
@@ -6,7 +6,7 @@ in
 {
   # Some necessary packages related to the static files
   home.packages = with pkgs; [
-    inputs.nixpkgs-ironbar.legacyPackages.${pkgs.system}.ironbar
+    ironbar
     yazi
     joshuto
   ];

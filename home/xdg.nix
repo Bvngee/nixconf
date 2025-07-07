@@ -1,12 +1,13 @@
 { config, ... }: {
-  xdg = {
+  xdg.enable = true;
+  xdg.mimeApps = rec {
     enable = true;
-    mimeApps = rec {
-      enable = true;
-      associations.added = defaultApplications;
-      defaultApplications = let
-        browser = ["firefox.desktop"];
-      in {
+    associations.added = defaultApplications;
+    defaultApplications =
+      let
+        browser = [ "firefox.desktop" ];
+      in
+      {
         "text/html" = browser;
         "x-scheme-handler/http" = browser;
         "x-scheme-handler/https" = browser;
@@ -23,25 +24,32 @@
         "application/json" = browser;
 
         #"application/x-xz-compressed-tar" = ["org.kde.ark.desktop"];
-        "application/x-xz-compressed-tar" = ["org.kde.ark.desktop"];
+        "application/x-xz-compressed-tar" = [ "org.kde.ark.desktop" ];
 
-        "audio/*" = ["mpv.desktop"];
-        "video/*" = ["mpv.desktop"];
-        "image/*" = ["gwenview.desktop"]; # imv.desktop?
+        "audio/*" = [ "mpv.desktop" ];
+        "video/*" = [ "mpv.desktop" ];
+        "image/*" = [ "gwenview.desktop" ]; # imv.desktop?
 
-        "inode/directory" = ["thunar.desktop"];
+        "inode/directory" = [ "thunar.desktop" ];
       };
-    };
+  };
 
-    # Hopefully this fixes the constant override warnings?
-    configFile."mimeapps.list".force = true;
+  # Hopefully this fixes the constant override warnings?
+  xdg.configFile."mimeapps.list".force = true;
 
-    userDirs = {
-      enable = true;
-      createDirectories = true;
-      extraConfig = {
-        XDG_SCREENSHOTS_DIR = "${config.xdg.userDirs.pictures}/Screenshots";
-      };
+  xdg.userDirs = {
+    enable = true;
+    createDirectories = true;
+    extraConfig = {
+      XDG_SCREENSHOTS_DIR = "${config.xdg.userDirs.pictures}/Screenshots";
     };
   };
+
+  # TODO(25.05)
+  # xdg.autostart = {
+  #   enable = true;
+  #   # Prevent random apps from writing xdg autostart files. This way only HM
+  #   # moduels can add autostart entries
+  #   readOnly = true;
+  # };
 }

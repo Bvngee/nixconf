@@ -27,6 +27,9 @@
 
   fonts.enableDefaultPackages = true;
 
+  # Dbus implementation that's supposed to bring higher perf and compatibility
+  services.dbus.implementation = "broker";
+
   # Used for apps that depend on a dbus secret-service provider
   services.gnome.gnome-keyring.enable = true; # prefer this over Kwallet
 
