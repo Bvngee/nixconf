@@ -1,9 +1,7 @@
 # To get the socketCAN interface up and running with a CAN-to-USB adapter, run
-# these commands in order:
+# this command (assuming a 500kbaud CAN bus):
 #
-# $ sudo ip link set can0 type can bitrate 500000
-# $ sudo ip link set up can0                     
-# $ ip a
+# $ sudo ip link set up can0 type can bitrate 500000
 
 { self, config, pkgs, ... }: {
 
