@@ -5,14 +5,14 @@
 # $ sudo ip link set up can0                     
 # $ ip a
 
-{ config, pkgs, ... }: {
+{ self, config, pkgs, ... }: {
 
   # Kernel module containing HMS Ixxat socketCAN drivers. Downloaded from
   # https://www.hms-networks.com/support/general-downloads. The tarball
   # contained multiple drivers; This is only `ix_usb_can_2.0.xxx-REL.tgz`,
   # for "all USB-to-CAN V2 and USB-to-CAN-FD family adapters".
   boot.extraModulePackages = [
-    (pkgs.callPackage ../../pkgs/ix_usb_can {
+    (self.packages.${pkgs.system}.ix_usb_can.override {
       kernel = config.boot.kernelPackages.kernel;
     })
   ];

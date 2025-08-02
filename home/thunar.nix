@@ -12,7 +12,7 @@
     "file://${home}/Pictures"
     "file://${home}/dev"
     "file://${home}/.config"
-  ] ++ lib.optionals (config.profile.hostname == "pc") [
+  ] ++ lib.optionals (config.host.hostname == "pc") [
     "file:///mnt/windows"
     "file:///mnt/SecondaryDrive"
   ];

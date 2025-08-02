@@ -14,9 +14,6 @@
 
     lsa = "ls -a";
 
-    # useful for nix store paths. Calls realpath on the result of which
-    rpwhich = "f() { realpath $(which \"$1\") }; f";
-
     # a little overkill but hey why not
     ".." = "cd ..";
     "..." = "cd ../..";
@@ -34,6 +31,13 @@
 
     c = "calc -d --";
   };
+
+  programs.zsh.initContent = ''
+    # useful for nix store paths. Calls realpath on the result of which
+    rpwhich() {
+      realpath $(which $1)
+    }
+  '';
 
   home.sessionVariables = {
     # this is supposed to make colors and eg. mouse inputs work, tbh though idk

@@ -25,9 +25,12 @@
   virtualisation = {
     docker = {
       enable = true;
+      # NOTE: To reclaim a ton of disk space from unused build/image cache that
+      # `docker rmi` doesn't get (for me it was in `/var/lib/docker/containerd/daemon`),
+      # use `docker system prune`!! 
       daemon.settings = {
         features = {
-          # this makes docker use containerd's image store instead of it's own,
+          # This makes docker use containerd's image store instead of it's own,
           # which supports multiarch images (among other things).
           # https://docs.docker.com/build/building/multi-platform/#enable-the-containerd-image-store
           # https://github.com/docker/roadmap/issues/371
@@ -47,7 +50,7 @@
   };
 
   # replaces [docker/podman].enableNvidia
-  hardware.nvidia-container-toolkit.enable = config.profile.isNvidia;
+  hardware.nvidia-container-toolkit.enable = config.host.isNvidia;
 
-  users.users.${config.profile.mainUser}.extraGroups = [ "docker" ];
+  users.users.${config.host.mainUser}.extraGroups = [ "docker" ];
 }

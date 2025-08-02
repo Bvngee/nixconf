@@ -11,7 +11,7 @@
         withWlroots = true; # future- make depend on variables?
         watch = true;
         #deviceName = "GMMK";
-        userName = config.profile.mainUser;
+        userName = config.host.mainUser;
         serviceMode = "system";
         config = {
             modmap = [

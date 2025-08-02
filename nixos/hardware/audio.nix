@@ -1,5 +1,5 @@
 { lib, ... }: {
-  hardware.pulseaudio.enable = lib.mkForce false;
+  services.pulseaudio.enable = lib.mkForce false;
   services.pipewire = {
     enable = true;
     pulse.enable = true;
@@ -11,7 +11,6 @@
 
   programs.noisetorch.enable = true;
   
-  ###### NixOS 24.05: uncomment all below, as services.pipewire.extraConfig got added to nixpkgs
   ### pipewireLowLatency ### solen from:
   ### https://github.com/fufexan/nix-gaming/blob/master/modules/pipewireLowLatency.nix
   imports = [

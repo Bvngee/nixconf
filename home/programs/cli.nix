@@ -41,7 +41,7 @@
     lsof
     progress
     ffmpeg
-    ncdu # disk utilization viewer
+    ncdu # disk utilization viewer. Command: `sudo ncdu / --exclude-kernfs --exclude-caches --confirm-quit --exclude /nix/store`
     # graphviz # getting weird collisions (libgvc.so) with ags :/
     calc # cli calculator. See `c` alias in home/shell/default.nix
     nodePackages.dotenv-cli # TODO(24.11): this was removed from nodePackages
@@ -117,7 +117,7 @@
 
   imports = [
     # enables programs.nix-index with prebuilt database, and provides options below
-    inputs.nix-index-database.hmModules.nix-index
+    inputs.nix-index-database.homeModules.nix-index
   ];
 
   programs.nix-index = {

@@ -1,6 +1,6 @@
 { lib, pkgs, config, ... }:
 let
-  inherit (config.profile) isMobile isNvidia;
+  inherit (config.host) isMobile isNvidia;
 in
 {
 

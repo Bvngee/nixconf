@@ -3,8 +3,8 @@
     gh.enable = true;
     git = {
       enable = true;
-      userName = config.profile.mainUserDesc;
-      userEmail = config.profile.mainUserEmail;
+      userName = config.host.mainUserDesc;
+      userEmail = config.host.mainUserEmail;
       aliases.prettylog = "log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit";
 
       extraConfig = {

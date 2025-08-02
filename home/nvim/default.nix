@@ -1,9 +1,14 @@
-{ config, pkgs, ... }: {
+{ inputs, config, pkgs, ... }: {
   xdg.configFile."nvim".source =
-    config.lib.file.mkOutOfStoreSymlink "${config.profile.flakeRoot}/home/nvim/config";
+    config.lib.file.mkOutOfStoreSymlink "${config.host.flakeRoot}/home/nvim/config";
+
+  home.packages = [
+    # Extremely temporary; pending config rewrite!
+    inputs.nixpkgs-neovim.legacyPackages.${pkgs.system}.neovim
+  ];
 
   programs.neovim = {
-    enable = true;
+    enable = false;
 
     vimAlias = true;
     viAlias = true;
@@ -14,8 +19,8 @@
     withNodeJs = false;
 
     extraPackages = with pkgs; [
+      stdenv.cc
       gnumake
-      gcc
       ripgrep
       fd
     ];

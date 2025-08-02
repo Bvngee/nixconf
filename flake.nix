@@ -1,28 +1,46 @@
 {
-  description = "BvngeeCord's NixOS system and home configurations";
+  description = "Bvngee's personal NixOS system and home configurations";
 
-  outputs = { nixpkgs, ... }@inputs: {
+  outputs = { self, nixpkgs, ... }@inputs: {
 
-    nixosConfigurations = import ./profiles/nixosConfigs.nix { inherit nixpkgs inputs; };
+    nixosConfigurations = import ./configs/nixos-configs.nix { inherit self nixpkgs inputs; };
 
-    homeConfigurations = import ./profiles/homeConfigs.nix { inherit nixpkgs inputs; };
+    homeConfigurations = import ./configs/home-configs.nix { inherit self nixpkgs inputs; };
+
+    packages =
+      let
+        # I've only tested the below packages on x86_64-linux, so I'll only
+        # export them for that system. Eventually I may switch to forEachSystem.
+        system = "x86_64-linux";
+        pkgs = nixpkgs.legacyPackages.${system};
+      in
+      {
+        ${system} = {
+          mow = pkgs.callPackage ./pkgs/mow {};
+
+          ix_usb_can = pkgs.linuxPackages.callPackage ./pkgs/ix_usb_can {};
+        };
+      };
 
   };
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-24.11";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-25.05";
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
+
+    # Extremely temporary; pending nvim config update
+    nixpkgs-neovim.url = "github:nixos/nixpkgs/cd5f33f23db0a57624a891ca74ea02e87ada2564";
 
     # sometimes I want to update nnixpkgs-unstable without recompiling linux_xanmod and
     # nvidia drivers. When I do feel like it, I can fast-forward this
-    nixpkgs-kernel-packages.url = "github:nixos/nixpkgs/nixos-24.11";
+    nixpkgs-kernel-packages.url = "github:nixos/nixpkgs/nixos-25.05";
 
     # nix-index, but with a prebuilt database (and convenient hm/nixos modules)
     nix-index-database.url = "github:nix-community/nix-index-database";
     nix-index-database.inputs.nixpkgs.follows = "nixpkgs";
 
     home-manager = {
-      url = "github:nix-community/home-manager/release-24.11";
+      url = "github:nix-community/home-manager/release-25.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 

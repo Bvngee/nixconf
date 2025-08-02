@@ -1,26 +1,15 @@
-{ nixpkgs, inputs, ... }:
+{ self, nixpkgs, inputs }:
 let
-  nixpkgsConf = {
-    # Not sure why this is needed at all? nixpkgs.nix does the same
-    config.allowUnfree = true;
-    config.allowUnfreePredicate = _: true;
+  # Make a NixOS system.
+  # Note: `system` comes from `nixpkgs.hostPlatform`, as set in
+  # `hosts/<host>/nixos/hardware-configuration.nix`.
+  mkNixosSystem = { imports }: nixpkgs.lib.nixosSystem {
+    modules = [ ../modules ] ++ imports;
+    specialArgs = { inherit self inputs; };
   };
 
-  mkNixosSystem = { system, imports }:
-    let
-      pkgs = import nixpkgs ({ inherit system; } // nixpkgsConf);
-      pkgsUnstable = import inputs.nixpkgs-unstable ({ inherit system; } // nixpkgsConf);
-    in
-    nixpkgs.lib.nixosSystem {
-      modules = imports;
-      specialArgs = { inherit inputs pkgs pkgsUnstable; };
-    };
-
   commonGraphicalNixosModules = [
-    ../modules # source custom modules
-
     ../nixos/nix.nix
-    ../nixos/nixpkgs.nix
     ../nixos/nix-ld.nix
     ../nixos/envfs.nix
     ../nixos/users.nix
@@ -59,10 +48,9 @@ let
 in
 {
   "pc" = mkNixosSystem {
-    system = "x86_64-linux";
     imports = [
-      ./pc/profile.nix
-      ./pc/nixos
+      ../hosts/pc/profile.nix
+      ../hosts/pc/nixos
 
       ../nixos/programs/gaming.nix
 
@@ -73,20 +61,18 @@ in
     ] ++ commonGraphicalNixosModules;
   };
   "latitude" = mkNixosSystem {
-    system = "x86_64-linux";
     imports = [
-      ./latitude/profile.nix
-      ./latitude/nixos
+      ../hosts/latitude/profile.nix
+      ../hosts/latitude
 
       ../nixos/kde.nix
       ../nixos/hardware/ssd.nix
     ] ++ commonGraphicalNixosModules;
   };
   "precision" = mkNixosSystem {
-    system = "x86_64-linux";
     imports = [
-      ./precision/profile.nix
-      ./precision/nixos
+      ../hosts/precision/profile.nix
+      ../hosts/precision/nixos
 
       ../nixos/programs/gaming.nix
 

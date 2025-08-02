@@ -4,7 +4,7 @@
   # modules. After adding them here, the `sensors` command correctly reports the
   # rest of the fan RPMs and temps that weren't reported previously.
   # I don't care about my other computers so atm this is just for my PC.
-  boot.kernelModules = lib.mkIf (config.profile.hostname == "pc") [ "coretemp" "nct6775" ];
+  boot.kernelModules = lib.mkIf (config.host.hostname == "pc") [ "coretemp" "nct6775" ];
 
   # "CoolerControl is a feature-rich cooling device control application for
   # Linux. It has a system daemon for background device management, as well as a

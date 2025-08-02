@@ -13,7 +13,7 @@ in
   ];
 
   # base16.nix scheme
-  scheme = "${base16-schemes}/${config.profile.theme.base16Theme}.yaml"; #nord
+  scheme = "${base16-schemes}/${config.host.base16Theme}.yaml"; #nord
 
   home.packages = with config.scheme.withHashtag; let
     printScheme = pkgs.writeShellScriptBin "printScheme" ''

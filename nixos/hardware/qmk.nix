@@ -1,11 +1,12 @@
 { pkgs, ... }: {
   environment.systemPackages = with pkgs; [
     qmk
-    vial
+    # vial
   ];
 
   hardware.keyboard.qmk.enable = true; # Adds pkgs.qmk-udev-rules to udev
-  services.udev.packages = with pkgs; [
-    vial
-  ];
+
+  # services.udev.packages = with pkgs; [
+  #   vial
+  # ];
 }

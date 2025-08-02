@@ -1,6 +1,6 @@
 { config, pkgs, pkgsUnstable, ... }:
 let
-  inherit (config.profile) flakeRoot;
+  inherit (config.host) flakeRoot;
 in
 {
   home.packages = with pkgs; [

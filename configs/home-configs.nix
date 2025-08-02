@@ -1,27 +1,25 @@
-{ nixpkgs, inputs, ... }:
+{ self, nixpkgs, inputs }:
 let
-  nixpkgsConf = {
-    # Not sure why this is needed at all? nixpkgs.nix does the same
-    config.allowUnfree = true;
-    config.allowUnfreePredicate = _: true;
-  };
-
+  # Make a standalone Home Manager configuration.
+  # Unlike for `nixosSystem`, `homeManagerConfiguration` does not come from
+  # nixpkgs.lib, so we must give home manager the instance of nixpkgs that we
+  # want it to use. We can skip specifying `nixpkgs.config` at import-time,
+  # as home manager prioritizes the `nixpkgs.config` as discovered by the
+  # module system (see modules/common/nixpkgs-config.nix); however, we must
+  # still specify `system`, which means duplicating `nixpkgs.hostPlatform` from
+  # `hosts/<host>/nixos/hardware-configuration.nix` for each host.
   mkHomeManagerConfig = { system, imports }:
     let
-      pkgs = import nixpkgs ({ inherit system; } // nixpkgsConf);
-      pkgsUnstable = import inputs.nixpkgs-unstable ({ inherit system; } // nixpkgsConf);
+      pkgs = import nixpkgs ({ inherit system; });
     in
     inputs.home-manager.lib.homeManagerConfiguration {
       inherit pkgs;
-      modules = imports;
-      extraSpecialArgs = { inherit inputs pkgs pkgsUnstable; };
+      modules = [ ../modules ] ++ imports;
+      extraSpecialArgs = { inherit self inputs; };
     };
 
   commonGraphicalHMModules = [
-    ../modules # source custom modules
-
     ../home/home.nix
-    ../home/nixpkgs.nix
     ../home/xdg.nix
     ../home/git.nix
     ../home/kdeconnect.nix
@@ -54,19 +52,19 @@ in
   "jack@pc" = mkHomeManagerConfig {
     system = "x86_64-linux";
     imports = [
-      ./pc/profile.nix
+      ../hosts/pc/profile.nix
     ] ++ commonGraphicalHMModules;
   };
   "jack@latitude" = mkHomeManagerConfig {
     system = "x86_64-linux";
     imports = [
-      ./latitude/profile.nix
+      ../hosts/latitude/profile.nix
     ] ++ commonGraphicalHMModules;
   };
   "jack@precision" = mkHomeManagerConfig {
     system = "x86_64-linux";
     imports = [
-      ./precision/profile.nix
+      ../hosts/precision/profile.nix
     ] ++ commonGraphicalHMModules;
   };
   # todo:

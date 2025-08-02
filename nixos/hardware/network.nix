@@ -1,11 +1,11 @@
 { lib, pkgs, config, ... }: {
 
-  networking.hostName = config.profile.hostname;
+  networking.hostName = config.host.hostname;
   networking.nameservers = [ "1.1.1.1" "8.8.8.8" ];
 
   networking.networkmanager.enable = true;
   # gives my user permission to change network settings
-  users.users.${config.profile.mainUser}.extraGroups = [ "networkmanager" ];
+  users.users.${config.host.mainUser}.extraGroups = [ "networkmanager" ];
 
   # Sesolved will use the dns servers set in `networking.nameservers`:
   # https://github.com/NixOS/nixpkgs/blob/7105ae3957700a9646cc4b766f5815b23ed0c682/nixos/modules/system/boot/resolved.nix#L18
@@ -19,6 +19,10 @@
   # tbh not sure if this is useful lol. "Whether to enable resolved for stage 1 networking"
   # TODO(24.11): look into this maybe?
   # boot.initrd.services.resolved.enable = true;
+
+  boot.kernel.sysctl = {
+    "net.ipv6.conf.all.forwarding" = true;
+  };
 
   # spams annoying notifications, tray menu is barely useful
   # programs.nm-applet = {
@@ -59,8 +63,8 @@
       };
     in
     {
-      "UCSC eduroam (nixconf)" = lib.mkIf (config.profile.isMobile) (mkUCSCProfile "eduroam");
-      "UCSC ResWiFi (nixconf)" = lib.mkIf (config.profile.isMobile) (mkUCSCProfile "ResWiFi");
+      "UCSC eduroam (nixconf)" = lib.mkIf (config.host.isMobile) (mkUCSCProfile "eduroam");
+      "UCSC ResWiFi (nixconf)" = lib.mkIf (config.host.isMobile) (mkUCSCProfile "ResWiFi");
     };
 
   # Configures wpa_supplicant directly; mostly incompatible with the above networkingmanager

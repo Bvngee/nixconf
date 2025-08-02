@@ -1,6 +1,6 @@
 { config, lib, pkgs, ... }:
 let
-  inherit (config.profile) isMobile mainUser;
+  inherit (config.host) isMobile mainUser;
 in
 {
 
@@ -21,7 +21,7 @@ in
         turbo = "auto";
       };
       charger = {
-        governor = "balanced";
+        governor = "performance";
         turbo = "auto";
       };
     };
@@ -44,25 +44,40 @@ in
     powertop
   ];
 
-  # TODO: none of this is working :(
   services.udev.extraRules =
     let
-      unplugged = pkgs.writeShellScript "unplugged" ''
-        ${lib.getExe pkgs.libnotify} "Disconnected from AC power!"
+      notifyUser = pkgs.writeCBin "notifyUser" ''
+        #include <pwd.h>
+        #include <stdlib.h>
+        #include <stdio.h>
+        #include <unistd.h>
+        
+        #define MAX_ARGC 32
+        int main(int argc, char *argv[]) {
+            if (argc < 2 || argc > MAX_ARGC) exit(1);
+            struct passwd *pw = getpwnam("${mainUser}");
+            char env_var[64] = {0};
+            snprintf(env_var, 64, "XDG_RUNTIME_DIR=/run/user/%d", pw ? pw->pw_uid : 1000);
+            char *const notify_envp[] = {env_var, NULL};
+            char *notify_argv[MAX_ARGC] = { "notify-send" };
+            for (int i=1; i<argc; i++) notify_argv[i] = argv[i];
+            notify_argv[argc] = NULL;
+            execve("${lib.getExe pkgs.libnotify}", notify_argv, notify_envp);
+        }
       '';
+      udevNotify = notifyArgsStr: "${pkgs.su}/bin/su ${mainUser} -s ${notifyUser}/bin/notifyUser -- '${notifyArgsStr}'";
 
-      plugged = pkgs.writeShellScript "plugged" ''
-        ${lib.getExe pkgs.libnotify} "Connected to AC power!"
-      '';
-      lowBattery = pkgs.writeShellScript "lowBattery" ''
-        ${lib.getExe pkgs.libnotify} -u critical "Battery critically low!"
-      '';
+      notifyPlugged = udevNotify "Connected to AC power!";
+      notifyUnplugged = udevNotify "Disconnected from AC power!";
+      notifyBatteryLow = udevNotify "-u critical Battery low! (10%%)";
+      notifyBatteryCritical = udevNotify "-u critical Battery critically low! (5%%)";
     in
-    lib.mkIf (config.profile.isMobile)
+    lib.mkIf (config.host.isMobile)
       ''
         # notify-send critical battery/charge information
-        SUBSYSTEM=="power_supply", ATTR{online}=="1", ENV{XDG_RUNTIME_DIR}="/run/user/$(id -u ${mainUser})", RUN+="${pkgs.su}/bin/su ${mainUser} -c ${plugged}"
-        SUBSYSTEM=="power_supply", ATTR{online}=="0", ENV{XDG_RUNTIME_DIR}="/run/user/$(id -u ${mainUser})", RUN+="${pkgs.su}/bin/su ${mainUser} -c ${unplugged}"
-        SUBSYSTEM=="power_supply", ATTR{status}=="discharging", ATTR{capacity}=="[0-5]", ENV{XDG_RUNTIME_DIR}="/run/user/$(id -u ${mainUser})", RUN+="${pkgs.su}/bin/su ${mainUser} -c ${lowBattery}"
+        SUBSYSTEM=="power_supply", ATTR{online}=="1", RUN+="${notifyPlugged}"
+        SUBSYSTEM=="power_supply", ATTR{online}=="0", RUN+="${notifyUnplugged}"
+        SUBSYSTEM=="power_supply", ATTR{status}==i"discharging", ATTR{capacity}=="[5-10]", RUN+="${notifyBatteryLow}"
+        SUBSYSTEM=="power_supply", ATTR{status}==i"discharging", ATTR{capacity}=="[0-5]", RUN+="${notifyBatteryCritical}"
       '';
 }

@@ -49,7 +49,7 @@
     # Davinci Resolve only lets you use your Studio key on a select # of machines
     # TODO(25.05): for some reason this forces building spidermonkey from
     # source. Has this been fixed yet?
-    # (if config.profile.hostname == "pc" then davinci-resolve-studio else davinci-resolve)
+    # (if config.host.hostname == "pc" then davinci-resolve-studio else davinci-resolve)
 
     # not using: I found this has some broken parts: https://github.com/NixOS/nixpkgs/issues/347150
    # kicad-small # this excludes the kicad-packages3D library: https://gitlab.com/kicad/libraries/kicad-packages3D

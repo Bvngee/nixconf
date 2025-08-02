@@ -1,8 +1,13 @@
 { config, lib, pkgs, ... }: {
-  # Common configurations shared between all desktop-nixos variations.
+# Common configurations shared between all desktop-nixos variations.
 
-  time.timeZone = config.profile.timezone;
-  i18n.defaultLocale = config.profile.locale;
+  # We use the tzupdate service for automatic imperative timezone setting based
+  # on geolocation. Sets `time.timeZone to null`
+  services.tzupdate.enable = true;
+  services.tzupdate.timer.enable = true;
+  services.tzupdate.timer.interval = "hourly";
+
+  i18n.defaultLocale = "en_US.UTF-8";
 
   console = {
     packages = with pkgs; [ terminus_font ];
@@ -14,14 +19,13 @@
 
   environment.systemPackages = with pkgs; [
     git # Useful when debugging
-
-    # (import /home/jack/dev/nixpkgs {}).bitwarden
   ];
 
   # So I can use flatpaks if I ever (rarely) need to
   services.flatpak.enable = true;
 
-  # Installs appimage-run script and registers it to be used automativally with binfmt
+  # Installs the appimage-run script, and registers it to be called
+  # automativally via binfmt when trying to run appimages
   programs.appimage.enable = true;
   programs.appimage.binfmt = true;
 
@@ -63,11 +67,11 @@
   services.sysprof.enable = true;
 
   # Modify how laptop lidSwitch/powerKey is handled
-  services.logind = lib.mkIf (config.profile.isMobile) {
+  services.logind = lib.mkIf (config.host.isMobile) {
     lidSwitch = "suspend";
     lidSwitchDocked = "ignore";
     lidSwitchExternalPower = "suspend";
-    powerKey = "ignore";
+    powerKey = "sleep";
     powerKeyLongPress = "poweroff";
   };
 }

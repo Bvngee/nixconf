@@ -1,8 +1,8 @@
 { lib, config, ... }: {
   home = {
-    username = config.profile.mainUser;
-    homeDirectory = "/home/${config.profile.mainUser}";
-    stateVersion = config.profile.stateVersion;
+    username = config.host.mainUser;
+    homeDirectory = "/home/${config.host.mainUser}";
+    stateVersion = config.host.stateVersion;
   };
 
   # I've heard it's common these fail to build (not sure if necessary anymore)

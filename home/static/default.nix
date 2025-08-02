@@ -1,7 +1,7 @@
 { config, pkgs, ... }:
 let
   mkLink = relPath:
-    config.lib.file.mkOutOfStoreSymlink "${config.profile.flakeRoot}/home/static/files/${relPath}";
+    config.lib.file.mkOutOfStoreSymlink "${config.host.flakeRoot}/home/static/files/${relPath}";
 in
 {
   # Some necessary packages related to the static files

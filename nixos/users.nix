@@ -1,8 +1,8 @@
 { config, pkgs, ... }: {
 
-  users.users.${config.profile.mainUser} = {
+  users.users.${config.host.mainUser} = {
     isNormalUser = true;
-    description = config.profile.mainUserDesc;
+    description = config.host.mainUserDesc;
     extraGroups = [ "wheel" ]; # "input" "uinput"
     shell = pkgs.zsh;
   };

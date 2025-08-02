@@ -1,4 +1,4 @@
-{ pkgs, ... }: {
+{ inputs, pkgs, ... }: {
   home.packages =
     let
       # Some dynamic executables are unpatched but are loaded by patched nixpkgs
@@ -25,17 +25,16 @@
       # TODO(future me): remove when PRs/Issues are resolved
       clangdUnwrapped = pkgs.runCommand "clangdUnwrapped" { } ''
         mkdir -p $out/bin
-        ln -s ${pkgs.clang.cc}/bin/clangd $out/bin/clangd-unwrapped
+        ln -s ${inputs.nixpkgs-neovim.legacyPackages.${pkgs.system}.clang.cc}/bin/clangd $out/bin/clangd-unwrapped
       '';
     in
     with pkgs; [
       # IDEs and Editors
       jetbrains.idea-community
       vscode-fhs
-      zed-editor
 
       # C/C++
-      gcc13 # stdenv.cc?
+      stdenv.cc # same C/C++ toolchain used to build nixpkgs packages
       gnumake
       clang-tools_17
       clangdUnwrapped
@@ -103,6 +102,15 @@
       tinymist
       typstyle
     ];
+
+  programs.zed-editor = {
+    enable = true;
+    userSettings = {
+      features.copilot = false;
+      telemetry.metrics = false;
+      vim_mode = true;
+    };
+  };
 
   # Setup JDKs
   # TODO: Should I use makeNixLDWrapper on java (so that downloaded JARs work)??

@@ -1,5 +1,6 @@
-{ config, ... }: {
+{ pkgs, config, ... }: {
   xdg.enable = true;
+
   xdg.mimeApps = rec {
     enable = true;
     associations.added = defaultApplications;
@@ -45,11 +46,14 @@
     };
   };
 
-  # TODO(25.05)
-  # xdg.autostart = {
-  #   enable = true;
-  #   # Prevent random apps from writing xdg autostart files. This way only HM
-  #   # moduels can add autostart entries
-  #   readOnly = true;
-  # };
+  xdg.autostart = {
+    enable = true;
+    # Prevent random apps from writing xdg autostart files. This way only HM
+    # moduels can add autostart entries
+    readOnly = true;
+  };
+
+  home.packages = with pkgs; [
+    xdg-terminal-exec
+  ];
 }

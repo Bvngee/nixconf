@@ -1,17 +1,13 @@
-TODO:
+Random TODOs:
 
 - figure out why auto-session's :mksession files have `wincmd =` in them (resetting window/buf sizes)
 
-- WHY DO COMMENTS ACT SO WIERD WITH INDENTING (start at col 0, stop indenting once they hit the wall..)
+- why do comments act so wierd with indenting?? (start at col 0, stop indenting once they hit the wall..)
 
 - holy shit can we not compile 69k treesitter parsers at once
 
 - nvim-treesitter-context!!!
 
-- why does <esc> not do :noh in normal mode (but only sometimes?)?
+- why does my <esc> :noh mapping only sometimes work in normal mode?
 
-- finish configuring trouble (settings) (make each error on one line or smth? idk)
-
-- Do I want to use noice's renderring overrides (markdown, cmp..)? Are they even better? xD
-
-- ./home/nvim/config/lua/user/plugins/conform.lua clang-format ?
+- Do I want to use noice's renderring overrides (markdown, cmp..)? Are they even better?

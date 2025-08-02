@@ -4,7 +4,7 @@
   # wayland sessions.
   environment.etc."wayland-session-wrapper.sh".source =
     pkgs.writeShellScript "wayland-session-wrapper" (lib.concatStringsSep "\n\n\n" [
-      (lib.optionalString (config.profile.isNvidia) ''
+      (lib.optionalString (config.host.isNvidia) ''
         # Force usage of GBM over EGLStreams (the specific buffer API that the gpu
         # driver and wayland compositor communicate with).
         export GBM_BACKEND=nvidia-drm

@@ -1,10 +1,10 @@
-{ config, lib, pkgs, ... }:
-let
-  inherit (config.profile) theme;
+{ config, pkgs, ... }:
+# let
+  # inherit (config.host) theme;
   # c = config.programs.matugen.theme.colors.colors.${theme.variant};
   # cu = import ./color-utils.nix { inherit lib; };
   # inherit (cu) hexToRgba;
-in
+# in
 {
 
   # Notes regarding live-switching between dark and light mode at runtime (which I currently do not do):
@@ -58,10 +58,7 @@ in
         };
       in
       {
-        name =
-          if (theme.variant == "dark")
-          then "Colloid-grey-dark"
-          else "Colloid-grey-light";
+        name = "Colloid-grey-dark"; # "Colloid-grey-light"
         package = themedColloid;
       };
 
@@ -69,7 +66,7 @@ in
     # Not sure if all this antialising and hinting stuff is necessary. Taken from NotAShelf
     gtk2.extraConfig = ''
       # I don't trust gtk2 apps to handle theming
-      # gtk-theme-name="${if (theme.variant == "dark") then "Adwaita-dark" else "Adwaita"}"
+      # gtk-theme-name="Adwaita-dark" # Adwaita
       gtk-xft-antialias=1
       gtk-xft-hinting=1
       gtk-xft-hintstyle="hintslight"
@@ -99,13 +96,11 @@ in
   # icon theme, are all set by the gtk module.
   dconf.settings = {
     # prefer dark or light mode
-    "org/gnome/desktop/interface" =
-      if (theme.variant == "dark") then {
+    "org/gnome/desktop/interface" = {
         gtk-theme = "adw-gtk3-dark";
         color-scheme = "prefer-dark";
-      } else {
-        gtk-theme = "adw-gtk3";
-        color-scheme = "prefer-light";
+        # gtk-theme = "adw-gtk3";
+        # color-scheme = "prefer-light";
       };
 
     # yeet close/maximize/minimize buttons

@@ -1,5 +1,4 @@
 { config, inputs, lib, pkgs, ... }: let
-  inherit (config.profile) theme;
 in {
   # home.packages = [
   #   # added for debugging purposes

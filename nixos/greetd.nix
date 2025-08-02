@@ -28,7 +28,7 @@ in
       # TODO: once I've settled on a more permanent DE/env, make it autologin by setting this
       # initial_session = {
       #   command = ;
-      #   user = config.profile.user;
+      #   user = config.host.user;
       # };
     };
   };

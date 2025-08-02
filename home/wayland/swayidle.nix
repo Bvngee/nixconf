@@ -10,7 +10,7 @@ let
   '';
 
   screenlockScript = pkgs.writeShellScript "screenlock-script" ''
-    ${pkgs.swaylock}/bin/swaylock -f -i ${config.profile.theme.wallpaper}
+    ${pkgs.swaylock}/bin/swaylock -f -i ${config.host.wallpaper}
   '';
 in
 {
