@@ -63,7 +63,7 @@ in
   "latitude" = mkNixosSystem {
     imports = [
       ../hosts/latitude/profile.nix
-      ../hosts/latitude
+      ../hosts/latitude/nixos
 
       ../nixos/kde.nix
       ../nixos/hardware/ssd.nix
