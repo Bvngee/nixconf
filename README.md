@@ -33,3 +33,9 @@ Note on manually stepping through the build process of a derivation:
 To see the difference / what changes between generations:
 
 `nix profile diff-closures --profile /nix/var/nix/profiles/system`
+
+# Todos:
+
+- fix and simplify QT (and GTK) theming
+- use fetches instead of vendoring source code of ixxat kernel module
+- fix neovim app launcher desktop entry in thunar
