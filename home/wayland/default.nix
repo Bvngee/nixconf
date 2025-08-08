@@ -22,7 +22,9 @@
     hyprpicker
     wlsunset
     woomer
+    # TODO: remove pkgsUnstable when in stable
     pkgsUnstable.app2unit # standalone compositors should try to always use this to launch apps
+    dunst
 
     # Preferred PolKit agent
     # (note that since these binaries are in /libexec we 

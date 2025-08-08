@@ -44,7 +44,6 @@ let
     ../home/shell
     ../home/waybar
     ../home/nvim
-    ../home/ags
     ../home/static
   ];
 in
