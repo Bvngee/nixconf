@@ -4,7 +4,7 @@ Todo: add explanations of everything.
 
 # Useful notes for myself:
 
-sudo nix-collect-garbage --delete-older-than 14d
+`sudo nix-collect-garbage --delete-older-than 14d` or `sudo nix store gc`
 
 Note on buildInputs vs nativeBuildInputs (which I always mix up):
 - Think of cross compilation!
@@ -25,8 +25,8 @@ on the entire 10gb store path which cannot be gc'ed.
 - see https://discourse.nixos.org/t/symlinking-vs-copying-into-out/11132
 
 Note on manually stepping through the build process of a derivation:
-- use `nix develop nixpkgs#program` in a new empty directory, but STAY IN BASH. For some
-  reason when entering ZSH you lose certain things like genericBuild and runPhase.
+- use `nix develop nixpkgs#program` in a new empty directory, but STAY IN BASH. When entering ZSH
+  you lose certain things like genericBuild and runPhase, which are bash-only (specific to stdenv).
 - you can manually `runPhase unpackPhase` for every single phase (listed here: 
   https://nixos.org/manual/nixpkgs/stable/#sec-stdenv-phases ), OR you can just run `genericBuild`
 
