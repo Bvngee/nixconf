@@ -102,7 +102,10 @@
           )
 
           # https://github.com/haslersn/any-nix-shell (zsh-nix-shell alternative)
-          ${pkgsUnstable.any-nix-shell}/bin/any-nix-shell zsh | source /dev/stdin
+          # TODO: Is there a way to disable this for `nix develop` when I want
+          # to debug packages? It's nice for devshells, not so nice for package
+          # debugging. Atm solution: go into bash first, then `nix develop`.
+          # ${pkgsUnstable.any-nix-shell}/bin/any-nix-shell zsh | source /dev/stdin
         '';
         zshExtraConfigLast = lib.mkAfter ''
           # zsh-syntax-highlighting configuration
