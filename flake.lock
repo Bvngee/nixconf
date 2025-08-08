@@ -517,22 +517,6 @@
         "type": "github"
       }
     },
-    "nixpkgs-ironbar": {
-      "locked": {
-        "lastModified": 1714982094,
-        "narHash": "sha256-+48iBHfQZklw8LzLYW6kyI69LNKaD4XkGXOP8Qxp2cY=",
-        "owner": "nixos",
-        "repo": "nixpkgs",
-        "rev": "fc55cdb8340a3258a1ad6f3eb8df52dac36c3e70",
-        "type": "github"
-      },
-      "original": {
-        "owner": "nixos",
-        "repo": "nixpkgs",
-        "rev": "fc55cdb8340a3258a1ad6f3eb8df52dac36c3e70",
-        "type": "github"
-      }
-    },
     "nixpkgs-kernel-packages": {
       "locked": {
         "lastModified": 1744440957,
@@ -674,7 +658,6 @@
         "home-manager": "home-manager",
         "nix-index-database": "nix-index-database",
         "nixpkgs": "nixpkgs",
-        "nixpkgs-ironbar": "nixpkgs-ironbar",
         "nixpkgs-kernel-packages": "nixpkgs-kernel-packages",
         "nixpkgs-unstable": "nixpkgs-unstable",
         "spicetify-nix": "spicetify-nix",
