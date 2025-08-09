@@ -65,19 +65,20 @@ in
             execve("${lib.getExe pkgs.libnotify}", notify_argv, notify_envp);
         }
       '';
-      udevNotify = notifyArgsStr: "${pkgs.su}/bin/su ${mainUser} -s ${notifyUser}/bin/notifyUser -- '${notifyArgsStr}'";
+      udevNotify = urgency: notifyArgsStr: "${pkgs.su}/bin/su ${mainUser} -s ${notifyUser}/bin/notifyUser -- -u ${urgency} '${notifyArgsStr}'";
 
-      notifyPlugged = udevNotify "Connected to AC power!";
-      notifyUnplugged = udevNotify "Disconnected from AC power!";
-      notifyBatteryLow = udevNotify "-u critical Battery low! (10%%)";
-      notifyBatteryCritical = udevNotify "-u critical Battery critically low! (5%%)";
+      notifyPlugged = udevNotify "normal" "Connected to AC power!";
+      notifyUnplugged = udevNotify "normal" "Disconnected from AC power!";
+      notifyBatteryLow = udevNotify "critical" "Battery low! (10%%)";
+      notifyBatteryCritical = udevNotify "critical" "Battery critically low! (5%%)";
     in
     lib.mkIf (config.host.isMobile)
       ''
-        # notify-send critical battery/charge information
-        SUBSYSTEM=="power_supply", ATTR{online}=="1", RUN+="${notifyPlugged}"
-        SUBSYSTEM=="power_supply", ATTR{online}=="0", RUN+="${notifyUnplugged}"
-        SUBSYSTEM=="power_supply", ATTR{status}==i"discharging", ATTR{capacity}=="[5-10]", RUN+="${notifyBatteryLow}"
-        SUBSYSTEM=="power_supply", ATTR{status}==i"discharging", ATTR{capacity}=="[0-5]", RUN+="${notifyBatteryCritical}"
+        # Notify the user of critical battery/charge information.
+        # note: KERNEL=="AC" prevents duplicate messages, ACTION=="change" prevents misfires (eg. on wake-from-suspend)
+        SUBSYSTEM=="power_supply", KERNEL=="AC", ACTION=="change", ATTR{online}=="1", RUN+="${notifyPlugged}"
+        SUBSYSTEM=="power_supply", KERNEL=="AC", ACTION=="change", ATTR{online}=="0", RUN+="${notifyUnplugged}"
+        SUBSYSTEM=="power_supply", ATTR{status}=="Discharging", ATTR{capacity}=="[5-10]", RUN+="${notifyBatteryLow}"
+        SUBSYSTEM=="power_supply", ATTR{status}=="Discharging", ATTR{capacity}=="[0-5]", RUN+="${notifyBatteryCritical}"
       '';
 }
