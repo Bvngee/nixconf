@@ -1,12 +1,5 @@
 { config, pkgs, ... }:
-# let
-  # inherit (config.host) theme;
-  # c = config.programs.matugen.theme.colors.colors.${theme.variant};
-  # cu = import ./color-utils.nix { inherit lib; };
-  # inherit (cu) hexToRgba;
-# in
 {
-
   # Notes regarding live-switching between dark and light mode at runtime (which I currently do not do):
   # 1) config.gtk.theme.* must not be set, to avoid theme name being set in gtk-x.0/settings.ini.
   # 2) `dconf write /org/gnome/desktop/interface/gtk-theme "'adw-gtk3-dark'"`,
@@ -26,6 +19,7 @@
     enable = true;
 
     cursorTheme = {
+      # Same as `home.pointerCursor.gtk.enable = true`
       inherit (config.home.pointerCursor) name package size;
     };
 
@@ -41,24 +35,25 @@
     #};
     iconTheme =
       let
-        # Changes the color of folder icons to match the matugen theme, as well as removing
-        # all custom App icons (personal pref). Unfortunately requires rebuilding the package
-        # every time themes are switched. ¯\_(ツ)_/¯
         # https://github.com/vinceliuice/Colloid-icon-theme/tree/main/src/places/scalable
         themedColloid = (pkgs.colloid-icon-theme.override {
-          colorVariants = [ "grey" ];
+          colorVariants = [ "default" "grey" ]; # I think I like default better?
+          schemeVariants = [ "nord" ]; # Slightly more mute colors than default
         }).overrideAttrs {
-          #          configurePhase = ''
-          #            sed -i "s/#888888/${c.inverse_primary}/g" "./colors/color-grey/"*".svg"
-          #          '';
-          #          # TODO: this part is not working
-          #          fixupPhase = ''
-          #            rm -rf apps
-          #          '';
+          # TODO: Why does this cause so many icons to not show up in eg.
+          # xdg-desktop-portal-gtk AppChooser dialog? Does it have to do with
+          # Inheriting hicolor? Maybe modify the index.theme to remove apps/?
+
+          # postFixup = ''
+          #   # Remove all app svgs. Personal preference; I prefer default icons
+          #   rm -rf $out/share/icons/*/apps
+          #   # Delete all newly broken symlinks (some svgs reference app svgs)
+          #   find $out/share/icons -xtype l -delete
+          # '';
         };
       in
       {
-        name = "Colloid-grey-dark"; # "Colloid-grey-light"
+        name = "Colloid-Nord-Dark"; # "Colloid-grey-light"
         package = themedColloid;
       };
 
@@ -78,8 +73,7 @@
       gtk-xft-hintstyle = "hintslight";
       gtk-xft-rgba = "rgb";
     };
-    gtk4.extraConfig = {
-    };
+    gtk4.extraConfig = { };
     # In nixpkgs latest, this line is automatically added to gtk4.css. Since many gtk4 apps hardcode LibAdwaita theming, this is
     # necessary to load other themes. But since I'm just using a colored libadwaita, it shouldn't (I think?) be necessary.
     # https://github.com/nix-community/home-manager/blob/433120e47d016c9960dd9c2b1821e97d223a6a39/modules/misc/gtk.nix#L244C9-L244C99
@@ -97,11 +91,11 @@
   dconf.settings = {
     # prefer dark or light mode
     "org/gnome/desktop/interface" = {
-        gtk-theme = "adw-gtk3-dark";
-        color-scheme = "prefer-dark";
-        # gtk-theme = "adw-gtk3";
-        # color-scheme = "prefer-light";
-      };
+      gtk-theme = "adw-gtk3-dark";
+      color-scheme = "prefer-dark";
+      # gtk-theme = "adw-gtk3";
+      # color-scheme = "prefer-light";
+    };
 
     # yeet close/maximize/minimize buttons
     # https://www.reddit.com/r/hyprland/comments/16nslna/remove_buttons_on_gtk_apps/
@@ -110,53 +104,4 @@
     };
   };
 
-  # Theming GTK's LibAdwaita via Matugen and named variables.
-  #  gtk.gtk4.extraCss = config.gtk.gtk3.extraCss;
-  #  gtk.gtk3.extraCss = ''
-  #    /* NOTES:
-  #    ** view_bg_color is for main/central windows, which is set to be the darkest color (c.surface).
-  #    ** window_bg_color is mainly side/secondary panels, so it set to be slightly brighter (a mix
-  #    ** between c.surface and c.secondary_container). headerbar_bg_color matches window_bg_color.
-  #    */
-  #    @define-color accent_color ${c.primary};
-  #    @define-color accent_bg_color ${c.primary};
-  #    @define-color accent_fg_color ${c.on_primary};
-  #    @define-color destructive_color ${c.error};
-  #    @define-color destructive_bg_color ${c.error_container};
-  #    @define-color destructive_fg_color ${c.on_error_container};
-  #    @define-color success_color ${c.tertiary};
-  #    @define-color success_bg_color ${c.tertiary_container};
-  #    @define-color success_fg_color ${c.on_tertiary_container};
-  #    @define-color warning_color ${c.secondary};
-  #    @define-color warning_bg_color ${c.secondary_container};
-  #    @define-color warning_fg_color ${c.on_secondary_container};
-  #    @define-color error_color ${c.error};
-  #    @define-color error_bg_color ${c.error_container};
-  #    @define-color error_fg_color ${c.on_error_container};
-  #    @define-color window_bg_color mix(${c.secondary_container}, ${c.surface}, 0.6); /* should be slightly brighter than surface */
-  #    @define-color window_fg_color ${c.on_surface};
-  #    @define-color view_bg_color ${c.surface}; /* {c.secondary_container} is too bright for this */
-  #    @define-color view_fg_color ${c.on_surface};
-  #    @define-color headerbar_bg_color @window_bg_color; /* OLD: {hexToRgba c.primary "0.05"} NEW: {c.secondary_container} */
-  #    @define-color headerbar_fg_color ${c.on_secondary_container};
-  #    @define-color headerbar_border_color ${hexToRgba c.on_surface "0.8"};
-  #    @define-color headerbar_backdrop_color @headerbar_bg_color; /* This should disable fade on lost focus */
-  #    @define-color headerbar_shade_color ${hexToRgba c.on_surface "0.07"};
-  #    @define-color card_bg_color ${hexToRgba c.primary "0.05"};
-  #    @define-color card_fg_color ${c.on_secondary_container};
-  #    @define-color card_shade_color ${hexToRgba c.shadow "0.07"};
-  #    @define-color thumbnail_bg_color ${c.secondary_container};
-  #    @define-color thumbnail_fg_color ${c.on_secondary_container};
-  #    @define-color dialog_bg_color ${c.secondary_container};
-  #    @define-color dialog_fg_color ${c.on_secondary_container};
-  #    @define-color popover_bg_color ${c.secondary_container};
-  #    @define-color popover_fg_color ${c.on_secondary_container};
-  #    @define-color shade_color ${hexToRgba c.shadow (if theme.variant == "light" then "0.07" else "0.36")};
-  #    @define-color scrollbar_outline_color ${hexToRgba c.outline (if theme.variant == "light" then "1.0" else "0.5")};
-  #
-  #    @define-color sidebar_bg_color @window_bg_color;
-  #    @define-color sidebar_fg_color @window_fg_color;
-  #    @define-color sidebar_border_color @window_bg_color;
-  #    @define-color sidebar_backdrop_color @window_bg_color;
-  #  '';
 }

@@ -47,7 +47,6 @@
       <property name="hidden-bookmarks" type="array">
         <value type="string" value="computer:///"/>
         <value type="string" value="file:///home/jack/Desktop"/>
-        <value type="string" value="file:///home/jack"/>
       </property>
       <property name="misc-folder-item-count" type="string" value="THUNAR_FOLDER_ITEM_COUNT_ONLY_LOCAL"/>
       <property name="last-details-view-fixed-columns" type="bool" value="false"/>
@@ -55,6 +54,7 @@
       <property name="misc-status-bar-active-info" type="uint" value="15"/>
       <property name="misc-recursive-permissions" type="string" value="THUNAR_RECURSIVE_PERMISSIONS_ASK"/>
       <property name="misc-volume-management" type="bool" value="false"/>
+      <property name="last-toolbar-items" type="string" value="menu:0,back:1,forward:1,open-parent:1,open-home:0,undo:0,redo:0,zoom-in:0,zoom-out:0,zoom-reset:0,location-bar:1,view-as-compact-list:0,search:1,toggle-split-view:1,view-as-detailed-list:1,view-as-icons:1,uca-action-1702940142376854-1:0,reload:0,new-tab:0,new-window:0,view-switcher:0"/>
     </channel>
   '';
 
