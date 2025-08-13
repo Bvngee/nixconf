@@ -72,11 +72,21 @@ return {
       bashls = {},
       rust_analyzer = {},
       clangd = {
+        -- Clangd only *fully* works if the compile_commands.json is in the
+        -- root_dir. I often work in projects with .git and other root
+        -- indicators higher up, so clangd gets confused. Instead, just use cwd,
+        -- which is usually correct when I open nvim in the right place anyways.
+        root_dir = vim.loop.cwd(),
         cmd = {
-          'clangd-unwrapped', -- see https://bvngee.com/blogs/clangd-embedded-development
-          '--query-driver=**', -- whitelists all compiler binaries. Technically a security risk, but I'm usually working in trusted environments
-          -- '--compile-commands-dir="build/"',
-          '--enable-config', -- allows clangd to parse global or project-local configuration
+          -- See https://bvngee.com/blogs/clangd-embedded-development (temporary)
+          'clangd-unwrapped',
+          -- Whitelists all compiler binaries. Notably a security risk, but I'm usually working in trusted environments.
+          '--query-driver=**',
+          -- Enforce symlinking compile_commands.json from the build dir to root_dir (the heuristics aren't reliable)
+          '--compile-commands-dir=.',
+          -- Allows clangd to parse global or project-local configuration
+          '--enable-config',
+
           '--background-index',
           '--clang-tidy',
           '--header-insertion=never', -- iwyu is too annoying
