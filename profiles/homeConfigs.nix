@@ -49,6 +49,22 @@ let
     ../home/ags
     ../home/static
   ];
+  wslModules = [
+    ../modules # source custom modules
+
+    ../home/home.nix
+    ../home/nixpkgs.nix
+    ../home/xdg.nix
+    ../home/git.nix
+    ../home/theme/base16.nix
+    #../home/theme/matugen.nix
+
+    ../home/programs/cli.nix
+    ../home/programs/coding.nix
+    ../home/shell
+    ../home/nvim
+    ../home/static
+  ];
 in
 {
   "jack@pc" = mkHomeManagerConfig {
@@ -69,7 +85,11 @@ in
       ./precision/profile.nix
     ] ++ commonGraphicalHMModules;
   };
-  # todo:
-  # "jack@wsl" = mkHomeManagerConfig {
-  # };
+
+  "jacknystrom@wsl" = mkHomeManagerConfig {
+    system = "x86_64-linux";
+    imports = [
+      ./wsl/profile.nix
+    ] ++ wslModules;
+  };
 }

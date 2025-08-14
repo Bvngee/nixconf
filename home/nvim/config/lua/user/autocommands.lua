@@ -46,3 +46,20 @@ vim.api.nvim_create_autocmd({ 'VimLeave' }, {
     vim.fn.jobstart('', { detach = true })
   end,
 })
+
+-- use groovy treesitter parser for Jenkinsfile
+vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
+    pattern = { "*Jenkinsfile" },
+    callback = function()
+        vim.cmd("set filetype=groovy")
+    end
+})
+
+-- usm XML treesitter parser for WiX files
+vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
+    pattern = { "*.wxs", "*.wixproj" },
+    callback = function()
+        vim.diagnostic.disable() -- don't need xml lsp
+        vim.cmd("set filetype=xml")
+    end
+})
