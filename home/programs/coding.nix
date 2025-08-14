@@ -9,6 +9,8 @@
       # override some of the program's dylib links in the nix store; this should
       # be generally ok though
       # TODO: make this copy/symlink ALL files of original derivation, not just bin
+      # TODO: This doesn't work in homemanager-only systems, as nix-ld doesn't
+      #       exist! should use lib.makeLibraryPath for both somehow
       makeNixLDWrapper = program: (pkgs.runCommand "${program.pname}-nix-ld-wrapped" { } ''
         mkdir -p $out/bin
         for file in ${program}/bin/*; do
@@ -32,6 +34,9 @@
       # IDEs and Editors
       jetbrains.idea-community
       vscode-fhs
+
+      # Misc
+      sqlite-interactive
 
       # C/C++
       stdenv.cc # same C/C++ toolchain used to build nixpkgs packages
@@ -69,6 +74,8 @@
       # Shell
       nodePackages.bash-language-server
       shellcheck
+      powershell-editor-services # windows stuff # 25.05
+      powershell
 
       # Nix
       nixpkgs-fmt
@@ -139,6 +146,8 @@
   home.sessionVariables = {
     GOPATH = "$HOME/.local/share/go";
     GOMODCACHE = "$HOME/.cache/go/pkg/mod";
+
+    PWSH_EDITOR_SERVICES_BUNDLE_PATH = "${pkgs.powershell-editor-services}/lib/powershell-editor-services";
   };
 
 }

@@ -1,8 +1,8 @@
 { self, nixpkgs, inputs }:
 let
   # Make a NixOS system.
-  # Note: `system` comes from `nixpkgs.hostPlatform`, as set in
-  # `hosts/<host>/nixos/hardware-configuration.nix`.
+  # Note: the `system` for each host comes from `nixpkgs.hostPlatform`
+  # as set in hosts/<host>/nixos/hardware-configuration.nix.
   mkNixosSystem = { imports }: nixpkgs.lib.nixosSystem {
     modules = [ ../modules ] ++ imports;
     specialArgs = { inherit self inputs; };
