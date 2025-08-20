@@ -132,6 +132,8 @@ return {
         -- set in home/programs/coding.nix
         bundle_path = vim.env.PWSH_EDITOR_SERVICES_BUNDLE_PATH, 
       },
+
+      dartls = {},
     }
 
     local lspconfig = require('lspconfig')

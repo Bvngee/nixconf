@@ -108,6 +108,9 @@
       typst
       tinymist
       typstyle
+
+      # Dart / Flutter
+      flutter
     ];
 
   programs.zed-editor = {
