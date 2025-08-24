@@ -1,7 +1,7 @@
 { ... }: {
   services.tailscale = {
     enable = true;
-    useRoutingFeatures = "client";
+    useRoutingFeatures = "both";
     # should make it easier for peer-to-peer connections to be established in
     # tricky nested-NAT and tough firewall scenarios 
     # https://tailscale.com/blog/how-nat-traversal-works
