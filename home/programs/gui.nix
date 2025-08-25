@@ -51,8 +51,8 @@
     # source. Has this been fixed yet?
     # (if config.host.hostname == "pc" then davinci-resolve-studio else davinci-resolve)
 
-    # not using: I found this has some broken parts: https://github.com/NixOS/nixpkgs/issues/347150
-   # kicad-small # this excludes the kicad-packages3D library: https://gitlab.com/kicad/libraries/kicad-packages3D
+    # I found this has some broken parts: https://github.com/NixOS/nixpkgs/issues/347150
+    kicad
   ];
 
   services = { };

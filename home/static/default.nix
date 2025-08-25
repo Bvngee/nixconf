@@ -19,6 +19,7 @@ in
     "btop/btop.conf".source = mkLink "btop/btop.conf";
     "i3/config".source = mkLink "i3/config";
     "clangd/config.yaml".source = mkLink "clangd/config.yaml";
+    "fuzzel/fuzzel.ini".source = mkLink "fuzzel.ini";
   };
 
   home.file = {

@@ -16,6 +16,7 @@
         "x-scheme-handler/about" = browser;
         "x-scheme-handler/unknown" = browser;
         "x-scheme-handler/element" = [ "element-desktop.desktop" ];
+        "x-scheme-handler/terminal" = "kitty.desktop";
         "application/x-extension-htm" = browser;
         "application/x-extension-html" = browser;
         "application/x-extension-shtml" = browser;
@@ -56,4 +57,6 @@
   home.packages = with pkgs; [
     xdg-terminal-exec
   ];
+
+  # TODO(25.11): add xdg.terminal-exec list (to generate ~/.config/xdg-terminals.list)!!
 }

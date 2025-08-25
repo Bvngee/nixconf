@@ -2,33 +2,33 @@
   scheme = config.scheme.withHashtag;
 in {
   services.dunst = {
-    enable = false;
+    enable = true;
     settings = {
       global = {
-        follow = "none";
-        monitor = 0;
-        layer = "overlay";
-        origin = "top-center";
-        alignment = "center";
-        corner_radius = 7;
-        font = "Roboto 12";
-        format = ''<span size="x-small" weight="light">%a</span>\n<b>%s</b>\n%b'';
-        frame_width = 0;
-        offset = "0x20";
-        horizontal_padding = 10;
+        # follow = "none";
+        # monitor = 0;
+        # layer = "overlay";
+        # origin = "top-center";
+        # alignment = "center";
+        # corner_radius = 7;
+        font = "Inter 12";
+        # format = ''<span size="x-small" weight="light">%a</span>\n<b>%s</b>\n%b'';
+        # frame_width = 0;
+        # offset = "0x20";
+        # horizontal_padding = 10;
         icon_position = "left";
-        indicate_hidden = "yes";
-        markup = "yes";
+        # indicate_hidden = "yes";
+        # markup = "yes";
         max_icon_size = 64;
         padding = 8;
         plain_text = "no";
-        separator_color = "auto";
-        separator_height = 1;
-        show_indicators = false;
-        shrink = "no";
-        word_wrap = "yes";
+        # separator_color = "auto";
+        # separator_height = 1;
+        # show_indicators = false;
+        # shrink = "no";
+        # word_wrap = "yes";
         mouse_left_click = "do_action";
-        mouse_middle_click = "close_all";
+        mouse_middle_click = "close_current";
         mouse_right_click = "close_current";
 
         background = scheme.base01;
@@ -39,13 +39,21 @@ in {
 
       urgency_low = {
         timeout = 2;
+        foreground = scheme.base05;
+        frame_color = scheme.base0B;
       };
       urgency_normal = {
         timeout = 4;
+        foreground = scheme.base05;
+        frame_color = scheme.base0D;
       };
       urgency_critical = {
         timeout = 6;
+        foreground = scheme.base05;
+        frame_color = scheme.base08;
       };
+
+
     };
   };
 }

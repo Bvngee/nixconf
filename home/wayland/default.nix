@@ -24,7 +24,7 @@
     woomer
     # TODO: remove pkgsUnstable when in stable
     pkgsUnstable.app2unit # standalone compositors should try to always use this to launch apps
-    dunst
+    fuzzel
 
     # Preferred PolKit agent
     # (note that since these binaries are in /libexec we 
