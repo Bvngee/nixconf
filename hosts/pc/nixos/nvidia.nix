@@ -12,10 +12,6 @@
 
     nvidiaSettings = false; # basically useless software
 
-    # unbearable XWayland flickering on stable/latest due to no explicit sync support
-    # https://gitlab.freedesktop.org/xorg/xserver/-/merge_requests/967
-    #package = config.boot.kernelPackages.nvidiaPackages.production; # production => 535
-
     # nvidia drivers with explicit sync support (as of 555)!
     package = config.boot.kernelPackages.nvidiaPackages.stable;
   };
