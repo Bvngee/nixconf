@@ -16,12 +16,12 @@ in {
         # frame_width = 0;
         # offset = "0x20";
         # horizontal_padding = 10;
-        icon_position = "left";
+        # icon_position = "left";
         # indicate_hidden = "yes";
         # markup = "yes";
-        max_icon_size = 64;
-        padding = 8;
-        plain_text = "no";
+        # max_icon_size = 64;
+        # padding = 8;
+        # plain_text = "no";
         # separator_color = "auto";
         # separator_height = 1;
         # show_indicators = false;
@@ -31,26 +31,26 @@ in {
         mouse_middle_click = "close_current";
         mouse_right_click = "close_current";
 
-        background = scheme.base01;
-        foreground = scheme.base05;
+        # background = scheme.base01;
+        # foreground = scheme.base05;
       };
 
       fullscreen_delay_everything = {fullscreen = "delay";};
 
       urgency_low = {
         timeout = 2;
-        foreground = scheme.base05;
-        frame_color = scheme.base0B;
+        # foreground = scheme.base05;
+        # frame_color = scheme.base0B;
       };
       urgency_normal = {
         timeout = 4;
-        foreground = scheme.base05;
-        frame_color = scheme.base0D;
+        # foreground = scheme.base05;
+        # frame_color = scheme.base0D;
       };
       urgency_critical = {
         timeout = 6;
-        foreground = scheme.base05;
-        frame_color = scheme.base08;
+        # foreground = scheme.base05;
+        # frame_color = scheme.base08;
       };
 
 
