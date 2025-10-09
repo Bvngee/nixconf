@@ -47,7 +47,7 @@
       systemd
       libgcrypt
       libudev0-shim
-      # libgbm
+      libgbm
       vulkan-loader
       wayland
       xorg.libX11
