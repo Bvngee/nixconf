@@ -59,6 +59,7 @@
       (makeNixLDWrapper python3)
       pyright
       ruff
+      uv
 
       # MicroPython
       adafruit-ampy
@@ -151,6 +152,10 @@
     GOMODCACHE = "$HOME/.cache/go/pkg/mod";
 
     PWSH_EDITOR_SERVICES_BUNDLE_PATH = "${pkgs.powershell-editor-services}/lib/powershell-editor-services";
+
+    # Force UV to use our nix-ld-wrapped python always, instead of downloading
+    # its own python binaries which won't work with precompiled libraries.`
+    UV_PYTHON_DOWNLOADS="never";
   };
 
 }
