@@ -8,7 +8,7 @@
         # Force usage of GBM over EGLStreams (the specific buffer API that the gpu
         # driver and wayland compositor communicate with).
         export GBM_BACKEND=nvidia-drm
-        export __GLX_VENDOR_LIBRARY_NAME=nvidia
+        # export __GLX_VENDOR_LIBRARY_NAME=nvidia # I believe this makes apps that use GLX default to PRIME offload; see `cat $(rpwhich nvidia-offload)`
 
         # Hardware acceleration on Nvidia GPUs
         export LIBVA_DRIVER_NAME=nvidia
