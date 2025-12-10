@@ -40,6 +40,7 @@ let
 
     ../nixos/programs/thunar.nix
     ../nixos/programs/xremap.nix
+    ../nixos/programs/wireshark.nix
     ../nixos/programs/zsh.nix
     ../nixos/programs/kdeconnect.nix
     ../nixos/programs/ssh.nix
