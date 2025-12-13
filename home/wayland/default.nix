@@ -1,4 +1,4 @@
-{ pkgs, pkgsUnstable, ... }: {
+{ pkgs, ... }: {
   imports = [
     ./hyprland.nix
     ./hyprlock.nix
@@ -22,8 +22,7 @@
     hyprpicker
     wlsunset
     woomer
-    # TODO: remove pkgsUnstable when in stable
-    pkgsUnstable.app2unit # standalone compositors should try to always use this to launch apps
+    app2unit # standalone compositors should try to always use this to launch apps
     fuzzel
 
     # Preferred PolKit agent
@@ -37,6 +36,6 @@
     '')
     
     # pantheon.pantheon-agent-polkit
-    # libsForQt5.polkit-kde-agent
+    # kdePackages.polkit-kde-agent
   ];
 }

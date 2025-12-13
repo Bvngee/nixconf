@@ -11,8 +11,6 @@
   home.packages = with pkgs; [
     adw-gtk3 # GTK3/4
     gnome-themes-extra # GTK2 only
-
-    gradience # Not used to theme, but the GUI is nice for testing
   ];
 
   gtk = {
@@ -40,16 +38,22 @@
           colorVariants = [ "default" "grey" ]; # I think I like default better?
           schemeVariants = [ "nord" ]; # Slightly more mute colors than default
         }).overrideAttrs {
-          # TODO: Why does this cause so many icons to not show up in eg.
-          # xdg-desktop-portal-gtk AppChooser dialog? Does it have to do with
-          # Inheriting hicolor? Maybe modify the index.theme to remove apps/?
+          version = "372464b";
+          src = pkgs.fetchFromGitHub {
+            owner = "vinceliuice";
+            repo = "Colloid-icon-theme";
+            rev = "372464bf2c1f037baf86e338b633fcdec87c76f4";
+            hash = "sha256-FZ3WUAQH80eteUO/+MJUuwEN8D43pQ8qrq+XBz2TiXM=";
+          };
 
-          # postFixup = ''
-          #   # Remove all app svgs. Personal preference; I prefer default icons
-          #   rm -rf $out/share/icons/*/apps
-          #   # Delete all newly broken symlinks (some svgs reference app svgs)
-          #   find $out/share/icons -xtype l -delete
-          # '';
+          patches = [
+            # https://github.com/vinceliuice/Colloid-icon-theme/issues/167#issuecomment-3649125204
+            ./remove_broken_links.txt
+            # Personal preference, I prefer original, app-provided app Icons.
+            # Note that some apps not being visible in launchers like Fuzzel is
+            # nixpkgs' fault, not ours: https://github.com/NixOS/nixpkgs/issues/428824
+            ./disable_all_apps.txt
+          ];
         };
       in
       {

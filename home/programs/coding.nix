@@ -27,7 +27,7 @@
       # TODO(future me): remove when PRs/Issues are resolved
       clangdUnwrapped = pkgs.runCommand "clangdUnwrapped" { } ''
         mkdir -p $out/bin
-        ln -s ${inputs.nixpkgs-neovim.legacyPackages.${pkgs.system}.clang.cc}/bin/clangd $out/bin/clangd-unwrapped
+        ln -s ${inputs.nixpkgs-neovim.legacyPackages.${pkgs.stdenv.hostPlatform.system}.clang.cc}/bin/clangd $out/bin/clangd-unwrapped
       '';
     in
     with pkgs; [
@@ -41,7 +41,7 @@
       # C/C++
       stdenv.cc # same C/C++ toolchain used to build nixpkgs packages
       gnumake
-      clang-tools_17
+      clang-tools
       clangdUnwrapped
       gdb
       meson
@@ -95,7 +95,6 @@
       nodePackages.prettier
       prettierd
       sassc
-      nodePackages.ts-node
 
       # Zig
       zig
@@ -127,16 +126,16 @@
   # TODO: Should I use makeNixLDWrapper on java (so that downloaded JARs work)??
   programs.java = {
     enable = true;
-    package = pkgs.temurin-bin-23; # JAVA_HOME / default java
+    package = pkgs.javaPackages.compiler.temurin-bin.jdk-25; # JAVA_HOME / default java
   };
   home.sessionPath = [ "$HOME/.local/jdks" ];
   home.file = # add additional JDKs to ~/.local/jdks
     let
-      additionalJDKs = with pkgs; [
-        jdk8 # jdk17 jdk23
-        jdk11
-        temurin-bin # 21
-        temurin-bin-23
+      additionalJDKs = with pkgs.javaPackages.compiler; [
+        openjdk8 # opnjdk17
+        openjdk11
+        temurin-bin.jdk-21
+        temurin-bin.jdk-25
       ];
     in
     (builtins.listToAttrs (builtins.map

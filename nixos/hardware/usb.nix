@@ -69,7 +69,7 @@
     solaar
 
     # Glorious Model O Wireless CLI configuration tool
-    self.packages.${pkgs.system}.mow
+    self.packages.${pkgs.stdenv.hostPlatform.system}.mow
   ];
 
   services.udev.packages = with pkgs; [

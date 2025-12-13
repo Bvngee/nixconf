@@ -1,0 +1,16 @@
+diff --git a/links/apps/scalable/kerry.svg b/links/apps/scalable/kerry.svg
+deleted file mode 120000
+index f97340b8..00000000
+--- a/links/apps/scalable/kerry.svg
++++ /dev/null
+@@ -1 +0,0 @@
+-search.svg
+\ No newline at end of file
+diff --git a/links/apps/scalable/org.kde.kfind.svg b/links/apps/scalable/org.kde.kfind.svg
+deleted file mode 120000
+index f97340b8..00000000
+--- a/links/apps/scalable/org.kde.kfind.svg
++++ /dev/null
+@@ -1 +0,0 @@
+-search.svg
+\ No newline at end of file

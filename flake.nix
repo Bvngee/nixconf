@@ -25,7 +25,7 @@
   };
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-25.05";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-25.11";
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
 
     # Extremely temporary; pending nvim config update
@@ -33,14 +33,16 @@
 
     # sometimes I want to update nnixpkgs-unstable without recompiling linux_xanmod and
     # nvidia drivers. When I do feel like it, I can fast-forward this
-    nixpkgs-kernel-packages.url = "github:nixos/nixpkgs/nixos-25.05";
+    nixpkgs-kernel-packages.url = "github:nixos/nixpkgs/nixos-25.11";
 
     # nix-index, but with a prebuilt database (and convenient hm/nixos modules)
-    nix-index-database.url = "github:nix-community/nix-index-database";
-    nix-index-database.inputs.nixpkgs.follows = "nixpkgs";
+    nix-index-database = {
+      url = "github:nix-community/nix-index-database";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     home-manager = {
-      url = "github:nix-community/home-manager/release-25.05";
+      url = "github:nix-community/home-manager/release-25.11";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 

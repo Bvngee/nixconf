@@ -10,7 +10,7 @@
   # contained multiple drivers; This is only `ix_usb_can_2.0.xxx-REL.tgz`,
   # for "all USB-to-CAN V2 and USB-to-CAN-FD family adapters".
   boot.extraModulePackages = [
-    (self.packages.${pkgs.system}.ix_usb_can.override {
+    (self.packages.${pkgs.stdenv.hostPlatform.system}.ix_usb_can.override {
       kernel = config.boot.kernelPackages.kernel;
     })
   ];

@@ -49,7 +49,7 @@
         ];
       };
     in
-    emulationsBySystem.${pkgs.system};
+    emulationsBySystem.${pkgs.stdenv.hostPlatform.system};
 
 
   # On most distros, people use https://github.com/multiarch/qemu-user-static or

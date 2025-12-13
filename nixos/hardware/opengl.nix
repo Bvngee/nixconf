@@ -17,7 +17,6 @@
 
     # probably useful for debugging
     mesa-demos
-    glxinfo
     vdpauinfo
     libva-utils
   ];

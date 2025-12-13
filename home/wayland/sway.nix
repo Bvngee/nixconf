@@ -1,4 +1,4 @@
-{ pkgs, ... }: {
+{ ... }: {
 
   wayland.windowManager.sway = {
     # Enable configuration of Sway via HM.
@@ -8,12 +8,9 @@
     package = null;
 
     systemd.enable = true;
-    # systemd.enableXdgAutostart = true; # TODO(25.05)
+    systemd.xdgAutostart = true;
     systemd.variables = [ "--all" ];
-
-    # TODO(25.05)
-    # # defaults include a few more I don't need
-    # extraPackages = with pkgs; [ swayidle swaylock wmenu ];
+    systemd.dbusImplementation = "broker";
   };
 
 }

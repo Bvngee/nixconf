@@ -9,7 +9,7 @@
   };
 
   # GUI archiver for thunar-archive-plugin. Alternative is "file-roller"
-  environment.systemPackages = with pkgs; [ libsForQt5.ark ];
+  environment.systemPackages = with pkgs; [ kdePackages.ark ];
 
   services.gvfs.enable = true; # Mount, trash, and other functionalities
   services.tumbler.enable = true; # Thumbnail support for images

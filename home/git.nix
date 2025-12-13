@@ -1,13 +1,15 @@
 { config, ... }: {
   programs = {
     gh.enable = true;
+
     git = {
       enable = true;
-      userName = config.host.mainUserDesc;
-      userEmail = config.host.mainUserEmail;
-      aliases.prettylog = "log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit";
+      settings = {
+        user.name = config.host.mainUserDesc;
+        user.email = config.host.mainUserEmail;
 
-      extraConfig = {
+        alias.prettylog = "log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit";
+
         init.defaultBranch = "main";
         core.askPass = ""; # disabled ridiculous ssh gui password prompt
         # not sure exactly what these do, copied from NotAShelf
@@ -26,33 +28,36 @@
         core.excludesfile = "~/.config/git/global_gitignore";
       };
 
-      delta = {
-        # sets git's core.pager and interactive.diffFilter
-        enable = true;
-        options = {
-          decorations = {
-            commit-decoration-style = "bold yellow box ul";
-            file-decoration-style = "none";
-            file-style = "bold yellow ul";
-            hunk-decoration-style = "bold blue ul";
-            hunk-header-style = "omit";
-          };
-          line-numbers = {
-            line-numbers = true;
-            line-numbers-minus-style = "brightblack";
-            line-numbers-zero-style = "brightblack";
-            line-numbers-plus-style = "brightblack";
-            line-numbers-left-format = ""; # {nm:>4}┊
-            line-numbers-left-style = ""; # brightblack
-            line-numbers-right-format = "{np:>4}│";
-            line-numbers-right-style = "brightblack";
-          };
-          features = "decorations line-numbers";
-          whitespace-error-style = "22 reverse";
-          navigate = true;
-          hyprlinks = true;
-          syntax-theme = "none";
+
+    };
+
+    delta = {
+      enable = true;
+      # sets git's core.pager and interactive.diffFilter
+      enableGitIntegration = true;
+      options = {
+        decorations = {
+          commit-decoration-style = "bold yellow box ul";
+          file-decoration-style = "none";
+          file-style = "bold yellow ul";
+          hunk-decoration-style = "bold blue ul";
+          hunk-header-style = "omit";
         };
+        line-numbers = {
+          line-numbers = true;
+          line-numbers-minus-style = "brightblack";
+          line-numbers-zero-style = "brightblack";
+          line-numbers-plus-style = "brightblack";
+          line-numbers-left-format = ""; # {nm:>4}┊
+          line-numbers-left-style = ""; # brightblack
+          line-numbers-right-format = "{np:>4}│";
+          line-numbers-right-style = "brightblack";
+        };
+        features = "decorations line-numbers";
+        whitespace-error-style = "22 reverse";
+        navigate = true;
+        hyprlinks = true;
+        syntax-theme = "none";
       };
     };
   };

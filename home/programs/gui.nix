@@ -1,7 +1,7 @@
-{ pkgs, ... }: {
+{ config, pkgs, ... }: {
   home.packages = with pkgs; [
     # Image, video
-    libsForQt5.gwenview
+    kdePackages.gwenview
     mpv
     imv
     gimp
@@ -9,17 +9,16 @@
     zathura
 
     # Office Suite
-    onlyoffice-bin
+    onlyoffice-desktopeditors
     libreoffice
 
     # Password manager
-    # bitwarden
+    bitwarden-desktop
     bitwarden-cli
 
     # Chat apps
     vesktop
     element-desktop
-    cinny-desktop
     fractal
     zulip
     zulip-term
@@ -39,7 +38,7 @@
     baobab # disk utilization viewer (gtk)
     gparted # partition manager
     seahorse # GUI for managing gnome-keyring entries
-    libsForQt5.kcalc
+    kdePackages.kcalc
     mission-center
     snapshot
     helvum # pipewire graph thingy
@@ -47,9 +46,7 @@
     showmethekey # shows keys typed in a little gui
 
     # Davinci Resolve only lets you use your Studio key on a select # of machines
-    # TODO(25.05): for some reason this forces building spidermonkey from
-    # source. Has this been fixed yet?
-    # (if config.host.hostname == "pc" then davinci-resolve-studio else davinci-resolve)
+    (if config.host.hostname == "pc" then davinci-resolve-studio else davinci-resolve)
 
     # I found this has some broken parts: https://github.com/NixOS/nixpkgs/issues/347150
     kicad

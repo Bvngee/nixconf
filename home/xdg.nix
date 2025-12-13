@@ -54,9 +54,10 @@
     readOnly = true;
   };
 
-  home.packages = with pkgs; [
-    xdg-terminal-exec
-  ];
-
-  # TODO(25.11): add xdg.terminal-exec list (to generate ~/.config/xdg-terminals.list)!!
+  xdg.terminal-exec = {
+    enable = true;
+    settings = {
+      default = [ "kitty.desktop" ];
+    };
+  };
 }

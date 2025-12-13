@@ -1,8 +1,8 @@
-{ config, lib, pkgs, pkgsUnstable, ... }: {
+{ config, lib, pkgs, ... }: {
   programs.zsh = {
     enable = true;
     autocd = true;
-    dotDir = ".config/zsh";
+    dotDir = "${config.xdg.configHome}/zsh";
     history = {
       path = "${config.xdg.dataHome}/zsh_history";
       size = 100000; # I like my history
@@ -105,7 +105,7 @@
           # TODO: Is there a way to disable this for `nix develop` when I want
           # to debug packages? It's nice for devshells, not so nice for package
           # debugging. Atm solution: go into bash first, then `nix develop`.
-          ${pkgsUnstable.any-nix-shell}/bin/any-nix-shell zsh | source /dev/stdin
+          ${pkgs.any-nix-shell}/bin/any-nix-shell zsh | source /dev/stdin
         '';
         zshExtraConfigLast = lib.mkAfter ''
           # zsh-syntax-highlighting configuration

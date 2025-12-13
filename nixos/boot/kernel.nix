@@ -6,7 +6,7 @@
         # I use a separate, dedicated nixpkgs input for this because I _hate_ recompiling
         # the kernel and nvidia drivers every time I update pkgsUnstable.
         pkgsKernelPackages = import inputs.nixpkgs-kernel-packages {
-          inherit (pkgs) system;
+          inherit (pkgs.stdenv.hostPlatform) system;
           config.allowUnfree = true; # proprietary nvidia drivers
         };
       in

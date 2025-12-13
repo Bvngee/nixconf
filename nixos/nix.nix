@@ -9,7 +9,7 @@
     nixPath = lib.mapAttrsToList (key: value: "${key}=${value.to.path}") config.nix.registry;
 
     settings = {
-      experimental-features = [ "nix-command" "flakes" "repl-flake" ]; # repl-flake allows `nix repl .`
+      experimental-features = [ "nix-command" "flakes" ];
       auto-optimise-store = true;
 
       # stop warning me that the git tree is dirty, bruh.

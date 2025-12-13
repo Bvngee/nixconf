@@ -42,9 +42,9 @@
     progress
     ffmpeg
     ncdu # disk utilization viewer. Command: `sudo ncdu / --exclude-kernfs --exclude-caches --confirm-quit --exclude /nix/store`
-    # graphviz # getting weird collisions (libgvc.so) with ags :/
+    graphviz
     calc # cli calculator. See `c` alias in home/shell/default.nix
-    nodePackages.dotenv-cli # TODO(24.11): this was removed from nodePackages
+    dotenv-cli
   ];
 
   programs = {

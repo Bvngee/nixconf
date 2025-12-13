@@ -4,7 +4,7 @@
 
   home.packages = [
     # Extremely temporary; pending config rewrite!
-    inputs.nixpkgs-neovim.legacyPackages.${pkgs.system}.neovim
+    inputs.nixpkgs-neovim.legacyPackages.${pkgs.stdenv.hostPlatform.system}.neovim
   ];
 
   programs.neovim = {

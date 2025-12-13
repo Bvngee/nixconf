@@ -12,7 +12,7 @@
     noto-fonts-cjk-sans
     font-awesome
     corefonts
-    vistafonts
+    vista-fonts
   ];
 
 }

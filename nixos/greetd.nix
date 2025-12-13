@@ -7,12 +7,12 @@ in
 {
   services.greetd = {
     enable = true;
-    vt = 2;
+    useTextGreeter = true; # Otherwise boot logs will be spammed over tuigreet on the VT
     settings = {
       default_session = {
         # note: default --xsession-wrapper is "startx /usr/bin/env"
         # note: see ./wayland/environment.nix for wayland-session-wrapper.sh
-        command = ''${pkgs.greetd.tuigreet}/bin/tuigreet \
+        command = ''${pkgs.tuigreet}/bin/tuigreet \
           --sessions ${waylandSessions} \
           --session-wrapper /etc/wayland-session-wrapper.sh \
           --xsessions ${xSessions} \

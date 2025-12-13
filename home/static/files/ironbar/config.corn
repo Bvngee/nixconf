@@ -60,8 +60,8 @@ let {
     //format = "<span color='#ffffff'>VOL</span> {percentage}"
     format = "VOL {percentage}"
   }
-  $upower = {
-    type = "upower"
+  $battery = {
+    type = "battery"
     format = "BAT {percentage}"
     icon_size = 1
   }
@@ -102,7 +102,7 @@ in {
     $separator
     $sys_info
     $separator
-    $upower
+    $battery
     $separator
     $clock
   ]

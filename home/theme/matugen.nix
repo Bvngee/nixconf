@@ -2,7 +2,7 @@
 in {
   # home.packages = [
   #   # added for debugging purposes
-  #   inputs.matugen.packages.${pkgs.system}.default
+  #   inputs.matugen.packages.${pkgs.stdenv.hostPlatform.system}.default
   # ];
   #
   # # Matugen's module works as a NixOS module and a HM module.
