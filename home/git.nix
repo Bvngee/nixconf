@@ -86,10 +86,14 @@
     gP = "git push";
     gPf = "git push --force";
     grb = "git rebase";
+    grbc = "git rebase --continue";
+    grba = "git rebase --abort";
     grs = "git reset";
     grsh = "git reset --hard";
     grst = "git restore";
     gm = "git merge";
+    gmc = "git merge --continue";
+    gma = "git merge --abort";
   };
 
   xdg.configFile."git/global_gitignore".text = ''
