@@ -1,4 +1,4 @@
-{ config, pkgs, ... }: {
+{ pkgsUnstable, config, pkgs, ... }: {
   home.packages = with pkgs; [
     # Image, video
     kdePackages.gwenview
@@ -48,8 +48,8 @@
     # Davinci Resolve only lets you use your Studio key on a select # of machines
     (if config.host.hostname == "pc" then davinci-resolve-studio else davinci-resolve)
 
-    # I found this has some broken parts: https://github.com/NixOS/nixpkgs/issues/347150
-    kicad
+    # TODO: remove when kicad 9.0.6 in nixos-stable
+    pkgsUnstable.kicad
   ];
 
   services = { };
